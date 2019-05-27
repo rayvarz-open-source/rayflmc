@@ -17,16 +17,22 @@ class LabelElement implements IElement {
 
   private value = new BehaviorSubject<string>('');
 
-  text(text: string): LabelElement {
+  private textR(text: string): LabelElement {
     this.value.next(text);
     return this;
   }
 
-  text(text: Observable<string>): LabelElement {
+  private textO(text: Observable<string>): LabelElement {
     text.subscribe({
       next: v => this.value.next(v),
     });
     return this;
+  }
+
+  text(text: Observable<string> | string): TextInputElement {
+    if (typeof text === 'string') return this.textR(text);
+    if (isObservable(text)) return this.textO(text);
+    throw new Error('given text type is not supported');
   }
 }
 

@@ -1,6 +1,6 @@
 import IElement, { ValidationResult } from '../IElement';
 import { ElementTypes } from './ElementTypes';
-import { Observable, BehaviorSubject } from 'rxjs';
+import { Observable, BehaviorSubject, isObservable } from 'rxjs';
 
 interface OnTapCallBack {
   (): void;
@@ -21,32 +21,43 @@ class ButtonElement implements IElement {
 
   private buttonText = new BehaviorSubject<string>('');
 
-  text(text: string): ButtonElement {
+  textR(text: string): ButtonElement {
     this.buttonText.next(text);
     return this;
   }
 
-  text(text: Observable<string>): ButtonElement {
+  textO(text: Observable<string>): ButtonElement {
     text.subscribe({
       next: v => this.buttonText.next(v),
     });
     return this;
   }
 
+  text(text: Observable<string> | string): TextInputElement {
+    if (typeof text === 'string') return this.textR(text);
+    if (isObservable(text)) return this.textO(text);
+    throw new Error('given text type is not supported');
+  }
   // callback
 
   private buttonText = new BehaviorSubject<OnTapCallBack | null>(null);
 
-  onTap(action: OnTapCallBack): ButtonElement {
+  onTapR(action: OnTapCallBack): ButtonElement {
     this.buttonText.next(action);
     return this;
   }
 
-  onTap(action: Observable<OnTapCallBack>): ButtonElement {
+  onTapO(action: Observable<OnTapCallBack>): ButtonElement {
     action.subscribe({
       next: v => this.buttonText.next(v),
     });
     return this;
+  }
+
+  onTap(action: Observable<OnTapCallBack> | OnTapCallBack): TextInputElement {
+    if (typeof action === 'function') return this.onTapR(action);
+    if (isObservable(action)) return this.onTapO(action);
+    throw new Error('given action type is not supported');
   }
 }
 

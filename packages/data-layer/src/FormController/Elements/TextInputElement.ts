@@ -1,6 +1,7 @@
 import IElement, { ValidationResult } from '../IElement';
 import { ElementTypes } from './ElementTypes';
-import { Observable, BehaviorSubject } from 'rxjs';
+import { Observable, BehaviorSubject, isObservable } from 'rxjs';
+import { isSubject } from './RxUtils';
 
 class TextInputElement implements IElement {
   dispose(): void {}
@@ -17,13 +18,13 @@ class TextInputElement implements IElement {
 
   private value!: BehaviorSubject<string>;
 
-  text(text: string): TextInputElement {
+  private textR(text: string): TextInputElement {
     if (this.value == null) this.value = new BehaviorSubject<string>('');
     this.value.next(text);
     return this;
   }
 
-  text(text: Observable<string>): TextInputElement {
+  private textO(text: Observable<string>): TextInputElement {
     if (this.value == null) this.value = new BehaviorSubject<string>('');
     text.subscribe({
       next: v => this.value.next(v),
@@ -31,9 +32,16 @@ class TextInputElement implements IElement {
     return this;
   }
 
-  text(text: BehaviorSubject<string>): TextInputElement {
+  private textB(text: BehaviorSubject<string>): TextInputElement {
     this.value = text;
     return this;
+  }
+
+  text(text: BehaviorSubject<string> | Observable<string> | string): TextInputElement {
+    if (typeof text === 'string') return this.textR(text);
+    if (isSubject(text)) return this.textB(text);
+    if (isObservable(text)) return this.textO(text);
+    throw new Error('given text type is not supported');
   }
 }
 
