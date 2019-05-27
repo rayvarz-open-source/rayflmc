@@ -1,4 +1,4 @@
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 
 type Constructor<T = {}> = new (...args: any[]) => T;
 
@@ -32,18 +32,21 @@ export function PagableMixin<TBase extends Constructor>(Base: TBase) {
 
     setPage(pageNumber: number): void {
       (this as any).datasource.setCurrentPage(pageNumber);
+      this.refreshPage();
     }
 
     nextPage(): void {
       (this as any).datasource.nextPage();
+      this.refreshPage();
     }
 
     previousPage(): void {
       (this as any).datasource.previousPage();
+      this.refreshPage();
     }
 
-    getCurrentPageNumber(): number {
-      return (this as any).datasource.currentPage();
+    getCurrentPageNumber(): Observable<number> {
+      return (this as any).datasource.currentPage;
     }
   };
 }
