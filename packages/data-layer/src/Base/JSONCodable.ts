@@ -33,7 +33,7 @@ export function DecodableModelMixin<TBase extends Constructor>(Base: TBase) {
           case 'undefined':
             output[prop] = null;
             break;
-          case 'object':
+          case 'object': // TODO: support lists
             if (propValue == null) {
               output[prop] = null;
             } else if (isDecodable(propValue)) {
