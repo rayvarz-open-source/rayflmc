@@ -3,6 +3,7 @@ import IDataController from '../Base/IDataController';
 import { ListDataSource } from '../DataSource/DataSource';
 import { IEncodable } from '../Base/IModel';
 import { PagableMixin } from '../DataSource/Pagable';
+import { SearchableMixin } from '../DataSource/Searchable';
 
 class RawListController<T extends IEncodable, DS extends ListDataSource<T>> implements IDataController {
   constructor(public datasource: DS) {}
@@ -20,6 +21,6 @@ class RawListController<T extends IEncodable, DS extends ListDataSource<T>> impl
   }
 }
 
-const FormController = PagableMixin(RawListController);
+const FormController = SearchableMixin(PagableMixin(RawListController));
 
 export default FormController;
