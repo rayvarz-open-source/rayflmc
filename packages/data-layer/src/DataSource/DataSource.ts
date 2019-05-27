@@ -19,9 +19,4 @@ export class ListDataSource<T extends IEncodable> implements DataSource {
   values = new BehaviorSubject<T[]>([]);
 
   loading = new BehaviorSubject<boolean>(false);
-
-  static create<M extends IEncodable>() : ListDataSource<M> {
-      return new ListDataSource<M>();
-  }
-
 }

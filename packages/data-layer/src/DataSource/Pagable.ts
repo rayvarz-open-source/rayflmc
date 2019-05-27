@@ -10,39 +10,38 @@ export interface IPagable {
   previousPage(): void;
 
   refreshCurrentPage(): void;
-
 }
 
 export function PagableMixin<TBase extends Constructor>(Base: TBase) {
-    return class extends Base {
-      
-        isPagable(): boolean {
-            return (this as any).datasource.currentPage != null &&
-                (this as any).datasource.setCurrentPage != null &&
-                (this as any).datasource.nextPage != null &&
-                (this as any).datasource.refreshCurrentPage != null &&
-                (this as any).datasource.previousPage != null;
-        }
-        
-        refreshPage(): void {
-            (this as any).datasource.refreshCurrentPage();
-        }
+  return class extends Base {
+    isPagable(): boolean {
+      return (
+        (this as any).datasource.currentPage != null &&
+        (this as any).datasource.setCurrentPage != null &&
+        (this as any).datasource.nextPage != null &&
+        (this as any).datasource.refreshCurrentPage != null &&
+        (this as any).datasource.previousPage != null
+      );
+    }
 
-        setPage(pageNumber: number): void {
-            (this as any).datasource.setCurrentPage(pageNumber);
-        }
+    refreshPage(): void {
+      (this as any).datasource.refreshCurrentPage();
+    }
 
-        nextPage(): void {
-            (this as any).datasource.nextPage();
-        }
+    setPage(pageNumber: number): void {
+      (this as any).datasource.setCurrentPage(pageNumber);
+    }
 
-        previousPage(): void {
-            (this as any).datasource.previousPage();
-        }
+    nextPage(): void {
+      (this as any).datasource.nextPage();
+    }
 
-        getCurrentPageNumber(): number { 
-            return (this as any).datasource.currentPage();
-        }
+    previousPage(): void {
+      (this as any).datasource.previousPage();
+    }
 
-    };
+    getCurrentPageNumber(): number {
+      return (this as any).datasource.currentPage();
+    }
+  };
 }
