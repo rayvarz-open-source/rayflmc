@@ -1,4 +1,8 @@
+import { DecodableModelMixin, EncodableModelMixin } from './JSONCodable';
+
 export interface IModel {}
+
+export class Model implements IModel {}
 
 export interface IEncodable {
   encode(data: any): void;
@@ -9,6 +13,10 @@ export interface IDecodable {
 }
 
 export interface ICodable extends IDecodable, IEncodable {}
+
+export const EncodableModel = EncodableModelMixin(Model);
+export const DecodableModel = DecodableModelMixin(Model);
+export const CodableModel = EncodableModelMixin(DecodableModelMixin(Model));
 
 // type guards
 
