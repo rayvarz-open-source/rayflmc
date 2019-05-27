@@ -1,7 +1,9 @@
+import { BehaviorSubject } from 'rxjs';
+
 type Constructor<T = {}> = new (...args: any[]) => T;
 
 export interface IPagable {
-  currentPage: number;
+  currentPage: BehaviorSubject<number>;
 
   setCurrentPage(pageNumber: number): void;
 
