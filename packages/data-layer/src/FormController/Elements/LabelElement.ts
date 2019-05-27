@@ -36,7 +36,7 @@ class LabelElement implements IElement {
   }
 }
 
-const Label = (value: string | null): ButtonElement => {
+const Label = (value: string | null): LabelElement => {
   let element = new LabelElement();
   if (value == null) return element;
   return element.text(title);

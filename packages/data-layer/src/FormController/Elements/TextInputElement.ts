@@ -45,7 +45,7 @@ class TextInputElement implements IElement {
   }
 }
 
-const TextInput = (controller: string | Observable<string> | BehaviorSubject<string>): ButtonElement => {
+const TextInput = (controller: string | Observable<string> | BehaviorSubject<string>): TextInputElement => {
   return new TextInputElement().text(controller);
 };
 
