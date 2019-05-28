@@ -12,7 +12,7 @@ export class SampleModel extends CodableModel {
 
 const NUMBER_OF_ITEMS_IN_A_PAGE = 4;
 
-export class MockDataSource {
+export class MockServer {
 
     fakeData: SampleModel[] = [
         new SampleModel("Sahand", "This is a sample long description"),
@@ -34,7 +34,7 @@ export class MockDataSource {
         new SampleModel(":)", "This is a☺ sample long description"),
     ];
 
-    getData(pageNo: number = 0, search: "", callback: ResultCallBACK): void {
+    getData(pageNo: number = 0, search:string = "", callback: ResultCallBACK): void {
         setTimeout(() => {
             callback(this.fakeData
                 .filter(item => item.name.search(search) != -1 || item.description.search(search) != -1)
