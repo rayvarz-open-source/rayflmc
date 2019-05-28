@@ -13,11 +13,13 @@ import FormGallery from './Components/FormGallery';
 import FormController from './flmc/FormController/FormController';
 import Container from './flmc/FormController/Elements/ContainerElement';
 import ContainerElement from './Components/ContainerElement';
+import SampleForm from './Forms/SampleForm';
 
 const routes = {
   main: 'MAIN',
   gallery_form: 'GALLERYFORM',
   gallery_list: 'GALLERYLIST',
+  SAMPLE_FORM: 'SAMPLE_FORM',
 }
 
 type Props = {}
@@ -42,8 +44,7 @@ export default class App extends Component<Props, State> {
   renderMain() {
     return (
       <View style={{flexDirection: 'column'}}>
-        <Button title="Form Gallery" onPress={() => this.setState({currentRoute: routes.gallery_form})}/>
-        <Button title="List Gallery" onPress={() => this.setState({currentRoute: routes.gallery_list})}/>
+        <Button title="Sample Form" onPress={() => this.setState({currentRoute: routes.SAMPLE_FORM})}/>
       </View>
     )
   }
@@ -53,6 +54,7 @@ export default class App extends Component<Props, State> {
       case (routes.main): return this.renderMain()
       case (routes.gallery_form): return <FormGallery/>
       case (routes.gallery_list): return <ListGallery/>
+      case (routes.SAMPLE_FORM): return this.createViewFromFormController(new SampleForm());
     }
   }
 
