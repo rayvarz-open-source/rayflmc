@@ -21,13 +21,13 @@ class ContainerElement implements IElement {
   }
 
   private childrenR(children: IElement[]): ContainerElement {
-    if (this.children == null) this.childrenContainer = new BehaviorSubject<IElement[]>([]);
+    if (this.childrenContainer == null) this.childrenContainer = new BehaviorSubject<IElement[]>([]);
     this.childrenContainer.next(children);
     return this;
   }
 
   private childrenO(children: Observable<IElement[]>): ContainerElement {
-    if (this.children == null) this.childrenContainer = new BehaviorSubject<IElement[]>([]);
+    if (this.childrenContainer == null) this.childrenContainer = new BehaviorSubject<IElement[]>([]);
     children.subscribe({
       next: v => this.childrenContainer.next(v),
     });
