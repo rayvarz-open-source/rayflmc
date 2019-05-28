@@ -10,6 +10,9 @@ import React, {Component} from 'react';
 import {Platform, StyleSheet, Text, View, ScrollView, Button} from 'react-native';
 import ListGallery from './Components/ListGallery';
 import FormGallery from './Components/FormGallery';
+import FormController from './flmc/FormController/FormController';
+import Container from './flmc/FormController/Elements/ContainerElement';
+import ContainerElement from './Components/ContainerElement';
 
 const routes = {
   main: 'MAIN',
@@ -29,6 +32,11 @@ export default class App extends Component<Props, State> {
     this.state = {
       currentRoute: routes.main
     }
+  }
+
+  createViewFromFormController(controller: FormController) {
+    let mainContainer = Container(controller.elements);
+    return <ContainerElement element={mainContainer}/>
   }
 
   renderMain() {
@@ -51,8 +59,8 @@ export default class App extends Component<Props, State> {
   render() {
     return (
       <View style={styles.container}>
-        {this.state.currentRoute != routes.main ? <Button title="Back" onPress={() => this.setState({currentRoute: routes.main})}/> : null}
         <ScrollView style={{width:'100%'}}>
+          {this.state.currentRoute != routes.main ? <Button title="Back" onPress={() => this.setState({currentRoute: routes.main})}/> : null}
           {this.renderCurrentRoute()}
         </ScrollView>
       </View>
