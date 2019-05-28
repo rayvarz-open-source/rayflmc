@@ -1,7 +1,7 @@
 import IDataController from '../Base/IDataController';
 import { ListDataSource } from '../DataSource/DataSource';
 import { IEncodable } from '../Base/IModel';
-export declare class RawListController<T extends IEncodable, DS extends ListDataSource<T>> implements IDataController {
+export declare class RawListController<T extends IEncodable, DS extends ListDataSource<any>> implements IDataController {
     datasource: DS;
     constructor(datasource: DS);
     beforeDispose(): void;

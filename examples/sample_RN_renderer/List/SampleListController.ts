@@ -1,11 +1,11 @@
+import { BehaviorSubject } from "rxjs";
 import { ListDataSource } from "../flmc/DataSource/DataSource";
+import { SampleModel, MockServer } from "./MockServer";
 import { IPagable, PagableMixin } from "../flmc/DataSource/Pagable";
 import { ISearchable, SearchableMixin } from "../flmc/DataSource/Searchable";
-import { SampleModel, MockServer } from "./MockServer";
-import { BehaviorSubject } from "rxjs";
 import ListController, { RawListController } from "../flmc/ListController/ListController";
 
-class SampleDataSource extends ListDataSource<SampleModel> implements IPagable, ISearchable {
+export class SampleDataSource extends ListDataSource<SampleModel> implements IPagable, ISearchable {
     searchText = new BehaviorSubject<string | null>("");
 
     setSearchText(text: string | null): void {
@@ -36,6 +36,4 @@ class SampleListControllerRaw extends RawListController<SampleModel, SampleDataS
 
 }
 
-const SampleListController = SearchableMixin(PagableMixin(SampleListControllerRaw));
-
-export default SampleDataSource;
+export const SampleListController = SearchableMixin(PagableMixin(SampleListControllerRaw));

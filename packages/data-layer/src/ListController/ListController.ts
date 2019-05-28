@@ -5,7 +5,7 @@ import { IEncodable } from '../Base/IModel';
 import { PagableMixin } from '../DataSource/Pagable';
 import { SearchableMixin } from '../DataSource/Searchable';
 
-class RawListController<T extends IEncodable, DS extends ListDataSource<T>> implements IDataController {
+export class RawListController<T extends IEncodable, DS extends ListDataSource<any>> implements IDataController {
   constructor(public datasource: DS) {}
 
   beforeDispose(): void {
@@ -21,6 +21,6 @@ class RawListController<T extends IEncodable, DS extends ListDataSource<T>> impl
   }
 }
 
-const FormController = SearchableMixin(PagableMixin(RawListController));
+const ListController = SearchableMixin(PagableMixin(RawListController));
 
-export default FormController;
+export default ListController;

@@ -15,6 +15,8 @@ import Container from './flmc/FormController/Elements/ContainerElement';
 import ContainerElement from './Components/ContainerElement';
 import SampleForm from './Forms/SampleForm';
 import DirectionsForm from './Forms/ContainerDirectionsForm';
+import ListElementView from './Components/ListElementView';
+import { SampleDataSource , SampleListController} from './List/SampleListController';
 
 const routes = {
   main: 'MAIN',
@@ -22,6 +24,7 @@ const routes = {
   gallery_list: 'GALLERYLIST',
   SAMPLE_FORM: 'SAMPLE_FORM',
   DIRECTIONS_FORM: 'DIRECTIONS_FORM',
+  SAMPLE_LIST: 'SAMPLE_LIST',
 }
 
 type Props = {}
@@ -48,6 +51,7 @@ export default class App extends Component<Props, State> {
       <View style={{flexDirection: 'column'}}>
         <Button title="Sample Form" onPress={() => this.setState({currentRoute: routes.SAMPLE_FORM})}/>
         <Button title="Directions Form" onPress={() => this.setState({currentRoute: routes.DIRECTIONS_FORM})}/>
+        <Button title="Sample List Controller" onPress={() => this.setState({currentRoute: routes.SAMPLE_LIST})}/>
       </View>
     )
   }
@@ -59,6 +63,7 @@ export default class App extends Component<Props, State> {
       case (routes.gallery_list): return <ListGallery/>
       case (routes.SAMPLE_FORM): return this.createViewFromFormController(new SampleForm());
       case (routes.DIRECTIONS_FORM): return this.createViewFromFormController(new DirectionsForm());
+      case (routes.SAMPLE_LIST): return <ListElementView controller={new SampleListController(new SampleDataSource())}/>;
     }
   }
 
