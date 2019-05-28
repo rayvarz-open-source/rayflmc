@@ -1,6 +1,6 @@
 import IElement, { ValidationResult } from '../IElement';
 import { ElementTypes } from './ElementTypes';
-import { Observable, BehaviorSubject } from 'rxjs';
+import { Observable, BehaviorSubject, isObservable } from 'rxjs';
 
 class LabelElement implements IElement {
   dispose(): void {}
@@ -29,7 +29,7 @@ class LabelElement implements IElement {
     return this;
   }
 
-  text(text: Observable<string> | string): TextInputElement {
+  text(text: Observable<string> | string): LabelElement {
     if (typeof text === 'string') return this.textR(text);
     if (isObservable(text)) return this.textO(text);
     throw new Error('given text type is not supported');
@@ -39,7 +39,7 @@ class LabelElement implements IElement {
 const Label = (value: string | null): LabelElement => {
   let element = new LabelElement();
   if (value == null) return element;
-  return element.text(title);
+  return element.text(value);
 };
 
 export default Label;

@@ -33,28 +33,28 @@ class ButtonElement implements IElement {
     return this;
   }
 
-  text(text: Observable<string> | string): TextInputElement {
+  text(text: Observable<string> | string): ButtonElement {
     if (typeof text === 'string') return this.textR(text);
     if (isObservable(text)) return this.textO(text);
     throw new Error('given text type is not supported');
   }
   // callback
 
-  private buttonText = new BehaviorSubject<OnTapCallBack | null>(null);
+  private buttonCallback = new BehaviorSubject<OnTapCallBack | null>(null);
 
   onTapR(action: OnTapCallBack): ButtonElement {
-    this.buttonText.next(action);
+    this.buttonCallback.next(action);
     return this;
   }
 
   onTapO(action: Observable<OnTapCallBack>): ButtonElement {
     action.subscribe({
-      next: v => this.buttonText.next(v),
+      next: v => this.buttonCallback.next(v),
     });
     return this;
   }
 
-  onTap(action: Observable<OnTapCallBack> | OnTapCallBack): TextInputElement {
+  onTap(action: Observable<OnTapCallBack> | OnTapCallBack): ButtonElement {
     if (typeof action === 'function') return this.onTapR(action);
     if (isObservable(action)) return this.onTapO(action);
     throw new Error('given action type is not supported');

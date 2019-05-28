@@ -14,44 +14,44 @@ class ContainerElement implements IElement {
     return ElementTypes.Container;
   }
 
-  children: BehaviorSubject<IElement[]>;
+  private childrenContainer!: BehaviorSubject<IElement[]>;
 
   validate(): ValidationResult {
-    return new ValidationResult(this.children.value.map(i => i.validate().isValid).reduce((p, c) => p && c));
+    return new ValidationResult(this.childrenContainer.value.map(i => i.validate().isValid).reduce((p, c) => p && c));
   }
 
   private childrenR(children: IElement[]): ContainerElement {
-    if (this.children == null) this.children = new BehaviorSubject<IElement[]>([]);
-    this.children.next(children);
+    if (this.children == null) this.childrenContainer = new BehaviorSubject<IElement[]>([]);
+    this.childrenContainer.next(children);
     return this;
   }
 
   private childrenO(children: Observable<IElement[]>): ContainerElement {
-    if (this.children == null) this.children = new BehaviorSubject<IElement[]>([]);
+    if (this.children == null) this.childrenContainer = new BehaviorSubject<IElement[]>([]);
     children.subscribe({
-      next: v => this.children.next(v),
+      next: v => this.childrenContainer.next(v),
     });
     return this;
   }
 
-  children(children: Observable<IElement[]> | IElement[]): ContainerElement {
-    if (areElements(children)) return this.childrenR(children);
-    if (isObservable(children)) return this.childrenO(children);
+  children(children_: Observable<IElement[]> | IElement[]): ContainerElement {
+    if (areElements(children_)) return this.childrenR(children_);
+    if (isObservable(children_)) return this.childrenO(children_);
     throw new Error('given children type is not support');
   }
 
   // direction
 
-  private direction = new BehaviorSubject<Direction>(Direction.Column);
+  private directionValue = new BehaviorSubject<Direction>(Direction.Column);
 
   private directionR(dir: Direction): ContainerElement {
-    this.direction.next(dir);
+    this.directionValue.next(dir);
     return this;
   }
 
   private directionO(dir: Observable<Direction>): ContainerElement {
     dir.subscribe({
-      next: v => this.direction.next(v),
+      next: v => this.directionValue.next(v),
     });
     return this;
   }
