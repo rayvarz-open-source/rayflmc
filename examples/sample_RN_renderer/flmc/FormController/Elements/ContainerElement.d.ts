@@ -1,18 +1,18 @@
 import IElement, { ValidationResult } from '../IElement';
-import { Observable } from 'rxjs';
+import { Observable, BehaviorSubject } from 'rxjs';
 export declare enum Direction {
     Column = 0,
     Row = 1
 }
-declare class ContainerElement implements IElement {
+export declare class ContainerElement implements IElement {
     dispose(): void;
     readonly type: string;
-    private childrenContainer;
+    childrenContainer: BehaviorSubject<IElement[]>;
     validate(): ValidationResult;
     private childrenR;
     private childrenO;
     children(children_: Observable<IElement[]> | IElement[]): ContainerElement;
-    private directionValue;
+    directionValue: BehaviorSubject<Direction>;
     private directionR;
     private directionO;
     direction(dir: Observable<Direction> | Direction): ContainerElement;
