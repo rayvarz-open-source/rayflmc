@@ -42,6 +42,9 @@ export default class ListElementView extends Component<Props, State> {
         this.props.controller.datasource.values.subscribe({
             next: (v: any) => this.setState({items: v})
         });
+        this.props.controller.datasource.loading.subscribe({
+            next: (v: boolean) => this.setState({isLoading: v})
+        })
     }
 
     searchContainer() {
@@ -65,8 +68,8 @@ export default class ListElementView extends Component<Props, State> {
     }
 
     renderItems() {
-        return this.state.items.map(item => {
-            return <View style={{flexDirection: 'column', borderColor: 'black', borderWidth: 1, margin: 10, padding: 5}}>
+        return this.state.items.map((item,i) => {
+            return <View key={`${i}_item`} style={{flexDirection: 'column', borderColor: 'black', borderWidth: 1, margin: 10, padding: 5}}>
                 {this.renderItem(item)}
             </View>
         })

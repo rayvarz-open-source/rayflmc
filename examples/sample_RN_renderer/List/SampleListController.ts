@@ -12,6 +12,7 @@ export class SampleDataSource extends ListDataSource<SampleModel> implements IPa
         this.values.next([]);
         this.currentPage.next(0);
         this.searchText.next(text);
+        this.refreshCurrentPage();
     }
     currentPage = new BehaviorSubject<number>(0);
 
@@ -24,8 +25,10 @@ export class SampleDataSource extends ListDataSource<SampleModel> implements IPa
     previousPage(): void { }
 
     refreshCurrentPage(): void {
+        this.loading.next(true);
         new MockServer().getData(this.currentPage.value, this.searchText.value == null ? "" : this.searchText.value, (values: SampleModel[]) => {
             this.values.next([...this.values.value, ...values]);
+            this.loading.next(false);
         })
     }
 
