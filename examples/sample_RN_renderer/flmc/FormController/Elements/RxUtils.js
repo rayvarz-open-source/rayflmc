@@ -1,0 +1,11 @@
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.isSubject = isSubject;
+
+function isSubject(item) {
+  return item.next != null;
+}
+//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi4uLy4uLy4uL3NyYy9Gb3JtQ29udHJvbGxlci9FbGVtZW50cy9SeFV0aWxzLnRzIl0sIm5hbWVzIjpbImlzU3ViamVjdCIsIml0ZW0iLCJuZXh0Il0sIm1hcHBpbmdzIjoiOzs7Ozs7O0FBRU8sU0FBU0EsU0FBVCxDQUFtQkMsSUFBbkIsRUFBNEQ7QUFDakUsU0FBT0EsSUFBSSxDQUFDQyxJQUFMLElBQWEsSUFBcEI7QUFDRCIsInNvdXJjZXNDb250ZW50IjpbImltcG9ydCB7IEJlaGF2aW9yU3ViamVjdCB9IGZyb20gJ3J4anMnO1xyXG5cclxuZXhwb3J0IGZ1bmN0aW9uIGlzU3ViamVjdChpdGVtOiBhbnkpOiBpdGVtIGlzIEJlaGF2aW9yU3ViamVjdDxhbnk+IHtcclxuICByZXR1cm4gaXRlbS5uZXh0ICE9IG51bGw7XHJcbn1cclxuIl19
