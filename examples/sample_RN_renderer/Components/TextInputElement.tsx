@@ -18,11 +18,13 @@ export default class TextInputElement extends Component<Props, State> {
         this.state = {
             value: ""
         }
+        
+    }
 
-        props.element.value.subscribe({
+    componentDidMount() {
+        this.props.element.value.subscribe({
             next: v => this.setState({value: v})
         })
-        
     }
 
     onChange(text: string) {

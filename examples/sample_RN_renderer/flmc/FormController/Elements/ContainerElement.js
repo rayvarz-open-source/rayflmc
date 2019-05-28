@@ -53,7 +53,7 @@ function () {
   }, {
     key: "childrenR",
     value: function childrenR(children) {
-      if (this.children == null) this.childrenContainer = new _rxjs.BehaviorSubject([]);
+      if (this.childrenContainer == null) this.childrenContainer = new _rxjs.BehaviorSubject([]);
       this.childrenContainer.next(children);
       return this;
     }
@@ -62,7 +62,7 @@ function () {
     value: function childrenO(children) {
       var _this = this;
 
-      if (this.children == null) this.childrenContainer = new _rxjs.BehaviorSubject([]);
+      if (this.childrenContainer == null) this.childrenContainer = new _rxjs.BehaviorSubject([]);
       children.subscribe({
         next: function next(v) {
           return _this.childrenContainer.next(v);

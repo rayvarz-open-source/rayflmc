@@ -17,11 +17,13 @@ export default class LabelElement extends Component<Props, State> {
         this.state = {
             title: ""
         }
+        
+    }
 
-        props.element.value.subscribe({
+    componentDidMount(){
+        this.props.element.value.subscribe({
             next: v => this.setState({title: v})
         })
-        
     }
 
     render() {

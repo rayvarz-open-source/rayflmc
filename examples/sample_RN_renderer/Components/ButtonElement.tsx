@@ -19,14 +19,18 @@ export default class ButtonElement extends Component<Props, State> {
             callback: () => { },
             title: ""
         }
-        props.element.buttonCallback.subscribe({
+
+    }
+
+
+    componentDidMount() {
+        this.props.element.buttonCallback.subscribe({
             next: v => this.setState({ callback: v })
         })
 
-        props.element.buttonText.subscribe({
+        this.props.element.buttonText.subscribe({
             next: v => this.setState({ title: v })
         })
-
     }
 
     render() {
