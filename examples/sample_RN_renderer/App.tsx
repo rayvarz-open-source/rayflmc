@@ -17,9 +17,14 @@ const routes = {
   gallery_list: 'GALLERYLIST',
 }
 
-export default class App extends Component {
+type Props = {}
+type State = {
+  currentRoute: string
+}
 
-  constructor(props) {
+export default class App extends Component<Props, State> {
+
+  constructor(props: Props) {
     super(props);
     this.state = {
       currentRoute: routes.main
@@ -29,8 +34,8 @@ export default class App extends Component {
   renderMain() {
     return (
       <View style={{flexDirection: 'column'}}>
-        <Button style={styles.buttonStyle} title="Form Gallery" onPress={() => this.setState({currentRoute: routes.gallery_form})}/>
-        <Button style={styles.buttonStyle} title="List Gallery" onPress={() => this.setState({currentRoute: routes.gallery_list})}/>
+        <Button title="Form Gallery" onPress={() => this.setState({currentRoute: routes.gallery_form})}/>
+        <Button title="List Gallery" onPress={() => this.setState({currentRoute: routes.gallery_list})}/>
       </View>
     )
   }
@@ -46,7 +51,7 @@ export default class App extends Component {
   render() {
     return (
       <View style={styles.container}>
-        {this.state.currentRoute != routes.main ? <Button style={styles.buttonStyle} title="Back" onPress={() => this.setState({currentRoute: routes.main})}/> : null}
+        {this.state.currentRoute != routes.main ? <Button title="Back" onPress={() => this.setState({currentRoute: routes.main})}/> : null}
         <ScrollView style={{width:'100%'}}>
           {this.renderCurrentRoute()}
         </ScrollView>

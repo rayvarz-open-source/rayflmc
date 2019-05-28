@@ -1,10 +1,10 @@
 import IElement, { ValidationResult } from '../IElement';
-import { Observable } from 'rxjs';
-declare class LabelElement implements IElement {
+import { Observable, BehaviorSubject } from 'rxjs';
+export declare class LabelElement implements IElement {
     dispose(): void;
     readonly type: string;
     validate(): ValidationResult;
-    private value;
+    value: BehaviorSubject<string>;
     private textR;
     private textO;
     text(text: Observable<string> | string): LabelElement;

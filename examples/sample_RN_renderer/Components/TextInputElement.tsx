@@ -1,22 +1,31 @@
 import React, {Component} from 'react';
 import {Platform, StyleSheet, Text, View, ScrollView, TextInput} from 'react-native';
 import { map, filter } from 'rxjs/operators';
+import { TextInputElement as TextInputElementD } from '../flmc/FormController/Elements/TextInputElement';
 
-export default class TextInputElement extends Component {
+type Props = {
+    element: TextInputElementD
+}
 
-    constructor(props) {
+type State = {
+    value: string
+}
+
+export default class TextInputElement extends Component<Props, State> {
+
+    constructor(props: Props) {
         super(props);
         this.state = {
             value: ""
         }
 
         props.element.value.subscribe({
-            value: v => this.setState({value: v})
+            next: v => this.setState({value: v})
         })
         
     }
 
-    onChange(text) {
+    onChange(text: string) {
         if (text == this.props.element.value.value) return;
         this.props.element.value.next(text);
     }

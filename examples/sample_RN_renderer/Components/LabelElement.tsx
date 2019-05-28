@@ -1,9 +1,18 @@
 import React, {Component} from 'react';
 import {Platform, StyleSheet, Text, View, ScrollView, Button} from 'react-native';
+import { LabelElement as LabelElementD } from '../flmc/FormController/Elements/LabelElement'
 
-export default class LabelElement extends Component {
+type Props = {
+    element: LabelElementD
+}
 
-    constructor(props) {
+type State = {
+    title: string
+}
+
+export default class LabelElement extends Component<Props, State> {
+
+    constructor(props: Props) {
         super(props);
         this.state = {
             title: ""
@@ -17,7 +26,7 @@ export default class LabelElement extends Component {
 
     render() {
         return (
-            <Text>title</Text>
+            <Text>{this.state.title}</Text>
         )
     }
 
