@@ -7,22 +7,49 @@
  */
 
 import React, {Component} from 'react';
-import {Platform, StyleSheet, Text, View} from 'react-native';
+import {Platform, StyleSheet, Text, View, ScrollView, Button} from 'react-native';
+import ListGallery from './Components/ListGallery';
+import FormGallery from './Components/FormGallery';
 
-const instructions = Platform.select({
-  ios: 'Press Cmd+R to reload,\n' + 'Cmd+D or shake for dev menu',
-  android:
-    'Double tap R on your keyboard to reload,\n' +
-    'Shake or press menu button for dev menu',
-});
+const routes = {
+  main: 'MAIN',
+  gallery_form: 'GALLERYFORM',
+  gallery_list: 'GALLERYLIST',
+}
 
 export default class App extends Component {
+
+  constructor(props) {
+    super(props);
+    this.state = {
+      currentRoute: routes.main
+    }
+  }
+
+  renderMain() {
+    return (
+      <View style={{flexDirection: 'column'}}>
+        <Button style={styles.buttonStyle} title="Form Gallery" onPress={() => this.setState({currentRoute: routes.gallery_form})}/>
+        <Button style={styles.buttonStyle} title="List Gallery" onPress={() => this.setState({currentRoute: routes.gallery_list})}/>
+      </View>
+    )
+  }
+
+  renderCurrentRoute() {
+    switch(this.state.currentRoute) {
+      case (routes.main): return this.renderMain()
+      case (routes.gallery_form): return <FormGallery/>
+      case (routes.gallery_list): return <ListGallery/>
+    }
+  }
+
   render() {
     return (
       <View style={styles.container}>
-        <Text style={styles.welcome}>Welcome to FLMC</Text>
-        <Text style={styles.instructions}>To get started, edit App.js</Text>
-        <Text style={styles.instructions}>{instructions}</Text>
+        {this.state.currentRoute != routes.main ? <Button style={styles.buttonStyle} title="Back" onPress={() => this.setState({currentRoute: routes.main})}/> : null}
+        <ScrollView style={{width:'100%'}}>
+          {this.renderCurrentRoute()}
+        </ScrollView>
       </View>
     );
   }
@@ -31,18 +58,9 @@ export default class App extends Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    width: '100%',
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: '#F5FCFF',
-  },
-  welcome: {
-    fontSize: 20,
-    textAlign: 'center',
-    margin: 10,
-  },
-  instructions: {
-    textAlign: 'center',
-    color: '#333333',
-    marginBottom: 5,
-  },
+  }
 });
