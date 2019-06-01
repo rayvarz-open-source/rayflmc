@@ -9,10 +9,14 @@ export interface ISearchable {
   setSearchText(text: string | null): void;
 }
 
+export function isSearchable(value: any): value is ISearchable {
+  return value.searchText != null && value.setSearchText != null;
+}
+
 export function SearchableMixin<TBase extends Constructor>(Base: TBase) {
   return class extends Base {
     isSearchable(): boolean {
-      return (this as any).datasource.searchText != null && (this as any).datasource.setSearchText != null;
+      return isSearchable((this as any).datasource);
     }
 
     clearSearchText(): void {
