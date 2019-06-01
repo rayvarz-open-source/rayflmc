@@ -1,7 +1,11 @@
 import { IEncodable, IDecodable, isDecodable } from './IModel';
 
 type Constructor<T = {}> = new (...args: any[]) => T;
-
+/**
+ * default implementation for encode method
+ *
+ * this mixin can be used with any class.
+ */
 export function EncodableModelMixin<TBase extends Constructor>(Base: TBase) {
   return class extends Base implements IEncodable {
     public encode(data: any): void {
@@ -17,6 +21,11 @@ export function EncodableModelMixin<TBase extends Constructor>(Base: TBase) {
   };
 }
 
+/**
+ * default implementation for decode method
+ *
+ * this mixin can be used with any class.
+ */
 export function DecodableModelMixin<TBase extends Constructor>(Base: TBase) {
   return class extends Base implements IDecodable {
     public decode(): object {

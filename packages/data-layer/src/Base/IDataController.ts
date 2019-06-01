@@ -9,10 +9,26 @@ export default interface IDataController {
    */
   readonly type: string;
 
+  /**
+   * (should) gets called before disposing the the data controller
+   *
+   * put your clean up code like unsubscribing Observables here.
+   */
   beforeDispose(): void;
 
+  /**
+   * gets called after disposing the data controller
+   *
+   * TODO: add usage
+   */
   afterDispose(): void;
 
+  /**
+   * (should) gets called after constructing the data controller
+   * object
+   * s
+   * put your initial setups like initial server calls here.
+   */
   init(): void;
 }
 
