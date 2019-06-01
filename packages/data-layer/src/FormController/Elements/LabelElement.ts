@@ -2,7 +2,7 @@ import IElement, { ValidationResult } from '../IElement';
 import { ElementTypes } from './ElementTypes';
 import { Observable, BehaviorSubject, isObservable } from 'rxjs';
 
-class LabelElement implements IElement {
+export class LabelElement implements IElement {
   dispose(): void {}
 
   get type(): string {
@@ -15,7 +15,7 @@ class LabelElement implements IElement {
 
   // text
 
-  private value = new BehaviorSubject<string>('');
+  value = new BehaviorSubject<string>('');
 
   private textR(text: string): LabelElement {
     this.value.next(text);

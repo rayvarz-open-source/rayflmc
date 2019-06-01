@@ -2,11 +2,11 @@ import IElement, { ValidationResult } from '../IElement';
 import { ElementTypes } from './ElementTypes';
 import { Observable, BehaviorSubject, isObservable } from 'rxjs';
 
-interface OnTapCallBack {
+export interface OnTapCallBack {
   (): void;
 }
 
-class ButtonElement implements IElement {
+export class ButtonElement implements IElement {
   dispose(): void {}
 
   get type(): string {
@@ -19,14 +19,14 @@ class ButtonElement implements IElement {
 
   // text
 
-  private buttonText = new BehaviorSubject<string>('');
+  buttonText = new BehaviorSubject<string>('');
 
-  textR(text: string): ButtonElement {
+  private textR(text: string): ButtonElement {
     this.buttonText.next(text);
     return this;
   }
 
-  textO(text: Observable<string>): ButtonElement {
+  private textO(text: Observable<string>): ButtonElement {
     text.subscribe({
       next: v => this.buttonText.next(v),
     });
@@ -40,14 +40,14 @@ class ButtonElement implements IElement {
   }
   // callback
 
-  private buttonCallback = new BehaviorSubject<OnTapCallBack | null>(null);
+  buttonCallback = new BehaviorSubject<OnTapCallBack | null>(null);
 
-  onTapR(action: OnTapCallBack): ButtonElement {
+  private onTapR(action: OnTapCallBack): ButtonElement {
     this.buttonCallback.next(action);
     return this;
   }
 
-  onTapO(action: Observable<OnTapCallBack>): ButtonElement {
+  private onTapO(action: Observable<OnTapCallBack>): ButtonElement {
     action.subscribe({
       next: v => this.buttonCallback.next(v),
     });

@@ -3,7 +3,7 @@ import { ElementTypes } from './ElementTypes';
 import { Observable, BehaviorSubject, isObservable } from 'rxjs';
 import { isSubject } from './RxUtils';
 
-class TextInputElement implements IElement {
+export class TextInputElement implements IElement {
   dispose(): void {}
 
   get type(): string {
@@ -16,7 +16,7 @@ class TextInputElement implements IElement {
 
   // text
 
-  private value!: BehaviorSubject<string>;
+  value!: BehaviorSubject<string>;
 
   private textR(text: string): TextInputElement {
     if (this.value == null) this.value = new BehaviorSubject<string>('');

@@ -7,14 +7,14 @@ export enum Direction {
   Row = 1,
 }
 
-class ContainerElement implements IElement {
+export class ContainerElement implements IElement {
   dispose(): void {}
 
   get type(): string {
     return ElementTypes.Container;
   }
 
-  private childrenContainer!: BehaviorSubject<IElement[]>;
+  childrenContainer!: BehaviorSubject<IElement[]>;
 
   validate(): ValidationResult {
     return new ValidationResult(this.childrenContainer.value.map(i => i.validate().isValid).reduce((p, c) => p && c));
@@ -42,7 +42,7 @@ class ContainerElement implements IElement {
 
   // direction
 
-  private directionValue = new BehaviorSubject<Direction>(Direction.Column);
+  directionValue = new BehaviorSubject<Direction>(Direction.Column);
 
   private directionR(dir: Direction): ContainerElement {
     this.directionValue.next(dir);
