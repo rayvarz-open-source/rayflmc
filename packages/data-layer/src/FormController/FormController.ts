@@ -2,6 +2,11 @@ import IDataController from '../Base/IDataController';
 import { DataControllerTypes } from '../DataControllerTypes';
 import IElement, { ValidationResult } from './IElement';
 
+/**
+ * used for handling forms data
+ * 
+ * TODO: finalize interface
+ */
 export default class FormController implements IDataController {
   get type(): string {
     return DataControllerTypes.FormController;

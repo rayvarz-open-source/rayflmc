@@ -5,6 +5,11 @@ import { IEncodable } from '../Base/IModel';
 import { PagableMixin } from '../DataSource/Pagable';
 import { SearchableMixin } from '../DataSource/Searchable';
 
+/**
+ * used for handling lists data
+ * 
+ * TODO: finalize interface
+ */
 export class RawListController<T extends IEncodable, DS extends ListDataSource<any>> implements IDataController {
   constructor(public datasource: DS) {}
 
