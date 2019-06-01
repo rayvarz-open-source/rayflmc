@@ -15,3 +15,7 @@ export default interface IDataController {
 
   init(): void;
 }
+
+export function isDataController(item: any): item is IDataController {
+  return item.type != null && item.beforeDispose != null && item.afterDispose != null && item.init != null;
+}
