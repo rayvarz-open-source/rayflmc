@@ -14,16 +14,20 @@ export interface IPagable {
   refreshCurrentPage(): void;
 }
 
+export function isPagable(value: any): value is IPagable {
+  return (
+    value.currentPage != null &&
+    value.setCurrentPage != null &&
+    value.nextPage != null &&
+    value.refreshCurrentPage != null &&
+    value.previousPage != null
+  );
+}
+
 export function PagableMixin<TBase extends Constructor>(Base: TBase) {
   return class extends Base {
     isPagable(): boolean {
-      return (
-        (this as any).datasource.currentPage != null &&
-        (this as any).datasource.setCurrentPage != null &&
-        (this as any).datasource.nextPage != null &&
-        (this as any).datasource.refreshCurrentPage != null &&
-        (this as any).datasource.previousPage != null
-      );
+      return isPagable((this as any).datasource);
     }
 
     refreshPage(): void {
