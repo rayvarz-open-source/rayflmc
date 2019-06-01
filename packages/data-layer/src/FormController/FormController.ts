@@ -4,7 +4,7 @@ import IElement, { ValidationResult } from './IElement';
 
 /**
  * used for handling forms data
- * 
+ *
  * TODO: finalize interface
  */
 export default class FormController implements IDataController {

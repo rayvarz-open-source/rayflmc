@@ -7,7 +7,7 @@ import { SearchableMixin } from '../DataSource/Searchable';
 
 /**
  * used for handling lists data
- * 
+ *
  * TODO: finalize interface
  */
 export class RawListController<T extends IEncodable, DS extends ListDataSource<any>> implements IDataController {

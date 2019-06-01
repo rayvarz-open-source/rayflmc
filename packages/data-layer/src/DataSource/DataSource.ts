@@ -4,7 +4,7 @@ import { IEncodable } from '../Base/IModel';
 /**
  * if a class implement this data interface, it can be used
  * for fetching data (server or local)
- * 
+ *
  * TODO: rename DataSource to IDataSource
  */
 export interface DataSource {
@@ -18,7 +18,7 @@ export function isDataSource(value: any): value is DataSource {
 
 /**
  * type of datasource for fetching data in form of a single object
- * 
+ *
  * e.g: fetching details in a form.
  */
 export class SingleValueDataSource<T extends IEncodable> implements DataSource {
@@ -34,7 +34,7 @@ export function isSingleValueDataSource(value: any): value is SingleValueDataSou
 
 /**
  * type of datasource for fetching data in form of list of objects
- * 
+ *
  * used in ListController
  */
 export class ListDataSource<T extends IEncodable> implements DataSource {

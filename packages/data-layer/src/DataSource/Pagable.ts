@@ -13,8 +13,8 @@ export interface IPagable {
 
   /**
    * updates currentPage
-   * DO NOT DIRECTILY FETCH DATA IN THIS FUNCTION ONLY [refreshCurrentPage()] SHOULD FETCH DATA FROM SERVER 
-   * 
+   * DO NOT DIRECTILY FETCH DATA IN THIS FUNCTION ONLY [refreshCurrentPage()] SHOULD FETCH DATA FROM SERVER
+   *
    * @param pageNumber
    */
   setCurrentPage(pageNumber: number): void;
@@ -47,20 +47,20 @@ export function isPagable(value: any): value is IPagable {
 
 /**
  * convenience methods for a list controller with pagable datasource
- * 
+ *
  * usage :
- * 
+ *
  * ```js
  * class DataSource : ListDataSource<Model>, Pagable {
  *    // implementation
  * }
- * 
+ *
  * class SampleListControllerRaw : ListController<Model, DataSource> {}
- * 
+ *
  * export const PagableMixin(SampleListControllerRaw);
- * 
+ *
  * ```
- * 
+ *
  * @param Base ListController
  */
 export function PagableMixin<TBase extends Constructor>(Base: TBase) {
