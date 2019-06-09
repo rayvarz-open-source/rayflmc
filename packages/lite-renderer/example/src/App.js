@@ -1,13 +1,11 @@
 import React, { Component } from 'react'
 
-import ExampleComponent from 'lite-renderer'
+import FLMC from 'lite-renderer'
 
 export default class App extends Component {
   render () {
     return (
-      <div>
-        <ExampleComponent text='Modern React component module' />
-      </div>
+      <FLMC/>
     )
   }
 }
