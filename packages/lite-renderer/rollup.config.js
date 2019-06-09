@@ -32,7 +32,9 @@ export default {
     }),
     url(),
     svgr(),
-    resolve(),
+    resolve({
+      dedupe: [ 'react', 'react-dom' ],
+    }),
     typescript({
       rollupCommonJSResolveHack: true,
       clean: true

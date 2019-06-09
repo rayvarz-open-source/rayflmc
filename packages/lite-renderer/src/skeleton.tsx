@@ -36,9 +36,11 @@ const drawerWidth = 240;
 export default function Skeleton() {
   const [open, setOpen] = React.useState(true);
   const handleDrawerOpen = () => {
+    console.log("open");
     setOpen(true);
   };
   const handleDrawerClose = () => {
+    console.log("close");
     setOpen(false);
   };
 
@@ -59,7 +61,7 @@ export default function Skeleton() {
             Dashboard
           </Typography>
           <IconButton color="inherit">
-            <Badge badgeContent={4} color="secondary">
+            <Badge badgeContent={open ? "10": "5"} color="secondary">
               <NotificationsIcon />
             </Badge>
           </IconButton>

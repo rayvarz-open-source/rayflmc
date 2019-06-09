@@ -9,8 +9,6 @@
     "lite-renderer": "file:.."
   },
   "devDependencies": {
-    "react": "^16.8.5",
-    "react-dom": "^16.8.5",
     "react-scripts": "^1.1.4"
   },
   "scripts": {
