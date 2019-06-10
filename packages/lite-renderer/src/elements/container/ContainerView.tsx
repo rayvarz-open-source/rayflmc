@@ -3,6 +3,7 @@ import Box from '@material-ui/core/Box';
 import * as React from 'react';
 import { Direction } from './Direction';
 import IElement from 'flmc-data-layer/src/FormController/IElement';
+import { mapToView } from '../ElementToViewMapper';
 
 type Props = {
     element: ContainerElement
@@ -19,6 +20,9 @@ export default function ContainerView({ element }: Props) {
             next: (v) => setDirection(v)
         });
 
+        let childrenSub = element.childrenContainer.subscribe({
+            next: (v) => setChildren(v)
+        });
 
         return () => {
             dirSub.unsubscribe();
@@ -26,10 +30,13 @@ export default function ContainerView({ element }: Props) {
 
     })
 
+    function renderChildren() {
+        return children.map(v => mapToView(v));
+    }
 
     return (
         <Box display="flex" flexDirection={direction == Direction.Column ? "column" : "row"}>
-            { /* TODO: render children */}
+            {renderChildren()}
         </Box>
     )
 
