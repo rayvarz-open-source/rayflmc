@@ -1,4 +1,5 @@
 export enum ElementType {
     BUTTON = "LITE_RENDERER_BUTTON",
     LABEL = "LITE_RENDERER_LABEL",
+    INPUT_TEXT = "LITE_RENDERER_INPUT_TEXT",
 }
