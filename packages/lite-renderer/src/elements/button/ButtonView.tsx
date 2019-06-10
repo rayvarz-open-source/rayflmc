@@ -11,13 +11,24 @@ export default function ButtonView({ element }: Props) {
     const [onClick, setOnClick] = React.useState<VoidFunction>(() => { });
     const [title, setTitle] = React.useState("");
 
-    element.buttonCallback.subscribe({
-        next: (v) => setOnClick(v == null ? () => { } : v)
-    });
+    React.useEffect(() => {
 
-    element.buttonText.subscribe({
-        next: (v) => setTitle(v)
-    });
+        let callbackSub = element.buttonCallback.subscribe({
+            next: (v) => setOnClick(v == null ? () => { } : v)
+        });
+    
+        let textSub = element.buttonText.subscribe({
+            next: (v) => setTitle(v)
+        });
+
+        return () => {
+            callbackSub.unsubscribe();
+            textSub.unsubscribe();
+        }
+
+    })
+
+
 
 
     return (
