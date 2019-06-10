@@ -31,7 +31,7 @@ export default function ContainerView({ element }: Props) {
     })
 
     function renderChildren() {
-        return children.map(v => <MapToView element={v} />);
+        return children.map((v, i) => <MapToView element={v} key={`${v.type}_${i}`} />);
     }
 
     return (
