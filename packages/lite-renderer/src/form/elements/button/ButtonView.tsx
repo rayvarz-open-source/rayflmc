@@ -8,13 +8,13 @@ type Props = {
 
 export default function ButtonView({ element }: Props) {
 
-    const [onClick, setOnClick] = React.useState<VoidFunction>(() => { });
+    let onClick: VoidFunction = () => { };
     const [title, setTitle] = React.useState("");
 
     React.useEffect(() => {
 
         let callbackSub = element.buttonCallback.subscribe({
-            next: (v) => setOnClick(v == null ? () => { } : v)
+            next: (v) => onClick = v == null ? () => { } : v
         });
     
         let textSub = element.buttonText.subscribe({
