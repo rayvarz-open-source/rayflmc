@@ -9,7 +9,12 @@ export const viewsForDirector = (views:any, store:any) =>
         return obj;
     }, {});
 
-export const getRegexMatches = (string, regexExpression, callback) => {
+
+interface RegexCallBack {
+    (value: RegExpExecArray): void;
+}
+
+export const getRegexMatches = (string:string, regexExpression:RegExp, callback:RegexCallBack) => {
     let match;
     while ((match = regexExpression.exec(string)) !== null) {
         callback(match);
