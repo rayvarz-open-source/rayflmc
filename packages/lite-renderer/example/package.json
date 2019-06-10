@@ -6,7 +6,10 @@
   "private": true,
   "dependencies": {
     "prop-types": "^15.6.2",
-    "lite-renderer": "file:.."
+    "lite-renderer": "file:..",
+    "react": "^16.8.5",
+    "react-dom": "^16.8.5",
+    "rxjs": "^6.5.2"
   },
   "devDependencies": {
     "react-scripts": "^1.1.4"

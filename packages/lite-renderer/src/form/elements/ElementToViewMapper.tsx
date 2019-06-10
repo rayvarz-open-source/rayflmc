@@ -11,12 +11,16 @@ import { ContainerElement } from "./container/ContainerElement";
 import TextInputView from "./input/text/TextInputView";
 import { TextInputElement } from "./input/text/TextInputElement";
 
-export function mapToView(element: IElement): React.ReactElement {
+type Props = {
+    element: IElement
+}
+
+export function MapToView({ element }: Props) {
     switch (element.type) {
-        case (ElementType.BUTTON): return ButtonView({element: element as ButtonElement});
-        case (ElementType.LABEL): return LabelView({element: element as LabelElement});
-        case (ElementType.CONTAINER): return ContainerView({element: element as ContainerElement});
-        case (ElementType.INPUT_TEXT): return TextInputView({element: element as TextInputElement});
+        case (ElementType.BUTTON): return <ButtonView element={element as ButtonElement} />;
+        case (ElementType.LABEL): return <LabelView element={element as LabelElement} />;
+        case (ElementType.CONTAINER): return <ContainerView element={element as ContainerElement} />;
+        case (ElementType.INPUT_TEXT): return <TextInputView element={element as TextInputElement} />;
     }
     throw Error(`can't map ${element.type} to a view`)
 }

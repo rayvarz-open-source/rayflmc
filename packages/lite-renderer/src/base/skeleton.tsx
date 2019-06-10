@@ -99,7 +99,7 @@ const useStyles = makeStyles(theme => ({
   },
 } as any));
 
-export default function Skeleton() {
+export default function Skeleton({ children }) {
   const classes = useStyles() as any;
   const [open, setOpen] = React.useState(true);
   const handleDrawerOpen = () => {
@@ -149,22 +149,9 @@ export default function Skeleton() {
         <div className={classes.appBarSpacer} />
         <Container maxWidth="lg" className={classes.container}>
           <Grid container spacing={3}>
-            {/* Chart */}
-            <Grid item xs={12} md={8} lg={9}>
-              <Paper className={fixedHeightPaper}>
-                  <p>chart</p>
-              </Paper>
-            </Grid>
-            {/* Recent Deposits */}
-            <Grid item xs={12} md={4} lg={3}>
-              <Paper className={fixedHeightPaper}>
-              <p>Recent Deposits</p>
-              </Paper>
-            </Grid>
-            {/* Recent Orders */}
             <Grid item xs={12}>
               <Paper className={classes.paper}>
-              <p>ecent Orders</p>
+                {children}
               </Paper>
             </Grid>
           </Grid>

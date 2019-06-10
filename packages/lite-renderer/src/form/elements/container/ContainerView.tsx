@@ -3,7 +3,7 @@ import Box from '@material-ui/core/Box';
 import * as React from 'react';
 import { Direction } from './Direction';
 import IElement from 'flmc-data-layer/src/FormController/IElement';
-import { mapToView } from '../ElementToViewMapper';
+import { MapToView } from '../ElementToViewMapper';
 
 type Props = {
     element: ContainerElement
@@ -31,7 +31,7 @@ export default function ContainerView({ element }: Props) {
     })
 
     function renderChildren() {
-        return children.map(v => mapToView(v));
+        return children.map(v => <MapToView element={v} />);
     }
 
     return (
