@@ -1,5 +1,7 @@
-function onRoutChange(props){
-    var route = new Route();
+import Route, { Props } from "./route";
+
+function onRoutChange(props: Props) : Route {
+    var route = new Route(props);
     if(props === undefined){
       route.__initFromUrl();
     } else {
@@ -13,9 +15,10 @@ function onRoutChange(props){
         route.params = props.params;
       }
     }
-      routeList.forEach(element => {
-        if(element.path == route.path){
-          element.controller(element.path,route.params);
-        }
-      });
+    return route;
+      // routeList.forEach(element => {
+      //   if(element.path == route.path){
+      //     element.controller(element.path,route.params);
+      //   }
+      // });
   }
