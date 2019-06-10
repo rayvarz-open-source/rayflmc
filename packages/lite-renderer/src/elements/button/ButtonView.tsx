@@ -8,8 +8,8 @@ type Props = {
 
 export default function ButtonView({ element }: Props) {
 
-    const [onClick, setOnClick] = React.useState(() => { });
-    const [title, setTitle] = React.useState(() => { });
+    const [onClick, setOnClick] = React.useState<VoidFunction>(() => { });
+    const [title, setTitle] = React.useState("");
 
     element.buttonCallback.subscribe({
         next: (v) => setOnClick(v == null ? () => { } : v)
@@ -21,7 +21,7 @@ export default function ButtonView({ element }: Props) {
 
 
     return (
-        <Button variant="contained" onClick={onClick}>
+        <Button variant="contained" onClick={() => onClick()}>
             {title}
         </Button>
     )
