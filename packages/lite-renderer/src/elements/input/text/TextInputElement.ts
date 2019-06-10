@@ -14,6 +14,34 @@ export class TextInputElement implements IElement {
     return new ValidationResult(true);
   }
 
+  // title
+
+  titleValue = new BehaviorSubject<string>("");
+
+  private titleR(text: string): TextInputElement {
+    this.titleValue.next(text);
+    return this;
+  }
+
+  private titleO(text: Observable<string>): TextInputElement {
+    text.subscribe({
+      next: v => this.titleValue.next(v),
+    });
+    return this;
+  }
+
+  private titleB(text: BehaviorSubject<string>): TextInputElement {
+    this.titleValue = text;
+    return this;
+  }
+
+  title(text: BehaviorSubject<string> | Observable<string> | string): TextInputElement {
+    if (typeof text === 'string') return this.titleR(text);
+    if (isSubject(text)) return this.titleB(text);
+    if (isObservable(text)) return this.titleO(text);
+    throw new Error('given text type is not supported');
+  }
+
   // text
 
   value!: BehaviorSubject<string>;
