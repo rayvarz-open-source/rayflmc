@@ -28,9 +28,6 @@ export default function ButtonView({ element }: Props) {
 
     })
 
-
-
-
     return (
         <Button variant="contained" onClick={() => onClick()}>
             {title}
