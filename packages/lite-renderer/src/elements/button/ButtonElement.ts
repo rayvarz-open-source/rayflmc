@@ -1,5 +1,5 @@
 import IElement, { ValidationResult } from 'flmc-data-layer/src/FormController/IElement';
-import { ElementType } from '../element_type';
+import { ElementType } from '../ButtonElement';
 import { Observable, BehaviorSubject, isObservable } from 'rxjs';
 
 export class ButtonElement implements IElement {

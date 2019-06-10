@@ -1,5 +1,5 @@
 import * as React from 'react'
-import Skeleton from './base/skeleton.js';
+import Skeleton from './base/Skeleton.js';
 
 export type Props = { text: string }
 
