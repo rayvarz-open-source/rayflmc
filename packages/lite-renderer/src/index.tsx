@@ -8,7 +8,7 @@ import Container from './form/elements/container/ContainerElement.js';
 import Label from './form/elements/label/LabelElement.js';
 import { Route } from './router/route.js';
 import IDataController from 'flmc-data-layer/src/Base/IDataController';
-import { createOnHashChangeFunction } from './router/router.js';
+import { createOnHashChangeFunction, changeRoute } from './router/router.js';
 import { RootRouteCategory } from './router/route';
 
 export {
@@ -17,7 +17,8 @@ export {
   Container,
   Label,
 
-  RootRouteCategory
+  RootRouteCategory,
+  changeRoute
 };
 
 

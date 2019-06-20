@@ -127,3 +127,22 @@ export const createOnHashChangeFunction = (routes: FRoute[]) => {
         console.warn(`Could not find path: ${currentRoute.path}`);
     }
 }
+
+const changeHash = (hash: string) => {
+    if(history.pushState) {
+        history.pushState(null, "", `#${hash}`);
+    }
+    else {
+        location.hash = `#${hash}`;
+    }
+    // changing history on hash doesn't trigger onhashchnage so we need to trigger it manually
+    (window as any).onhashchange();
+}
+
+export const changeRoute = (path: string, params?: object) => {
+    let hash = btoa(JSON.stringify({
+        path, 
+        params: params || {}
+    }));
+    changeHash(hash);
+}

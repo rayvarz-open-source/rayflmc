@@ -18,6 +18,7 @@ import MenuIcon from '@material-ui/icons/Menu';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import Sidebar, { SidebarItemWithChildren, SidebaSingleItem } from './Sidebar';
 import { Route } from '../router/route';
+import { changeRoute } from '../router/router';
 
 const drawerWidth = 240;
 
@@ -115,8 +116,9 @@ const createSidebarItems = ({ routes, currentRoute }: Props) => {
     categoryItems[route.category.name]
       .push(
         <SidebaSingleItem
+          key={route.name + "_" + route.category.name}
           title={route.name}
-          onClick={() => console.log(route)}
+          onClick={() => changeRoute(route.path, {})}
           icon={route.indicator || <div />} />);
   }
   let rootItems: any[] = [];
@@ -127,6 +129,7 @@ const createSidebarItems = ({ routes, currentRoute }: Props) => {
       rootItems = [...rootItems, ...categoryItems[item]];
     else
       otherItems.push(<SidebarItemWithChildren
+        key={item}
         children={categoryItems[item]}
         icon={<div />}
         title={item}
