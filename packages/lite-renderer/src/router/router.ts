@@ -119,10 +119,10 @@ import { Route as FRoute } from './route';
 export const createOnHashChangeFunction = (routes: FRoute[]) => {
     return () => {
         var currentRoute = onRoutChange();
-        routes.forEach(route => {
-            if (route.path == currentRoute.path) 
+        for(let route of routes) {
+            if (route.path == currentRoute.path || (route.path == '/' && currentRoute.path == null)) 
                 return route.builder(route.path, currentRoute.params);
-        });
-        throw new Error(`Could not find path: ${currentRoute.path}`);
+        }
+        console.warn(`Could not find path: ${currentRoute.path}`);
     }
 }
