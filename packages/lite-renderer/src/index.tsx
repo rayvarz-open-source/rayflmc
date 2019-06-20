@@ -24,7 +24,8 @@ export {
 
 export type Props = { routes: Route[] }
 type States = {
-  currentController: IDataController | null
+  currentController: IDataController | null,
+  currentRoute: Route | null,
 }
 
 export default class FLMC extends React.Component<Props, States> {
@@ -32,24 +33,27 @@ export default class FLMC extends React.Component<Props, States> {
   constructor(props: Props) {
     super(props);
     this.state = {
-       currentController: null
+      currentController: null,
+      currentRoute: null
     }
   }
 
   componentDidMount() {
     let controllerBuilder = createOnHashChangeFunction(this.props.routes);
     window.onhashchange = () => {
-      this.setState({currentController: controllerBuilder()!});
+      const [controller, route] = controllerBuilder()!;
+      this.setState({ currentController: controller, currentRoute: route });
     };
-    this.setState({currentController: controllerBuilder()!});
+    const [controller, route] = controllerBuilder()!;
+    this.setState({ currentController: controller, currentRoute: route });
   }
 
   render() {
-    const { currentController } = this.state
+    const { currentController, currentRoute } = this.state
 
     return (
-      <Skeleton>
-        {currentController != null ? <FormView controller={this.state.currentController as FormController}/> : null}
+      <Skeleton currentRoute={currentRoute} routes={this.props.routes} >
+        {currentController != null ? <FormView controller={this.state.currentController as FormController} /> : null}
       </Skeleton>
     )
   }

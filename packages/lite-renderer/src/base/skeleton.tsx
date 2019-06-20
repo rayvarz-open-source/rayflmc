@@ -17,6 +17,7 @@ import Link from '@material-ui/core/Link';
 import MenuIcon from '@material-ui/icons/Menu';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import Sidebar, { SidebarItemWithChildren } from './Sidebar';
+import { Route } from '../router/route';
 
 const drawerWidth = 240;
 
@@ -99,7 +100,14 @@ const useStyles = makeStyles(theme => ({
   },
 } as any));
 
-export default function Skeleton({ children }) {
+type Props = {
+  routes: Route[],
+  currentRoute: Route | null,
+}
+
+export default function Skeleton({ children, routes, currentRoute }: any) {
+  let routesProp = routes as Route[];
+  let currentRouteProp = currentRoute as Route[];
   const classes = useStyles() as any;
   const [open, setOpen] = React.useState(true);
   const handleDrawerOpen = () => {
@@ -125,7 +133,7 @@ export default function Skeleton({ children }) {
             <MenuIcon />
           </IconButton>
           <Typography component="h1" variant="h6" color="inherit" noWrap className={classes.title}>
-            Dashboard
+            {currentRoute == null ? "Dashboard" : currentRoute.name }
           </Typography>
         </Toolbar>
       </AppBar>
