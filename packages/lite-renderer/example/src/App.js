@@ -1,12 +1,12 @@
 import React, { Component } from 'react'
 
 import FLMC from 'lite-renderer'
-import SampleForm from './forms/sampleForm';
+import routes from './routes';
 
 export default class App extends Component {
-  render () {
+  render() {
     return (
-      <FLMC/>
+      <FLMC routes={routes} />
     )
   }
 }

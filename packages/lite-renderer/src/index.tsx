@@ -9,13 +9,18 @@ import Label from './form/elements/label/LabelElement.js';
 import { Route } from './router/route.js';
 import IDataController from 'flmc-data-layer/src/Base/IDataController';
 import { createOnHashChangeFunction } from './router/router.js';
+import { RootRouteCategory } from './router/route';
 
 export {
   FormController, Button,
   TextInput,
   Container,
-  Label
+  Label,
+
+  RootRouteCategory
 };
+
+
 
 export type Props = { routes: Route[] }
 type States = {
