@@ -39,9 +39,9 @@ export default class FLMC extends React.Component<Props, States> {
   componentDidMount() {
     let controllerBuilder = createOnHashChangeFunction(this.props.routes);
     window.onhashchange = () => {
-      this.setState({currentController: controllerBuilder()});
+      this.setState({currentController: controllerBuilder()!});
     };
-    this.setState({currentController: controllerBuilder()});
+    this.setState({currentController: controllerBuilder()!});
   }
 
   render() {
