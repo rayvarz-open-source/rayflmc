@@ -16,7 +16,7 @@ import Paper from '@material-ui/core/Paper';
 import Link from '@material-ui/core/Link';
 import MenuIcon from '@material-ui/icons/Menu';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
-import Sidebar, { SidebarItemWithChildren } from './Sidebar';
+import Sidebar, { SidebarItemWithChildren, SidebaSingleItem } from './Sidebar';
 import { Route } from '../router/route';
 
 const drawerWidth = 240;
@@ -105,9 +105,40 @@ type Props = {
   currentRoute: Route | null,
 }
 
+const createSidebarItems = ({ routes, currentRoute }: Props) => {
+
+  let categoryItems: any = {};
+  for (let route of routes) {
+    if (!((route.category.name) in categoryItems))
+      categoryItems[route.category.name] = [];
+
+    categoryItems[route.category.name]
+      .push(
+        <SidebaSingleItem
+          title={route.name}
+          onClick={() => console.log(route)}
+          icon={route.indicator || <div />} />);
+  }
+  let rootItems: any[] = [];
+  let otherItems: any[] = [];
+
+  for (let item in categoryItems) {
+    if (item == "root")
+      rootItems = [...rootItems, ...categoryItems[item]];
+    else
+      otherItems.push(<SidebarItemWithChildren
+        children={categoryItems[item]}
+        icon={<div />}
+        title={item}
+      />)
+  }
+
+  return [...otherItems, ...rootItems];
+}
+
 export default function Skeleton({ children, routes, currentRoute }: any) {
-  let routesProp = routes as Route[];
-  let currentRouteProp = currentRoute as Route[];
+  const routesProp = routes as Route[];
+  const currentRouteProp = currentRoute as Route[];
   const classes = useStyles() as any;
   const [open, setOpen] = React.useState(true);
   const handleDrawerOpen = () => {
@@ -133,7 +164,7 @@ export default function Skeleton({ children, routes, currentRoute }: any) {
             <MenuIcon />
           </IconButton>
           <Typography component="h1" variant="h6" color="inherit" noWrap className={classes.title}>
-            {currentRoute == null ? "Dashboard" : currentRoute.name }
+            {currentRouteProp == null ? "Dashboard" : currentRouteProp.name}
           </Typography>
         </Toolbar>
       </AppBar>
@@ -151,6 +182,7 @@ export default function Skeleton({ children, routes, currentRoute }: any) {
         </div>
         <Divider />
         <Sidebar>
+          {createSidebarItems({ routes: routesProp, currentRoute: currentRoute })}
         </Sidebar>
       </Drawer>
       <main className={classes.content}>
