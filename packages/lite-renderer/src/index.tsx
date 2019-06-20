@@ -14,15 +14,15 @@ export {
   Label
 };
 
-export type Props = { sampleController: FormController }
+export type Props = { }
 
 export default class FLMC extends React.Component<Props> {
   render() {
-    const { sampleController } = this.props
+    // const { sampleController } = this.props
 
     return (
       <Skeleton>
-        <FormView controller={sampleController}/>
+        {/* <FormView/> */}
       </Skeleton>
     )
   }

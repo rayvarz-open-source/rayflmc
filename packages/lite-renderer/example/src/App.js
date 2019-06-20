@@ -6,7 +6,7 @@ import SampleForm from './forms/sampleForm';
 export default class App extends Component {
   render () {
     return (
-      <FLMC sampleController={new SampleForm()}/>
+      <FLMC/>
     )
   }
 }
