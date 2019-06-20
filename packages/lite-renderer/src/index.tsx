@@ -6,6 +6,9 @@ import Button from './form/elements/button/ButtonElement.js';
 import TextInput from './form/elements/input/text/TextInputElement.js';
 import Container from './form/elements/container/ContainerElement.js';
 import Label from './form/elements/label/LabelElement.js';
+import { Route } from './router/route.js';
+import IDataController from 'flmc-data-layer/src/Base/IDataController';
+import { createOnHashChangeFunction } from './router/router.js';
 
 export {
   FormController, Button,
@@ -14,15 +17,33 @@ export {
   Label
 };
 
-export type Props = { }
+export type Props = { routes: Route[] }
+type States = {
+  currentController: IDataController | null
+}
 
-export default class FLMC extends React.Component<Props> {
+export default class FLMC extends React.Component<Props, States> {
+
+  constructor(props: Props) {
+    super(props);
+    this.state = {
+       currentController: null
+    }
+  }
+
+  componentDidMount() {
+    let controllerBuilder = createOnHashChangeFunction(this.props.routes);
+    window.onhashchange = () => {
+      this.setState({currentController: controllerBuilder()});
+    };
+  }
+
   render() {
-    // const { sampleController } = this.props
+    const { currentController } = this.state
 
     return (
       <Skeleton>
-        {/* <FormView/> */}
+        {currentController != null ? <FormView controller={this.state.currentController as FormController}/> : null}
       </Skeleton>
     )
   }
