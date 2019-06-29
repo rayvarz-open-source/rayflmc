@@ -1,7 +1,7 @@
 import { ContainerElement } from './ContainerElement';
 import Box from '@material-ui/core/Box';
 import * as React from 'react';
-import { Direction } from './Direction';
+import { Direction } from '../share/Direction';
 import IElement from 'flmc-data-layer/src/FormController/IElement';
 import { MapToView } from '../ElementToViewMapper';
 

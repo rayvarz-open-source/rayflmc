@@ -23,6 +23,8 @@
   },
   "dependencies": {
     "flmc-data-layer": "file:../data-layer",
+    "react-number-format": "^4.0.8",
+    "react-text-mask": "^5.4.3",
     "rxjs": "^6.5.2"
   },
   "peerDependencies": {

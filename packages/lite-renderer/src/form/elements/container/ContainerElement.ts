@@ -1,7 +1,7 @@
 import IElement, { ValidationResult, areElements } from 'flmc-data-layer/src/FormController/IElement';
 import { ElementType } from '../ElementType';
 import { Observable, BehaviorSubject, isObservable } from 'rxjs';
-import { Direction } from './Direction';
+import { Direction } from '../share/Direction';
 
 export class ContainerElement implements IElement {
   dispose(): void {}

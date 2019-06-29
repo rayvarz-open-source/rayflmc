@@ -10,14 +10,29 @@ import { Route } from './router/route.js';
 import IDataController from 'flmc-data-layer/src/Base/IDataController';
 import { createOnHashChangeFunction, changeRoute } from './router/router.js';
 import { RootRouteCategory } from './router/route';
+import {StyleType} from './form/elements/share/StyleType.js';
+import {StyleColor} from './form/elements/share/StyleColor.js';
+import {Alignment} from './form/elements/share/Alignment.js';
+import {TextSize} from './form/elements/share/TextSize.js';
+import {TextAlignment} from './form/elements/share/TextAlignment.js';
+import {DisplayType} from './form/elements/share/DisplayType.js';
+import {Size} from './form/elements/share/Size';
+import {TextInputStyleType} from './form/elements/input/text/TextInputStyleType';
 
 export {
   FormController, Button,
   TextInput,
   Container,
   Label,
-
+  StyleType,
+  StyleColor,
   RootRouteCategory,
+  Alignment,
+  Size,
+  TextSize,
+  TextAlignment,
+  DisplayType,
+  TextInputStyleType,
   changeRoute
 };
 

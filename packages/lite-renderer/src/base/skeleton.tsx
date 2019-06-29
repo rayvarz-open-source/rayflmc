@@ -29,6 +29,30 @@ const useStyles = makeStyles(theme => ({
   toolbar: {
     paddingRight: 24, // keep right padding when drawer closed
   },
+  pt: {
+    paddingTop: 80,
+  },
+  pb: {
+    paddingBottom: 80,
+  },
+  pl: {
+    paddingLeft: 80,
+  },
+  pr: {
+    paddingRight: 80,
+  },
+  mt: {
+    marginTop: 80,
+  },
+  mb: {
+    marginBottom: 80,
+  },
+  ml: {
+    marginLeft: 80,
+  },
+  mr: {
+    marginRight: 80,
+  },
   toolbarIcon: {
     display: 'flex',
     alignItems: 'center',
