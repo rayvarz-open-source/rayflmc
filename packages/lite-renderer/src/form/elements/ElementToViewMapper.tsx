@@ -10,6 +10,8 @@ import ContainerView from "./container/ContainerView";
 import { ContainerElement } from "./container/ContainerElement";
 import TextInputView from "./input/text/TextInputView";
 import { TextInputElement } from "./input/text/TextInputElement";
+import GridView from "./grid/GridView";
+import { GridElement } from "./grid/GridElement";
 
 type Props = {
     element: IElement
@@ -21,6 +23,7 @@ export function MapToView({ element }: Props) {
         case (ElementType.LABEL): return <LabelView element={element as LabelElement} />;
         case (ElementType.CONTAINER): return <ContainerView element={element as ContainerElement} />;
         case (ElementType.INPUT_TEXT): return <TextInputView element={element as TextInputElement} />;
+        case (ElementType.GRID): return <GridView element={element as GridElement}/>
     }
     throw Error(`can't map ${element.type} to a view`)
 }
