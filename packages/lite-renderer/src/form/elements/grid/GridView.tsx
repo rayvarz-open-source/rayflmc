@@ -1,8 +1,8 @@
 import * as React from 'react';
 import IElement from 'flmc-data-layer/src/FormController/IElement';
-import { AgGridReact } from 'ag-grid-react';
-import 'ag-grid-community/dist/styles/ag-grid.css';
-import 'ag-grid-community/dist/styles/ag-theme-balham.css';
+// import { AgGridReact } from 'ag-grid-react';
+// import 'ag-grid-community/dist/styles/ag-grid.css';
+// import 'ag-grid-community/dist/styles/ag-theme-balham.css';
 import { GridElement, ColumnDefinitions } from './GridElement';
 
 type Props = {
@@ -35,11 +35,11 @@ export default function GridView({ element }: Props) {
                 width: '100%'
             }}
         >
-            <AgGridReact
-                reactNext={true}
-                columnDefs={[{headerName: "Test"}]}
-                rowData={[]}>
-            </AgGridReact>
+            {/*<AgGridReact*/}
+            {/*    reactNext={true}*/}
+            {/*    columnDefs={[{headerName: "Test"}]}*/}
+            {/*    rowData={[]}>*/}
+            {/*</AgGridReact>*/}
         </div>
     )
 
