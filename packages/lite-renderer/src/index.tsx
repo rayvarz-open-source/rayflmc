@@ -5,6 +5,7 @@ import FormView from './form/FormView.js';
 import Button from './form/elements/button/ButtonElement.js';
 import TextInput from './form/elements/input/text/TextInputElement.js';
 import Container from './form/elements/container/ContainerElement.js';
+import Grid from './form/elements/grid/GridElement';
 import Label from './form/elements/label/LabelElement.js';
 import { Route } from './router/route.js';
 import IDataController from 'flmc-data-layer/src/Base/IDataController';
@@ -16,6 +17,7 @@ export {
   TextInput,
   Container,
   Label,
+  Grid,
 
   RootRouteCategory,
   changeRoute

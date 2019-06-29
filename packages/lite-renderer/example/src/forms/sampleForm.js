@@ -16,7 +16,8 @@ export default class SampleForm extends e.FormController {
         e.Label(null)
             .text(combineLatest(this.name, this.family).pipe(map((([name, family]) => `My name is ${name} and my family name is ${family}`)))),
         e.Button("Clear")
-            .onTap(() => { this.name.next(""); this.family.next("") })
+            .onTap(() => { this.name.next(""); this.family.next("") }),
+        e.Grid().columnDefinition([{headerName: "Test Header", field: "Test"}]),
     ]
 
 }
