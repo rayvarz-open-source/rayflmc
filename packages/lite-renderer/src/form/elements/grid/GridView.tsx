@@ -1,13 +1,14 @@
 import * as React from 'react';
 import IElement from 'flmc-data-layer/src/FormController/IElement';
 import { GridElement, ColumnDefinitions } from './GridElement';
-import MaterialTable, { Column, MTableFilterRow, MTableBodyRow } from 'material-table';
+import MaterialTable, { Column, MTableBodyRow } from 'material-table';
 import { resolve } from 'styled-jsx/css';
 import { Button, IconButton } from '@material-ui/core';
 import CloudUploadIcon from '@material-ui/icons/CloudUpload';
 import OkIcon from '@material-ui/icons/ThumbUp';
 import NOKIcon from '@material-ui/icons/ThumbDown';
 import Barcode from './BarcodeView';
+import CustomTableFilterRow from './CustomFilterRow';
 
 function getRandomIntInclusive(min, max) {
     min = Math.ceil(min);
@@ -37,7 +38,7 @@ type Props = {
 };
 
 type StateRaw = {
-    columns: Column[],
+    columns: (Column & any)[],
     data: any[],
 }
 
@@ -82,7 +83,8 @@ class Editable extends React.Component<any, StateRaw> {
                 { title: 'Category', field: 'category' },
                 {
                     title: 'Score', field: 'score',
-                    render: (rowData) => rowData.score > 50 ? <OkIcon /> : <NOKIcon />
+                    render: (rowData) => rowData.score > 50 ? <OkIcon /> : <NOKIcon />,
+                    filterType: 'range'
                 },
             ],
             data: createFakeData()
@@ -97,10 +99,10 @@ class Editable extends React.Component<any, StateRaw> {
                 data={this.state.data}
                 components={{
                     FilterRow: props => {
-                        return <MTableFilterRow {...props} />
+                        return <CustomTableFilterRow {...props} />
                     },
                     Row: props => {
-                        return <MTableBodyRow {...props}/>
+                        return <MTableBodyRow {...props} />
                     }
                 }}
                 options={{
