@@ -41,7 +41,7 @@ class Barcode extends React.Component<Props> {
     };
 
     render() {
-        return <img ref="renderElement" style={{width: '80%'}}/>;
+        return <img ref="renderElement" style={{width: '100px'}}/>;
     };
 
 

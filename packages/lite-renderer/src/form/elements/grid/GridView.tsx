@@ -5,7 +5,15 @@ import MaterialTable, { Column } from 'material-table';
 import { resolve } from 'styled-jsx/css';
 import { Button, IconButton } from '@material-ui/core';
 import CloudUploadIcon from '@material-ui/icons/CloudUpload';
+import OkIcon from '@material-ui/icons/ThumbUp';
+import NOKIcon from '@material-ui/icons/ThumbDown';
 import Barcode from './BarcodeView';
+
+function getRandomIntInclusive(min, max) {
+    min = Math.ceil(min);
+    max = Math.floor(max);
+    return Math.floor(Math.random() * (max - min + 1)) + min; //The maximum is inclusive and the minimum is inclusive 
+}
 
 function createFakeData(): any[] {
     let result: any[] = [];
@@ -14,11 +22,12 @@ function createFakeData(): any[] {
             id: i,
             title: `Title For Item #${i}`,
             subtitle: `Subtitle For Item #${i}`,
-            barcode: 2111341414532,
-            price: 13000,
+            barcode: getRandomIntInclusive(100000000000, 9999999999),
+            price: getRandomIntInclusive(10000, 500000),
             type: 'test',
             category: 'test',
-            image: 'https://via.placeholder.com/150'
+            image: 'https://via.placeholder.com/150',
+            score: getRandomIntInclusive(0, 100)
         });
     return result;
 }
@@ -50,7 +59,7 @@ class Editable extends React.Component<any, StateRaw> {
                     // editable: "never",
                     editComponent: (props) => (
                         <div style={{ display: 'inline-block', alignContent: 'center' }}>
-                            <IconButton color="primary" aria-label="Upload new image">
+                            <IconButton aria-label="Upload new image">
                                 <CloudUploadIcon />
                             </IconButton>
                             {props.rowData.image && <img src={props.rowData.image} style={{ width: 40, height: 40, borderRadius: '50%', position: 'absolute' }} />}
@@ -69,7 +78,10 @@ class Editable extends React.Component<any, StateRaw> {
                 { title: 'Price', field: 'price' },
                 { title: 'Type', field: 'type' },
                 { title: 'Category', field: 'category' },
-                { title: 'Score', field: 'score' },
+                {
+                    title: 'Score', field: 'score',
+                    render: (rowData) => rowData.score > 50 ? <OkIcon /> : <NOKIcon />
+                },
             ],
             data: createFakeData()
         }
