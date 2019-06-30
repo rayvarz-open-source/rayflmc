@@ -43,7 +43,7 @@ export default {
       // of a module in node_modules
       namedExports: {
         'node_modules/react-is/index.js': [
-          'ForwardRef'
+          'ForwardRef', 'isValidElementType', 'isContextConsumer'
         ]
       }
     })
