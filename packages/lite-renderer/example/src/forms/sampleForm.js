@@ -16,7 +16,7 @@ export default class SampleForm extends e.FormController {
         // e.Label("Name").textAlign(e.TextAlignment.Right),
         // e.Label("Name").displayType(e.DisplayType.Inline),
         // e.Label("Family").displayType(e.DisplayType.Inline),
-        e.TextInput(this.name).title("name").styleType(e.TextInputStyleType.Outlined).errorOrDescriptionText("test for desc"),
+        // e.TextInput(this.name).title("name").styleType(e.TextInputStyleType.Outlined).errorOrDescriptionText("test for desc"),
         // e.TextInput(this.name).title("name")
         //   .styleType(e.TextInputStyleType.Filled)
         //   .placeHolder("place holder test")
@@ -27,8 +27,8 @@ export default class SampleForm extends e.FormController {
         // e.TextInput(this.name).title("name").errorOrDescriptionText("test for desc").isDisable(false).endText("kg").isPassword(true),
         // e.Label("Family"),
         // e.TextInput(this.family),
-        e.Label(null)
-            .text(combineLatest(this.name, this.family).pipe(map((([name, family]) => `My name is ${name} and my family name is ${family}`)))),
+        // e.Label(null)
+        //     .text(combineLatest(this.name, this.family).pipe(map((([name, family]) => `My name is ${name} and my family name is ${family}`)))),
         e.Grid()
       //   e.Button("text")
       //     .styleType(e.StyleType.Text)
