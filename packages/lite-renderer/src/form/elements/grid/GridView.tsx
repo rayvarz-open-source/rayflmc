@@ -38,7 +38,7 @@ type Props = {
 };
 
 type StateRaw = {
-    columns: (Column & any)[],
+    columns: Column[],
     data: any[],
 }
 
@@ -53,6 +53,7 @@ class Editable extends React.Component<any, StateRaw> {
                     removable: true,
                     editable: "never",
                     filtering: false,
+                
                 },
                 {
                     title: 'Image', field: 'image',
@@ -107,8 +108,17 @@ class Editable extends React.Component<any, StateRaw> {
                 }}
                 options={{
                     actionsColumnIndex: -1,
-                    filtering: true
+                    filtering: true,
+                    padding: "dense",
+                    selection: true
                 }}
+                actions={[
+                    {
+                      tooltip: 'Remove All Selected Users',
+                      icon: 'delete',
+                      onClick: (evt, data) => alert('You want to delete ' + data.length + ' rows')
+                    }
+                  ]}
                 editable={{
                     isDeletable: (rowData) => false,
                     onRowAdd: newData =>
@@ -123,18 +133,6 @@ class Editable extends React.Component<any, StateRaw> {
                             }, 1000)
                         }),
                     onRowUpdate: (oldData, newData) => new Promise((resolve, reject) => resolve()),
-                    onRowDelete: oldData =>
-                        new Promise((resolve, reject) => {
-                            setTimeout(() => {
-                                {
-                                    let data = this.state.data;
-                                    const index = data.indexOf(oldData);
-                                    data.splice(index, 1);
-                                    this.setState({ data }, () => resolve());
-                                }
-                                resolve()
-                            }, 1000)
-                        }),
                 }}
             />
         )
