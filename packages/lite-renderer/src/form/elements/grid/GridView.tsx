@@ -1,7 +1,7 @@
 import * as React from 'react';
 import IElement from 'flmc-data-layer/src/FormController/IElement';
 import { GridElement, ColumnDefinitions } from './GridElement';
-import MaterialTable, { Column } from 'material-table';
+import MaterialTable, { Column, MTableFilterRow } from 'material-table';
 import { resolve } from 'styled-jsx/css';
 import { Button, IconButton } from '@material-ui/core';
 import CloudUploadIcon from '@material-ui/icons/CloudUpload';
@@ -51,6 +51,7 @@ class Editable extends React.Component<any, StateRaw> {
                     field: 'id',
                     removable: true,
                     editable: "never",
+                    filtering: false,
                 },
                 {
                     title: 'Image', field: 'image',
@@ -64,7 +65,8 @@ class Editable extends React.Component<any, StateRaw> {
                             </IconButton>
                             {props.rowData.image && <img src={props.rowData.image} style={{ width: 40, height: 40, borderRadius: '50%', position: 'absolute' }} />}
                         </div>
-                    )
+                    ),
+                    filtering: false,
                 },
                 { title: 'Title', field: 'title' },
                 {
@@ -93,8 +95,14 @@ class Editable extends React.Component<any, StateRaw> {
                 title="Item List"
                 columns={this.state.columns}
                 data={this.state.data}
+                components={{
+                    FilterRow: props => {
+                        return <MTableFilterRow {...props} />
+                    }
+                }}
                 options={{
-                    actionsColumnIndex: -1
+                    actionsColumnIndex: -1,
+                    filtering: true
                 }}
                 editable={{
                     isDeletable: (rowData) => false,

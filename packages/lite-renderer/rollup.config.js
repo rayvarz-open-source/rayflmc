@@ -44,6 +44,9 @@ export default {
       namedExports: {
         'node_modules/react-is/index.js': [
           'ForwardRef', 'isValidElementType', 'isContextConsumer'
+        ],
+        'node_modules/material-table/dist/index.js': [
+          'MTableFilterRow'
         ]
       }
     })
