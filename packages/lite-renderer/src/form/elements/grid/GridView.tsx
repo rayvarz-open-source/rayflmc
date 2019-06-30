@@ -53,7 +53,7 @@ class Editable extends React.Component<any, StateRaw> {
                     removable: true,
                     editable: "never",
                     filtering: false,
-                
+
                 },
                 {
                     title: 'Image', field: 'image',
@@ -91,36 +91,38 @@ class Editable extends React.Component<any, StateRaw> {
             data: createFakeData()
         }
     }
-
     render() {
         return (
             <MaterialTable
                 title="Item List"
                 columns={this.state.columns}
                 data={this.state.data}
+
                 components={{
                     FilterRow: props => {
                         return <CustomTableFilterRow {...props} />
                     },
                     Row: props => {
-                        return <MTableBodyRow {...props} />
+                        console.log(props);
+                        return <MTableBodyRow {...props} onRowClick={() => { props.data.tableData.editing = "update"; this.setState({}); }} />
                     }
                 }}
                 options={{
                     actionsColumnIndex: -1,
                     filtering: true,
                     padding: "dense",
-                    selection: true
+                    selection: true,
                 }}
                 actions={[
                     {
-                      tooltip: 'Remove All Selected Users',
-                      icon: 'delete',
-                      onClick: (evt, data) => alert('You want to delete ' + data.length + ' rows')
+                        tooltip: 'Remove All Selected Users',
+                        icon: 'delete',
+                        onClick: (evt, data) => alert('You want to delete ' + data.length + ' rows'),
                     }
-                  ]}
+                ]}
                 editable={{
                     isDeletable: (rowData) => false,
+                    isEditable: (rowData) => true,
                     onRowAdd: newData =>
                         new Promise((resolve, reject) => {
                             setTimeout(() => {
@@ -132,7 +134,7 @@ class Editable extends React.Component<any, StateRaw> {
                                 resolve()
                             }, 1000)
                         }),
-                    onRowUpdate: (oldData, newData) => new Promise((resolve, reject) => resolve()),
+                    onRowUpdate: (oldData, newData) => new Promise((resolve, reject) => setTimeout(() => resolve(), 1000)),
                 }}
             />
         )
