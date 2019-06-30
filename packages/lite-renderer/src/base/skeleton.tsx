@@ -119,6 +119,7 @@ const useStyles = makeStyles(theme => ({
     display: 'flex',
     overflow: 'auto',
     flexDirection: 'column',
+    maxHeight: '700px'
   },
   fixedHeight: {
     height: 240,
@@ -217,7 +218,7 @@ export default function Skeleton({ children, routes, currentRoute }: any) {
         <Container maxWidth="lg" className={classes.container}>
           <Grid container spacing={3}>
             <Grid item xs={12}>
-              <Paper className={classes.paper}>
+              <Paper>
                 {children}
               </Paper>
             </Grid>
