@@ -3,5 +3,7 @@ export enum Alignment {
     Right = "right",
     Bottom = "bottom",
     Left = "left",
+    Start="start",
+    End="end",
 
 }

@@ -3,6 +3,7 @@ import { ElementType } from "./ElementType";
 import * as React from 'react'
 
 import ButtonView from './button/ButtonView';
+import SelectView from './selectBox/SelectBoxView';
 import { ButtonElement } from "./button/ButtonElement";
 import LabelView from "./label/LabelView";
 import { LabelElement } from "./label/LabelElement";
@@ -12,6 +13,9 @@ import TextInputView from "./input/text/TextInputView";
 import { TextInputElement } from "./input/text/TextInputElement";
 import GridView from "./grid/GridView";
 import { GridElement } from "./grid/GridElement";
+import {SelectBoxElement} from "./selectBox/SelectBoxElement";
+import {SelectGroupElement} from "./selectGroup/SelectGroupElement";
+import SelectGroupView from "./selectGroup/SelectGroupView";
 
 type Props = {
     element: IElement
@@ -20,6 +24,8 @@ type Props = {
 export function MapToView({ element }: Props) {
     switch (element.type) {
         case (ElementType.BUTTON): return <ButtonView element={element as ButtonElement} />;
+        case (ElementType.SELECT_BOX): return <SelectView element={element as SelectBoxElement} />;
+        case (ElementType.SELECT_BOX_GROUP): return <SelectGroupView element={element as SelectGroupElement} />;
         case (ElementType.LABEL): return <LabelView element={element as LabelElement} />;
         case (ElementType.CONTAINER): return <ContainerView element={element as ContainerElement} />;
         case (ElementType.INPUT_TEXT): return <TextInputView element={element as TextInputElement} />;
