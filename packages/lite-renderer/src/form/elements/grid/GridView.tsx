@@ -5,6 +5,7 @@ import MaterialTable, { Column } from 'material-table';
 import { resolve } from 'styled-jsx/css';
 import { Button, IconButton } from '@material-ui/core';
 import CloudUploadIcon from '@material-ui/icons/CloudUpload';
+import Barcode from './BarcodeView';
 
 function createFakeData(): any[] {
     let result: any[] = [];
@@ -57,8 +58,14 @@ class Editable extends React.Component<any, StateRaw> {
                     )
                 },
                 { title: 'Title', field: 'title' },
-                { title: 'Subtitle', field: 'subtitle' },
-                { title: 'Barcode', field: 'barcode' },
+                {
+                    title: 'Subtitle', field: 'subtitle',
+
+                },
+                {
+                    title: 'Barcode', field: 'barcode',
+                    render: (rowData) => (<Barcode value={rowData.barcode} />)
+                },
                 { title: 'Price', field: 'price' },
                 { title: 'Type', field: 'type' },
                 { title: 'Category', field: 'category' },

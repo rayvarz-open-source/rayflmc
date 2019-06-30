@@ -23,6 +23,7 @@
   },
   "dependencies": {
     "flmc-data-layer": "file:../data-layer",
+    "jsbarcode": "^3.11.0",
     "material-table": "^1.40.0",
     "react-number-format": "^4.0.8",
     "react-text-mask": "^5.4.3",
