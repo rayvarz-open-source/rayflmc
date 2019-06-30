@@ -1,7 +1,7 @@
 import * as React from 'react';
 import IElement from 'flmc-data-layer/src/FormController/IElement';
 import { GridElement, ColumnDefinitions } from './GridElement';
-import MaterialTable, { Column, MTableFilterRow } from 'material-table';
+import MaterialTable, { Column, MTableFilterRow, MTableBodyRow } from 'material-table';
 import { resolve } from 'styled-jsx/css';
 import { Button, IconButton } from '@material-ui/core';
 import CloudUploadIcon from '@material-ui/icons/CloudUpload';
@@ -98,6 +98,9 @@ class Editable extends React.Component<any, StateRaw> {
                 components={{
                     FilterRow: props => {
                         return <MTableFilterRow {...props} />
+                    },
+                    Row: props => {
+                        return <MTableBodyRow {...props}/>
                     }
                 }}
                 options={{

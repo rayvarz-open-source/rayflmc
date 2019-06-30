@@ -46,7 +46,7 @@ export default {
           'ForwardRef', 'isValidElementType', 'isContextConsumer'
         ],
         'node_modules/material-table/dist/index.js': [
-          'MTableFilterRow'
+          'MTableFilterRow', 'MTableBodyRow'
         ]
       }
     })
