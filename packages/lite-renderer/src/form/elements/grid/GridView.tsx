@@ -14,6 +14,7 @@ function createFakeData(): any[] {
             price: 13000,
             type: 'test',
             category: 'test',
+            image: 'https://via.placeholder.com/150'
         });
     return result;
 }
@@ -37,7 +38,11 @@ class Editable extends React.Component<any, StateRaw> {
                     field: 'id',
                     removable: true,
                 },
-                { title: 'Image', field: 'image' },
+                {
+                    title: 'Image', field: 'image',
+                    render: rowData => <img src={rowData.image} style={{ width: 40, borderRadius: '50%' }} />,
+                    sorting: false
+                },
                 { title: 'Title', field: 'title' },
                 { title: 'Subtitle', field: 'subtitle' },
                 { title: 'Barcode', field: 'barcode' },
