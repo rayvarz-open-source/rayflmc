@@ -29,7 +29,7 @@ export default class SampleForm extends e.FormController {
         // e.TextInput(this.family),
         // e.Label(null)
         //     .text(combineLatest(this.name, this.family).pipe(map((([name, family]) => `My name is ${name} and my family name is ${family}`)))),
-        e.Grid()
+        e.Grid("Sample Grid")
       //   e.Button("text")
       //     .styleType(e.StyleType.Text)
       //       .onTap(() => { this.name.next(""); this.family.next("") }),

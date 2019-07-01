@@ -15,6 +15,7 @@ type RowActionDefinitions = {
     onRowDelete?: (oldData: any) => Promise<void>;
 };
 type GridOptions = Options;
+type Title = string;
 
 export class GridElement implements IElement {
     dispose(): void { }
@@ -28,7 +29,25 @@ export class GridElement implements IElement {
         throw new ValidationResult(true, "");
     }
 
+    titleContainer = new BehaviorSubject<Title>("");
 
+    private titleR(value: Title): GridElement {
+        this.titleContainer.next(value);
+        return this;
+    }
+
+    private titleO(value: Observable<Title>): GridElement {
+        value.subscribe({
+            next: v => this.titleContainer.next(v),
+        });
+        return this;
+    }
+
+    title(value: Observable<Title> | Title): GridElement {
+        if (isObservable(value)) this.titleO(value);
+        else this.titleR(value);
+        return this;
+    }
 
     columnDefinitionsContainer = new BehaviorSubject<ColumnDefinitions>([]);
 
@@ -158,8 +177,8 @@ export class GridElement implements IElement {
 
 }
 
-const Grid = (): GridElement => {
-    let element = new GridElement();
+const Grid = (title: Title | Observable<Title>): GridElement => {
+    let element = new GridElement().title(title);
     return element;
 };
 
