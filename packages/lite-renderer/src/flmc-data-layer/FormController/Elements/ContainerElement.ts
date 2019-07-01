@@ -1,13 +1,17 @@
-import IElement, { ValidationResult, areElements } from '../../../flmc-data-layer/FormController/IElement';
-import { ElementType } from '../ElementType';
+import IElement, { ValidationResult, areElements } from '../IElement';
+import { ElementTypes } from './ElementTypes';
 import { Observable, BehaviorSubject, isObservable } from 'rxjs';
-import { Direction } from '../share/Direction';
+
+export enum Direction {
+  Column = 0,
+  Row = 1,
+}
 
 export class ContainerElement implements IElement {
   dispose(): void {}
 
   get type(): string {
-    return ElementType.CONTAINER;
+    return ElementTypes.Container;
   }
 
   childrenContainer!: BehaviorSubject<IElement[]>;

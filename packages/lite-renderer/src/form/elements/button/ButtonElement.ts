@@ -1,4 +1,4 @@
-import IElement, { ValidationResult } from 'flmc-data-layer/src/FormController/IElement';
+import IElement, { ValidationResult } from '../../../flmc-data-layer/FormController/IElement';
 import { ElementType } from '../ElementType';
 import { Observable, BehaviorSubject, isObservable } from 'rxjs';
 

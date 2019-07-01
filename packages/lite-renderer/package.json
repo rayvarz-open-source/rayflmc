@@ -5,8 +5,8 @@
   "author": "SahandAkbarzadeh",
   "license": "MIT",
   "repository": "rayvarz-open-source/FLMC-core",
-  "main": "dist/index.js",
-  "module": "dist/index.es.js",
+  "main": "build/index.js",
+  "module": "build/index.es.js",
   "jsnext:main": "dist/index.es.js",
   "engines": {
     "node": ">=8",
@@ -24,7 +24,6 @@
     "version:major": "npm version major && git add . && git commit -m \"Bump Version\""
   },
   "dependencies": {
-    "flmc-data-layer": "file:../data-layer",
     "material-table": "^1.40.0",
     "react-number-format": "^4.0.8",
     "react-text-mask": "^5.4.3",

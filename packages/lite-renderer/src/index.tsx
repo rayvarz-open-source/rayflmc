@@ -1,6 +1,6 @@
 import * as React from 'react'
 import Skeleton from './base/Skeleton.js';
-import FormController from 'flmc-data-layer/src/FormController/FormController';
+import FormController from './flmc-data-layer/FormController/FormController';
 import FormView from './form/FormView.js';
 import Button from './form/elements/button/ButtonElement.js';
 import SelectBox from './form/elements/selectBox/SelectBoxElement';
@@ -10,7 +10,7 @@ import Container from './form/elements/container/ContainerElement.js';
 import Grid from './form/elements/grid/GridElement';
 import Label from './form/elements/label/LabelElement.js';
 import { Route } from './router/route.js';
-import IDataController from 'flmc-data-layer/src/Base/IDataController';
+import IDataController from './flmc-data-layer/Base/IDataController';
 import { createOnHashChangeFunction, changeRoute } from './router/router.js';
 import { RootRouteCategory } from './router/route';
 import {StyleType} from './form/elements/share/StyleType.js';

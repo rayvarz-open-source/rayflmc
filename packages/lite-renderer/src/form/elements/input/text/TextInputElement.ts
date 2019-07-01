@@ -1,7 +1,7 @@
-import IElement, { ValidationResult } from 'flmc-data-layer/src/FormController/IElement';
+import IElement, { ValidationResult } from '../../../../flmc-data-layer/FormController/IElement';
 import { ElementType } from '../../ElementType';
 import { Observable, BehaviorSubject, isObservable } from 'rxjs';
-import { isSubject } from 'flmc-data-layer/src/FormController/Elements/RxUtils';
+import { isSubject } from '../../../../flmc-data-layer/FormController/Elements/RxUtils';
 import {TextInputStyleType} from "./TextInputStyleType";
 
 export class TextInputElement implements IElement {
