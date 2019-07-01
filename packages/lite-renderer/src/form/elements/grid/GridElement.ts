@@ -28,30 +28,133 @@ export class GridElement implements IElement {
         throw new ValidationResult(true, "");
     }
 
-    // columnDefinitionContainer = new BehaviorSubject<ColumnDefinitions>([]);
 
-    // private columnDefinitionR(definitions: ColumnDefinitions): GridElement {
-    //     this.columnDefinitionContainer.next(definitions);
-    //     return this;
-    // }
 
-    // private columnDefinitionO(definitions: Observable<IElement[]>): GridElement {
-    //     definitions.subscribe({
-    //         next: v => this.columnDefinitionContainer.next(v),
-    //     });
-    //     return this;
-    // }
+    columnDefinitionsContainer = new BehaviorSubject<ColumnDefinitions>([]);
 
-    // columnDefinition(definitions: Observable<IElement[]> | ColumnDefinitions): GridElement {
-    //     if (isObservable(definitions)) this.columnDefinitionO(definitions);
-    //     else this.columnDefinitionR(definitions);
-    //     return this;
-    // }
-
-    dataSource() {
-        // TODO: implmenet
-        throw new Error("Not implemented");
+    private columnDefinitionsR(value: ColumnDefinitions): GridElement {
+        this.columnDefinitionsContainer.next(value);
+        return this;
     }
+
+    private columnDefinitionsO(value: Observable<ColumnDefinitions>): GridElement {
+        value.subscribe({
+            next: v => this.columnDefinitionsContainer.next(v),
+        });
+        return this;
+    }
+
+    columnDefinitions(value: Observable<ColumnDefinitions> | ColumnDefinitions): GridElement {
+        if (isObservable(value)) this.columnDefinitionsO(value);
+        else this.columnDefinitionsR(value);
+        return this;
+    }
+
+
+    actionDefinitionsContainer = new BehaviorSubject<ActionDefinitions>([]);
+
+    private actionDefinitionsR(value: ActionDefinitions): GridElement {
+        this.actionDefinitionsContainer.next(value);
+        return this;
+    }
+
+    private actionDefinitionsO(value: Observable<ActionDefinitions>): GridElement {
+        value.subscribe({
+            next: v => this.actionDefinitionsContainer.next(v),
+        });
+        return this;
+    }
+
+    actionDefinitions(value: Observable<ActionDefinitions> | ActionDefinitions): GridElement {
+        if (isObservable(value)) this.actionDefinitionsO(value);
+        else this.actionDefinitionsR(value);
+        return this;
+    }
+
+
+    componentsOverrideContainer = new BehaviorSubject<ComponentsOverride>({});
+
+    private componentsOverrideR(value: ComponentsOverride): GridElement {
+        this.componentsOverrideContainer.next(value);
+        return this;
+    }
+
+    private componentsOverrideO(value: Observable<ComponentsOverride>): GridElement {
+        value.subscribe({
+            next: v => this.componentsOverrideContainer.next(v),
+        });
+        return this;
+    }
+
+    componentsOverride(value: Observable<ComponentsOverride> | ComponentsOverride): GridElement {
+        if (isObservable(value)) this.componentsOverrideO(value);
+        else this.componentsOverrideR(value);
+        return this;
+    }
+
+
+    datasourceContainer = new BehaviorSubject<Datasource>([]);
+
+    private datasourceR(value: Datasource): GridElement {
+        this.datasourceContainer.next(value);
+        return this;
+    }
+
+    private datasourceO(value: Observable<Datasource>): GridElement {
+        value.subscribe({
+            next: v => this.datasourceContainer.next(v),
+        });
+        return this;
+    }
+
+    datasource(value: Observable<Datasource> | Datasource): GridElement {
+        if (isObservable(value)) this.datasourceO(value);
+        else this.datasourceR(value);
+        return this;
+    }
+
+
+    rowActionDefinitionsContainer = new BehaviorSubject<RowActionDefinitions>([]);
+
+    private rowActionDefinitionsR(value: RowActionDefinitions): GridElement {
+        this.rowActionDefinitionsContainer.next(value);
+        return this;
+    }
+
+    private rowActionDefinitionsO(value: Observable<RowActionDefinitions>): GridElement {
+        value.subscribe({
+            next: v => this.rowActionDefinitionsContainer.next(v),
+        });
+        return this;
+    }
+
+    rowActionDefinitions(value: Observable<RowActionDefinitions> | RowActionDefinitions): GridElement {
+        if (isObservable(value)) this.rowActionDefinitionsO(value);
+        else this.rowActionDefinitionsR(value);
+        return this;
+    }
+
+
+    gridOptionsContainer = new BehaviorSubject<GridOptions>([]);
+
+    private gridOptionsR(value: GridOptions): GridElement {
+        this.gridOptionsContainer.next(value);
+        return this;
+    }
+
+    private gridOptionsO(value: Observable<GridOptions>): GridElement {
+        value.subscribe({
+            next: v => this.gridOptionsContainer.next(v),
+        });
+        return this;
+    }
+
+    gridOptions(value: Observable<GridOptions> | GridOptions): GridElement {
+        if (isObservable(value)) this.gridOptionsO(value);
+        else this.gridOptionsR(value);
+        return this;
+    }
+
 
 }
 
