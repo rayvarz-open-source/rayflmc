@@ -8,13 +8,58 @@
     <br />
     <button onclick="generate()">generate</button>
     <br />
-    <h3>Output:</h3>
-    <textarea id="output" multiple="true" style="width: 600px;height:600px"></textarea>
+
+    <div>
+            <h3>Output Element:</h3>
+            <textarea id="output" multiple="true" style="width: 600px;height:400px"></textarea>
+            <h3>Output View:</h3>
+            <textarea id="outputView" multiple="true" style="width: 600px;height:400px"></textarea>
+    </div>
+
 
     <script>
 
         function jsLcfirst(string) {
             return string.charAt(0).toLowerCase() + string.slice(1);
+        }
+
+        function generateReactUseState(typename) {
+            let lowercaseTypeName = jsLcfirst(typename);
+            return `const [${lowercaseTypeName}, set${typename}] = React.useState();`;
+        }
+
+        function generateSubscribe(typename) {
+            let lowercaseTypeName = jsLcfirst(typename);
+            return `
+let ${lowercaseTypeName}Sub = element.${lowercaseTypeName}Container.subscribe({
+    next: v => set${typename}(v)
+});
+`
+        }
+
+        function generateUnSubscribe(typename) {
+            let lowercaseTypeName = jsLcfirst(typename);
+            return `${lowercaseTypeName}Sub.unsubscribe();`;
+        }
+
+        function generateReactStatesWithTypename(typenames) {
+            let useStates = typenames.map(typename => generateReactUseState(typename));
+            let subscribes = typenames.map(typename => generateSubscribe(typename));
+            let unsubscribes = typenames.map(typename => generateUnSubscribe(typename));
+
+            return `
+${useStates.join("\n")}
+
+React.useEffect(() => {
+
+    ${subscribes.join("\n")}
+
+    return () => {
+        ${unsubscribes.join("\n")}
+    }
+})
+`
+
         }
 
         function generateAttributeForTypeName(typename, elementType) {
@@ -48,6 +93,7 @@ ${lowercaseTypeName}(value: Observable<${typename}> | ${typename}): ${elementTyp
         let elementTypeDOM = document.getElementById("input_element_type");
         let TypeNamesDOM = document.getElementById("inputTypes");
         let outputDOM = document.getElementById("output");
+        let outputViewDOM = document.getElementById("outputView");
 
         function generate() {
 
@@ -57,7 +103,7 @@ ${lowercaseTypeName}(value: Observable<${typename}> | ${typename}): ${elementTyp
                 codeBlocks.push(generateAttributeForTypeName(line, elementTypeDOM.value.trim()));
 
             outputDOM.value = codeBlocks.join("\n");
-
+            outputViewDOM.value = generateReactStatesWithTypename(TypeNamesDOM.value.trim().split("\n"));
 
         }
 
