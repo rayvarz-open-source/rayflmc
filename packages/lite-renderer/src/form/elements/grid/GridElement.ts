@@ -133,7 +133,7 @@ export class GridElement implements IElement {
     }
 
 
-    rowActionDefinitionsContainer = new BehaviorSubject<RowActionDefinitions>([]);
+    rowActionDefinitionsContainer = new BehaviorSubject<RowActionDefinitions>({});
 
     private rowActionDefinitionsR(value: RowActionDefinitions): GridElement {
         this.rowActionDefinitionsContainer.next(value);
@@ -154,7 +154,7 @@ export class GridElement implements IElement {
     }
 
 
-    gridOptionsContainer = new BehaviorSubject<GridOptions>([]);
+    gridOptionsContainer = new BehaviorSubject<GridOptions>({});
 
     private gridOptionsR(value: GridOptions): GridElement {
         this.gridOptionsContainer.next(value);
