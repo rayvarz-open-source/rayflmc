@@ -1,6 +1,6 @@
 {
-  "name": "lite-renderer",
-  "version": "1.0.0",
+  "name": "flmc-lite-renderer",
+  "version": "0.0.1",
   "description": "",
   "author": "SahandAkbarzadeh",
   "license": "MIT",
@@ -19,7 +19,9 @@
     "start": "rollup -c -w",
     "prepare": "npm run build",
     "predeploy": "cd example && npm install && npm run build",
-    "deploy": "gh-pages -d example/build"
+    "deploy": "gh-pages -d example/build",
+    "version:patch": "npm version patch && git add . && git commit -m \"Bump Version\"",
+    "version:major": "npm version major && git add . && git commit -m \"Bump Version\""
   },
   "dependencies": {
     "flmc-data-layer": "file:../data-layer",
