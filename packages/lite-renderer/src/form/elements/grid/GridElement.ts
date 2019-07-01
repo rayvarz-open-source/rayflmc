@@ -1,6 +1,20 @@
 import IElement, { ValidationResult } from 'flmc-data-layer/src/FormController/IElement';
 import { ElementType } from '../ElementType';
 import { Observable, BehaviorSubject, isObservable } from 'rxjs';
+import { Column, Action, Components, Query, QueryResult, Options } from 'material-table'
+
+type ColumnDefinitions = Column[];
+type ActionDefinitions = (Action | ((rowData: any) => Action))[];
+type ComponentsOverride = Components;
+type Datasource = any[] | ((query: Query) => Promise<QueryResult>);
+type RowActionDefinitions = {
+    isEditable?: (rowData: any) => boolean;
+    isDeletable?: (rowData: any) => boolean;
+    onRowAdd?: (newData: any) => Promise<void>;
+    onRowUpdate?: (newData: any, oldData?: any) => Promise<void>;
+    onRowDelete?: (oldData: any) => Promise<void>;
+};
+type GridOptions = Options;
 
 export class GridElement implements IElement {
     dispose(): void { }
