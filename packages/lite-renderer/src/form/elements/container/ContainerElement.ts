@@ -2,6 +2,7 @@ import IElement, { ValidationResult, areElements } from '../../../flmc-data-laye
 import { ElementType } from '../ElementType';
 import { Observable, BehaviorSubject, isObservable } from 'rxjs';
 import { Direction } from '../share/Direction';
+import { isArray } from 'util';
 
 export class ContainerElement implements IElement {
   dispose(): void {}
@@ -31,7 +32,7 @@ export class ContainerElement implements IElement {
   }
 
   children(children_: Observable<IElement[]> | IElement[]): ContainerElement {
-    if (areElements(children_)) return this.childrenR(children_);
+    if (isArray(children_) && areElements(children_)) return this.childrenR(children_); // TODO: move array check in areElements
     if (isObservable(children_)) return this.childrenO(children_);
     throw new Error('given children type is not support');
   }
