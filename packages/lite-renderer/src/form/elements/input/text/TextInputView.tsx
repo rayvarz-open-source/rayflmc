@@ -105,9 +105,9 @@ export default function TextInputView({element}: Props) {
   })
 
   function handleChange(event: React.ChangeEvent<HTMLInputElement>) {
-   // if (event.target.value == inputValue) return;
-   // element.textInputValue.next(event.target.value);
-   setValue(event.target.value)
+   if (event.target.value == inputValue) return;
+   element.textInputValue.next(event.target.value);
+   // setValue(event.target.value)
   }
   function handleChanges(event) {
     if (event.value == inputValue) return;
