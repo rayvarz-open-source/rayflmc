@@ -156,7 +156,6 @@ export default function TextInputView({element}: Props) {
                disabled={disabled}
                error={isInErrorMode}
                InputProps={{
-                 inputComponent: TextMaskCustom,
                  endAdornment: endIcon.length > 0 ?
                    (<InputAdornment position="end">
 
