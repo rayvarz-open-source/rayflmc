@@ -61,7 +61,8 @@ export default function DatePickerView({ element }: Props) {
       <DatePicker 
         labelFunc={date => (date ? date.format("jYYYY/jMM/jDD") : "")}
         value={selectedDate}
-        okLabel={"salam"}
+        okLabel="تأیید"
+        cancelLabel="لغو"
         onAccept={(date) => {
           let myDate:Date=(date as any)._d;
           console.log(myDate)
