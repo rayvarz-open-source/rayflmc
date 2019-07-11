@@ -18,6 +18,8 @@ import {SelectGroupElement} from "./selectGroup/SelectGroupElement";
 import {DatePickerElement} from "./picker/date/DatePickerElement";
 import SelectGroupView from "./selectGroup/SelectGroupView";
 import DatePickerView from "./picker/date/DatePickerView";
+import TimePickerView from "./picker/time/TimePickerView";
+import {TimePickerElement} from "./picker/time/TimePickerElement";
 
 type Props = {
     element: IElement
@@ -28,6 +30,7 @@ export function MapToView({ element }: Props) {
         case (ElementType.BUTTON): return <ButtonView element={element as ButtonElement} />;
         case (ElementType.SELECT_BOX): return <SelectView element={element as SelectBoxElement} />;
         case (ElementType.DATE_PICKER): return <DatePickerView element={element as DatePickerElement} />;
+        case (ElementType.TIME_PICKER): return <TimePickerView element={element as TimePickerElement} />;
         case (ElementType.SELECT_BOX_GROUP): return <SelectGroupView element={element as SelectGroupElement} />;
         case (ElementType.LABEL): return <LabelView element={element as LabelElement} />;
         case (ElementType.CONTAINER): return <ContainerView element={element as ContainerElement} />;

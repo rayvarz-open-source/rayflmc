@@ -23,6 +23,7 @@ import {DisplayType} from './form/elements/share/DisplayType.js';
 import {Size} from './form/elements/share/Size';
 import {TextInputStyleType} from './form/elements/input/text/TextInputStyleType';
 import {SelectBoxStyleType} from './form/elements/selectBox/SelectBoxStyleType';
+import TimePicker from './form/elements/picker/time/TimePickerElement.js';
 
 export {
   FormController, Button,
@@ -31,6 +32,7 @@ export {
   Container,
   SelectBoxGroup,
   DatePicker,
+  TimePicker,
   Label,
   StyleType,
   StyleColor,
