@@ -20,6 +20,8 @@ import SelectGroupView from "./selectGroup/SelectGroupView";
 import DatePickerView from "./picker/date/DatePickerView";
 import TimePickerView from "./picker/time/TimePickerView";
 import {TimePickerElement} from "./picker/time/TimePickerElement";
+import {ModalElement} from "./modal/ModalElement";
+import ModalView from "./modal/ModalView";
 
 type Props = {
     element: IElement
@@ -28,6 +30,7 @@ type Props = {
 export function MapToView({ element }: Props) {
     switch (element.type) {
         case (ElementType.BUTTON): return <ButtonView element={element as ButtonElement} />;
+        case (ElementType.MODAL): return <ModalView element={element as ModalElement} />;
         case (ElementType.SELECT_BOX): return <SelectView element={element as SelectBoxElement} />;
         case (ElementType.DATE_PICKER): return <DatePickerView element={element as DatePickerElement} />;
         case (ElementType.TIME_PICKER): return <TimePickerView element={element as TimePickerElement} />;

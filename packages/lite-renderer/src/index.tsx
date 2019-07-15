@@ -24,6 +24,7 @@ import {Size} from './form/elements/share/Size';
 import {TextInputStyleType} from './form/elements/input/text/TextInputStyleType';
 import {SelectBoxStyleType} from './form/elements/selectBox/SelectBoxStyleType';
 import TimePicker from './form/elements/picker/time/TimePickerElement.js';
+import Modal from './form/elements/modal/ModalElement';
 
 export {
   FormController, Button,
@@ -33,6 +34,7 @@ export {
   SelectBoxGroup,
   DatePicker,
   TimePicker,
+  Modal,
   Label,
   StyleType,
   StyleColor,
