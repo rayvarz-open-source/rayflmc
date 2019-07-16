@@ -7,15 +7,33 @@ export class ModalElement implements IElement {
   dispose(): void {}
 
   get type(): string {
-    return ElementType.CONTAINER;
+    return ElementType.MODAL;
   }
 
   childrenContainer!: BehaviorSubject<IElement[]>;
+  buttonIsDisabled = new BehaviorSubject<boolean>(false);
+  onCloseCallBack = new BehaviorSubject<VoidFunction | null>(null);
 
   validate(): ValidationResult {
     return new ValidationResult(this.childrenContainer.value.map(i => i.validate().isValid).reduce((p, c) => p && c));
   }
+  private onCloseR(action: VoidFunction): ModalElement {
+    this.onCloseCallBack.next(action);
+    return this;
+  }
 
+  private onCloseO(action: Observable<VoidFunction>): ModalElement {
+    action.subscribe({
+      next: v => this.onCloseCallBack.next(v),
+    });
+    return this;
+  }
+
+  onClose(action: Observable<VoidFunction> | VoidFunction): ModalElement {
+    if (typeof action === 'function') return this.onCloseR(action);
+    if (isObservable(action)) return this.onCloseO(action);
+    throw new Error('given action type is not supported');
+  }
   private childrenR(children: IElement[]): ModalElement {
     if (this.childrenContainer == null) this.childrenContainer = new BehaviorSubject<IElement[]>([]);
     this.childrenContainer.next(children);
@@ -35,7 +53,22 @@ export class ModalElement implements IElement {
     if (areElements(children_)) return this.childrenR(children_); // TODO: move array check in areElements
     throw new Error('given children type is not support');
   }
+  private disabledR(isDisabled: boolean): ModalElement {
+    this.buttonIsDisabled.next(isDisabled);
+    return this;
+  }
+  private disabledO(isDisabled: Observable<boolean>): ModalElement {
+    isDisabled.subscribe({
+      next: v => this.buttonIsDisabled.next(v),
+    });
+    return this;
+  }
 
+  disabled(isDisabled: Observable<boolean> | boolean): ModalElement {
+    if (typeof isDisabled === 'boolean') return this.disabledR(isDisabled);
+    if (isObservable(isDisabled)) return this.disabledO(isDisabled);
+    throw new Error('given isDisabled is not supported');
+  }
   // direction
 
   directionValue = new BehaviorSubject<Direction>(Direction.Column);
@@ -59,10 +92,10 @@ export class ModalElement implements IElement {
   }
 }
 
-const Container = (children?: Observable<IElement[]> | IElement[]): ModalElement => {
+const Modal = (children?: Observable<IElement[]> | IElement[]): ModalElement => {
   let element = new ModalElement();
   if (children) return element.children(children);
   return element;
 };
 
-export default Container;
+export default Modal;
