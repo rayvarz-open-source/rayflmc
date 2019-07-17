@@ -1,8 +1,9 @@
 import IElement, { ValidationResult } from '../../../flmc-data-layer/FormController/IElement';
 import { ElementType } from '../ElementType';
 import { Observable, BehaviorSubject, isObservable } from 'rxjs';
+import {BaseElement} from "../base/BaseElement";
 
-export class LabelElement implements IElement {
+export class LabelElement extends BaseElement implements IElement {
   dispose(): void {}
 
   get type(): string {

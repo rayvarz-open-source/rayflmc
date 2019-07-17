@@ -2,8 +2,9 @@ import IElement, { ValidationResult } from '../../../../flmc-data-layer/FormCont
 import { ElementType } from '../../ElementType';
 import { Observable, BehaviorSubject, isObservable } from 'rxjs';
 import { isSubject } from '../../../../flmc-data-layer/FormController/Elements/RxUtils';
+import {BaseElement} from "../../base/BaseElement";
 
-export class TimePickerElement implements IElement {
+export class TimePickerElement extends BaseElement implements IElement {
   dispose(): void {}
 
   get type(): string {

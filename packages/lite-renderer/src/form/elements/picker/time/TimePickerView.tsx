@@ -10,6 +10,7 @@ import {
   TimePicker,
   MuiPickersUtilsProvider,
 } from "@material-ui/pickers";
+import {VisibilityType} from "../../../..";
 type Props = {
   element: TimePickerElement
 }
@@ -23,6 +24,8 @@ export default function TimePickerView({ element }: Props) {
   const [textStyle, setTextStyle] = React.useState();
   const [noWrap, setNoWrap] = React.useState();
   const [gutterBottom, setGutterBottom] = React.useState();
+  const [visibility, setVisibility] = React.useState('');
+
   jMoment.loadPersian({ dialect: "persian-modern", usePersianDigits: true });
 
   React.useEffect(() => {
@@ -44,7 +47,9 @@ export default function TimePickerView({ element }: Props) {
     let gutterBottomSub = element.labelIsGutterBottom.subscribe({
       next: (v) => setGutterBottom(v)
     });
-
+    let visibilitySub = element.elementVisibility.subscribe({
+      next: (v) => setVisibility(v)
+    });
     return () => {
       textSub.unsubscribe();
       timeSub.unsubscribe();
@@ -52,6 +57,8 @@ export default function TimePickerView({ element }: Props) {
       displayTypeSub.unsubscribe();
       noWrap.unsubscribe();
       gutterBottomSub.unsubscribe();
+      visibilitySub.unsubscribe();
+
     }
 
   })
@@ -59,6 +66,8 @@ export default function TimePickerView({ element }: Props) {
     <MuiPickersUtilsProvider utils={JalaliUtils} locale="fa">
 
       <TimePicker
+        style={visibility == VisibilityType.Gone ? element.goneStyle : visibility == VisibilityType.Hidden ? element.hiddenStyle : element.showStyle}
+
         okLabel="تأیید"
         cancelLabel="لغو"
         labelFunc={date => (date ? date.format("hh:mm") : "")}

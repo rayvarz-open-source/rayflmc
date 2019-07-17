@@ -2,7 +2,7 @@ import {ModalElement} from './ModalElement';
 import Box from '@material-ui/core/Box';
 import * as React from 'react';
 import {Direction} from '../share/Direction';
-import IElement from 'flmc-data-layer/src/FormController/IElement';
+import IElement from 'flmc-data-layer/FormController/IElement';
 import {MapToView} from '../ElementToViewMapper';
 import Modal from '@material-ui/core/Modal';
 import {Container} from "@material-ui/core";

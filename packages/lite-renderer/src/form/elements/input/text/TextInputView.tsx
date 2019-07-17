@@ -13,6 +13,7 @@ import IconButton from '@material-ui/core/IconButton';
 import Icon from "@material-ui/core/Icon";
 import MaskedInput from 'react-text-mask';
 import NumberFormat from 'react-number-format';
+import {VisibilityType} from "../../../..";
 
 type Props = {
   element: TextInputElement
@@ -32,6 +33,8 @@ export default function TextInputView({element}: Props) {
   const [errorOrDescriptionText, setErrorOrDescriptionText] = React.useState("");
   const [styleType, setStyleType] = React.useState();
   const [isPassword, setIsPassword] = React.useState(false);
+  const [visibility, setVisibility] = React.useState('');
+
   let onEndIconClick: VoidFunction = () => {
   };
   let onStartIconClick: VoidFunction = () => {
@@ -85,6 +88,9 @@ export default function TextInputView({element}: Props) {
     let isPasswordSub = element.textInputIsPassword.subscribe({
       next: (v) => setIsPassword(v)
     });
+    let visibilitySub = element.elementVisibility.subscribe({
+      next: (v) => setVisibility(v)
+    });
     return () => {
       valueSub.unsubscribe();
       titleSub.unsubscribe();
@@ -100,22 +106,23 @@ export default function TextInputView({element}: Props) {
       startIconClickSub.unsubscribe();
       endIconClickSub.unsubscribe();
       isPasswordSub.unsubscribe();
+      visibilitySub.unsubscribe();
     }
 
   })
 
   function handleChange(event: React.ChangeEvent<HTMLInputElement>) {
-   if (event.target.value == inputValue) return;
-   element.textInputValue.next(event.target.value);
-   // setValue(event.target.value)
+    if (event.target.value == inputValue) return;
+    element.textInputValue.next(event.target.value);
+    // setValue(event.target.value)
   }
+
   function handleChanges(event) {
     if (event.value == inputValue) return;
-    console.log(`updated with`,event);
+    console.log(`updated with`, event);
     element.textInputValue.next(event.value);
 
   }
-
 
 
   function TextMaskCustom(props) {
@@ -145,44 +152,45 @@ export default function TextInputView({element}: Props) {
 
   return (
     <TextField
-               title={name}
-               placeholder={placeHolder}
-               variant={styleType}
-               type={isPassword ? 'password' : 'text'}
-               label={title}
-               helperText={errorOrDescriptionText}
-               onChange={handleChange}
-               value={inputValue}
-               disabled={disabled}
-               error={isInErrorMode}
-               InputProps={{
-                 endAdornment: endIcon.length > 0 ?
-                   (<InputAdornment position="end">
+      style={visibility == VisibilityType.Gone ? element.goneStyle : visibility == VisibilityType.Hidden ? element.hiddenStyle : element.showStyle}
+      title={name}
+      placeholder={placeHolder}
+      variant={styleType}
+      type={isPassword ? 'password' : 'text'}
+      label={title}
+      helperText={errorOrDescriptionText}
+      onChange={handleChange}
+      value={inputValue}
+      disabled={disabled}
+      error={isInErrorMode}
+      InputProps={{
+        endAdornment: endIcon.length > 0 ?
+          (<InputAdornment position="end">
 
-                     <IconButton
-                       edge="end"
-                       aria-label="Toggle password visibility"
-                       onClick={onEndIconClick}
-                     >
-                       <Icon>{endIcon}</Icon>
-                     </IconButton>
-                   </InputAdornment>) : endText.length > 0 ? (
-                     <InputAdornment position="end">{endText}</InputAdornment>) : null
-                 ,
-                 startAdornment: startIcon.length > 0 ? (
+            <IconButton
+              edge="end"
+              aria-label="Toggle password visibility"
+              onClick={onEndIconClick}
+            >
+              <Icon>{endIcon}</Icon>
+            </IconButton>
+          </InputAdornment>) : endText.length > 0 ? (
+            <InputAdornment position="end">{endText}</InputAdornment>) : null
+        ,
+        startAdornment: startIcon.length > 0 ? (
 
-                   <InputAdornment position="start">
+          <InputAdornment position="start">
 
-                     <IconButton
-                       edge="start"
-                       aria-label="Toggle password visibility"
-                       onClick={onStartIconClick}
-                     >
-                       <Icon>{startIcon}</Icon>
-                     </IconButton>
-                   </InputAdornment>) : startText.length > 0 ? (
-                   <InputAdornment position="end">{startText}</InputAdornment>) : null,
-               }}
+            <IconButton
+              edge="start"
+              aria-label="Toggle password visibility"
+              onClick={onStartIconClick}
+            >
+              <Icon>{startIcon}</Icon>
+            </IconButton>
+          </InputAdornment>) : startText.length > 0 ? (
+          <InputAdornment position="end">{startText}</InputAdornment>) : null,
+      }}
 
     />
   )

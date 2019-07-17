@@ -1,4 +1,4 @@
-import { DatePickerElement } from './DatePickerElement';
+import {DatePickerElement} from './DatePickerElement';
 import Typography from '@material-ui/core/Typography';
 import * as React from 'react';
 import FormLabel from '@material-ui/core/FormLabel';
@@ -10,11 +10,14 @@ import {
   DatePicker,
   MuiPickersUtilsProvider,
 } from "@material-ui/pickers";
+import {VisibilityType} from "../../../..";
+import TextField from "@material-ui/core/TextField";
+
 type Props = {
   element: DatePickerElement
 }
 
-export default function DatePickerView({ element }: Props) {
+export default function DatePickerView({element}: Props) {
   const [selectedDate, handleDateChange] = React.useState(moment());
   const [text, setText] = React.useState(moment());
   const [time, setTime] = React.useState();
@@ -23,7 +26,9 @@ export default function DatePickerView({ element }: Props) {
   const [textStyle, setTextStyle] = React.useState();
   const [noWrap, setNoWrap] = React.useState();
   const [gutterBottom, setGutterBottom] = React.useState();
-  jMoment.loadPersian({ dialect: "persian-modern", usePersianDigits: true });
+  const [visibility, setVisibility] = React.useState('');
+
+  jMoment.loadPersian({dialect: "persian-modern", usePersianDigits: true});
 
   React.useEffect(() => {
     let textSub = element.value.subscribe({
@@ -44,7 +49,9 @@ export default function DatePickerView({ element }: Props) {
     let gutterBottomSub = element.labelIsGutterBottom.subscribe({
       next: (v) => setGutterBottom(v)
     });
-
+    let visibilitySub = element.elementVisibility.subscribe({
+      next: (v) => setVisibility(v)
+    });
     return () => {
       textSub.unsubscribe();
       timeSub.unsubscribe();
@@ -52,23 +59,26 @@ export default function DatePickerView({ element }: Props) {
       displayTypeSub.unsubscribe();
       noWrap.unsubscribe();
       gutterBottomSub.unsubscribe();
+      visibilitySub.unsubscribe();
+
     }
 
   })
   return (
 
     <MuiPickersUtilsProvider utils={JalaliUtils} locale="fa">
-      <DatePicker 
+      <DatePicker
+        style={visibility == VisibilityType.Gone ? element.goneStyle : visibility == VisibilityType.Hidden ? element.hiddenStyle : element.showStyle}
         labelFunc={date => (date ? date.format("jYYYY/jMM/jDD") : "")}
         value={selectedDate}
         okLabel="تأیید"
         cancelLabel="لغو"
         onAccept={(date) => {
-          let myDate:Date=(date as any)._d;
+          let myDate: Date = (date as any)._d;
           console.log(myDate)
           setTime(myDate)
           if (myDate == selectedDate) return;
-   element.datePickerTime.next(myDate.toString());
+          element.datePickerTime.next(myDate.toString());
         }}
         onChange={handleDateChange}
         animateYearScrolling={true}

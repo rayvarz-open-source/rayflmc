@@ -23,6 +23,7 @@ import {DisplayType} from './form/elements/share/DisplayType.js';
 import {Size} from './form/elements/share/Size';
 import {TextInputStyleType} from './form/elements/input/text/TextInputStyleType';
 import {SelectBoxStyleType} from './form/elements/selectBox/SelectBoxStyleType';
+import {VisibilityType} from './form/elements/share/VisibilityType';
 import TimePicker from './form/elements/picker/time/TimePickerElement.js';
 import Modal from './form/elements/modal/ModalElement';
 
@@ -48,6 +49,7 @@ export {
   DisplayType,
   TextInputStyleType,
   SelectBoxStyleType,
+  VisibilityType,
   changeRoute
 };
 

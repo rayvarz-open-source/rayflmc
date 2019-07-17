@@ -3,8 +3,9 @@ import { ElementType } from '../../ElementType';
 import { Observable, BehaviorSubject, isObservable } from 'rxjs';
 import { isSubject } from '../../../../flmc-data-layer/FormController/Elements/RxUtils';
 import {TextInputStyleType} from "./TextInputStyleType";
+import {BaseElement} from "../../base/BaseElement";
 
-export class TextInputElement implements IElement {
+export class TextInputElement extends BaseElement implements IElement {
   dispose(): void {}
 
   get type(): string {

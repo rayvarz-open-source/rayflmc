@@ -2,8 +2,9 @@ import IElement, { ValidationResult, areElements } from '../../../flmc-data-laye
 import { ElementType } from '../ElementType';
 import { Observable, BehaviorSubject, isObservable } from 'rxjs';
 import { Direction } from '../share/Direction';
+import {BaseElement} from "../base/BaseElement";
 
-export class ContainerElement implements IElement {
+export class ContainerElement extends BaseElement implements IElement {
   dispose(): void {}
 
   get type(): string {
