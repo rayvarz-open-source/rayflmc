@@ -24,8 +24,12 @@ import {Size} from './form/elements/share/Size';
 import {TextInputStyleType} from './form/elements/input/text/TextInputStyleType';
 import {SelectBoxStyleType} from './form/elements/selectBox/SelectBoxStyleType';
 import {VisibilityType} from './form/elements/share/VisibilityType';
+import {ChipSelectionType} from './form/elements/chip/ChipSelectionType';
+import {ChipModel} from './form/elements/chip/ChipModel';
 import TimePicker from './form/elements/picker/time/TimePickerElement.js';
 import Modal from './form/elements/modal/ModalElement';
+import Tab from './form/elements/tab/TabElement';
+import Chip from './form/elements/chip/ChipElement';
 
 export {
   FormController, Button,
@@ -35,8 +39,10 @@ export {
   SelectBoxGroup,
   DatePicker,
   TimePicker,
+  Chip,
   Modal,
   Label,
+  Tab,
   StyleType,
   StyleColor,
   Grid,
@@ -50,6 +56,8 @@ export {
   TextInputStyleType,
   SelectBoxStyleType,
   VisibilityType,
+  ChipModel,
+  ChipSelectionType,
   changeRoute
 };
 

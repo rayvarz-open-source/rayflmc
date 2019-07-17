@@ -22,6 +22,10 @@ import TimePickerView from "./picker/time/TimePickerView";
 import {TimePickerElement} from "./picker/time/TimePickerElement";
 import {ModalElement} from "./modal/ModalElement";
 import ModalView from "./modal/ModalView";
+import TabView from "./tab/TabView";
+import {TabElement} from "./tab/TabElement";
+import ChipView from "./chip/ChipView";
+import {ChipElement} from "./chip/ChipElement";
 
 type Props = {
     element: IElement
@@ -37,6 +41,8 @@ export function MapToView({ element }: Props) {
         case (ElementType.SELECT_BOX_GROUP): return <SelectGroupView element={element as SelectGroupElement} />;
         case (ElementType.LABEL): return <LabelView element={element as LabelElement} />;
         case (ElementType.CONTAINER): return <ContainerView element={element as ContainerElement} />;
+        case (ElementType.TAB): return <TabView element={element as TabElement} />;
+        case (ElementType.CHIP): return <ChipView element={element as ChipElement} />;
         case (ElementType.INPUT_TEXT): return <TextInputView element={element as TextInputElement} />;
         case (ElementType.GRID): return <GridView element={element as GridElement}/>
     }
