@@ -42,7 +42,7 @@ export class BaseElement {
     return this;
   }
 
-  visibility(visibilityType: Observable<string> | boolean) {
+  visibility(visibilityType: Observable<string> | string) {
     if (typeof visibilityType === 'string') return this.visibilityR(visibilityType);
     if (isObservable(visibilityType)) return this.visibilityO(visibilityType);
     throw new Error('given isDisabled is not supported');
