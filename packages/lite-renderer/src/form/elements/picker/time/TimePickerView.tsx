@@ -7,7 +7,7 @@ import moment from "moment";
 import JalaliUtils from "@date-io/jalaali";
 
 import {
-  TimePicker,
+  KeyboardTimePicker,
   MuiPickersUtilsProvider,
 } from "@material-ui/pickers";
 import {VisibilityType} from "../../../..";
@@ -18,6 +18,10 @@ type Props = {
 export default function TimePickerView({ element }: Props) {
   const [selectedDate, handleDateChange] = React.useState(moment());
   const [text, setText] = React.useState(moment());
+  const [labelText, setTitle] = React.useState<string>();
+  const [placeHolder, setPlaceHolder] = React.useState<string>();
+  const [okLabel, setOkLabel] = React.useState();
+  const [cancelLabel, setCancelLabel] = React.useState();
   const [time, setTime] = React.useState();
   const [displayType, setDisplayType] = React.useState();
   const [textSize, setTextSize] = React.useState();
@@ -25,12 +29,27 @@ export default function TimePickerView({ element }: Props) {
   const [noWrap, setNoWrap] = React.useState();
   const [gutterBottom, setGutterBottom] = React.useState();
   const [visibility, setVisibility] = React.useState('');
-
+  //let labelText="test for label";
   jMoment.loadPersian({ dialect: "persian-modern", usePersianDigits: true });
 
   React.useEffect(() => {
     let textSub = element.value.subscribe({
       next: (v) => setText(v)
+    });
+    let titleSub = element.timePickerTitle.subscribe(
+    {
+      next: (v) =>{
+        setTitle(v)
+      }
+    });
+    let placeHolderSub = element.timePickerPlaceHolder.subscribe({
+      next: (v) => setPlaceHolder(v)
+    });
+    let okLabelSub = element.timePickerOkLabel.subscribe({
+      next: (v) => setOkLabel(v)
+    });
+    let cancelLabelSub = element.timePickerCancelLabel.subscribe({
+      next: (v) => setCancelLabel(v)
     });
     let timeSub = element.TimePickerTime.subscribe({
       next: (v) => setTime(v)
@@ -58,21 +77,26 @@ export default function TimePickerView({ element }: Props) {
       noWrap.unsubscribe();
       gutterBottomSub.unsubscribe();
       visibilitySub.unsubscribe();
-
+      placeHolderSub.unsubscribe();
+      okLabelSub.unsubscribe();
+      cancelLabelSub.unsubscribe();
+      titleSub.unsubscribe();
     }
 
   })
   return (
     <MuiPickersUtilsProvider utils={JalaliUtils} locale="fa">
-
-      <TimePicker
+      <KeyboardTimePicker
         style={visibility == VisibilityType.Gone ? element.goneStyle : visibility == VisibilityType.Hidden ? element.hiddenStyle : element.showStyle}
-
-        okLabel="تأیید"
-        cancelLabel="لغو"
+        okLabel={okLabel}
+        label={labelText}
+        inputVariant={"outlined"}
+        cancelLabel={cancelLabel}
+        placeholder={placeHolder}
         labelFunc={date => (date ? date.format("hh:mm") : "")}
         value={selectedDate}
         ampm={false}
+        clea
         onChange={handleDateChange}
         onAccept={(date)=>{
           let myDate:Date=(date as any)._d;
@@ -81,25 +105,7 @@ export default function TimePickerView({ element }: Props) {
           if (myDate == selectedDate) return;
           element.TimePickerTime.next(myDate.getHours()+":"+myDate.getMinutes());}}
       />
-
     </MuiPickersUtilsProvider>
-    /*</MuiPickersUtilsProvider>
-    <MuiPickersUtilsProvider utils={JalaliUtils} locale="fa">
-      <DatePicker 
-        labelFunc={date => (date ? date.format("jYYYY/jMM/jDD") : "")}
-        value={selectedDate}
-        okLabel={"salam"}
-        onAccept={(date) => {
-          let myDate:Date=(date as any)._d;
-          console.log(myDate)
-          setTime(myDate)
-          if (myDate == selectedDate) return;
-   element.datePickerTime.next(myDate.toString());
-        }}
-        onChange={handleDateChange}
-        animateYearScrolling={true}
-      />
-    </MuiPickersUtilsProvider>*/
   )
 
 
