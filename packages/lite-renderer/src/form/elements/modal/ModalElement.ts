@@ -11,7 +11,7 @@ export class ModalElement implements IElement {
   }
 
   childrenContainer!: BehaviorSubject<IElement[]>;
-  buttonIsDisabled = new BehaviorSubject<boolean>(false);
+  modalOpenStatus = new BehaviorSubject<boolean>(false);
   onCloseCallBack = new BehaviorSubject<VoidFunction | null>(null);
 
   validate(): ValidationResult {
@@ -53,20 +53,20 @@ export class ModalElement implements IElement {
     if (areElements(children_)) return this.childrenR(children_); // TODO: move array check in areElements
     throw new Error('given children type is not support');
   }
-  private disabledR(isDisabled: boolean): ModalElement {
-    this.buttonIsDisabled.next(isDisabled);
+  private openStatusR(isDisabled: boolean): ModalElement {
+    this.modalOpenStatus.next(isDisabled);
     return this;
   }
-  private disabledO(isDisabled: Observable<boolean>): ModalElement {
+  private openStatusO(isDisabled: Observable<boolean>): ModalElement {
     isDisabled.subscribe({
-      next: v => this.buttonIsDisabled.next(v),
+      next: v => this.modalOpenStatus.next(v),
     });
     return this;
   }
 
-  disabled(isDisabled: Observable<boolean> | boolean): ModalElement {
-    if (typeof isDisabled === 'boolean') return this.disabledR(isDisabled);
-    if (isObservable(isDisabled)) return this.disabledO(isDisabled);
+  openStatus(openStatus: Observable<boolean> | boolean): ModalElement {
+    if (typeof openStatus === 'boolean') return this.openStatusR(openStatus);
+    if (isObservable(openStatus)) return this.openStatusO(openStatus);
     throw new Error('given isDisabled is not supported');
   }
   // direction

@@ -18,14 +18,14 @@ export default function ModalView({element}: Props) {
 
   const [direction, setDirection] = React.useState(Direction.Column);
   const [children, setChildren] = React.useState<IElement[]>([]);
-  const [disabled, setDisabled] = React.useState(false);
+  const [openStatus, setOpenStatus] = React.useState(false);
   let onClose: VoidFunction = () => {
   };
 
   React.useEffect(() => {
-    let disabledSub = element.buttonIsDisabled.subscribe({
+    let openStatusSub = element.modalOpenStatus.subscribe({
 
-      next: (v) => setDisabled(v)
+      next: (v) => setOpenStatus(v)
     });
     let dirSub = element.directionValue.subscribe({
       next: (v) => {
@@ -42,7 +42,7 @@ export default function ModalView({element}: Props) {
     });
     return () => {
       dirSub.unsubscribe();
-      disabledSub.unsubscribe();
+      openStatusSub.unsubscribe();
       childrenSub.unsubscribe();
       callbackSub.unsubscribe();
     }
@@ -68,7 +68,7 @@ export default function ModalView({element}: Props) {
   }
 
   return (
-    <Modal open={disabled} onClose={() => onClose()}>
+    <Modal open={openStatus} onClose={() => onClose()}>
       <Card style={modalStyle}>
         <CardContent>
         {renderChildren()}
