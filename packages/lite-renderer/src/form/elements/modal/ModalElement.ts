@@ -12,7 +12,10 @@ export class ModalElement implements IElement {
 
   childrenContainer!: BehaviorSubject<IElement[]>;
   modalOpenStatus = new BehaviorSubject<boolean>(false);
+  modalIsHeaderVisible = new BehaviorSubject<boolean>(false);
+  modalIsHeaderCloseIconVisible = new BehaviorSubject<boolean>(false);
   onCloseCallBack = new BehaviorSubject<VoidFunction | null>(null);
+  modalTitle = new BehaviorSubject<string>("");
 
   validate(): ValidationResult {
     return new ValidationResult(this.childrenContainer.value.map(i => i.validate().isValid).reduce((p, c) => p && c));
@@ -53,6 +56,42 @@ export class ModalElement implements IElement {
     if (areElements(children_)) return this.childrenR(children_); // TODO: move array check in areElements
     throw new Error('given children type is not support');
   }
+
+  private headerIconVisibilityR(isDisabled: boolean): ModalElement {
+    this.modalIsHeaderCloseIconVisible.next(isDisabled);
+    return this;
+  }
+  private headerIconVisibilityO(isDisabled: Observable<boolean>): ModalElement {
+    isDisabled.subscribe({
+      next: v => this.modalIsHeaderCloseIconVisible.next(v),
+    });
+    return this;
+  }
+
+  headerIconVisibility(headerIconVisibility: Observable<boolean> | boolean): ModalElement {
+    if (typeof headerIconVisibility === 'boolean') return this.headerIconVisibilityR(headerIconVisibility);
+    if (isObservable(headerIconVisibility)) return this.headerIconVisibilityO(headerIconVisibility);
+    throw new Error('given isDisabled is not supported');
+  }
+
+  private headerVisibilityR(isDisabled: boolean): ModalElement {
+    this.modalIsHeaderVisible.next(isDisabled);
+    return this;
+  }
+  private headerVisibilityO(isDisabled: Observable<boolean>): ModalElement {
+    isDisabled.subscribe({
+      next: v => this.modalIsHeaderVisible.next(v),
+    });
+    return this;
+  }
+
+  headerVisibility(headerIconVisibility: Observable<boolean> | boolean): ModalElement {
+    if (typeof headerIconVisibility === 'boolean') return this.headerVisibilityR(headerIconVisibility);
+    if (isObservable(headerIconVisibility)) return this.headerVisibilityO(headerIconVisibility);
+    throw new Error('given isDisabled is not supported');
+  }
+
+
   private openStatusR(isDisabled: boolean): ModalElement {
     this.modalOpenStatus.next(isDisabled);
     return this;
@@ -69,6 +108,25 @@ export class ModalElement implements IElement {
     if (isObservable(openStatus)) return this.openStatusO(openStatus);
     throw new Error('given isDisabled is not supported');
   }
+
+  private titleR(title: string): ModalElement {
+    this.modalTitle.next(title);
+    return this;
+  }
+
+  private titleO(title: Observable<string>): ModalElement {
+    title.subscribe({
+      next: v => this.modalTitle.next(v),
+    });
+    return this;
+  }
+
+  title(title: Observable<string> | string): ModalElement {
+    if (typeof title === 'string') return this.titleR(title);
+    if (isObservable(title)) return this.titleO(title);
+    throw new Error('given title type is not supported');
+  }
+
   // direction
 
   directionValue = new BehaviorSubject<Direction>(Direction.Column);
