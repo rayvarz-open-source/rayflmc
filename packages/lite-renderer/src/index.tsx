@@ -24,6 +24,7 @@ import {Size} from './form/elements/share/Size';
 import {TextInputStyleType} from './form/elements/input/text/TextInputStyleType';
 import {SelectBoxStyleType} from './form/elements/selectBox/SelectBoxStyleType';
 import {VisibilityType} from './form/elements/share/VisibilityType';
+import {TextDirection} from './form/elements/share/TextDirection';
 import {ChipSelectionType} from './form/elements/chip/ChipSelectionType';
 import {ChipModel} from './form/elements/chip/ChipModel';
 import TimePicker from './form/elements/picker/time/TimePickerElement.js';
@@ -58,6 +59,7 @@ export {
   VisibilityType,
   ChipModel,
   ChipSelectionType,
+  TextDirection,
   changeRoute
 };
 

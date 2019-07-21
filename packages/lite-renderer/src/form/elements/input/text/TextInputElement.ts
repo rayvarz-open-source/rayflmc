@@ -16,8 +16,7 @@ export class TextInputElement extends BaseElement implements IElement {
     return new ValidationResult(true);
   }
 
-  // title
-
+  //region variables
   textInputTitle = new BehaviorSubject<string>("");
   textInputValue = new BehaviorSubject<string>('');
   textInputPlaceHolder = new BehaviorSubject<string>("");
@@ -30,11 +29,15 @@ export class TextInputElement extends BaseElement implements IElement {
   textInputEndIcon = new BehaviorSubject<string>('');
   textInputStyleType = new BehaviorSubject<string>(TextInputStyleType.Standard);
   textInputIsPassword = new BehaviorSubject<boolean>(false);
-
+  textInputIsMultiLine=new BehaviorSubject<boolean>(false);
+  textInputIsRtl=new BehaviorSubject<string>("rtl");
+  textInputLines=new BehaviorSubject<number>(0);
+  textInputMaxLines=new BehaviorSubject<number>(0);
 
   endIconClickCallback = new BehaviorSubject<VoidFunction | null>(null);
   startIconClickCallback = new BehaviorSubject<VoidFunction | null>(null);
-
+  //endregion
+  //region onEndIconClick
   private onEndIconClickR(action: VoidFunction): TextInputElement {
     this.endIconClickCallback.next(action);
     return this;
@@ -52,8 +55,8 @@ export class TextInputElement extends BaseElement implements IElement {
     if (isObservable(action)) return this.onEndIconClickO(action);
     throw new Error('given action type is not supported');
   }
-
-
+  //endregion
+  //region onStartIconClick
   private onStartIconClickR(action: VoidFunction): TextInputElement {
     this.startIconClickCallback.next(action);
     return this;
@@ -71,9 +74,8 @@ export class TextInputElement extends BaseElement implements IElement {
     if (isObservable(action)) return this.onStartIconClickO(action);
     throw new Error('given action type is not supported');
   }
-
-  // text
-
+  //endregion
+  //region text
   private textR(text: string): TextInputElement {
     if (this.textInputValue == null) this.textInputValue = new BehaviorSubject<string>('');
     this.textInputValue.next(text);
@@ -100,7 +102,8 @@ export class TextInputElement extends BaseElement implements IElement {
     throw new Error('given text type is not supported');
   }
 
-
+  //endregion
+  //region title
   private titleR(title: string): TextInputElement {
     this.textInputTitle.next(title);
     return this;
@@ -118,8 +121,8 @@ export class TextInputElement extends BaseElement implements IElement {
     if (isObservable(placeHolder)) return this.titleO(placeHolder);
     throw new Error('given title type is not supported');
   }
-
-
+  //endregion
+  //region endIcon
   private endIconR(title: string): TextInputElement {
     this.textInputEndIcon.next(title);
     return this;
@@ -137,8 +140,8 @@ export class TextInputElement extends BaseElement implements IElement {
     if (isObservable(placeHolder)) return this.endIconO(placeHolder);
     throw new Error('given title type is not supported');
   }
-
-
+  //endregion
+  //region startIcon
   private startIconR(title: string): TextInputElement {
     this.textInputStartIcon.next(title);
     return this;
@@ -156,8 +159,8 @@ export class TextInputElement extends BaseElement implements IElement {
     if (isObservable(placeHolder)) return this.startIconO(placeHolder);
     throw new Error('given title type is not supported');
   }
-
-
+  //endregion
+  //region startText
   private startTextR(title: string): TextInputElement {
     this.textInputStartText.next(title);
     return this;
@@ -175,8 +178,8 @@ export class TextInputElement extends BaseElement implements IElement {
     if (isObservable(placeHolder)) return this.startTextO(placeHolder);
     throw new Error('given title type is not supported');
   }
-
-
+  //endregion
+  //region endText
   private endTextR(title: string): TextInputElement {
     this.textInputEndText.next(title);
     return this;
@@ -194,8 +197,8 @@ export class TextInputElement extends BaseElement implements IElement {
     if (isObservable(placeHolder)) return this.endTextO(placeHolder);
     throw new Error('given title type is not supported');
   }
-
-
+  //endregion
+  //region placeHolder
   private placeHolderR(placeHolder: string): TextInputElement {
     this.textInputPlaceHolder.next(placeHolder);
     return this;
@@ -213,8 +216,8 @@ export class TextInputElement extends BaseElement implements IElement {
     if (isObservable(placeHolder)) return this.placeHolderO(placeHolder);
     throw new Error('given placeHolder type is not supported');
   }
-
-
+  //endregion
+  //region error
   private errorR(error: boolean): TextInputElement {
     this.textInputIsInErrorMode.next(error);
     return this;
@@ -232,7 +235,85 @@ export class TextInputElement extends BaseElement implements IElement {
     if (isObservable(error)) return this.errorO(error);
     throw new Error('given error type is not supported');
   }
+  //endregion
 
+  //region rtl
+  private rtlR(isRtl: string): TextInputElement {
+    this.textInputIsRtl.next(isRtl);
+    return this;
+  }
+
+  private rtlO(isRtl: Observable<string>): TextInputElement {
+    isRtl.subscribe({
+      next: v => this.textInputIsRtl.next(v),
+    });
+    return this;
+  }
+
+  textDirection(direction: Observable<string> | string): TextInputElement {
+    if (typeof direction === 'string') return this.rtlR(direction);
+    if (isObservable(direction)) return this.rtlO(direction);
+    throw new Error('given rtl type is not supported');
+  }
+  //endregion
+  //region lines
+  private linesR(lines: number): TextInputElement {
+    this.textInputLines.next(lines);
+    return this;
+  }
+
+  private linesO(lines: Observable<number>): TextInputElement {
+    lines.subscribe({
+      next: v => this.textInputLines.next(v),
+    });
+    return this;
+  }
+
+  lines(lines: Observable<number> | boolean): TextInputElement {
+    if (typeof lines === 'number') return this.linesR(lines);
+    if (isObservable(lines)) return this.linesO(lines);
+    throw new Error('given lines type is not supported');
+  }
+  //endregion
+  //region maxLines
+  private maxLinesR(lines: number): TextInputElement {
+    this.textInputMaxLines.next(lines);
+    return this;
+  }
+
+  private maxLinesO(lines: Observable<number>): TextInputElement {
+    lines.subscribe({
+      next: v => this.textInputMaxLines.next(v),
+    });
+    return this;
+  }
+
+  maxLines(maxLines: Observable<number> | boolean): TextInputElement {
+    if (typeof maxLines === 'number') return this.maxLinesR(maxLines);
+    if (isObservable(maxLines)) return this.maxLinesO(maxLines);
+    throw new Error('given maxLines type is not supported');
+  }
+  //endregion
+  //region multiLine
+  private multiLineR(multiLine: boolean): TextInputElement {
+    this.textInputIsMultiLine.next(multiLine);
+    return this;
+  }
+
+  private multiLineO(multiLine: Observable<boolean>): TextInputElement {
+    multiLine.subscribe({
+      next: v => this.textInputIsMultiLine.next(v),
+    });
+    return this;
+  }
+
+  isMultiLine(multiLine: Observable<boolean> | boolean): TextInputElement {
+    if (typeof multiLine === 'boolean') return this.multiLineR(multiLine);
+    if (isObservable(multiLine)) return this.multiLineO(multiLine);
+    throw new Error('given error type is not supported');
+  }
+  //endregion
+  //region placeHolder
   private passwordR(error: boolean): TextInputElement {
     this.textInputIsPassword.next(error);
     return this;
@@ -250,7 +331,8 @@ export class TextInputElement extends BaseElement implements IElement {
     if (isObservable(error)) return this.passwordO(error);
     throw new Error('given error type is not supported');
   }
-
+  //endregion
+  //region disable
   private disableR(disable: boolean): TextInputElement {
     this.textInputDisabled.next(disable);
     return this;
@@ -268,6 +350,8 @@ export class TextInputElement extends BaseElement implements IElement {
     if (isObservable(disable)) return this.disableO(disable);
     throw new Error('given disable type is not supported');
   }
+  //endregion
+  //region errorOrDescriptionText
   private errorOrDescriptionTextR(placeHolder: string): TextInputElement {
     this.textInputErrorOrDescriptionText.next(placeHolder);
     return this;
@@ -285,6 +369,8 @@ export class TextInputElement extends BaseElement implements IElement {
     if (isObservable(textInputErrorOrDescriptionText)) return this.errorOrDescriptionTextO(textInputErrorOrDescriptionText);
     throw new Error('given textInputErrorOrDescriptionText type is not supported');
   }
+  //endregion
+  //region styleType
   private styleTypeR(text: string): TextInputElement {
     this.textInputStyleType.next(text);
     return this;
@@ -301,6 +387,7 @@ export class TextInputElement extends BaseElement implements IElement {
     if (isObservable(styleType)) return this.styleTypeO(styleType);
     throw new Error('given styleType is not supported');
   }
+  //endregion
 
 }
 

@@ -18,7 +18,7 @@ type Props = {
 export default function TimePickerView({ element }: Props) {
   const [selectedDate, handleDateChange] = React.useState(moment());
   const [text, setText] = React.useState(moment());
-  const [labelText, setTitle] = React.useState<string>();
+  const [labelText, setTitle] = React.useState<string>("");
   const [placeHolder, setPlaceHolder] = React.useState<string>();
   const [okLabel, setOkLabel] = React.useState();
   const [cancelLabel, setCancelLabel] = React.useState();
@@ -29,14 +29,15 @@ export default function TimePickerView({ element }: Props) {
   const [noWrap, setNoWrap] = React.useState();
   const [gutterBottom, setGutterBottom] = React.useState();
   const [visibility, setVisibility] = React.useState('');
+
   //let labelText="test for label";
   jMoment.loadPersian({ dialect: "persian-modern", usePersianDigits: true });
-
+  let titleSub;
   React.useEffect(() => {
     let textSub = element.value.subscribe({
       next: (v) => setText(v)
     });
-    let titleSub = element.timePickerTitle.subscribe(
+ element.timePickerTitle.subscribe(
     {
       next: (v) =>{
         setTitle(v)
@@ -83,7 +84,8 @@ export default function TimePickerView({ element }: Props) {
       titleSub.unsubscribe();
     }
 
-  })
+  }, [])
+let eleme;
   return (
     <MuiPickersUtilsProvider utils={JalaliUtils} locale="fa">
       <KeyboardTimePicker
@@ -96,7 +98,6 @@ export default function TimePickerView({ element }: Props) {
         labelFunc={date => (date ? date.format("hh:mm") : "")}
         value={selectedDate}
         ampm={false}
-        clea
         onChange={handleDateChange}
         onAccept={(date)=>{
           let myDate:Date=(date as any)._d;

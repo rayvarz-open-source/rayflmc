@@ -1,19 +1,13 @@
 import {TextInputElement} from './TextInputElement';
 import * as React from 'react';
-import FilledInput from '@material-ui/core/FilledInput';
-import FormControl from '@material-ui/core/FormControl';
-import FormHelperText from '@material-ui/core/FormHelperText';
 import TextField from '@material-ui/core/TextField';
-import InputLabel from '@material-ui/core/InputLabel';
-import OutlinedInput from '@material-ui/core/OutlinedInput';
-import {TextInputStyleType} from "./TextInputStyleType";
 import InputAdornment from '@material-ui/core/InputAdornment';
-import Button from '@material-ui/core/Button';
 import IconButton from '@material-ui/core/IconButton';
 import Icon from "@material-ui/core/Icon";
 import MaskedInput from 'react-text-mask';
 import NumberFormat from 'react-number-format';
 import {VisibilityType} from "../../../..";
+import {TextDirection} from "../../share/TextDirection";
 
 type Props = {
   element: TextInputElement
@@ -33,6 +27,10 @@ export default function TextInputView({element}: Props) {
   const [errorOrDescriptionText, setErrorOrDescriptionText] = React.useState("");
   const [styleType, setStyleType] = React.useState();
   const [isPassword, setIsPassword] = React.useState(false);
+  const [multiLine, setIsMultiLine] = React.useState(false);
+  const [direction, setDirection] = React.useState("rtl");
+  const [lines, setLines] = React.useState<number>(0);
+  const [maxLines, setMaxLines] = React.useState<number >(0);
   const [visibility, setVisibility] = React.useState('');
 
   let onEndIconClick: VoidFunction = () => {
@@ -50,11 +48,21 @@ export default function TextInputView({element}: Props) {
       next: (v) => onStartIconClick = v == null ? () => {
       } : v
     });
-
+    let multiLineSub = element.textInputIsMultiLine.subscribe({
+      next: (v) => setIsMultiLine(v)
+    });
+    let linesSub = element.textInputLines.subscribe({
+      next: (v) => setLines(v)
+    });
+    let maxLinesSub = element.textInputMaxLines.subscribe({
+      next: (v) => setMaxLines(v)
+    });
     let valueSub = element.textInputValue.subscribe({
       next: (v) => setValue(v)
     });
-
+    let directionSub = element.textInputIsRtl.subscribe({
+      next: (v) => setDirection(v)
+    });
     let titleSub = element.textInputTitle.subscribe({
       next: (v) => setTitle(v)
     });
@@ -107,9 +115,13 @@ export default function TextInputView({element}: Props) {
       endIconClickSub.unsubscribe();
       isPasswordSub.unsubscribe();
       visibilitySub.unsubscribe();
+      multiLineSub.unsubscribe();
+      linesSub.unsubscribe();
+      maxLinesSub.unsubscribe();
+      directionSub.unsubscribe();
     }
 
-  })
+  }, [])
 
   function handleChange(event: React.ChangeEvent<HTMLInputElement>) {
     if (event.target.value == inputValue) return;
@@ -149,13 +161,19 @@ export default function TextInputView({element}: Props) {
         />)
     );
   }
-
+  const inputProps = {
+    dir: direction==TextDirection.Rtl?TextDirection.Rtl:TextDirection.Ltr,
+  };
   return (
     <TextField
       style={visibility == VisibilityType.Gone ? element.goneStyle : visibility == VisibilityType.Hidden ? element.hiddenStyle : element.showStyle}
       title={name}
       placeholder={placeHolder}
       variant={styleType}
+      multiline={multiLine}
+      rowsMax={maxLines}
+      inputProps={inputProps}
+      rows={lines}
       type={isPassword ? 'password' : 'text'}
       label={title}
       helperText={errorOrDescriptionText}

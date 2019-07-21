@@ -151,7 +151,6 @@ s
 
 }
 const TimePicker = (title: string | null): TimePickerElement => {
-  debugger
   if (title == null) return new TimePickerElement();
   return new TimePickerElement().title(title);
 };

@@ -15,7 +15,6 @@ export class BaseElement {
   }
 
   setStyleBasedOnVisibilityType(type) {
-    debugger
     switch (type) {
       case VisibilityType.Gone:
         return this.goneStyle;
