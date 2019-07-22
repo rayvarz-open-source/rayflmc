@@ -8,6 +8,7 @@ import DatePicker from './form/elements/picker/date/DatePickerElement';
 import SelectBoxGroup from './form/elements/selectGroup/SelectGroupElement';
 import TextInput from './form/elements/input/text/TextInputElement.js';
 import Container from './form/elements/container/ContainerElement.js';
+import Image from './form/elements/image/ImageElement';
 import Grid from './form/elements/grid/GridElement';
 import Label from './form/elements/label/LabelElement.js';
 import { Route } from './router/route.js';
@@ -23,6 +24,8 @@ import {DisplayType} from './form/elements/share/DisplayType.js';
 import {Size} from './form/elements/share/Size';
 import {TextInputStyleType} from './form/elements/input/text/TextInputStyleType';
 import {SelectBoxStyleType} from './form/elements/selectBox/SelectBoxStyleType';
+import {ImageBorderType} from './form/elements/image/ImageBorderType';
+import {ImageScaleType} from './form/elements/image/ImageScaleType';
 import {VisibilityType} from './form/elements/share/VisibilityType';
 import {TextDirection} from './form/elements/share/TextDirection';
 import {ChipSelectionType} from './form/elements/chip/ChipSelectionType';
@@ -44,6 +47,7 @@ export {
   Modal,
   Label,
   Tab,
+  Image,
   StyleType,
   StyleColor,
   Grid,
@@ -59,6 +63,8 @@ export {
   VisibilityType,
   ChipModel,
   ChipSelectionType,
+  ImageScaleType,
+  ImageBorderType,
   TextDirection,
   changeRoute
 };

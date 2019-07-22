@@ -26,6 +26,8 @@ import TabView from "./tab/TabView";
 import {TabElement} from "./tab/TabElement";
 import ChipView from "./chip/ChipView";
 import {ChipElement} from "./chip/ChipElement";
+import ImageView from "./image/ImageView";
+import {ImageElement} from "./image/ImageElement";
 
 type Props = {
     element: IElement
@@ -45,6 +47,7 @@ export function MapToView({ element }: Props) {
         case (ElementType.CHIP): return <ChipView element={element as ChipElement} />;
         case (ElementType.INPUT_TEXT): return <TextInputView element={element as TextInputElement} />;
         case (ElementType.GRID): return <GridView element={element as GridElement}/>
+        case (ElementType.IMAGE): return <ImageView element={element as ImageElement}/>
     }
     throw Error(`can't map ${element.type} to a view`)
 }
