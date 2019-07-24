@@ -198,6 +198,7 @@ export default function Skeleton({ children, routes, currentRoute }: any) {
       </AppBar>
       <Drawer
         variant="permanent"
+        anchor={classes.direction == "rtl" ? "right" : "left"}
         classes={{
           paper: clsx(classes.drawerPaper, !open && classes.drawerPaperClose),
         }}
