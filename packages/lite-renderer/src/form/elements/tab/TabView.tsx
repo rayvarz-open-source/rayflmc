@@ -9,10 +9,11 @@ import AppBar from '@material-ui/core/AppBar';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 type Props = {
-  element: TabElement
+  element: TabElement,
+  weight:number
 }
 
-export default function TabView({element}: Props) {
+export default function TabView({element,weight}: Props) {
 
   const [direction, setDirection] = React.useState(Direction.Column);
   const [children, setChildren] = React.useState<IElement[]>([]);
@@ -46,13 +47,20 @@ export default function TabView({element}: Props) {
   })
 
   function renderChildren() {
-    return children.map((v, i) =><div style={i==value? element.showStyle : element.goneStyle}><MapToView element={v} key={`${v.type}_${i}`}/></div>);
+
+    return children.map((v, i) =><div style={i==value? element.showStyle : element.goneStyle}><MapToView element={v} weight={} key={`${v.type}_${i}`}/></div>);
   }
   function renderChildrenTitle() {
     return childrenTitle.map((v, i) => <Tab label={v} key={`${i}`}/>);
   }
   return (
-    <div>
+    <div
+      style={
+        {
+          ...element.getVisibilityStyle(visibility),
+          ...element.getWeightStyle(weight)
+        }
+      }>
     <AppBar position="static" color="default">
       <Tabs
         value={value}

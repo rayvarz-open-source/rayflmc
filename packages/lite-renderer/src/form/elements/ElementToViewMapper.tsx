@@ -30,24 +30,25 @@ import ImageView from "./image/ImageView";
 import {ImageElement} from "./image/ImageElement";
 
 type Props = {
-    element: IElement
+    element: IElement,
+    weight: number
 }
 
-export function MapToView({ element }: Props) {
+export function MapToView({ element,weight }: Props) {
     switch (element.type) {
-        case (ElementType.BUTTON): return <ButtonView element={element as ButtonElement} />;
-        case (ElementType.MODAL): return <ModalView element={element as ModalElement} />;
-        case (ElementType.SELECT_BOX): return <SelectView element={element as SelectBoxElement} />;
-        case (ElementType.DATE_PICKER): return <DatePickerView element={element as DatePickerElement} />;
-        case (ElementType.TIME_PICKER): return <TimePickerView element={element as TimePickerElement} />;
-        case (ElementType.SELECT_BOX_GROUP): return <SelectGroupView element={element as SelectGroupElement} />;
-        case (ElementType.LABEL): return <LabelView element={element as LabelElement} />;
-        case (ElementType.CONTAINER): return <ContainerView element={element as ContainerElement} />;
-        case (ElementType.TAB): return <TabView element={element as TabElement} />;
-        case (ElementType.CHIP): return <ChipView element={element as ChipElement} />;
-        case (ElementType.INPUT_TEXT): return <TextInputView element={element as TextInputElement} />;
-        case (ElementType.GRID): return <GridView element={element as GridElement}/>
-        case (ElementType.IMAGE): return <ImageView element={element as ImageElement}/>
+        case (ElementType.BUTTON): return <ButtonView element={element as ButtonElement} weight={weight}/>;
+        case (ElementType.MODAL): return <ModalView element={element as ModalElement}  weight={weight}/>;
+        case (ElementType.SELECT_BOX): return <SelectView element={element as SelectBoxElement} weight={weight}/>;
+        case (ElementType.DATE_PICKER): return <DatePickerView element={element as DatePickerElement} weight={weight}/>;
+        case (ElementType.TIME_PICKER): return <TimePickerView element={element as TimePickerElement} weight={weight}/>;
+        case (ElementType.SELECT_BOX_GROUP): return <SelectGroupView element={element as SelectGroupElement} weight={weight}/>;
+        case (ElementType.LABEL): return <LabelView element={element as LabelElement} weight={weight}/>;
+        case (ElementType.CONTAINER): return <ContainerView element={element as ContainerElement} weight={weight}/>;
+        case (ElementType.TAB): return <TabView element={element as TabElement} weight={weight}/>;
+        case (ElementType.CHIP): return <ChipView element={element as ChipElement} weight={weight}/>;
+        case (ElementType.INPUT_TEXT): return <TextInputView element={element as TextInputElement} weight={weight}/>;
+        case (ElementType.GRID): return <GridView element={element as GridElement} weight={weight}/>;
+        case (ElementType.IMAGE): return <ImageView element={element as ImageElement} weight={weight}/>;
     }
     throw Error(`can't map ${element.type} to a view`)
 }

@@ -12,10 +12,11 @@ import {
 } from "@material-ui/pickers";
 import {VisibilityType} from "../../../..";
 type Props = {
-  element: TimePickerElement
+  element: TimePickerElement,
+  weight:number
 }
 
-export default function TimePickerView({ element }: Props) {
+export default function TimePickerView({ element,weight }: Props) {
   const [selectedDate, handleDateChange] = React.useState(moment());
   const [text, setText] = React.useState(moment());
   const [labelText, setTitle] = React.useState<string>("");
@@ -89,8 +90,12 @@ let eleme;
   return (
     <MuiPickersUtilsProvider utils={JalaliUtils} locale="fa">
       <KeyboardTimePicker
-        style={visibility == VisibilityType.Gone ? element.goneStyle : visibility == VisibilityType.Hidden ? element.hiddenStyle : element.showStyle}
-        okLabel={okLabel}
+        style={
+          {
+            ...element.getVisibilityStyle(visibility),
+            ...element.getWeightStyle(weight)
+          }
+        }        okLabel={okLabel}
         label={labelText}
         inputVariant={"outlined"}
         cancelLabel={cancelLabel}

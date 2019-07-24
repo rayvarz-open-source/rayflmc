@@ -76,6 +76,7 @@ export default function SelectGroupView({element}: Props) {
   }
   return (
     <RadioGroup
+
       aria-label={inputTitle}
       name={inputName}
       value={inputValue}

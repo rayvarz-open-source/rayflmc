@@ -1,7 +1,8 @@
-import IElement, { ValidationResult } from '../../../flmc-data-layer/FormController/IElement';
-import { ElementType } from '../ElementType';
-import { Observable, BehaviorSubject, isObservable } from 'rxjs';
+import IElement, {ValidationResult} from '../../../flmc-data-layer/FormController/IElement';
+import {ElementType} from '../ElementType';
+import {BehaviorSubject, isObservable, Observable} from 'rxjs';
 import {BaseElement} from "../base/BaseElement";
+import {StyleType} from "../../..";
 
 export class ButtonElement extends BaseElement implements IElement {
   dispose(): void {}
@@ -17,7 +18,7 @@ export class ButtonElement extends BaseElement implements IElement {
   // text
 
   buttonText = new BehaviorSubject<string>('');
-  buttonStyleType = new BehaviorSubject<string>('');
+  buttonStyleType = new BehaviorSubject<StyleType>(StyleType.Text);
   buttonStyleColor = new BehaviorSubject<string>('');
   buttonIcon = new BehaviorSubject<string>('');
   buttonIconAlign = new BehaviorSubject<string>('');
@@ -64,21 +65,20 @@ export class ButtonElement extends BaseElement implements IElement {
     if (isObservable(action)) return this.onTapO(action);
     throw new Error('given action type is not supported');
   }
-  private styleTypeR(text: string): ButtonElement {
+  private styleTypeR(text: StyleType): ButtonElement {
     this.buttonStyleType.next(text);
     return this;
   }
-  private styleTypeO(text: Observable<string>): ButtonElement {
+  private styleTypeO(text: Observable<StyleType>): ButtonElement {
     text.subscribe({
       next: v => this.buttonStyleType.next(v),
     });
     return this;
   }
 
-  styleType(styleType: Observable<string> | string): ButtonElement {
-    if (typeof styleType === 'string') return this.styleTypeR(styleType);
+  styleType(styleType: Observable<StyleType> | StyleType): ButtonElement {
     if (isObservable(styleType)) return this.styleTypeO(styleType);
-    throw new Error('given styleType is not supported');
+    return this.styleTypeR(styleType);
   }
   private styleColorR(text: string): ButtonElement {
     this.buttonStyleColor.next(text);

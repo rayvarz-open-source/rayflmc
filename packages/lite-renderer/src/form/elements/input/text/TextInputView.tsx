@@ -10,10 +10,11 @@ import {VisibilityType} from "../../../..";
 import {TextDirection} from "../../share/TextDirection";
 
 type Props = {
-  element: TextInputElement
+  element: TextInputElement,
+  weight:number
 }
 
-export default function TextInputView({element}: Props) {
+export default function TextInputView({element,weight}: Props) {
 
   const [inputValue, setValue] = React.useState("");
   const [title, setTitle] = React.useState("");
@@ -166,7 +167,12 @@ export default function TextInputView({element}: Props) {
   };
   return (
     <TextField
-      style={visibility == VisibilityType.Gone ? element.goneStyle : visibility == VisibilityType.Hidden ? element.hiddenStyle : element.showStyle}
+      style={
+        {
+          ...element.getVisibilityStyle(visibility),
+          ...element.getWeightStyle(weight)
+        }
+      }
       title={name}
       placeholder={placeHolder}
       variant={styleType}

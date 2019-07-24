@@ -12,7 +12,8 @@ import {withStyles} from "@material-ui/core/styles";
 import useTheme from "@material-ui/core/styles/useTheme";
 
 type Props = {
-  element: ButtonElement
+  element: ButtonElement,
+  weight:number
 }
 
 function getProgressColor(styleType, styleColor) {
@@ -24,7 +25,7 @@ function getProgressColor(styleType, styleColor) {
     return "#000000"
 }
 
-export default function ButtonView({element}: Props) {
+export default function ButtonView({element,weight}: Props) {
   const inputEl = useRef(null);
 
   let onClick: VoidFunction = () => {
@@ -101,7 +102,13 @@ export default function ButtonView({element}: Props) {
 
   return (
 
-    <Button style={visibility==VisibilityType.Gone?element.goneStyle:visibility==VisibilityType.Hidden?element.hiddenStyle:element.showStyle} ref={inputEl} variant={styleType} color={styleColor} fullWidth={fullWidth} disabled={disabled}
+    <Button  style={
+      {
+        ...element.getVisibilityStyle(visibility),
+        ...element.getWeightStyle(weight)
+      }
+    }
+             ref={inputEl} variant={styleType} color={styleColor} fullWidth={fullWidth} disabled={disabled}
             onClick={() => !loading && onClick()}>
       {!loading && icon != "" && iconAlignment === Alignment.Left && <Icon style={{marginRight: 8}}>{icon}</Icon>}
       {loading && iconAlignment === Alignment.Left &&

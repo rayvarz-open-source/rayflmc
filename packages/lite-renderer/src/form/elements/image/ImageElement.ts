@@ -21,7 +21,7 @@ export class ImageElement extends BaseElement implements IElement {
   imageAlt = new BehaviorSubject<string>('');
   imageWidth = new BehaviorSubject<number>(60);
   imageHeight = new BehaviorSubject<number>(60);
-  imageScaleType = new BehaviorSubject<string>(ImageScaleType.Contain);
+  imageScaleType = new BehaviorSubject<ImageScaleType>(ImageScaleType.Contain);
   imageBorderType = new BehaviorSubject<string>('');
 
   //region image
@@ -102,21 +102,21 @@ export class ImageElement extends BaseElement implements IElement {
   //endregion
 
   //region scaleType
-  private scaleTypeR(scaleType: string): ImageElement {
+  private scaleTypeR(scaleType: ImageScaleType): ImageElement {
     this.imageScaleType.next(scaleType);
     return this;
   }
-  private scaleTypeO(scaleType: Observable<string>): ImageElement {
+  private scaleTypeO(scaleType: Observable<ImageScaleType>): ImageElement {
     scaleType.subscribe({
       next: v => this.imageScaleType.next(v),
     });
     return this;
   }
 
-  scaleType(scaleType: Observable<string> | string): ImageElement {
-    if (typeof scaleType === 'string') return this.scaleTypeR(scaleType);
+  scaleType(scaleType: Observable<ImageScaleType> | ImageScaleType): ImageElement {
     if (isObservable(scaleType)) return this.scaleTypeO(scaleType);
-    throw new Error('given scaleType is not supported');
+    return this.scaleTypeR(scaleType);
+
   }
   //endregion
 

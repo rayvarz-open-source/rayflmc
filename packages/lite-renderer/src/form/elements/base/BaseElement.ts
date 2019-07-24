@@ -1,31 +1,30 @@
 import {BehaviorSubject, isObservable, Observable} from "rxjs";
 import {VisibilityType} from "../share/VisibilityType";
+import {CSSProperties} from "react";
 
 export class BaseElement {
   elementVisibility = new BehaviorSubject<string>("show");
 
-  showStyle = {
+  showStyle: CSSProperties = {
     visibility: 'visible'
   }
-  hiddenStyle = {
+  hiddenStyle: CSSProperties = {
     visibility: 'hidden'
   }
-  goneStyle = {
+  goneStyle: CSSProperties = {
     display: 'none'
   }
-
-  setStyleBasedOnVisibilityType(type) {
+  getWeightStyle(weight): CSSProperties{
+    return {"flexGrow":weight};
+  }
+  getVisibilityStyle(type): CSSProperties{
     switch (type) {
       case VisibilityType.Gone:
         return this.goneStyle;
-        break;
       case VisibilityType.Hidden:
         return this.hiddenStyle;
-        break;
-      case VisibilityType.Show:
+      default:
         return this.showStyle;
-        break
-
     }
   }
 

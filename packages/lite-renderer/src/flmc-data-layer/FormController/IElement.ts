@@ -1,3 +1,5 @@
+import {ContainerModel} from "../../form/elements/container/ContainerModel";
+
 export default interface IElement {
   dispose(): void;
 
@@ -18,4 +20,7 @@ export function isElement(item: any): item is IElement {
 
 export function areElements(item: any): item is IElement[] {
   return (item as any).map((i: any) => isElement(i)).reduce((p: boolean, c: boolean) => p && c);
+}
+export function areContainElement(item: ContainerModel[]): ContainerModel[] {
+  return (item as any).map((i: ContainerModel) => isElement(i.element)).reduce((p: boolean, c: boolean) => p && c);
 }

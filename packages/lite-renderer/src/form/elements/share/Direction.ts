@@ -1,4 +1,6 @@
 export enum Direction {
-    Column = 0,
-    Row = 1
+    Column = "column",
+    ColumnReverse = "column-reverse",
+    Row = "row",
+    RowReverse = "row-reverse"
 }

@@ -9,10 +9,11 @@ import SelectIcon from '@material-ui/icons/DoneRounded';
 import DeleteIcon from '@material-ui/icons/CloseRounded';
 
 type Props = {
-  element: ChipElement
+  element: ChipElement,
+  weight:number
 }
 
-export default function ChipView({element}: Props) {
+export default function ChipView({element,weight}: Props) {
 
   const [direction, setDirection] = React.useState(Direction.Column);
   const [children, setChildren] = React.useState<ChipModel[]>([]);
@@ -72,7 +73,13 @@ export default function ChipView({element}: Props) {
 
   })
   return (
-    <div style={visibility == VisibilityType.Gone ? element.goneStyle : visibility == VisibilityType.Hidden ? element.hiddenStyle : element.showStyle} style={{direction:'rtl'}}>
+    <div style={
+      {
+        ...element.getVisibilityStyle(visibility),
+        ...element.getWeightStyle(weight),
+        ...{direction:'rtl'}
+      }
+    }>
       {children.filter(item=>selectionType==ChipSelectionType.Delete?!item.isSelected:item).map((data) => {
 
 

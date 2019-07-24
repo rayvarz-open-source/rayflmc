@@ -13,10 +13,11 @@ import IconButton from '@material-ui/core/IconButton';
 import MoreVertIcon from '@material-ui/icons/Close';
 
 type Props = {
-  element: ModalElement
+  element: ModalElement,
+  weight:number
 }
 
-export default function ModalView({element}: Props) {
+export default function ModalView({element,weight}: Props) {
   const [modalStyle] = React.useState(getModalStyle);
   const [title, setTitle] = React.useState("");
 

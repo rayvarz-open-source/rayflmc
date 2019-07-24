@@ -14,10 +14,11 @@ import {VisibilityType} from "../../../..";
 import TextField from "@material-ui/core/TextField";
 
 type Props = {
-  element: DatePickerElement
+  element: DatePickerElement,
+  weight:number
 }
 
-export default function DatePickerView({element}: Props) {
+export default function DatePickerView({element,weight}: Props) {
   const [selectedDate, handleDateChange] = React.useState(moment());
   const [text, setText] = React.useState(moment());
   const [time, setTime] = React.useState();
@@ -68,8 +69,12 @@ export default function DatePickerView({element}: Props) {
 
     <MuiPickersUtilsProvider utils={JalaliUtils} locale="fa">
       <DatePicker
-        style={visibility == VisibilityType.Gone ? element.goneStyle : visibility == VisibilityType.Hidden ? element.hiddenStyle : element.showStyle}
-        labelFunc={date => (date ? date.format("jYYYY/jMM/jDD") : "")}
+        style={
+          {
+            ...element.getVisibilityStyle(visibility),
+            ...element.getWeightStyle(weight)
+          }
+        }        labelFunc={date => (date ? date.format("jYYYY/jMM/jDD") : "")}
         value={selectedDate}
         okLabel="تأیید"
         cancelLabel="لغو"

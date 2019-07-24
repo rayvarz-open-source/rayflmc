@@ -6,10 +6,11 @@ import {ImageBorderType} from "./ImageBorderType";
 import {ImageScaleType} from "./ImageScaleType";
 
 type Props = {
-  element: ImageElement
+  element: ImageElement,
+  weight:number
 }
 
-export default function ImageView({element}: Props) {
+export default function ImageView({element,weight}: Props) {
 
   const [imageAddress, setImageAddress] = React.useState("");
   const [alt, setAlt] = React.useState("");
@@ -55,8 +56,13 @@ export default function ImageView({element}: Props) {
 console.log(scaleType)
   return (
     <img
-      style={visibility == VisibilityType.Gone ? element.goneStyle : visibility == VisibilityType.Hidden ? element.hiddenStyle : element.showStyle}
-      style={{objectFit:scaleType,borderRadius:borderType==ImageBorderType.Avatar?'50%':borderType==ImageBorderType.Round?'4px':'none'}}
+      style={
+        {
+          ...element.getVisibilityStyle(visibility),
+          ...element.getWeightStyle(weight),
+          ...{flexGrow:weight,objectFit:scaleType,borderRadius:borderType==ImageBorderType.Avatar?'50%':borderType==ImageBorderType.Round?'4px':'none'}
+        }
+      }
       src={imageAddress}
       width={width}
       height={height}

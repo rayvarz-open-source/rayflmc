@@ -4,10 +4,11 @@ import * as React from 'react';
 import {VisibilityType} from "../../..";
 
 type Props = {
-  element: LabelElement
+  element: LabelElement,
+  weight: number,
 }
 
-export default function LabelView({element}: Props) {
+export default function LabelView({element,weight}: Props) {
 
   const [text, setText] = React.useState("");
   const [textAlign, setTextAlign] = React.useState();
@@ -59,8 +60,12 @@ export default function LabelView({element}: Props) {
 
   return (
     <Typography
-      style={visibility == VisibilityType.Gone ? element.goneStyle : visibility == VisibilityType.Hidden ? element.hiddenStyle : element.showStyle}
-      variant={textSize} color={textStyle} align={textAlign} gutterBottom={gutterBottom} display={displayType}
+                style={
+                  {
+                    ...element.getVisibilityStyle(visibility),
+                    ...element.getWeightStyle(weight)
+                  }
+                }      variant={textSize} color={textStyle} align={textAlign} gutterBottom={gutterBottom} display={displayType}
       noWrap={noWrap}>
       {text}
     </Typography>
