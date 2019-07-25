@@ -204,6 +204,8 @@ throw new Error(\`invalid type \${typeof(value)} for ${typename}\`)
 /*******************************************/
 /* GENERATED CODE, DO NOT MODIFY BY HAND!! */
 /*******************************************/
+
+${this.elementDefinition.elementDoc}
 const ${this.elementDefinition.elementName} = (${requiredAttributes.map(v => `${v.name}: ${v.types}`).join(', ')}): ${elementType} => {
     return new ${elementType}()
                 ${requiredAttributes.map(v => `.${v.name}(${v.name})`).join('\n')};

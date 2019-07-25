@@ -1,4 +1,11 @@
 const sample = `
+/** @ElementDoc
+ * @example
+ * // usage:
+ * let controller = new BehaviorSubject<string>(""); // or BehaviorSubject<Value>
+ * TextInput(controller);
+ * 
+ */
 // Element: TextInput
 /**
  * @[{"bidirectional": true,"required": true, "typeguard": "isValue", "default": "''"}]
@@ -6,9 +13,9 @@ const sample = `
  * @example
  * // how to read a text input value
  * 
- * controller = new BehaviorSubject<string>("text input default value")
- * TextInput(controller)
- * console.log(controller.value)
+ * controller = new BehaviorSubject<string>("text input default value");
+ * TextInput(controller);
+ * console.log(controller.value);
  * 
  * // how to set text input value
  * 
@@ -25,13 +32,12 @@ export type Title = string;
 // type guards
 
 export const TypeGuards = {
-    isValue: function isValue(value: any): value is Title {
-        return typeof(value) == "string"
-    }
+    isValue: (value: any): value is Title => typeof(value) == "string"
 }
 `
 
 const ATTRIBUTE = /\/\*\*((.|\n)*?)export type(.*?);/gm;
+const ELEMENT_DOC = /\/\*\* @ElementDoc((.|\n)*?)\*\//g;
 const ATTRIBUTE_FILE_PARSER = /\/\/ Element:(.*?)\n((.|\n)*?)\/\/ End Element\n/gm;
 const OPTIONS = /@\[(.*?)\]/gm;
 
@@ -48,9 +54,10 @@ class AttributeDefinition {
 
 class ElementDefinition {
     
-    constructor({elementName, elementAttributes}) {
+    constructor({elementName, elementAttributes, elementDoc}) {
         this.elementName = elementName;
         this.elementAttributes = elementAttributes;
+        this.elementDoc = elementDoc;
     }
 
 }
@@ -95,6 +102,7 @@ class Parser {
         return new ElementDefinition({
             elementAttributes: attributes,
             elementName: elementName.trim(),
+            elementDoc: (this.file.match(ELEMENT_DOC) || [""])[0].replace("@ElementDoc", "")
         });
     }
 
