@@ -1,4 +1,5 @@
-import { TextDirection } from "../../share/TextDirection";
+import { TextDirection } from "../share/TextDirection";
+import { TextInputStyleType } from "./TextInputStyleType";
 
 /** @ElementDoc
  * @example
@@ -97,13 +98,13 @@ export type StartIcon = string | undefined;
  */
 export type EndIcon = string | undefined;
 /**
- * @[{"bidirectional":false,"required":false,"typeguard":"isVarient","default": "'standard'"}]
+ * @[{"bidirectional":false,"required":false,"typeguard":"isVariant","default": "'standard'"}]
  * text input style
- * supported styles : 'standard' | 'filled' | 'outlined'
+ * supported styles : 'standard' | 'filled' | 'outlined' | TextInputStyleType.Standard | TextInputStyleType.Outlined | TextInputStyleType.Filled
  * 
  * see https://material-ui.com/components/text-fields/ or https://material-ui.com/api/text-field/ for more info
  */
-export type Varient = 'standard' | 'filled' | 'outlined';
+export type Variant = 'standard' | 'filled' | 'outlined' | TextInputStyleType;
 /**
  * @[{"bidirectional":false,"required":false,"typeguard":"isPassword","default": "false"}]
  * show value in protected mode
@@ -136,13 +137,13 @@ export type Rows = number;
  */
 export type RowsMax = number;
 /**
- * @[{"bidirectional":false,"required":false,"typeguard":"isRowsMax","default": "'ltr'"}]
+ * @[{"bidirectional":false,"required":false,"typeguard":"isDirection","default": "'ltr'"}]
  * text direction
  * valid inputs : TextDirection.rtl, TextDirection.ltr, "rtl", "ltr"
  * 
  * see https://material-ui.com/components/text-fields/ or https://material-ui.com/api/text-field/ for more info
  */
-export type Direction = TextDirection;
+export type Direction = TextDirection | "rtl" | "ltr";
 /**
  * @[{"bidirectional":false,"required":false,"typeguard":"isOnEndIconClick","default": "undefined"}]
  * fires when user clicks on EndIcon
@@ -176,7 +177,7 @@ export const TypeGuards = {
     isEndText: (value: any): value is EndText => value === undefined || typeof(value) == "string",
     isStartIcon: (value: any): value is StartIcon => value === undefined || typeof(value) == "string",
     isEndIcon: (value: any): value is EndIcon => value === undefined || typeof(value) == "string",
-    isVarient: (value: any): value is Varient => value === 'standard' || value === 'filled' || value === 'outlined',
+    isVariant: (value: any): value is Variant => value === 'standard' || value === 'filled' || value === 'outlined',
     isRows: (value: any): value is Rows => typeof(value) == "number",
     isRowsMax: (value: any): value is RowsMax => typeof(value) == "number",
     isDirection: (value: any): value is Direction => value === "rtl" || value === "ltr",

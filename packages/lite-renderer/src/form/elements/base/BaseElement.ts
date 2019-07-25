@@ -1,9 +1,11 @@
-import {BehaviorSubject, isObservable, Observable} from "rxjs";
-import {VisibilityType} from "../share/VisibilityType";
-import {CSSProperties} from "react";
+import { BehaviorSubject, isObservable, Observable } from "rxjs";
+import { VisibilityType } from "../share/VisibilityType";
+import { CSSProperties } from "react";
+
+export type Visibility = "show" | "gone" | "hidden" | VisibilityType;
 
 export class BaseElement {
-  elementVisibility = new BehaviorSubject<string>("show");
+  elementVisibilityContainer = new BehaviorSubject<Visibility>("show");
 
   showStyle: CSSProperties = {
     visibility: 'visible'
@@ -14,35 +16,35 @@ export class BaseElement {
   goneStyle: CSSProperties = {
     display: 'none'
   }
-  getWeightStyle(weight): CSSProperties{
-    return {"flexGrow":weight};
+  getWeightStyle(weight: number): CSSProperties {
+    return { "flexGrow": weight };
   }
-  getVisibilityStyle(type): CSSProperties{
+  getVisibilityStyle(type: Visibility): CSSProperties {
     switch (type) {
       case VisibilityType.Gone:
+      case "gone":
         return this.goneStyle;
       case VisibilityType.Hidden:
+      case "hidden":
         return this.hiddenStyle;
       default:
         return this.showStyle;
     }
   }
 
-  private visibilityR(visibilityType: string) {
-    this.elementVisibility.next(visibilityType);
+  private visibilityR(visibilityType: Visibility) {
+    this.elementVisibilityContainer.next(visibilityType);
     return this;
   }
 
-  private visibilityO(visibilityType: Observable<string>) {
-    visibilityType.subscribe({
-      next: v => this.elementVisibility.next(v),
-    });
+  private visibilityO(visibilityType: Observable<Visibility>) {
+    visibilityType.subscribe({ next: v => this.elementVisibilityContainer.next(v) });
     return this;
   }
 
-  visibility(visibilityType: Observable<string> | string) {
-    if (typeof visibilityType === 'string') return this.visibilityR(visibilityType);
+  visibility(visibilityType: Observable<Visibility> | Visibility) {
+    if (visibilityType === "show" || visibilityType === "hidden" || visibilityType === "gone") return this.visibilityR(visibilityType);
     if (isObservable(visibilityType)) return this.visibilityO(visibilityType);
-    throw new Error('given isDisabled is not supported');
+    throw new Error('given visibility is not supported');
   }
 }

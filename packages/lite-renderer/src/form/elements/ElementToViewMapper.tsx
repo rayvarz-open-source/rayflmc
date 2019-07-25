@@ -9,8 +9,8 @@ import LabelView from "./label/LabelView";
 import { LabelElement } from "./label/LabelElement";
 import ContainerView from "./container/ContainerView";
 import { ContainerElement } from "./container/ContainerElement";
-import TextInputView from "./input/text/TextInputView";
-import { TextInputElement } from "./input/text/TextInputElement";
+import TextInputView from "./input/TextInputView";
+import { TextInputElement } from "./input/TextInputElement";
 import GridView from "./grid/GridView";
 import { GridElement } from "./grid/GridElement";
 import {SelectBoxElement} from "./selectBox/SelectBoxElement";
@@ -46,7 +46,7 @@ export function MapToView({ element,weight }: Props) {
         case (ElementType.CONTAINER): return <ContainerView element={element as ContainerElement} weight={weight}/>;
         case (ElementType.TAB): return <TabView element={element as TabElement} weight={weight}/>;
         case (ElementType.CHIP): return <ChipView element={element as ChipElement} weight={weight}/>;
-        case (ElementType.INPUT_TEXT): return <TextInputView element={element as TextInputElement} weight={weight}/>;
+        case (ElementType.TextInput): return <TextInputView element={element as TextInputElement} weight={weight}/>;
         case (ElementType.GRID): return <GridView element={element as GridElement} weight={weight}/>;
         case (ElementType.IMAGE): return <ImageView element={element as ImageElement} weight={weight}/>;
     }
