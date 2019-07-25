@@ -1,7 +1,7 @@
 const sample = `
 // Element: TextInput
 /**
- * @[{"bidirectional": true,"required": true, "typeguard": "isValue"}]
+ * @[{"bidirectional": true,"required": true, "typeguard": "isValue", "default": "''"}]
  * contaienr that holds value of text input.
  * @example
  * // how to read a text input value

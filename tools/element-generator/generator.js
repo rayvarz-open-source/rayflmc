@@ -23,11 +23,21 @@ import { TypeGuards, ${typenames.join(", ")} } from './${this.elementDefinition.
     generateClass(blocks) {
         return `
 export class ${this.elementDefinition.elementName}Element extends BaseElement implements IElement {
-    ${blocks.join("\n")}
+
+    //region auto generated code
+    /*******************************************/
+    /* GENERATED CODE, DO NOT MODIFY BY HAND!! */
+    /*******************************************/
+
+    ${blocks.join("\n\n\n")}
+
+    /*******************************************/
+    /* END OF GENERATED CODE                   */
+    /*******************************************/
+    //endregion
 }
         `.trim()
     }
-
     generateSimpleAttributeForTypeNameWithoutTypeGuard(attributeDefinition) {
         let elementType = `${this.elementDefinition.elementName}Element`;
         let typename = attributeDefinition.attributeName;
@@ -36,7 +46,7 @@ export class ${this.elementDefinition.elementName}Element extends BaseElement im
         let oFunctiuonName = `${lowercaseTypeName}O`;
         let rFunctiuonName = `${lowercaseTypeName}R`;
         return `
-${containerName} = new BehaviorSubject<${typename}>([]);
+${containerName} = new BehaviorSubject<${typename}>(${attributeDefinition.options.default});
 
 private ${rFunctiuonName}(value: ${typename}): ${elementType} {
 this.${containerName}.next(value);
@@ -48,6 +58,7 @@ value.subscribe({next: v => this.${containerName}.next(v)});
 return this;
 }
 
+${attributeDefinition.comment}
 ${lowercaseTypeName}(value: Observable<${typename}> | ${typename}): ${elementType} {
 if (isObservable(value)) this.${oFunctiuonName}(value);
 else this.${rFunctiuonName}(value);
@@ -65,9 +76,9 @@ return this;
         let rFunctiuonName = `${lowercaseTypeName}R`;
         let bFunctiuonName = `${lowercaseTypeName}B`;
         return `
-${containerName} = new BehaviorSubject<${typename}>([]);
+${containerName} = new BehaviorSubject<${typename}>(${attributeDefinition.options.default});
 
-private ${bFunctiuonName}(value: ${typename}): ${elementType} {
+private ${bFunctiuonName}(value: BehaviorSubject<${typename}>): ${elementType} {
 this.${containerName} = value;
 return this;
 }
@@ -82,12 +93,7 @@ value.subscribe({next: v => this.${containerName}.next(v)});
 return this;
 }
 
-${lowercaseTypeName}(value: Observable<${typename}> | ${typename}): ${elementType} {
-if (isObservable(value)) this.${oFunctiuonName}(value);
-else this.${rFunctiuonName}(value);
-return this;
-}
-
+${attributeDefinition.comment}
 ${lowercaseTypeName}(value: BehaviorSubject<${typename}> | Observable<${typename}> | ${typename}): TextInputElement {
     if (isSubject(value)) return this.${bFunctiuonName}(value);
     else if (isObservable(value)) return this.${oFunctiuonName}(value);
@@ -105,9 +111,9 @@ ${lowercaseTypeName}(value: BehaviorSubject<${typename}> | Observable<${typename
         let rFunctiuonName = `${lowercaseTypeName}R`;
         let bFunctiuonName = `${lowercaseTypeName}B`;
         return `
-${containerName} = new BehaviorSubject<${typename}>([]);
+${containerName} = new BehaviorSubject<${typename}>(${attributeDefinition.options.default});
 
-private ${bFunctiuonName}(value: ${typename}): ${elementType} {
+private ${bFunctiuonName}(value: BehaviorSubject<${typename}>): ${elementType} {
 this.${containerName} = value;
 return this;
 }
@@ -122,12 +128,7 @@ value.subscribe({next: v => this.${containerName}.next(v)});
 return this;
 }
 
-${lowercaseTypeName}(value: Observable<${typename}> | ${typename}): ${elementType} {
-if (isObservable(value)) this.${oFunctiuonName}(value);
-else this.${rFunctiuonName}(value);
-return this;
-}
-
+${attributeDefinition.comment}
 ${lowercaseTypeName}(value: BehaviorSubject<${typename}> | Observable<${typename}> | ${typename}): TextInputElement {
 if (TypeGuards.${attributeDefinition.options.typeguard}(value)) return this.${rFunctiuonName}(value);
 else if (isObservable(value)) return this.${oFunctiuonName}(value);
@@ -146,7 +147,7 @@ throw new Error(\`invalid type \${typeof(value)} for ${typename}\`)
         let oFunctiuonName = `${lowercaseTypeName}O`;
         let rFunctiuonName = `${lowercaseTypeName}R`;
         return `
-${containerName} = new BehaviorSubject<${typename}>([]);
+${containerName} = new BehaviorSubject<${typename}>(${attributeDefinition.options.default});
 
 private ${rFunctiuonName}(value: ${typename}): ${elementType} {
 this.${containerName}.next(value);
@@ -158,6 +159,7 @@ value.subscribe({next: v => this.${containerName}.next(v)});
 return this;
 }
 
+${attributeDefinition.comment}
 ${lowercaseTypeName}(value: Observable<${typename}> | ${typename}): ${elementType} {
 if (TypeGuards.${attributeDefinition.options.typeguard}(value)) return this.${rFunctiuonName}(value);
 else if (isObservable(value)) return this.${oFunctiuonName}(value);
@@ -171,16 +173,15 @@ throw new Error(\`invalid type \${typeof(value)} for ${typename}\`)
         let body = [];
         this.elementDefinition.elementAttributes.forEach(attr => {
             let noTypeGuard = attr.options.typeguard == null;
-            let noBidirectional = attr.options.bidirectional == null;
+            let noBidirectional = attr.options.bidirectional || false;
 
             if (noTypeGuard && noBidirectional) body.push(this.generateSimpleAttributeForTypeNameWithoutTypeGuard(attr));
             if (!noTypeGuard && noBidirectional) body.push(this.generateSimpleAttributeForTypeNameWithTypeGuard(attr));
             if (noTypeGuard && !noBidirectional) body.push(this.generateBidirectionalAttributeForTypeNameWithoutTypeGuard(attr));
             if (!noTypeGuard &&! noBidirectional) body.push(this.generateBidirectionalAttributeForTypeNameWithTypeGuard(attr));
         });
-
         return `
-${this.generateHeaders(this.elementDefinition.elementAttributes.map(v => v.name))}
+${this.generateHeaders(this.elementDefinition.elementAttributes.map(v => v.attributeName))}
 
 ${this.generateClass(body)}
         `
