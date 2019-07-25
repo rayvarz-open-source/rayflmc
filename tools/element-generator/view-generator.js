@@ -36,6 +36,10 @@ let ${lowercaseTypeName}Sub = element.${lowercaseTypeName}Container.subscribe({ 
         let subscribes = this.elemntDefinition.elementAttributes.map(attr => this.generateSubscribe(attr));
         let unsubscribes = this.elemntDefinition.elementAttributes.map(attr => this.generateUnSubscribe(attr));
         return `
+import { ${this.elemntDefinition.elementName}Element } from './${this.elemntDefinition.elementName}Element';
+import * as React from 'react';
+import { ${this.elemntDefinition.elementAttributes.map(v => v.attributeName).join(", ")} } from './${this.elemntDefinition.elementName}ElementAttributes';
+
 type Props = {
     element: ${this.elemntDefinition.elementName}Element,
     weight:number
@@ -43,6 +47,10 @@ type Props = {
   
 export default function ${this.elemntDefinition.elementName}View({element,weight}: Props) {
 
+//region generated
+/*******************************************/
+/* GENERATED CODE, DO NOT MODIFY BY HAND!! */
+/*******************************************/
 ${useStates.join("\n")}
 
 React.useEffect(() => {
@@ -53,7 +61,10 @@ React.useEffect(() => {
         ${unsubscribes.join("\n")}
     };
 }, []);
-
+/*******************************************/
+/* END OF GENERATED CODE                   */
+/*******************************************/
+//endregion
 
 return null;
 

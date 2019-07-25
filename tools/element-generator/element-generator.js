@@ -13,7 +13,7 @@ class ElementGenerator {
     generateHeaders(typenames) {
         return `
 import IElement, { ValidationResult } from '../../../flmc-data-layer/FormController/IElement';
-import { ElementType } from '../../ElementType';
+import { ElementType } from '../ElementType';
 import { Observable, BehaviorSubject, isObservable } from 'rxjs';
 import { BaseElement } from "../base/BaseElement";
 import { isSubject } from '../../../flmc-data-layer';
@@ -25,10 +25,20 @@ import { TypeGuards, ${typenames.join(", ")} } from './${this.elementDefinition.
         return `
 export class ${this.elementDefinition.elementName}Element extends BaseElement implements IElement {
 
+    validate(): ValidationResult {
+        return new ValidationResult(true);
+      }
+
+      dispose(): void { }
+
     //region auto generated code
     /*******************************************/
     /* GENERATED CODE, DO NOT MODIFY BY HAND!! */
     /*******************************************/
+
+    get type(): string {
+        return ElementType.${this.elementDefinition.elementName};
+      }
 
     ${blocks.join("\n\n\n")}
 
@@ -185,11 +195,11 @@ throw new Error(\`invalid type \${typeof(value)} for ${typename}\`)
             let lowercaseTypeName = jsLcfirst(attr.attributeName);
             let typename = attr.attributeName;
             let noTypeGuard = attr.options.typeguard == null;
-            let noBidirectional = attr.options.bidirectional || false;
+            let noBidirectional = !(attr.options.bidirectional || false);
             if (noTypeGuard && noBidirectional) types = `Observable<${typename}> | ${typename}`;
-            if (!noTypeGuard && noBidirectional) types = `Observable<${typename}> | ${typename}`;
-            if (noTypeGuard && !noBidirectional) types = `BehaviorSubject<${typename}> | Observable<${typename}> | ${typename}`;
-            if (!noTypeGuard && !noBidirectional) types = `BehaviorSubject<${typename}> | Observable<${typename}> | ${typename}`;
+            else if (!noTypeGuard && noBidirectional) types = `Observable<${typename}> | ${typename}`;
+            else if (noTypeGuard && !noBidirectional) types = `BehaviorSubject<${typename}> | Observable<${typename}> | ${typename}`;
+            else if (!noTypeGuard && !noBidirectional) types = `BehaviorSubject<${typename}> | Observable<${typename}> | ${typename}`;
             return {
                 name: lowercaseTypeName,
                 types
@@ -223,12 +233,12 @@ export default ${this.elementDefinition.elementName};
         let body = [];
         this.elementDefinition.elementAttributes.forEach(attr => {
             let noTypeGuard = attr.options.typeguard == null;
-            let noBidirectional = attr.options.bidirectional || false;
+            let noBidirectional = !(attr.options.bidirectional || false);
 
             if (noTypeGuard && noBidirectional) body.push(this.generateSimpleAttributeForTypeNameWithoutTypeGuard(attr));
-            if (!noTypeGuard && noBidirectional) body.push(this.generateSimpleAttributeForTypeNameWithTypeGuard(attr));
-            if (noTypeGuard && !noBidirectional) body.push(this.generateBidirectionalAttributeForTypeNameWithoutTypeGuard(attr));
-            if (!noTypeGuard && !noBidirectional) body.push(this.generateBidirectionalAttributeForTypeNameWithTypeGuard(attr));
+            else if (!noTypeGuard && noBidirectional) body.push(this.generateSimpleAttributeForTypeNameWithTypeGuard(attr));
+            else if (noTypeGuard && !noBidirectional) body.push(this.generateBidirectionalAttributeForTypeNameWithoutTypeGuard(attr));
+            else if (!noTypeGuard && !noBidirectional) body.push(this.generateBidirectionalAttributeForTypeNameWithTypeGuard(attr));
         });
         return `
 ${this.generateHeaders(this.elementDefinition.elementAttributes.map(v => v.attributeName))}
