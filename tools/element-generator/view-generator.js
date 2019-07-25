@@ -22,7 +22,7 @@ class ViewGenerator {
         let typename = attributeDefinition.attributeName;
         return `
 let ${lowercaseTypeName}Sub = element.${lowercaseTypeName}Container.subscribe({ next: v => set${typename}(v) });
-`
+`.trim();
     }
 
     generateUnSubscribe(attributeDefinition) {
@@ -51,8 +51,8 @@ React.useEffect(() => {
 
     return () => {
         ${unsubscribes.join("\n")}
-    }
-})
+    };
+}, []);
 
 
 return null;

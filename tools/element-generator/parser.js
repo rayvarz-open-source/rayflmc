@@ -91,10 +91,12 @@ class Parser {
                 options = JSON.parse(optionsResult[1]);
                 comment = comment.replace(optionsResult[0], "");
             }
+
+            comment = `/**\n * default value: ${options.default}${comment};`.trim();
             return new AttributeDefinition({
                 attributeName: name,
                 attributeType: type,
-                comment: ("/**" + comment).trim(),
+                comment: comment,
                 options: options,
             });
         });
