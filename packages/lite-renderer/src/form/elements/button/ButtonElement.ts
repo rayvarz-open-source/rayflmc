@@ -3,7 +3,8 @@ import IElement, { ValidationResult } from '../../../flmc-data-layer/FormControl
 import { ElementType } from '../ElementType';
 import { Observable, BehaviorSubject, isObservable } from 'rxjs';
 import { BaseElement } from "../base/BaseElement";
-import { TypeGuards, Text, Loading, Disabled, Colors, Variant, Icon } from './ButtonElementAttributes';
+import { isSubject } from '../../../flmc-data-layer';
+import { TypeGuards, Text, Loading, Disabled, Colors, Variant, Icon, OnClick } from './ButtonElementAttributes';
 
 export class ButtonElement extends BaseElement implements IElement {
 
@@ -188,14 +189,42 @@ export class ButtonElement extends BaseElement implements IElement {
    * default value: undefined
    * 
    * name of button's icon
-   * all supported icon names : https://material.io/tools/icons
    * 
+   * all supported icon names : https://material.io/tools/icons
    */
   ;
   icon(value: Observable<Icon> | Icon): ButtonElement {
     if (TypeGuards.isIcon(value)) return this.iconR(value);
     else if (isObservable(value)) return this.iconO(value);
     throw new Error(`invalid type ${typeof (value)} for Icon`)
+  }
+
+
+  onClickContainer = new BehaviorSubject<OnClick>(undefined);
+
+  /** iternal function for handling raw OnClick types*/
+  private onClickR(value: OnClick): ButtonElement {
+    this.onClickContainer.next(value);
+    return this;
+  }
+
+  /** iternal function for handling Observable<OnClick> types*/
+  private onClickO(value: Observable<OnClick>): ButtonElement {
+    value.subscribe({ next: v => this.onClickContainer.next(v) });
+    return this;
+  }
+
+  /**
+   * default value: undefined
+   * 
+   * fires when user clicks on button
+   * 
+   */
+  ;
+  onClick(value: Observable<OnClick> | OnClick): ButtonElement {
+    if (TypeGuards.isOnClick(value)) return this.onClickR(value);
+    else if (isObservable(value)) return this.onClickO(value);
+    throw new Error(`invalid type ${typeof (value)} for OnClick`)
   }
 
   /*******************************************/

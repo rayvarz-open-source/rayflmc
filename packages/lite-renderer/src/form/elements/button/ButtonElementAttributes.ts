@@ -49,10 +49,16 @@ export type Variant = ButtonVariant | 'text' | 'outlined' | 'contained';
 /**
  * @[{"bidirectional":false,"required":false,"typeguard":"isIcon","default": "undefined"}]
  * name of button's icon
- * all supported icon names : https://material.io/tools/icons
  * 
+ * all supported icon names : https://material.io/tools/icons
  */
 export type Icon = string | undefined;
+/**
+ * @[{"bidirectional":false,"required":false,"typeguard":"isOnClick","default": "undefined"}]
+ * fires when user clicks on button
+ * 
+ */
+export type OnClick = VoidFunction | undefined;
 // End Element
 
 // type guards
@@ -61,6 +67,7 @@ export const TypeGuards = {
     isText: (value: any): value is Text => typeof (value) == "string" || typeof (value) == "undefined",
     isLoading: (value: any): value is Loading => typeof (value) == "boolean",
     isDisabled: (value: any): value is Disabled => typeof (value) == "boolean",
+    isOnClick: (value: any): value is OnClick => typeof (value) == "function",
     isColors: (value: any): value is Colors => isButtonColor(value),
     isVariant: (value: any): value is Variant => isButtonVariant(value),
     isIcon: (value: any): value is Icon => typeof (value) == "string" || typeof (value) == "undefined",

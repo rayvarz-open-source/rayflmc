@@ -1,123 +1,109 @@
-import {ButtonElement} from './ButtonElement';
-import Button from '@material-ui/core/Button';
+import { Icon as MIcon, Button, CircularProgress, withStyles, useTheme } from '@material-ui/core';
+import { ButtonElement } from './ButtonElement';
 import * as React from 'react';
-import {useRef} from 'react';
-import Icon from '@material-ui/core/Icon';
-import {Alignment} from "../share/Alignment";
-import {VisibilityType} from "../share/VisibilityType";
-import {StyleColor} from "../share/StyleColor";
-import {StyleType} from "../share/StyleType";
-import {CircularProgress} from "@material-ui/core";
-import {withStyles} from "@material-ui/core/styles";
-import useTheme from "@material-ui/core/styles/useTheme";
+import { Text, Loading, Disabled, Colors, Variant, Icon, OnClick } from './ButtonElementAttributes';
+import { Visibility } from '../base/BaseElement';
+import { ButtonColor } from './ButtonColor';
+import { ButtonVariant } from './ButtonVariant';
 
 type Props = {
   element: ButtonElement,
-  weight:number
+  weight: number
 }
 
-function getProgressColor(styleType, styleColor) {
-  if (styleType == StyleType.Contained && (styleColor == StyleColor.Primary || styleColor == StyleColor.Secondary))
-    return "#fefefe";
-  else if (styleColor == StyleColor.Primary || styleColor == StyleColor.Secondary)
-    return styleColor == StyleColor.Primary ? useTheme().palette.primary.main : useTheme().palette.secondary.main;
-  else
-    return "#000000"
-}
+export default function ButtonView({ element, weight }: Props) {
 
-export default function ButtonView({element,weight}: Props) {
-  const inputEl = useRef(null);
+  const theme = useTheme();
 
-  let onClick: VoidFunction = () => {
-  };
-  const [title, setTitle] = React.useState("");
-  const [styleType, setStyleType] = React.useState();
-  const [styleColor, setStyleColor] = React.useState();
-  const [disabled, setDisabled] = React.useState(false);
-  const [visibility, setVisibility] = React.useState('');
-  const [icon, setIcon] = React.useState('');
-  const [iconAlignment, setIconAlignment] = React.useState();
-  const [loading, setLoading] = React.useState();
-  const [size, setSize] = React.useState();
-  const [fullWidth, setFullWidth] = React.useState();
+  //region generated
+  /*******************************************/
+  /* GENERATED CODE, DO NOT MODIFY BY HAND!! */
+  /*******************************************/
+  const [text, setText] = React.useState<Text>(undefined);
+  const [loading, setLoading] = React.useState<Loading>(false);
+  const [disabled, setDisabled] = React.useState<Disabled>(false);
+  const [colors, setColors] = React.useState<Colors>('default');
+  const [variant, setVariant] = React.useState<Variant>('contained');
+  const [icon, setIcon] = React.useState<Icon>(undefined);
+  const [onClick, setOnClick] = React.useState<OnClick>(undefined);
+  const [visibility, setVisibility] = React.useState<Visibility>('show');
 
+  React.useEffect(() => {
+
+    let textSub = element.textContainer.subscribe({ next: v => setText(v) });
+    let loadingSub = element.loadingContainer.subscribe({ next: v => setLoading(v) });
+    let disabledSub = element.disabledContainer.subscribe({ next: v => setDisabled(v) });
+    let colorsSub = element.colorsContainer.subscribe({ next: v => setColors(v) });
+    let variantSub = element.variantContainer.subscribe({ next: v => setVariant(v) });
+    let iconSub = element.iconContainer.subscribe({ next: v => setIcon(v) });
+    let onClickSub = element.onClickContainer.subscribe({ next: v => setOnClick(v) });
+    let visibilitySub = element.elementVisibilityContainer.subscribe({ next: v => setVisibility(v) });
+
+    return () => {
+      textSub.unsubscribe();
+      loadingSub.unsubscribe();
+      disabledSub.unsubscribe();
+      colorsSub.unsubscribe();
+      variantSub.unsubscribe();
+      iconSub.unsubscribe();
+      onClickSub.unsubscribe();
+      visibilitySub.unsubscribe();
+    };
+  }, []);
+  /*******************************************/
+  /* END OF GENERATED CODE                   */
+  /*******************************************/
+  //endregion
+
+
+
+  function getProgressColor(variant: Variant, color: Colors) {
+    if (variant == ButtonVariant.Contained && (color == ButtonColor.Primary || color == ButtonColor.Secondary))
+      return "#fefefe"; // TODO: USE THEME
+    else if (color == ButtonColor.Primary || color == ButtonColor.Secondary)
+      return color == ButtonColor.Primary ? theme.palette.primary.main : theme.palette.secondary.main;
+    else
+      return "#000000"  // TODO: USE THEME
+  }
 
   const ColorCircularProgress = withStyles({
     root: {
-      color: getProgressColor(styleType, styleColor),
+      color: getProgressColor(variant, colors),
     },
   })(CircularProgress);
-  React.useEffect(() => {
 
-    let callbackSub = element.buttonCallback.subscribe({
-      next: (v) => onClick = v == null ? () => {
-      } : v
-    });
+  function createIcon() {
+    if (!icon) return null;
+    return (<MIcon style={{ marginRight: 8 }}>{icon}</MIcon>);
+  }
 
-    let textSub = element.buttonText.subscribe({
-      next: (v) => setTitle(v)
-    });
-    let styleTypeSub = element.buttonStyleType.subscribe({
-      next: (v) => setStyleType(v)
-    });
-    let styleColorSub = element.buttonStyleColor.subscribe({
-      next: (v) => setStyleColor(v)
-    });
-    let disabledSub = element.buttonIsDisabled.subscribe({
-      next: (v) => setDisabled(v)
-    });
-    let visibilitySub = element.elementVisibility.subscribe({
-      next: (v) => setVisibility(v)
-    });
-    let iconSub = element.buttonIcon.subscribe({
-      next: (v) => setIcon(v)
-    });
-    let iconAlignmentSub = element.buttonIconAlign.subscribe({
-      next: (v) => setIconAlignment(v)
-    });
-    let loadingSub = element.buttonIsLoading.subscribe({
-      next: (v) => setLoading(v)
-    });
-    let sizeSub = element.buttonSize.subscribe({
-      next: (v) => setSize(v)
-    });
-    let fullWidthSub = element.buttonIsFullWidth.subscribe({
-      next: (v) => setFullWidth(v)
-    });
-    return () => {
-      callbackSub.unsubscribe();
-      textSub.unsubscribe();
-      styleTypeSub.unsubscribe();
-      styleColorSub.unsubscribe();
-      disabledSub.unsubscribe();
-      iconSub.unsubscribe();
-      iconAlignmentSub.unsubscribe();
-      loadingSub.unsubscribe();
-      sizeSub.unsubscribe();
-      fullWidthSub.unsubscribe();
-      visibilitySub.unsubscribe();
-    }
+  function createLoading() {
+    if (!loading) return null;
+    return (<ColorCircularProgress style={{ marginRight: 8 }} size={20} thickness={3} />);
+  }
 
-  })
+  function handleClick() {
+    if (loading || onClick == null) return;
+    onClick();
+  }
 
   return (
-
-    <Button  style={
+    <Button style={
       {
         ...element.getVisibilityStyle(visibility),
         ...element.getWeightStyle(weight)
       }
     }
-             ref={inputEl} variant={styleType} color={styleColor} fullWidth={fullWidth} disabled={disabled}
-            onClick={() => !loading && onClick()}>
-      {!loading && icon != "" && iconAlignment === Alignment.Left && <Icon style={{marginRight: 8}}>{icon}</Icon>}
-      {loading && iconAlignment === Alignment.Left &&
-      <ColorCircularProgress style={{marginRight: 8}} size={20} thickness={3}/>}
-      {title}
-      {loading && iconAlignment === Alignment.Right &&
-      <ColorCircularProgress style={{marginLeft: 8}} size={20} thickness={3}/>}
-      {!loading && icon != "" && iconAlignment === Alignment.Right && <Icon style={{marginLeft: 8}}>{icon}</Icon>}
+      variant={variant as any}
+      color={colors}
+      disabled={disabled}
+      onClick={handleClick}
+    >
+      {createIcon()}
+      {createLoading()}
+      {text}
     </Button>
-  )
+
+  );
 
 }
