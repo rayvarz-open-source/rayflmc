@@ -1,10 +1,14 @@
+type Props = {
+  id: number, title: string, isSelected?: boolean
+}
+
 export class ChipModel {
-  constructor(id: number,title: string, isSelected?: boolean) {
+  constructor({ id, title, isSelected }: Props) {
     this.id = id;
     this.title = title;
     this.isSelected = isSelected;
   }
   id?: number;
   title: string;
-  isSelected?: boolean=false;
+  isSelected?: boolean = false;
 }

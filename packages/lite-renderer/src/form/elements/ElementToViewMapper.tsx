@@ -45,7 +45,7 @@ export function MapToView({ element,weight }: Props) {
         case (ElementType.Label): return <LabelView element={element as LabelElement} weight={weight}/>;
         case (ElementType.CONTAINER): return <ContainerView element={element as ContainerElement} weight={weight}/>;
         case (ElementType.TAB): return <TabView element={element as TabElement} weight={weight}/>;
-        case (ElementType.CHIP): return <ChipView element={element as ChipElement} weight={weight}/>;
+        case (ElementType.Chip): return <ChipView element={element as ChipElement} weight={weight}/>;
         case (ElementType.TextInput): return <TextInputView element={element as TextInputElement} weight={weight}/>;
         case (ElementType.GRID): return <GridView element={element as GridElement} weight={weight}/>;
         case (ElementType.IMAGE): return <ImageView element={element as ImageElement} weight={weight}/>;

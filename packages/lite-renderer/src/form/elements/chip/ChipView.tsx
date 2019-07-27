@@ -1,105 +1,100 @@
-import {ChipElement} from './ChipElement';
-import Box from '@material-ui/core/Box';
-import * as React from 'react';
-import {Direction} from '../share/Direction';
-import index, {ChipSelectionType, VisibilityType} from "../../..";
-import {ChipModel} from "./ChipModel";
-import Chip from '@material-ui/core/Chip';
 import SelectIcon from '@material-ui/icons/DoneRounded';
 import DeleteIcon from '@material-ui/icons/CloseRounded';
+import { ChipElement } from './ChipElement';
+import * as React from 'react';
+import { Value, SelectionType } from './ChipElementAttributes';
+import { Visibility } from '../base/BaseElement';
+import { ChipSelectionType } from './ChipSelectionType';
+import { ChipModel } from './ChipModel';
+import { Chip } from '@material-ui/core';
 
 type Props = {
   element: ChipElement,
-  weight:number
+  weight: number
 }
 
-export default function ChipView({element,weight}: Props) {
+export default function ChipView({ element, weight }: Props) {
 
-  const [direction, setDirection] = React.useState(Direction.Column);
-  const [children, setChildren] = React.useState<ChipModel[]>([]);
-  const [selectionType, setSelectionType] = React.useState<string>();
-  const [visibility, setVisibility] = React.useState('');
-  const handleDelete = chipToDelete => () => {
-    if (selectionType==ChipSelectionType.Show) {
-      return;
-    }
-    let list = [...children];
+  //region generated
+  /*******************************************/
+  /* GENERATED CODE, DO NOT MODIFY BY HAND!! */
+  /*******************************************/
+  const [value, setValue] = React.useState<Value>(undefined);
+  const [selectionType, setSelectionType] = React.useState<SelectionType>(ChipSelectionType.Show);
+  const [visibility, setVisibility] = React.useState<Visibility>('show');
 
-      list.map((item,index)=>
-      {
-        let temp:ChipModel=item;
-        switch (selectionType) {
-          case ChipSelectionType.MultiSelect:
-            if (item.id===chipToDelete.id)
-            {
-              temp.isSelected=!chipToDelete.isSelected;
-            }
-            break
-          case ChipSelectionType.Select:
-            temp.isSelected=item.id===chipToDelete.id;
-            break;
-          case ChipSelectionType.Delete:
-            if (item.id===chipToDelete.id)
-            {
-              temp.isSelected=true;
-            }
-            break;
-        }
-        return temp});
-    //new value
-    setChildren(list);
-  }
   React.useEffect(() => {
 
-    let dirSub = element.directionValue.subscribe({
-      next: (v) => setDirection(v)
-    });
+    let valueSub = element.valueContainer.subscribe({ next: v => setValue(v) });
+    let selectionTypeSub = element.selectionTypeContainer.subscribe({ next: v => setSelectionType(v) });
+    let visibilitySub = element.elementVisibilityContainer.subscribe({ next: v => setVisibility(v) });
 
-    let childrenSub = element.childrenContainer.subscribe({
-      next: (v) => setChildren(v)
-    });
-    let selectionTypeSub = element.selectionType.subscribe({
-      next: (v) => setSelectionType(v)
-    });
-    let visibilitySub = element.elementVisibility.subscribe({
-      next: (v) => setVisibility(v)
-    });
     return () => {
-      childrenSub.unsubscribe();
-      dirSub.unsubscribe();
-      visibilitySub.unsubscribe();
+      valueSub.unsubscribe();
       selectionTypeSub.unsubscribe();
-    }
+      visibilitySub.unsubscribe();
+    };
+  }, []);
+  /*******************************************/
+  /* END OF GENERATED CODE                   */
+  /*******************************************/
+  //endregion
 
-  })
+  const handleDelete = (chipToDelete: ChipModel) => () => {
+    if (selectionType == ChipSelectionType.Show) return;
+    if (value == null) return;
+
+    let newValue = value.map(item => {
+      let newItem: ChipModel = item;
+      switch (selectionType) {
+        case ChipSelectionType.MultiSelect:
+          if (item.id === chipToDelete.id) {
+            newItem.isSelected = !chipToDelete.isSelected;
+          }
+          break
+        case ChipSelectionType.Select:
+          newItem.isSelected = item.id === chipToDelete.id;
+          break;
+        case ChipSelectionType.Delete:
+          if (item.id === chipToDelete.id) {
+            newItem.isSelected = true;
+          }
+          break;
+      }
+      return newItem;
+    });
+
+    setValue(newValue);
+  }
+
+  function createChildren(): React.ReactElement[] {
+    if (value == null) return [];
+    return value.filter(item => selectionType == ChipSelectionType.Delete ? !item.isSelected : item).map((data) => {
+      return (
+        <Chip
+          key={data.id}
+          style={{ direction: 'ltr' }}
+          label={data.title}
+          deleteIcon={
+            selectionType == ChipSelectionType.Delete ?
+              <DeleteIcon /> :
+              ((selectionType == ChipSelectionType.Select || selectionType == ChipSelectionType.MultiSelect) && data.isSelected) ?
+                <SelectIcon /> : undefined
+          }
+          onDelete={handleDelete(data)}
+          onClick={selectionType == ChipSelectionType.Delete ? () => { } : handleDelete(data)}
+        />
+      );
+    })
+  }
+
   return (
     <div style={
       {
         ...element.getVisibilityStyle(visibility),
         ...element.getWeightStyle(weight),
-        ...{direction:'rtl'}
       }
-    }>
-      {children.filter(item=>selectionType==ChipSelectionType.Delete?!item.isSelected:item).map((data) => {
-
-
-        return (
-          <Chip
-            key={data.id}
-            style={{direction:'ltr'}}
-            label={data.title}
-            deleteIcon={selectionType==ChipSelectionType.Delete?<DeleteIcon/>:((selectionType==ChipSelectionType.Select ||selectionType==ChipSelectionType.MultiSelect)&& data.isSelected)?<SelectIcon/>:<p></p>}
-            onDelete={handleDelete(data)}
-            onClick={selectionType==ChipSelectionType.Delete?()=>{}:handleDelete(data)}
-          />
-        );
-      })}
-    </div>
-    // <Box
-    //   style={visibility == VisibilityType.Gone ? element.goneStyle : visibility == VisibilityType.Hidden ? element.hiddenStyle : element.showStyle}
-    //   display="flex" flexDirection={direction == Direction.Column ? "column" : "row"}>
-    //   {renderChildren()}
-    // </Box>
+    }> {createChildren()}</div>
   )
 
 }
