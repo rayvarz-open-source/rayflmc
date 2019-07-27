@@ -1,5 +1,5 @@
 export enum ElementType {
-    BUTTON = "LITE_RENDERER_BUTTON",
+    Button = "LiteRenderer_Button",
     TAB = "LITE_RENDERER_TAB",
     CHIP = "LITE_RENDERER_CHIP",
     IMAGE = "LITE_RENDERER_IMAGE",
