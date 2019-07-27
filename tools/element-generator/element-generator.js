@@ -110,7 +110,7 @@ return this;
 }
 
 ${attributeDefinition.comment}
-${lowercaseTypeName}(value: BehaviorSubject<${typename}> | Observable<${typename}> | ${typename}): TextInputElement {
+${lowercaseTypeName}(value: BehaviorSubject<${typename}> | Observable<${typename}> | ${typename}): ${elementType} {
     if (isSubject(value)) return this.${bFunctiuonName}(value);
     else if (isObservable(value)) return this.${oFunctiuonName}(value);
     return this.${rFunctiuonName}(value);
