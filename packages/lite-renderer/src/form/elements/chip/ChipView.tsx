@@ -63,8 +63,7 @@ export default function ChipView({ element, weight }: Props) {
       }
       return newItem;
     });
-
-    setValue(newValue);
+    element.valueContainer.next(newValue);
   }
 
   function createChildren(): React.ReactElement[] {
