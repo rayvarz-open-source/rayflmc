@@ -20,7 +20,7 @@ export default function TextInputView({ element, weight }: Props) {
   const [placeholder, setPlaceholder] = React.useState<Placeholder>(undefined);
   const [disabled, setDisabled] = React.useState<Disabled>(false);
   const [helperText, setHelperText] = React.useState<HelperText>(undefined);
-  const [error, setError] = React.useState<Error>(false);
+  const [isInError, setIsInError] = React.useState<IsInError>(false);
   const [startText, setStartText] = React.useState<StartText>(undefined);
   const [endText, setEndText] = React.useState<EndText>(undefined);
   const [startIcon, setStartIcon] = React.useState<StartIcon>(undefined);
@@ -42,7 +42,7 @@ export default function TextInputView({ element, weight }: Props) {
     let placeholderSub = element.placeholderContainer.subscribe({ next: v => setPlaceholder(v) });
     let disabledSub = element.disabledContainer.subscribe({ next: v => setDisabled(v) });
     let helperTextSub = element.helperTextContainer.subscribe({ next: v => setHelperText(v) });
-    let errorSub = element.errorContainer.subscribe({ next: v => setError(v) });
+    let isInErrorSub = element.isInErrorContainer.subscribe({ next: v => setIsInError(v) });
     let startTextSub = element.startTextContainer.subscribe({ next: v => setStartText(v) });
     let endTextSub = element.endTextContainer.subscribe({ next: v => setEndText(v) });
     let startIconSub = element.startIconContainer.subscribe({ next: v => setStartIcon(v) });
@@ -63,7 +63,7 @@ export default function TextInputView({ element, weight }: Props) {
       placeholderSub.unsubscribe();
       disabledSub.unsubscribe();
       helperTextSub.unsubscribe();
-      errorSub.unsubscribe();
+      isInErrorSub.unsubscribe();
       startTextSub.unsubscribe();
       endTextSub.unsubscribe();
       startIconSub.unsubscribe();
@@ -101,7 +101,7 @@ export default function TextInputView({ element, weight }: Props) {
         </InputAdornment>
       );
     if (endText !== undefined)
-    return (<InputAdornment position="end">{endText}</InputAdornment>);
+      return (<InputAdornment position="end">{endText}</InputAdornment>);
 
     return undefined;
   }
@@ -117,7 +117,7 @@ export default function TextInputView({ element, weight }: Props) {
         </InputAdornment>
       );
     if (startText !== undefined)
-    return (<InputAdornment position="start">{startText}</InputAdornment>);
+      return (<InputAdornment position="start">{startText}</InputAdornment>);
 
     return undefined;
   }
@@ -142,7 +142,7 @@ export default function TextInputView({ element, weight }: Props) {
       onChange={handleChange}
       value={value}
       disabled={disabled}
-      error={error}
+      error={isInError}
       InputProps={{
         endAdornment: createEndAdornment(),
         startAdornment: createStartAdornment(),

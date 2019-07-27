@@ -4,7 +4,7 @@ import { ElementType } from '../ElementType';
 import { Observable, BehaviorSubject, isObservable } from 'rxjs';
 import { BaseElement } from "../base/BaseElement";
 import { isSubject } from '../../../flmc-data-layer';
-import { TypeGuards, Value, Label, Placeholder, Disabled, HelperText, Error, StartText, EndText, StartIcon, EndIcon, Variant, Password, Multiline, Rows, RowsMax, Direction, OnEndIconClick, OnStartIconClick } from './TextInputElementAttributes';
+import { TypeGuards, Value, Label, Placeholder, Disabled, HelperText, IsInError, StartText, EndText, StartIcon, EndIcon, Variant, Password, Multiline, Rows, RowsMax, Direction, OnEndIconClick, OnStartIconClick } from './TextInputElementAttributes';
 
 export class TextInputElement extends BaseElement implements IElement {
 
@@ -190,17 +190,17 @@ export class TextInputElement extends BaseElement implements IElement {
   }
 
 
-  errorContainer = new BehaviorSubject<Error>(false);
+  isInErrorContainer = new BehaviorSubject<IsInError>(false);
 
-  /** iternal function for handling raw Error types*/
-  private errorR(value: Error): TextInputElement {
-    this.errorContainer.next(value);
+  /** iternal function for handling raw IsInError types*/
+  private isInErrorR(value: IsInError): TextInputElement {
+    this.isInErrorContainer.next(value);
     return this;
   }
 
-  /** iternal function for handling Observable<Error> types*/
-  private errorO(value: Observable<Error>): TextInputElement {
-    value.subscribe({ next: v => this.errorContainer.next(v) });
+  /** iternal function for handling Observable<IsInError> types*/
+  private isInErrorO(value: Observable<IsInError>): TextInputElement {
+    value.subscribe({ next: v => this.isInErrorContainer.next(v) });
     return this;
   }
 
@@ -213,10 +213,10 @@ export class TextInputElement extends BaseElement implements IElement {
    * see https://material-ui.com/components/text-fields/ or https://material-ui.com/api/text-field/ for more info
    */
   ;
-  error(value: Observable<Error> | Error): TextInputElement {
-    if (TypeGuards.isError(value)) return this.errorR(value);
-    else if (isObservable(value)) return this.errorO(value);
-    throw new Error(`invalid type ${typeof (value)} for Error`)
+  isInError(value: Observable<IsInError> | IsInError): TextInputElement {
+    if (TypeGuards.isInError(value)) return this.isInErrorR(value);
+    else if (isObservable(value)) return this.isInErrorO(value);
+    throw new Error(`invalid type ${typeof (value)} for IsInError`)
   }
 
 

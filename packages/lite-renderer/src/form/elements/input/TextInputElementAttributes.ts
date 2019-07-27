@@ -60,13 +60,13 @@ export type Disabled = boolean;
  */
 export type HelperText = string | undefined;
 /**
- * @[{"bidirectional":false,"required":false,"typeguard":"isError","default": "false"}]
+ * @[{"bidirectional":false,"required":false,"typeguard":"isInError","default": "false"}]
  * If true, the text field will be displayed in an error state.
  * error message can be set in helperText
  * 
  * see https://material-ui.com/components/text-fields/ or https://material-ui.com/api/text-field/ for more info
  */
-export type Error = boolean;
+export type IsInError = boolean;
 /**
  * @[{"bidirectional":false,"required":false,"typeguard":"isStartText","default": "undefined"}]
  * text input prefix
@@ -172,7 +172,7 @@ export const TypeGuards = {
     isDisabled: (value: any): value is Disabled => typeof(value) == "boolean",
     isPassword: (value: any): value is Password => typeof(value) == "boolean",
     isMultiline: (value: any): value is Multiline => typeof(value) == "boolean",
-    isError: (value: any): value is Error => typeof(value) == "boolean",
+    isInError: (value: any): value is Error => typeof(value) == "boolean",
     isStartText: (value: any): value is StartText => value === undefined || typeof(value) == "string",
     isEndText: (value: any): value is EndText => value === undefined || typeof(value) == "string",
     isStartIcon: (value: any): value is StartIcon => value === undefined || typeof(value) == "string",
