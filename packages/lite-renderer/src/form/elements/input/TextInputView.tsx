@@ -1,6 +1,6 @@
 import { TextInputElement } from './TextInputElement';
 import * as React from 'react';
-import { Value, Label, Placeholder, Disabled, HelperText, Error, StartText, EndText, StartIcon, EndIcon, Variant, Password, Multiline, Rows, RowsMax, Direction, OnEndIconClick, OnStartIconClick } from './TextInputElementAttributes';
+import { Value, Label, Placeholder, Disabled, HelperText, IsInError ,StartText, EndText, StartIcon, EndIcon, Variant, Password, Multiline, Rows, RowsMax, Direction, OnEndIconClick, OnStartIconClick } from './TextInputElementAttributes';
 import { Visibility } from '../base/BaseElement';
 import { TextField, InputAdornment, IconButton, Icon } from '@material-ui/core';
 
