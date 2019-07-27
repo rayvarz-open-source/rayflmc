@@ -6,7 +6,7 @@ export enum ElementType {
     MODAL = "LITE_RENDERER_MODAL",
     SELECT_BOX = "LITE_RENDERER_SELECT_BOX",
     SELECT_BOX_GROUP = "LITE_RENDERER_SELECT_BOX_GROUP",
-    LABEL = "LITE_RENDERER_LABEL",
+    Label = "LiteRenderer_Label",
     TextInput = "LiteRenderer_TextInput",
     CONTAINER = "LITE_RENDERER_INPUT_CONTAINER",
     GRID = "LITE_RENDERER_GRID",

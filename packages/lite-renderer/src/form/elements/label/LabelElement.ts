@@ -1,156 +1,266 @@
+
 import IElement, { ValidationResult } from '../../../flmc-data-layer/FormController/IElement';
 import { ElementType } from '../ElementType';
 import { Observable, BehaviorSubject, isObservable } from 'rxjs';
-import {BaseElement} from "../base/BaseElement";
+import { BaseElement } from "../base/BaseElement";
+import { TypeGuards, Value, NoWrap, GutterBottom, Colors, Variant, Display, Align } from './LabelElementAttributes';
 
 export class LabelElement extends BaseElement implements IElement {
-  dispose(): void {}
-
-  get type(): string {
-    return ElementType.LABEL;
-  }
 
   validate(): ValidationResult {
     return new ValidationResult(true);
   }
 
-  // text
+  dispose(): void { }
 
-  value = new BehaviorSubject<string>('');
-  labelIsNoWrap = new BehaviorSubject<boolean>(false);
-  labelIsGutterBottom = new BehaviorSubject<boolean>(false);
-  labelTextStyle = new BehaviorSubject<string>('');
-  labelTextSize = new BehaviorSubject<string>('');
-  labelDisplayType = new BehaviorSubject<string>('');
-  labelTextAlign = new BehaviorSubject<string>('');
+  //region auto generated code
+  /*******************************************/
+  /* GENERATED CODE, DO NOT MODIFY BY HAND!! */
+  /*******************************************/
 
-  private textR(text: string): LabelElement {
-    this.value.next(text);
+  get type(): string {
+    return ElementType.Label;
+  }
+
+  valueContainer = new BehaviorSubject<Value>('');
+
+  /** iternal function for handling raw Value types*/
+  private valueR(value: Value): LabelElement {
+    this.valueContainer.next(value);
     return this;
   }
 
-  private textO(text: Observable<string>): LabelElement {
-    text.subscribe({
-      next: v => this.value.next(v),
-    });
+  /** iternal function for handling Observable<Value> types*/
+  private valueO(value: Observable<Value>): LabelElement {
+    value.subscribe({ next: v => this.valueContainer.next(v) });
     return this;
   }
 
-  text(text: Observable<string> | string): LabelElement {
-    if (typeof text === 'string') return this.textR(text);
-    if (isObservable(text)) return this.textO(text);
-    throw new Error('given text type is not supported');
+  /**
+   * default value: ''
+   * 
+   * container that holds value of text input.
+   * @example
+   * // read a label value
+   * 
+   * controller = new BehaviorSubject<string>("label text");
+   * Label(controller);
+   * console.log(controller.value);
+   * 
+   * // set text label value
+   * 
+   * controller.next("new value")
+   * 
+   */
+  ;
+  value(value: Observable<Value> | Value): LabelElement {
+    if (TypeGuards.isValue(value)) return this.valueR(value);
+    else if (isObservable(value)) return this.valueO(value);
+    throw new Error(`invalid type ${typeof (value)} for Value`)
   }
 
-  private noWrapR(noWrap: boolean): LabelElement {
-    this.labelIsNoWrap.next(noWrap);
-    return this;
-  }
-  private noWrapO(noWrap: Observable<boolean>): LabelElement {
-    noWrap.subscribe({
-      next: v => this.labelIsNoWrap.next(v),
-    });
-    return this;
-  }
 
-  noWrap(noWrap: Observable<boolean> | boolean): LabelElement {
-    if (typeof noWrap === 'boolean') return this.noWrapR(noWrap);
-    if (isObservable(noWrap)) return this.noWrapO(noWrap);
-    throw new Error('given noWrap is not supported');
-  }
-  private gutterBottomR(gutterBottom: boolean): LabelElement {
-    this.labelIsGutterBottom.next(gutterBottom);
-    return this;
-  }
-  private gutterBottomO(gutterBottom: Observable<boolean>): LabelElement {
-    gutterBottom.subscribe({
-      next: v => this.labelIsGutterBottom.next(v),
-    });
-    return this;
-  }
+  noWrapContainer = new BehaviorSubject<NoWrap>(false);
 
-  gutterBottom(gutterBottom: Observable<boolean> | boolean): LabelElement {
-    if (typeof gutterBottom === 'boolean') return this.gutterBottomR(gutterBottom);
-    if (isObservable(gutterBottom)) return this.gutterBottomO(gutterBottom);
-    throw new Error('given gutterBottom is not supported');
-  }
-
-  private textStyleR(textStyle: string): LabelElement {
-    this.labelTextStyle.next(textStyle);
-    return this;
-  }
-  private textStyleO(text: Observable<string>): LabelElement {
-    text.subscribe({
-      next: v => this.labelTextStyle.next(v),
-    });
+  /** iternal function for handling raw NoWrap types*/
+  private noWrapR(value: NoWrap): LabelElement {
+    this.noWrapContainer.next(value);
     return this;
   }
 
-  textStyle(textStyle: Observable<string> | string): LabelElement {
-    if (typeof textStyle === 'string') return this.textStyleR(textStyle);
-    if (isObservable(textStyle)) return this.textStyleO(textStyle);
-    throw new Error('given textStyle is not supported');
-  }
-
-  private textSizeR(textSize: string): LabelElement {
-    this.labelTextSize.next(textSize);
-    return this;
-  }
-  private textSizeO(textSize: Observable<string>): LabelElement {
-    textSize.subscribe({
-      next: v => this.labelTextSize.next(v),
-    });
+  /** iternal function for handling Observable<NoWrap> types*/
+  private noWrapO(value: Observable<NoWrap>): LabelElement {
+    value.subscribe({ next: v => this.noWrapContainer.next(v) });
     return this;
   }
 
-  textSize(textSize: Observable<string> | string): LabelElement {
-    if (typeof textSize === 'string') return this.textSizeR(textSize);
-    if (isObservable(textSize)) return this.textSizeO(textSize);
-    throw new Error('given textSize is not supported');
+  /**
+   * default value: false
+   * 
+   * If true, the text will not wrap, but instead will truncate with an ellipsis.
+   * 
+   * see https://material-ui.com/api/typography/ for more info
+   */
+  ;
+  noWrap(value: Observable<NoWrap> | NoWrap): LabelElement {
+    if (TypeGuards.isNoWrap(value)) return this.noWrapR(value);
+    else if (isObservable(value)) return this.noWrapO(value);
+    throw new Error(`invalid type ${typeof (value)} for NoWrap`)
   }
 
 
-  private displayTypeR(displayType: string): LabelElement {
-    this.labelDisplayType.next(displayType);
-    return this;
-  }
-  private displayTypeO(displayType: Observable<string>): LabelElement {
-    displayType.subscribe({
-      next: v => this.labelDisplayType.next(v),
-    });
-    return this;
-  }
+  gutterBottomContainer = new BehaviorSubject<GutterBottom>(false);
 
-  displayType(displayType: Observable<string> | string): LabelElement {
-    if (typeof displayType === 'string') return this.displayTypeR(displayType);
-    if (isObservable(displayType)) return this.displayTypeO(displayType);
-    throw new Error('given displayType is not supported');
-  }
-
-
-  private textAlignR(textAlign: string): LabelElement {
-    this.labelTextAlign.next(textAlign);
-    return this;
-  }
-  private textAlignO(textAlign: Observable<string>): LabelElement {
-    textAlign.subscribe({
-      next: v => this.labelTextAlign.next(v),
-    });
+  /** iternal function for handling raw GutterBottom types*/
+  private gutterBottomR(value: GutterBottom): LabelElement {
+    this.gutterBottomContainer.next(value);
     return this;
   }
 
-  textAlign(textAlign: Observable<string> | string): LabelElement {
-    if (typeof textAlign === 'string') return this.textAlignR(textAlign);
-    if (isObservable(textAlign)) return this.textAlignO(textAlign);
-    throw new Error('given textAlign is not supported');
+  /** iternal function for handling Observable<GutterBottom> types*/
+  private gutterBottomO(value: Observable<GutterBottom>): LabelElement {
+    value.subscribe({ next: v => this.gutterBottomContainer.next(v) });
+    return this;
   }
 
+  /**
+   * default value: false
+   * 
+   * 	If true, the text will have a bottom margin.
+   * 
+   * see https://material-ui.com/api/typography/ for more info
+   */
+  ;
+  gutterBottom(value: Observable<GutterBottom> | GutterBottom): LabelElement {
+    if (TypeGuards.isGutterBottom(value)) return this.gutterBottomR(value);
+    else if (isObservable(value)) return this.gutterBottomO(value);
+    throw new Error(`invalid type ${typeof (value)} for GutterBottom`)
+  }
+
+
+  colorsContainer = new BehaviorSubject<Colors>('initial');
+
+  /** iternal function for handling raw Colors types*/
+  private colorsR(value: Colors): LabelElement {
+    this.colorsContainer.next(value);
+    return this;
+  }
+
+  /** iternal function for handling Observable<Colors> types*/
+  private colorsO(value: Observable<Colors>): LabelElement {
+    value.subscribe({ next: v => this.colorsContainer.next(v) });
+    return this;
+  }
+
+  /**
+   * default value: 'initial'
+   * 
+   * The color of the component. It supports those theme colors that make sense for this component.
+   * valid colors : LabelColors.* | 'initial' | 'inherit' | 'primary' | 'secondary' | 'textPrimary' | 'textSecondary' | 'error'
+   * 
+   * see https://material-ui.com/api/typography/ for more info
+   */
+  ;
+  colors(value: Observable<Colors> | Colors): LabelElement {
+    if (TypeGuards.isColor(value)) return this.colorsR(value);
+    else if (isObservable(value)) return this.colorsO(value);
+    throw new Error(`invalid type ${typeof (value)} for Colors`)
+  }
+
+
+  variantContainer = new BehaviorSubject<Variant>('inherit');
+
+  /** iternal function for handling raw Variant types*/
+  private variantR(value: Variant): LabelElement {
+    this.variantContainer.next(value);
+    return this;
+  }
+
+  /** iternal function for handling Observable<Variant> types*/
+  private variantO(value: Observable<Variant>): LabelElement {
+    value.subscribe({ next: v => this.variantContainer.next(v) });
+    return this;
+  }
+
+  /**
+   * default value: 'inherit'
+   * 
+   * Applies the theme typography styles.
+   * valid variants : LabelVariant.* | 'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'subtitle1', 'subtitle2', 'body1', 'body2', 'caption', 'button', 'overline', 'srOnly', 'inherit'
+   * 
+   * see https://material-ui.com/api/typography/ for more info
+   */
+  ;
+  variant(value: Observable<Variant> | Variant): LabelElement {
+    if (TypeGuards.isLabelVariant(value)) return this.variantR(value);
+    else if (isObservable(value)) return this.variantO(value);
+    throw new Error(`invalid type ${typeof (value)} for Variant`)
+  }
+
+
+  displayContainer = new BehaviorSubject<Display>('initial');
+
+  /** iternal function for handling raw Display types*/
+  private displayR(value: Display): LabelElement {
+    this.displayContainer.next(value);
+    return this;
+  }
+
+  /** iternal function for handling Observable<Display> types*/
+  private displayO(value: Observable<Display>): LabelElement {
+    value.subscribe({ next: v => this.displayContainer.next(v) });
+    return this;
+  }
+
+  /**
+   * default value: 'initial'
+   * 
+   * Controls the display type
+   * valid variants :  DisplayType.* | 'block' | 'initial' | 'inline'
+   * 
+   * see https://material-ui.com/api/typography/ for more info
+   */
+  ;
+  display(value: Observable<Display> | Display): LabelElement {
+    if (TypeGuards.isDisplayType(value)) return this.displayR(value);
+    else if (isObservable(value)) return this.displayO(value);
+    throw new Error(`invalid type ${typeof (value)} for Display`)
+  }
+
+
+  alignContainer = new BehaviorSubject<Align>('inherit');
+
+  /** iternal function for handling raw Align types*/
+  private alignR(value: Align): LabelElement {
+    this.alignContainer.next(value);
+    return this;
+  }
+
+  /** iternal function for handling Observable<Align> types*/
+  private alignO(value: Observable<Align>): LabelElement {
+    value.subscribe({ next: v => this.alignContainer.next(v) });
+    return this;
+  }
+
+  /**
+   * default value: 'inherit'
+   * 
+   * Set the text-align on the component.
+   * valid variants :  TextAlignment.* | 'inherit', 'left', 'center', 'right', 'justify'
+   * 
+   * see https://material-ui.com/api/typography/ for more info
+   */
+  ;
+  align(value: Observable<Align> | Align): LabelElement {
+    if (TypeGuards.isAlign(value)) return this.alignR(value);
+    else if (isObservable(value)) return this.alignO(value);
+    throw new Error(`invalid type ${typeof (value)} for Align`)
+  }
+
+  /*******************************************/
+  /* END OF GENERATED CODE                   */
+  /*******************************************/
+  //endregion
 }
 
-const Label = (value: string | null): LabelElement => {
-  let element = new LabelElement();
-  if (value == null) return element;
-  return element.text(value);
+
+/*******************************************/
+/* GENERATED CODE, DO NOT MODIFY BY HAND!! */
+/*******************************************/
+
+/** 
+ * @example
+ * // usage:
+ * Label("This is a label");
+ * 
+ */
+const Label = (value: Observable<Value> | Value): LabelElement => {
+  return new LabelElement()
+    .value(value);
 };
 
 export default Label;
+/*******************************************/
+/* END OF GENERATED CODE                   */
+/*******************************************/
+
