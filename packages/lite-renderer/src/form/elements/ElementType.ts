@@ -2,7 +2,7 @@ export enum ElementType {
     Button = "LiteRenderer_Button",
     TAB = "LITE_RENDERER_TAB",
     Chip = "LiteRenderer_Chip",
-    IMAGE = "LITE_RENDERER_IMAGE",
+    Image = "LiteRenderer_Image",
     MODAL = "LITE_RENDERER_MODAL",
     SELECT_BOX = "LITE_RENDERER_SELECT_BOX",
     SELECT_BOX_GROUP = "LITE_RENDERER_SELECT_BOX_GROUP",

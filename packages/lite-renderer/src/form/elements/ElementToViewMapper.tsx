@@ -48,7 +48,7 @@ export function MapToView({ element,weight }: Props) {
         case (ElementType.Chip): return <ChipView element={element as ChipElement} weight={weight}/>;
         case (ElementType.TextInput): return <TextInputView element={element as TextInputElement} weight={weight}/>;
         case (ElementType.GRID): return <GridView element={element as GridElement} weight={weight}/>;
-        case (ElementType.IMAGE): return <ImageView element={element as ImageElement} weight={weight}/>;
+        case (ElementType.Image): return <ImageView element={element as ImageElement} weight={weight}/>;
     }
     throw Error(`can't map ${element.type} to a view`)
 }

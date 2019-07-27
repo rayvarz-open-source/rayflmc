@@ -1,74 +1,76 @@
-import {ImageElement} from './ImageElement';
-import Typography from '@material-ui/core/Typography';
+import { ImageElement } from './ImageElement';
 import * as React from 'react';
-import {VisibilityType} from "../../..";
-import {ImageBorderType} from "./ImageBorderType";
-import {ImageScaleType} from "./ImageScaleType";
+import { Address, Alt, Width, Height, Scale, Border } from './ImageElementAttributes';
+import { Visibility } from '../base/BaseElement';
+import { ImageScaleType } from './ImageScaleType';
+import { ImageBorderType } from './ImageBorderType';
 
 type Props = {
   element: ImageElement,
-  weight:number
+  weight: number
 }
 
-export default function ImageView({element,weight}: Props) {
+export default function ImageView({ element, weight }: Props) {
 
-  const [imageAddress, setImageAddress] = React.useState("");
-  const [alt, setAlt] = React.useState("");
-  const [width, setWidth] = React.useState(60);
-  const [height, setHeight] = React.useState(60);
-  const [scaleType, setScaleType] = React.useState(ImageScaleType.Contain);
-  const [borderType,setBorderType]=React.useState('');
-  const [visibility, setVisibility] = React.useState('');
+  //region generated
+  /*******************************************/
+  /* GENERATED CODE, DO NOT MODIFY BY HAND!! */
+  /*******************************************/
+  const [address, setAddress] = React.useState<Address>(undefined);
+  const [alt, setAlt] = React.useState<Alt>(undefined);
+  const [width, setWidth] = React.useState<Width>(60);
+  const [height, setHeight] = React.useState<Height>(60);
+  const [scale, setScale] = React.useState<Scale>(ImageScaleType.Contain);
+  const [border, setBorder] = React.useState<Border>(ImageBorderType.None);
+  const [visibility, setVisibility] = React.useState<Visibility>('show');
 
   React.useEffect(() => {
-    let imageAddressSub = element.imageAddress.subscribe({
-      next: (v) => setImageAddress(v)
-    });
-    let altSub = element.imageAlt.subscribe({
-      next: (v) => setAlt(v)
-    });
-    let widthSub = element.imageWidth.subscribe({
-      next: (v) => setWidth(v)
-    });
-    let heightSub = element.imageHeight.subscribe({
-      next: (v) => setHeight(v)
-    });
-    let scaleTypeSub = element.imageScaleType.subscribe({
-      next: (v) => setScaleType(v)
-    });
-    let borderTypeSub = element.imageBorderType.subscribe({
-      next: (v) => setBorderType(v)
-    });
-    let visibilitySub = element.elementVisibility.subscribe({
-      next: (v) => setVisibility(v)
-    });
+
+    let addressSub = element.addressContainer.subscribe({ next: v => setAddress(v) });
+    let altSub = element.altContainer.subscribe({ next: v => setAlt(v) });
+    let widthSub = element.widthContainer.subscribe({ next: v => setWidth(v) });
+    let heightSub = element.heightContainer.subscribe({ next: v => setHeight(v) });
+    let scaleSub = element.scaleContainer.subscribe({ next: v => setScale(v) });
+    let borderSub = element.borderContainer.subscribe({ next: v => setBorder(v) });
+    let visibilitySub = element.elementVisibilityContainer.subscribe({ next: v => setVisibility(v) });
+
     return () => {
-      imageAddressSub.unsubscribe();
+      addressSub.unsubscribe();
+      altSub.unsubscribe();
       widthSub.unsubscribe();
       heightSub.unsubscribe();
-      scaleTypeSub.unsubscribe();
-      borderTypeSub.unsubscribe();
+      scaleSub.unsubscribe();
+      borderSub.unsubscribe();
       visibilitySub.unsubscribe();
-      altSub.unsubscribe();
-    }
+    };
+  }, []);
+  /*******************************************/
+  /* END OF GENERATED CODE                   */
+  /*******************************************/
+  //endregion
 
-  })
-console.log(scaleType)
+  function createStyle() {
+    return {
+      flexGrow: weight,
+      objectFit: scale,
+      borderRadius: border == ImageBorderType.Avatar ? '50%' : border == ImageBorderType.Round ? '4px' : 'none'
+    };
+  }
+
   return (
     <img
       style={
         {
           ...element.getVisibilityStyle(visibility),
           ...element.getWeightStyle(weight),
-          ...{flexGrow:weight,objectFit:scaleType,borderRadius:borderType==ImageBorderType.Avatar?'50%':borderType==ImageBorderType.Round?'4px':'none'}
+          ...createStyle(),
         }
       }
-      src={imageAddress}
+      src={address}
       width={width}
       height={height}
       alt={alt}
-
-      />
+    />
   )
 
 }

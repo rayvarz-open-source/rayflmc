@@ -1,147 +1,221 @@
+
 import IElement, { ValidationResult } from '../../../flmc-data-layer/FormController/IElement';
 import { ElementType } from '../ElementType';
 import { Observable, BehaviorSubject, isObservable } from 'rxjs';
-import {BaseElement} from "../base/BaseElement";
-import {ImageScaleType} from "./ImageScaleType";
+import { BaseElement } from "../base/BaseElement";
+import { TypeGuards, Address, Alt, Width, Height, Scale, Border } from './ImageElementAttributes';
+import { ImageBorderType } from './ImageBorderType';
+import { ImageScaleType } from './ImageScaleType';
 
 export class ImageElement extends BaseElement implements IElement {
-  dispose(): void {}
-
-  get type(): string {
-    return ElementType.IMAGE;
-  }
 
   validate(): ValidationResult {
     return new ValidationResult(true);
   }
 
-  // text
+  dispose(): void { }
 
-  imageAddress = new BehaviorSubject<string>('');
-  imageAlt = new BehaviorSubject<string>('');
-  imageWidth = new BehaviorSubject<number>(60);
-  imageHeight = new BehaviorSubject<number>(60);
-  imageScaleType = new BehaviorSubject<ImageScaleType>(ImageScaleType.Contain);
-  imageBorderType = new BehaviorSubject<string>('');
+  //region auto generated code
+  /*******************************************/
+  /* GENERATED CODE, DO NOT MODIFY BY HAND!! */
+  /*******************************************/
 
-  //region image
-  private srcR(image: string): ImageElement {
-    this.imageAddress.next(image);
+  get type(): string {
+    return ElementType.Image;
+  }
+
+  addressContainer = new BehaviorSubject<Address>(undefined);
+
+  /** iternal function for handling raw Address types*/
+  private addressR(value: Address): ImageElement {
+    this.addressContainer.next(value);
     return this;
   }
 
-  private srcO(image: Observable<string>): ImageElement {
-    image.subscribe({
-      next: v => this.imageAddress.next(v),
-    });
+  /** iternal function for handling Observable<Address> types*/
+  private addressO(value: Observable<Address>): ImageElement {
+    value.subscribe({ next: v => this.addressContainer.next(v) });
     return this;
   }
 
-  src(image: Observable<string> | string): ImageElement {
-    if (typeof image === 'string') return this.srcR(image);
-    if (isObservable(image)) return this.srcO(image);
-    throw new Error('given text type is not supported');
+  /**
+   * default value: undefined
+   * 
+   * address of image
+   * 
+   */
+  ;
+  address(value: Observable<Address> | Address): ImageElement {
+    if (TypeGuards.isAddress(value)) return this.addressR(value);
+    else if (isObservable(value)) return this.addressO(value);
+    throw new Error(`invalid type ${typeof (value)} for Address`)
   }
+
+
+  altContainer = new BehaviorSubject<Alt>(undefined);
+
+  /** iternal function for handling raw Alt types*/
+  private altR(value: Alt): ImageElement {
+    this.altContainer.next(value);
+    return this;
+  }
+
+  /** iternal function for handling Observable<Alt> types*/
+  private altO(value: Observable<Alt>): ImageElement {
+    value.subscribe({ next: v => this.altContainer.next(v) });
+    return this;
+  }
+
+  /**
+   * default value: undefined
+   * 
+   * same as <image alt=".."/>
+   * 
+   */
+  ;
+  alt(value: Observable<Alt> | Alt): ImageElement {
+    if (TypeGuards.isAlt(value)) return this.altR(value);
+    else if (isObservable(value)) return this.altO(value);
+    throw new Error(`invalid type ${typeof (value)} for Alt`)
+  }
+
+
+  widthContainer = new BehaviorSubject<Width>(60);
+
+  /** iternal function for handling raw Width types*/
+  private widthR(value: Width): ImageElement {
+    this.widthContainer.next(value);
+    return this;
+  }
+
+  /** iternal function for handling Observable<Width> types*/
+  private widthO(value: Observable<Width>): ImageElement {
+    value.subscribe({ next: v => this.widthContainer.next(v) });
+    return this;
+  }
+
+  /**
+   * default value: 60
+   * 
+   * image width
+   * 
+   */
+  ;
+  width(value: Observable<Width> | Width): ImageElement {
+    if (TypeGuards.isWidth(value)) return this.widthR(value);
+    else if (isObservable(value)) return this.widthO(value);
+    throw new Error(`invalid type ${typeof (value)} for Width`)
+  }
+
+
+  heightContainer = new BehaviorSubject<Height>(60);
+
+  /** iternal function for handling raw Height types*/
+  private heightR(value: Height): ImageElement {
+    this.heightContainer.next(value);
+    return this;
+  }
+
+  /** iternal function for handling Observable<Height> types*/
+  private heightO(value: Observable<Height>): ImageElement {
+    value.subscribe({ next: v => this.heightContainer.next(v) });
+    return this;
+  }
+
+  /**
+   * default value: 60
+   * 
+   * image height
+   * 
+   */
+  ;
+  height(value: Observable<Height> | Height): ImageElement {
+    if (TypeGuards.isHeight(value)) return this.heightR(value);
+    else if (isObservable(value)) return this.heightO(value);
+    throw new Error(`invalid type ${typeof (value)} for Height`)
+  }
+
+
+  scaleContainer = new BehaviorSubject<Scale>(ImageScaleType.Contain);
+
+  /** iternal function for handling raw Scale types*/
+  private scaleR(value: Scale): ImageElement {
+    this.scaleContainer.next(value);
+    return this;
+  }
+
+  /** iternal function for handling Observable<Scale> types*/
+  private scaleO(value: Observable<Scale>): ImageElement {
+    value.subscribe({ next: v => this.scaleContainer.next(v) });
+    return this;
+  }
+
+  /**
+   * default value: ImageScaleType.Contain
+   * 
+   * scale type // TODO: add docs
+   * 
+   */
+  ;
+  scale(value: Observable<Scale> | Scale): ImageElement {
+    if (TypeGuards.isScale(value)) return this.scaleR(value);
+    else if (isObservable(value)) return this.scaleO(value);
+    throw new Error(`invalid type ${typeof (value)} for Scale`)
+  }
+
+
+  borderContainer = new BehaviorSubject<Border>(ImageBorderType.None);
+
+  /** iternal function for handling raw Border types*/
+  private borderR(value: Border): ImageElement {
+    this.borderContainer.next(value);
+    return this;
+  }
+
+  /** iternal function for handling Observable<Border> types*/
+  private borderO(value: Observable<Border>): ImageElement {
+    value.subscribe({ next: v => this.borderContainer.next(v) });
+    return this;
+  }
+
+  /**
+   * default value: ImageBorderType.None
+   * 
+   * border type // TODO: add docs
+   * 
+   */
+  ;
+  border(value: Observable<Border> | Border): ImageElement {
+    if (TypeGuards.isBorder(value)) return this.borderR(value);
+    else if (isObservable(value)) return this.borderO(value);
+    throw new Error(`invalid type ${typeof (value)} for Border`)
+  }
+
+  /*******************************************/
+  /* END OF GENERATED CODE                   */
+  /*******************************************/
   //endregion
-  //region alt
-  private altR(image: string): ImageElement {
-    this.imageAlt.next(image);
-    return this;
-  }
-
-  private altO(image: Observable<string>): ImageElement {
-    image.subscribe({
-      next: v => this.imageAlt.next(v),
-    });
-    return this;
-  }
-
-  alt(image: Observable<string> | string): ImageElement {
-    if (typeof image === 'string') return this.altR(image);
-    if (isObservable(image)) return this.altO(image);
-    throw new Error('given text type is not supported');
-  }
-  //endregion
-
-  //region width
-  private widthR(width: number): ImageElement {
-    this.imageWidth.next(width);
-    return this;
-  }
-  private widthO(width: Observable<number>): ImageElement {
-    width.subscribe({
-      next: v => this.imageWidth.next(v),
-    });
-    return this;
-  }
-
-  width(width: Observable<number> | number): ImageElement {
-    if (typeof width === 'number') return this.widthR(width);
-    if (isObservable(width)) return this.widthO(width);
-    throw new Error('given width is not supported');
-  }
-  //endregion
-  //region height
-  private heightR(height: number): ImageElement {
-    this.imageHeight.next(height);
-    return this;
-  }
-
-  private heightO(height: Observable<number>): ImageElement {
-    height.subscribe({
-      next: v => this.imageHeight.next(v),
-    });
-    return this;
-  }
-
-  height(height: Observable<number> | number): ImageElement {
-    if (typeof height === 'number') return this.heightR(height);
-    if (isObservable(height)) return this.heightO(height);
-    throw new Error('given height is not supported');
-  }
-  //endregion
-
-  //region scaleType
-  private scaleTypeR(scaleType: ImageScaleType): ImageElement {
-    this.imageScaleType.next(scaleType);
-    return this;
-  }
-  private scaleTypeO(scaleType: Observable<ImageScaleType>): ImageElement {
-    scaleType.subscribe({
-      next: v => this.imageScaleType.next(v),
-    });
-    return this;
-  }
-
-  scaleType(scaleType: Observable<ImageScaleType> | ImageScaleType): ImageElement {
-    if (isObservable(scaleType)) return this.scaleTypeO(scaleType);
-    return this.scaleTypeR(scaleType);
-
-  }
-  //endregion
-
-  //region borderType
-  private borderTypeR(borderType: string): ImageElement {
-    this.imageBorderType.next(borderType);
-    return this;
-  }
-  private borderTypeO(borderType: Observable<string>): ImageElement {
-    borderType.subscribe({
-      next: v => this.imageBorderType.next(v),
-    });
-    return this;
-  }
-
-  borderType(borderType: Observable<string> | string): ImageElement {
-    if (typeof borderType === 'string') return this.borderTypeR(borderType);
-    if (isObservable(borderType)) return this.borderTypeO(borderType);
-    throw new Error('given borderType is not supported');
-  }
-  //endregion
-
 }
-const Image = (): ImageElement => {
-  let element = new ImageElement();
-  return element;
+
+
+/*******************************************/
+/* GENERATED CODE, DO NOT MODIFY BY HAND!! */
+/*******************************************/
+
+/** 
+ * @example
+ * // usage:
+ * let controller = new BehaviorSubject<string>("http://images.test/placeholder.png");
+ * Image(controller);
+ * 
+ */
+const Image = (address: Observable<Address> | Address): ImageElement => {
+  return new ImageElement()
+    .address(address);
 };
+
 export default Image;
+/*******************************************/
+/* END OF GENERATED CODE                   */
+/*******************************************/
+
