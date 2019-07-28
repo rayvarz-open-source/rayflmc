@@ -81,4 +81,3 @@ export default function TabView({ element, weight }: Props) {
   )
 
 }
-s
