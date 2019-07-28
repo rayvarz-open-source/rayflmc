@@ -86,7 +86,7 @@ export default function TextInputView({ element, weight }: Props) {
 
   // handles bidirectional bindings
   function handleChange(event: React.ChangeEvent<HTMLInputElement>) {
-    if (event.target.value == value) return;
+    if (event.target.value == value || !element.isExternalValueContainer) return;
     element.valueContainer.next(event.target.value);
   }
 

@@ -24,10 +24,14 @@ export class TextInputElement extends BaseElement implements IElement {
   }
 
   valueContainer = new BehaviorSubject<Value>('');
+  // when we call valueB it becomes true and in TextInputView we will use this to
+  // prevent calling .next
+  isExternalValueContainer = false;
 
   /** iternal function for handling BehaviorSubject<Value> types used for bidirectional bindings*/
   private valueB(value: BehaviorSubject<Value>): TextInputElement {
     this.valueContainer = value;
+    this.isExternalValueContainer = true;
     return this;
   }
 
@@ -61,8 +65,8 @@ export class TextInputElement extends BaseElement implements IElement {
    */
   value(value: BehaviorSubject<Value> | Observable<Value> | Value): TextInputElement {
     if (TypeGuards.isValue(value)) return this.valueR(value);
-    else if (isObservable(value)) return this.valueO(value);
     else if (isSubject(value)) return this.valueB(value);
+    else if (isObservable(value)) return this.valueO(value);
     throw new Error(`invalid type ${typeof (value)} for Value`)
   }
 
