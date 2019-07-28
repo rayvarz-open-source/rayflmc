@@ -1,113 +1,144 @@
-import IElement, {
-  ValidationResult,
-  areElements,
-  areContainElement
-} from '../../../flmc-data-layer/FormController/IElement';
+
+import IElement, { ValidationResult } from '../../../flmc-data-layer/FormController/IElement';
 import { ElementType } from '../ElementType';
 import { Observable, BehaviorSubject, isObservable } from 'rxjs';
-import { Direction } from '../share/Direction';
-import {BaseElement} from "../base/BaseElement";
-import {ContainerModel} from "./ContainerModel";
-import {element, instanceOf, number} from "prop-types";
-import "reflect-metadata";
+import { BaseElement } from "../base/BaseElement";
+import { TypeGuards, Children, Direction, Flex } from './ContainerElementAttributes';
+import { ContainerDirection } from './ContainerDirection';
+
 export class ContainerElement extends BaseElement implements IElement {
-  dispose(): void {}
-
-  get type(): string {
-    return ElementType.CONTAINER;
-  }
-
-  childrenContainer!: BehaviorSubject<IElement[]>;
-  childrenWeightedContainer!: BehaviorSubject<ContainerModel[]>;
 
   validate(): ValidationResult {
-    return new ValidationResult(this.childrenContainer.value.map(i => i.validate().isValid).reduce((p, c) => p && c));
+    return new ValidationResult(true);
   }
 
-  private childrenR(children: IElement[]): ContainerElement {
-    if (this.childrenContainer == null) this.childrenContainer = new BehaviorSubject<IElement[]>([]);
-    this.childrenContainer.next(children);
+  dispose(): void { }
+
+  //region auto generated code
+  /*******************************************/
+  /* GENERATED CODE, DO NOT MODIFY BY HAND!! */
+  /*******************************************/
+
+  get type(): string {
+    return ElementType.Container;
+  }
+
+  childrenContainer = new BehaviorSubject<Children>([]);
+
+  /** iternal function for handling raw Children types*/
+  private childrenR(value: Children): ContainerElement {
+    this.childrenContainer.next(value);
     return this;
   }
 
-  private childrenO(children: Observable<IElement[]>): ContainerElement {
-    if (this.childrenContainer == null) this.childrenContainer = new BehaviorSubject<IElement[]>([]);
-    children.subscribe({
-      next: v => this.childrenContainer.next(v),
-    });
+  /** iternal function for handling Observable<Children> types*/
+  private childrenO(value: Observable<Children>): ContainerElement {
+    value.subscribe({ next: v => this.childrenContainer.next(v) });
     return this;
   }
 
-  children(children_: Observable<IElement[]> | IElement[]): ContainerElement {
-    if (isObservable(children_)) return this.childrenO(children_);
-    if (areElements(children_)) return this.childrenR(children_); // TODO: move array check in areElements
-    throw new Error('given children type is not support');
+  /**
+   * default value: []
+   * 
+   * container children
+   */
+  children(value: Observable<Children> | Children): ContainerElement {
+    if (TypeGuards.isChildren(value)) return this.childrenR(value);
+    else if (isObservable(value)) return this.childrenO(value);
+    throw new Error(`invalid type ${typeof (value)} for Children`)
   }
 
-  private childrenWeightedR(childrenWeighted: ContainerModel[]): ContainerElement {
-    if (this.childrenWeightedContainer == null) this.childrenWeightedContainer = new BehaviorSubject<ContainerModel[]>([]);
-    this.childrenWeightedContainer.next(childrenWeighted);
+
+  directionContainer = new BehaviorSubject<Direction>(ContainerDirection.Column);
+
+  /** iternal function for handling raw Direction types*/
+  private directionR(value: Direction): ContainerElement {
+    this.directionContainer.next(value);
     return this;
   }
 
-  private childrenWeightedO(childrenWeighted: Observable<ContainerModel[]>): ContainerElement {
-    if (this.childrenWeightedContainer == null) this.childrenWeightedContainer = new BehaviorSubject<ContainerModel[]>([]);
-    childrenWeighted.subscribe({
-      next: v => this.childrenWeightedContainer.next(v),
-    });
+  /** iternal function for handling Observable<Direction> types*/
+  private directionO(value: Observable<Direction>): ContainerElement {
+    value.subscribe({ next: v => this.directionContainer.next(v) });
     return this;
   }
 
-  childrenWeighted(childrenWeighted: Observable<ContainerModel[]> | ContainerModel[]): ContainerElement {
-    if (isObservable(childrenWeighted)) return this.childrenWeightedO(childrenWeighted);
-    if (areContainElement(childrenWeighted)) return this.childrenWeightedR(childrenWeighted); // TODO: move array check in areElements
-    throw new Error('given children type is not support');
+  /**
+   * default value: ContainerDirection.Column
+   * 
+   * children direction
+   * 
+   * valid options: ContainerDirection.*
+   * 
+   */
+  direction(value: Observable<Direction> | Direction): ContainerElement {
+    if (TypeGuards.isDirection(value)) return this.directionR(value);
+    else if (isObservable(value)) return this.directionO(value);
+    throw new Error(`invalid type ${typeof (value)} for Direction`)
   }
 
-  // direction
 
-  directionValue = new BehaviorSubject<Direction>(Direction.Column);
+  flexContainer = new BehaviorSubject<Flex>([]);
 
-  private directionR(dir: Direction): ContainerElement {
-    this.directionValue.next(dir);
+  /** iternal function for handling raw Flex types*/
+  private flexR(value: Flex): ContainerElement {
+    this.flexContainer.next(value);
     return this;
   }
 
-  private directionO(dir: Observable<Direction>): ContainerElement {
-    dir.subscribe({
-      next: v => this.directionValue.next(v),
-    });
+  /** iternal function for handling Observable<Flex> types*/
+  private flexO(value: Observable<Flex>): ContainerElement {
+    value.subscribe({ next: v => this.flexContainer.next(v) });
     return this;
   }
 
-  direction(dir: Observable<Direction> | Direction): ContainerElement {
-    if (typeof dir === 'string') return this.directionR(dir);
-    if (isObservable(dir)) return this.directionO(dir);
-    throw new Error('given dir type is not support');
+  /**
+   * default value: []
+   * 
+   * array of numbers representing flex number of each child
+   * 
+   * must be same size as children
+   * @example
+   * 
+   * Container([Label('test'), TextInput(controller)])
+   *  .flex([3, 1]) // Label will be 3 times bigger than TextInput
+   * 
+   * 
+   * 
+   */
+  flex(value: Observable<Flex> | Flex): ContainerElement {
+    if (TypeGuards.isFlex(value)) return this.flexR(value);
+    else if (isObservable(value)) return this.flexO(value);
+    throw new Error(`invalid type ${typeof (value)} for Flex`)
   }
 
+  /*******************************************/
+  /* END OF GENERATED CODE                   */
+  /*******************************************/
+  //endregion
 }
 
-interface DataControllerBuilder {
-  (children?: Observable<IElement[]> | IElement[]| Observable<ContainerModel[]> | ContainerModel[],isWeighted?:boolean): ContainerElement,
-  createWeightedElement(element:IElement,weight:number): ContainerModel
-}
 
-// @ts-ignore
-const Container: DataControllerBuilder = (children?: Observable<IElement[]> | IElement[]| Observable<ContainerModel[]> | ContainerModel[],isWeighted?:boolean): ContainerElement => {
-  let element = new ContainerElement();
-  if (children) {
-    if (isWeighted) {
-      return element.childrenWeighted(children as any);
-    } else {
-      return element.children(children as any);
-    }
-  }
-  return element;
+/*******************************************/
+/* GENERATED CODE, DO NOT MODIFY BY HAND!! */
+/*******************************************/
+
+/** 
+ * @example
+ * // usage:
+ * Container([
+ *  Label('I\'m a label'),
+ *  Button('Submit'),
+ * ]);
+ * 
+ */
+const Container = (children: Observable<Children> | Children): ContainerElement => {
+  return new ContainerElement()
+    .children(children);
 };
 
-(Container as any).createWeightedElement = function createWeightedElement(element:IElement,weight:number){
-  return new ContainerModel(element,weight);
-}
-
 export default Container;
+/*******************************************/
+/* END OF GENERATED CODE                   */
+/*******************************************/
+

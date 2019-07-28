@@ -1,7 +1,7 @@
 import IElement, { ValidationResult, areElements } from '../../../flmc-data-layer/FormController/IElement';
 import { ElementType } from '../ElementType';
 import { Observable, BehaviorSubject, isObservable } from 'rxjs';
-import { Direction } from '../share/Direction';
+import { Direction } from '../container/ContainerDirection';
 
 export class ModalElement implements IElement {
   dispose(): void {}

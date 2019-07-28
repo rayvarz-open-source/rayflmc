@@ -1,65 +1,66 @@
-import {ContainerElement} from './ContainerElement';
-import Box from '@material-ui/core/Box';
+
+import { ContainerElement } from './ContainerElement';
 import * as React from 'react';
-import {Direction} from '../share/Direction';
-import IElement from 'flmc-data-layer/FormController/IElement';
-import {MapToView} from '../ElementToViewMapper';
-import {VisibilityType} from "../../..";
-import {ContainerModel} from "./ContainerModel";
+import { Children, Direction, Flex } from './ContainerElementAttributes';
+import { Visibility } from '../base/BaseElement';
+import { ContainerDirection } from './ContainerDirection';
+import { Box } from '@material-ui/core';
+import { MapToView } from '../ElementToViewMapper';
 
 type Props = {
   element: ContainerElement,
-  weight:number
-
+  weight: number
 }
 
-export default function ContainerView({element,weight}: Props) {
+export default function ContainerView({ element, weight }: Props) {
 
-  const [direction, setDirection] = React.useState(Direction.Column);
-  const [children, setChildren] = React.useState<IElement[]>([]);
-  const [childrenWeighted, setChildrenWeighted] = React.useState<ContainerModel[]>([]);
-  const [visibility, setVisibility] = React.useState('');
+  //region generated
+  /*******************************************/
+  /* GENERATED CODE, DO NOT MODIFY BY HAND!! */
+  /*******************************************/
+  const [children, setChildren] = React.useState<Children>([]);
+  const [direction, setDirection] = React.useState<Direction>(ContainerDirection.Column);
+  const [flex, setFlex] = React.useState<Flex>([]);
+  const [visibility, setVisibility] = React.useState<Visibility>('show');
 
   React.useEffect(() => {
 
-    let dirSub = element.directionValue.subscribe({
-      next: (v) => setDirection(v)
-    });
+    let childrenSub = element.childrenContainer.subscribe({ next: v => setChildren(v) });
+    let directionSub = element.directionContainer.subscribe({ next: v => setDirection(v) });
+    let flexSub = element.flexContainer.subscribe({ next: v => setFlex(v) });
+    let visibilitySub = element.elementVisibilityContainer.subscribe({ next: v => setVisibility(v) });
 
-    let childrenSub ;
-    if(element.childrenContainer)
-    childrenSub= element.childrenContainer.subscribe({
-      next: (v) => setChildren(v)
-    });
-    let childrenWeightedSub;
-    if (element.childrenWeightedContainer)
-    {
-      childrenWeightedSub= element.childrenWeightedContainer.subscribe({
-      next: (v) => setChildrenWeighted(v)
-    });}
-    let visibilitySub = element.elementVisibility.subscribe({
-      next: (v) => setVisibility(v)
-    });
     return () => {
-      dirSub.unsubscribe();
+      childrenSub.unsubscribe();
+      directionSub.unsubscribe();
+      flexSub.unsubscribe();
       visibilitySub.unsubscribe();
-    }
+    };
+  }, []);
+  /*******************************************/
+  /* END OF GENERATED CODE                   */
+  /*******************************************/
+  //endregion
 
-  })
+  if (flex.length > 0 && flex.length != children.length)
+    throw new Error(`flex length (${flex.length}) must be same as children length ${children.length}`);
 
   function renderChildren() {
-    if (childrenWeighted && childrenWeighted.length>0)
-      return childrenWeighted.map((v, i) => <MapToView element={v.element} weight={v.weight} key={`${v.element.type}_${i}`}/>);
+    if (flex.length != 0)
+      return children.map((element, i) => <MapToView element={element} weight={flex[i]} key={`${element.type}_${i}`}/>);
     return children.map((v, i) => <MapToView element={v} weight={0} key={`${v.type}_${i}`}/>);
   }
 
   return (
     <Box
-      style={visibility == VisibilityType.Gone ? element.goneStyle : visibility == VisibilityType.Hidden ? element.hiddenStyle : element.showStyle}
-      style={{flexGrow:weight}}
-      display="flex" flexDirection={direction} >
+      style={ {
+        ...element.getVisibilityStyle(visibility),
+        ...element.getWeightStyle(weight)
+      }}
+      display="flex"
+      flexDirection={direction} >
       {renderChildren()}
     </Box>
-  )
+  );
 
 }

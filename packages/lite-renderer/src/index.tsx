@@ -27,7 +27,7 @@ import {SelectBoxStyleType} from './form/elements/selectBox/SelectBoxStyleType';
 import {ImageBorderType} from './form/elements/image/ImageBorderType';
 import {ImageScaleType} from './form/elements/image/ImageScaleType';
 import {VisibilityType} from './form/elements/share/VisibilityType';
-import {Direction} from './form/elements/share/Direction';
+import {Direction} from './form/elements/container/ContainerDirection';
 import {TextDirection} from './form/elements/share/TextDirection';
 import {ChipSelectionType} from './form/elements/chip/ChipSelectionType';
 import {ChipModel} from './form/elements/chip/ChipModel';

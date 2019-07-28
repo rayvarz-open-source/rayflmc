@@ -43,7 +43,7 @@ export function MapToView({ element,weight }: Props) {
         case (ElementType.TIME_PICKER): return <TimePickerView element={element as TimePickerElement} weight={weight}/>;
         case (ElementType.SELECT_BOX_GROUP): return <SelectGroupView element={element as SelectGroupElement} weight={weight}/>;
         case (ElementType.Label): return <LabelView element={element as LabelElement} weight={weight}/>;
-        case (ElementType.CONTAINER): return <ContainerView element={element as ContainerElement} weight={weight}/>;
+        case (ElementType.Container): return <ContainerView element={element as ContainerElement} weight={weight}/>;
         case (ElementType.TAB): return <TabView element={element as TabElement} weight={weight}/>;
         case (ElementType.Chip): return <ChipView element={element as ChipElement} weight={weight}/>;
         case (ElementType.TextInput): return <TextInputView element={element as TextInputElement} weight={weight}/>;

@@ -1,49 +1,11 @@
-const sample = `
-/** @ElementDoc
- * @example
- * // usage:
- * let controller = new BehaviorSubject<string>(""); // or BehaviorSubject<Value>
- * TextInput(controller);
- * 
- */
-// Element: TextInput
-/**
- * @[{"bidirectional": true,"required": true, "typeguard": "isValue", "default": "''"}]
- * contaienr that holds value of text input.
- * @example
- * // how to read a text input value
- * 
- * controller = new BehaviorSubject<string>("text input default value");
- * TextInput(controller);
- * console.log(controller.value);
- * 
- * // how to set text input value
- * 
- * controller.next("new value")
- * 
- */
-export type Value = string;
-/**
- * 
- */
-export type Title = string;
-// End Element
-
-// type guards
-
-export const TypeGuards = {
-    isValue: (value: any): value is Title => typeof(value) == "string"
-}
-`
-
 const ATTRIBUTE = /\/\*\*((.|\n)*?)export type(.*?);/gm;
 const ELEMENT_DOC = /\/\*\* @ElementDoc((.|\n)*?)\*\//g;
 const ATTRIBUTE_FILE_PARSER = /\/\/ Element:(.*?)\n((.|\n)*?)\/\/ End Element\n/gm;
-const OPTIONS = /@\[(.*?)\]/gm;
+const OPTIONS = /@\[{(.*?)\}]/gm;
 
 class AttributeDefinition {
 
-    constructor({attributeName, attributeType, comment, options}) {
+    constructor({ attributeName, attributeType, comment, options }) {
         this.attributeName = attributeName;
         this.attributeType = attributeType;
         this.comment = comment;
@@ -53,8 +15,8 @@ class AttributeDefinition {
 }
 
 class ElementDefinition {
-    
-    constructor({elementName, elementAttributes, elementDoc}) {
+
+    constructor({ elementName, elementAttributes, elementDoc }) {
         this.elementName = elementName;
         this.elementAttributes = elementAttributes;
         this.elementDoc = elementDoc;
@@ -65,7 +27,7 @@ class ElementDefinition {
 class Parser {
 
     constructor(file) {
-        this.file = file;        
+        this.file = file;
     }
 
     parse() {
@@ -73,7 +35,7 @@ class Parser {
         let block = fileRegex.exec(this.file);
         let elementName = block[1];
         let rawAttributes = block[2];
-        
+
         rawAttributes = rawAttributes.match(ATTRIBUTE);
 
         let attributes = rawAttributes.map(value => {
@@ -88,7 +50,7 @@ class Parser {
             let optionsResult = optionsRegex.exec(rawComment);
             let options = {};
             if (optionsResult) {
-                options = JSON.parse(optionsResult[1]);
+                options = JSON.parse('{' + optionsResult[1] + '}');
                 comment = comment.replace(optionsResult[0], "");
             }
 
