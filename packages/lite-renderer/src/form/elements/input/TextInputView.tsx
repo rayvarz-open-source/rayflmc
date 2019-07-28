@@ -3,6 +3,7 @@ import * as React from 'react';
 import { Value, Label, Placeholder, Disabled, HelperText, IsInError ,StartText, EndText, StartIcon, EndIcon, Variant, Password, Multiline, Rows, RowsMax, Direction, OnEndIconClick, OnStartIconClick } from './TextInputElementAttributes';
 import { Visibility } from '../base/BaseElement';
 import { TextField, InputAdornment, IconButton, Icon } from '@material-ui/core';
+import useFunctionAsState from '../../../custom-hooks/function-state';
 
 type Props = {
   element: TextInputElement,
@@ -10,7 +11,6 @@ type Props = {
 }
 
 export default function TextInputView({ element, weight }: Props) {
-
   //region generated
   /*******************************************/
   /* GENERATED CODE, DO NOT MODIFY BY HAND!! */
@@ -31,8 +31,8 @@ export default function TextInputView({ element, weight }: Props) {
   const [rows, setRows] = React.useState<Rows>(0);
   const [rowsMax, setRowsMax] = React.useState<RowsMax>(0);
   const [direction, setDirection] = React.useState<Direction>('ltr');
-  const [onEndIconClick, setOnEndIconClick] = React.useState<OnEndIconClick>(undefined);
-  const [onStartIconClick, setOnStartIconClick] = React.useState<OnStartIconClick>(undefined);
+  const [onEndIconClick, setOnEndIconClick] = useFunctionAsState<OnEndIconClick>(undefined);
+  const [onStartIconClick, setOnStartIconClick] = useFunctionAsState<OnStartIconClick>(undefined);
   const [visibility, setVisibility] = React.useState<Visibility>('show');
 
   React.useEffect(() => {
