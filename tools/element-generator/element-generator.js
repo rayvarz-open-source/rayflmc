@@ -1,5 +1,12 @@
 // TODO: CLEAN UP!
 
+String.prototype.trimRight = function(charlist) {
+    if (charlist === undefined)
+      charlist = "\s";
+  
+    return this.replace(new RegExp("[" + charlist + "]+$"), "");
+  };
+
 function jsLcfirst(string) {
     return string.charAt(0).toLowerCase() + string.slice(1);
 }
@@ -71,7 +78,7 @@ value.subscribe({next: v => this.${containerName}.next(v)});
 return this;
 }
 
-${attributeDefinition.comment}
+${attributeDefinition.comment.trimRight(';').trim()}
 ${lowercaseTypeName}(value: Observable<${typename}> | ${typename}): ${elementType} {
 if (isObservable(value)) this.${oFunctiuonName}(value);
 else this.${rFunctiuonName}(value);
@@ -109,7 +116,7 @@ value.subscribe({next: v => this.${containerName}.next(v)});
 return this;
 }
 
-${attributeDefinition.comment}
+${attributeDefinition.comment.trimRight(';').trim()}
 ${lowercaseTypeName}(value: BehaviorSubject<${typename}> | Observable<${typename}> | ${typename}): ${elementType} {
     if (isSubject(value)) return this.${bFunctiuonName}(value);
     else if (isObservable(value)) return this.${oFunctiuonName}(value);
@@ -147,7 +154,7 @@ value.subscribe({next: v => this.${containerName}.next(v)});
 return this;
 }
 
-${attributeDefinition.comment}
+${attributeDefinition.comment.trimRight(';').trim()}
 ${lowercaseTypeName}(value: BehaviorSubject<${typename}> | Observable<${typename}> | ${typename}): TextInputElement {
 if (TypeGuards.${attributeDefinition.options.typeguard}(value)) return this.${rFunctiuonName}(value);
 else if (isObservable(value)) return this.${oFunctiuonName}(value);
@@ -180,7 +187,7 @@ value.subscribe({next: v => this.${containerName}.next(v)});
 return this;
 }
 
-${attributeDefinition.comment}
+${attributeDefinition.comment.trimRight(';').trim()}
 ${lowercaseTypeName}(value: Observable<${typename}> | ${typename}): ${elementType} {
 if (TypeGuards.${attributeDefinition.options.typeguard}(value)) return this.${rFunctiuonName}(value);
 else if (isObservable(value)) return this.${oFunctiuonName}(value);
