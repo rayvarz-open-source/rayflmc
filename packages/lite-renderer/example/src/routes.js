@@ -1,5 +1,6 @@
 import ButtonForm from "./forms/ButtonForm";
 import ImageForm from "./forms/ImageForm";
+import TextInputForm from "./forms/TextInputForm";
 import { RootRouteCategory } from 'lite-renderer';
 
 const categoties = {
@@ -28,6 +29,13 @@ const routes = [
         path: "/image",
         builder: (path, params) => new ImageForm(),
         name: "Image Element",
+        category: categoties.elementGallery,
+        hidden: false,
+    },
+    {
+        path: "/textInput",
+        builder: (path, params) => new TextInputForm(),
+        name: "Text Input Element",
         category: categoties.elementGallery,
         hidden: false,
     },
