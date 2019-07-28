@@ -155,7 +155,7 @@ return this;
 }
 
 ${attributeDefinition.comment.trimRight(';').trim()}
-${lowercaseTypeName}(value: BehaviorSubject<${typename}> | Observable<${typename}> | ${typename}): TextInputElement {
+${lowercaseTypeName}(value: BehaviorSubject<${typename}> | Observable<${typename}> | ${typename}): ${elementType} {
 if (TypeGuards.${attributeDefinition.options.typeguard}(value)) return this.${rFunctiuonName}(value);
 else if (isObservable(value)) return this.${oFunctiuonName}(value);
 else if (isSubject(value)) return this.${bFunctiuonName}(value);
