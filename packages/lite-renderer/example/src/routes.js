@@ -1,4 +1,5 @@
 import ButtonForm from "./forms/ButtonForm";
+import ImageForm from "./forms/ImageForm";
 import { RootRouteCategory } from 'lite-renderer';
 
 const categoties = {
@@ -20,6 +21,13 @@ const routes = [
         path: "/button",
         builder: (path, params) => new ButtonForm(),
         name: "Button Element",
+        category: categoties.elementGallery,
+        hidden: false,
+    },
+    {
+        path: "/image",
+        builder: (path, params) => new ImageForm(),
+        name: "Image Element",
         category: categoties.elementGallery,
         hidden: false,
     },
