@@ -74,8 +74,9 @@ class Route {
 
         }catch(err){
             // this.changeLocation('404')
-            console.warn(err);
+            changeRoute('/', {});
         }
+       
     }
 
     __setHash(hash: string){
@@ -115,16 +116,15 @@ function onRoutChange(props?: Props): Route {
 }
 
 import { Route as FRoute } from './route';
-import IDataController from 'flmc-data-layer/src/Base/IDataController';
+import IDataController from '../flmc-data-layer/Base/IDataController';
 
 export const createOnHashChangeFunction = (routes: FRoute[]) => {
     return () : [IDataController, FRoute] | undefined => {
         var currentRoute = onRoutChange();
         for(let route of routes) {
-            if (route.path == currentRoute.path || (route.path == '/' && currentRoute.path == null)) 
+            if (route.path == currentRoute.path || (route.path == '/' && !currentRoute.path)) 
                 return [route.builder(route.path, currentRoute.params), route as FRoute];
         }
-        console.warn(`Could not find path: ${currentRoute.path}`);
     }
 }
 
