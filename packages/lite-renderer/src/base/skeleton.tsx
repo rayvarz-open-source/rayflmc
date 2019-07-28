@@ -198,19 +198,6 @@ export default function Skeleton({ children, routes, currentRoute }: any) {
           </IconButton>
         </Toolbar>
       </AppBar>
-
-      <main className={classes.content}>
-        <div className={classes.appBarSpacer} />
-        <Container maxWidth="lg" className={classes.container}>
-          <Grid container spacing={3}>
-            <Grid item xs={12}>
-              <Paper>
-                {children}
-              </Paper>
-            </Grid>
-          </Grid>
-        </Container>
-      </main>
       <Drawer
         variant="permanent"
         anchor={"right"}
@@ -229,6 +216,19 @@ export default function Skeleton({ children, routes, currentRoute }: any) {
           {createSidebarItems({ routes: routesProp, currentRoute: currentRoute })}
         </Sidebar>
       </Drawer>
+      <main className={classes.content}>
+        <div className={classes.appBarSpacer} />
+        <Container maxWidth="lg" className={classes.container}>
+          <Grid container spacing={3}>
+            <Grid item xs={12}>
+              <Paper>
+                {children}
+              </Paper>
+            </Grid>
+          </Grid>
+        </Container>
+      </main>
+      
     </div>
   );
 }
