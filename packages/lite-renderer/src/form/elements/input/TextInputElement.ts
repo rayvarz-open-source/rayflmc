@@ -59,7 +59,6 @@ export class TextInputElement extends BaseElement implements IElement {
    * controller.next("new value")
    * 
    */
-  ;
   value(value: BehaviorSubject<Value> | Observable<Value> | Value): TextInputElement {
     if (TypeGuards.isValue(value)) return this.valueR(value);
     else if (isObservable(value)) return this.valueO(value);
@@ -89,7 +88,6 @@ export class TextInputElement extends BaseElement implements IElement {
    * 
    * see https://material-ui.com/components/text-fields/ or https://material-ui.com/api/text-field/ for more info
    */
-  ;
   label(value: Observable<Label> | Label): TextInputElement {
     if (TypeGuards.isLabel(value)) return this.labelR(value);
     else if (isObservable(value)) return this.labelO(value);
@@ -122,7 +120,6 @@ export class TextInputElement extends BaseElement implements IElement {
    * @
    * see https://material-ui.com/components/text-fields/ or https://material-ui.com/api/text-field/ for more info
    */
-  ;
   placeholder(value: Observable<Placeholder> | Placeholder): TextInputElement {
     if (TypeGuards.isPlaceholder(value)) return this.placeholderR(value);
     else if (isObservable(value)) return this.placeholderO(value);
@@ -151,7 +148,6 @@ export class TextInputElement extends BaseElement implements IElement {
    * 
    * see https://material-ui.com/components/text-fields/ or https://material-ui.com/api/text-field/ for more info
    */
-  ;
   disabled(value: Observable<Disabled> | Disabled): TextInputElement {
     if (TypeGuards.isDisabled(value)) return this.disabledR(value);
     else if (isObservable(value)) return this.disabledO(value);
@@ -182,7 +178,6 @@ export class TextInputElement extends BaseElement implements IElement {
    * 
    * see https://material-ui.com/components/text-fields/ or https://material-ui.com/api/text-field/ for more info
    */
-  ;
   helperText(value: Observable<HelperText> | HelperText): TextInputElement {
     if (TypeGuards.isHelperText(value)) return this.helperTextR(value);
     else if (isObservable(value)) return this.helperTextO(value);
@@ -212,7 +207,6 @@ export class TextInputElement extends BaseElement implements IElement {
    * 
    * see https://material-ui.com/components/text-fields/ or https://material-ui.com/api/text-field/ for more info
    */
-  ;
   isInError(value: Observable<IsInError> | IsInError): TextInputElement {
     if (TypeGuards.isInError(value)) return this.isInErrorR(value);
     else if (isObservable(value)) return this.isInErrorO(value);
@@ -241,7 +235,6 @@ export class TextInputElement extends BaseElement implements IElement {
    * 
    * see https://material-ui.com/components/text-fields/ or https://material-ui.com/api/text-field/ for more info
    */
-  ;
   startText(value: Observable<StartText> | StartText): TextInputElement {
     if (TypeGuards.isStartText(value)) return this.startTextR(value);
     else if (isObservable(value)) return this.startTextO(value);
@@ -270,7 +263,6 @@ export class TextInputElement extends BaseElement implements IElement {
    * 
    * see https://material-ui.com/components/text-fields/ or https://material-ui.com/api/text-field/ for more info
    */
-  ;
   endText(value: Observable<EndText> | EndText): TextInputElement {
     if (TypeGuards.isEndText(value)) return this.endTextR(value);
     else if (isObservable(value)) return this.endTextO(value);
@@ -300,7 +292,6 @@ export class TextInputElement extends BaseElement implements IElement {
    * 
    * see https://material-ui.com/components/text-fields/ or https://material-ui.com/api/text-field/ for more info
    */
-  ;
   startIcon(value: Observable<StartIcon> | StartIcon): TextInputElement {
     if (TypeGuards.isStartIcon(value)) return this.startIconR(value);
     else if (isObservable(value)) return this.startIconO(value);
@@ -330,7 +321,6 @@ export class TextInputElement extends BaseElement implements IElement {
    * 
    * see https://material-ui.com/components/text-fields/ or https://material-ui.com/api/text-field/ for more info
    */
-  ;
   endIcon(value: Observable<EndIcon> | EndIcon): TextInputElement {
     if (TypeGuards.isEndIcon(value)) return this.endIconR(value);
     else if (isObservable(value)) return this.endIconO(value);
@@ -360,7 +350,6 @@ export class TextInputElement extends BaseElement implements IElement {
    * 
    * see https://material-ui.com/components/text-fields/ or https://material-ui.com/api/text-field/ for more info
    */
-  ;
   variant(value: Observable<Variant> | Variant): TextInputElement {
     if (TypeGuards.isVariant(value)) return this.variantR(value);
     else if (isObservable(value)) return this.variantO(value);
@@ -390,7 +379,6 @@ export class TextInputElement extends BaseElement implements IElement {
    * 
    * see https://material-ui.com/components/text-fields/ or https://material-ui.com/api/text-field/ for more info
    */
-  ;
   password(value: Observable<Password> | Password): TextInputElement {
     if (TypeGuards.isPassword(value)) return this.passwordR(value);
     else if (isObservable(value)) return this.passwordO(value);
@@ -419,7 +407,6 @@ export class TextInputElement extends BaseElement implements IElement {
    * 
    * see https://material-ui.com/components/text-fields/ or https://material-ui.com/api/text-field/ for more info
    */
-  ;
   multiline(value: Observable<Multiline> | Multiline): TextInputElement {
     if (TypeGuards.isMultiline(value)) return this.multilineR(value);
     else if (isObservable(value)) return this.multilineO(value);
@@ -449,7 +436,6 @@ export class TextInputElement extends BaseElement implements IElement {
    * 
    * see https://material-ui.com/components/text-fields/ or https://material-ui.com/api/text-field/ for more info
    */
-  ;
   rows(value: Observable<Rows> | Rows): TextInputElement {
     if (TypeGuards.isRows(value)) return this.rowsR(value);
     else if (isObservable(value)) return this.rowsO(value);
@@ -479,7 +465,6 @@ export class TextInputElement extends BaseElement implements IElement {
    * 
    * see https://material-ui.com/components/text-fields/ or https://material-ui.com/api/text-field/ for more info
    */
-  ;
   rowsMax(value: Observable<RowsMax> | RowsMax): TextInputElement {
     if (TypeGuards.isRowsMax(value)) return this.rowsMaxR(value);
     else if (isObservable(value)) return this.rowsMaxO(value);
@@ -509,7 +494,6 @@ export class TextInputElement extends BaseElement implements IElement {
    * 
    * see https://material-ui.com/components/text-fields/ or https://material-ui.com/api/text-field/ for more info
    */
-  ;
   direction(value: Observable<Direction> | Direction): TextInputElement {
     if (TypeGuards.isDirection(value)) return this.directionR(value);
     else if (isObservable(value)) return this.directionO(value);
@@ -539,7 +523,6 @@ export class TextInputElement extends BaseElement implements IElement {
    * 
    * see https://material-ui.com/components/text-fields/ or https://material-ui.com/api/text-field/ for more info
    */
-  ;
   onEndIconClick(value: Observable<OnEndIconClick> | OnEndIconClick): TextInputElement {
     if (TypeGuards.isOnEndIconClick(value)) return this.onEndIconClickR(value);
     else if (isObservable(value)) return this.onEndIconClickO(value);
@@ -569,7 +552,6 @@ export class TextInputElement extends BaseElement implements IElement {
    * 
    * see https://material-ui.com/components/text-fields/ or https://material-ui.com/api/text-field/ for more info
    */
-  ;
   onStartIconClick(value: Observable<OnStartIconClick> | OnStartIconClick): TextInputElement {
     if (TypeGuards.isOnStartIconClick(value)) return this.onStartIconClickR(value);
     else if (isObservable(value)) return this.onStartIconClickO(value);

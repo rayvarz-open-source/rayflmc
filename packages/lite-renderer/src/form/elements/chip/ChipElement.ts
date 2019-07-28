@@ -50,7 +50,6 @@ export class ChipElement extends BaseElement implements IElement {
    * container that holds chips.
    * 
    */
-  ;
   value(value: BehaviorSubject<Value> | Observable<Value> | Value): ChipElement {
     if (TypeGuards.isValue(value)) return this.valueR(value);
     else if (isObservable(value)) return this.valueO(value);
@@ -79,7 +78,6 @@ export class ChipElement extends BaseElement implements IElement {
    * selection type // TODO: add docs
    * 
    */
-  ;
   selectionType(value: Observable<SelectionType> | SelectionType): ChipElement {
     if (TypeGuards.isSelectionType(value)) return this.selectionTypeR(value);
     else if (isObservable(value)) return this.selectionTypeO(value);

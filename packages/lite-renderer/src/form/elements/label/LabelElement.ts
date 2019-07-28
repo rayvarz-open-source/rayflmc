@@ -52,7 +52,6 @@ export class LabelElement extends BaseElement implements IElement {
    * controller.next("new value")
    * 
    */
-  ;
   value(value: Observable<Value> | Value): LabelElement {
     if (TypeGuards.isValue(value)) return this.valueR(value);
     else if (isObservable(value)) return this.valueO(value);
@@ -81,7 +80,6 @@ export class LabelElement extends BaseElement implements IElement {
    * 
    * see https://material-ui.com/api/typography/ for more info
    */
-  ;
   noWrap(value: Observable<NoWrap> | NoWrap): LabelElement {
     if (TypeGuards.isNoWrap(value)) return this.noWrapR(value);
     else if (isObservable(value)) return this.noWrapO(value);
@@ -110,7 +108,6 @@ export class LabelElement extends BaseElement implements IElement {
    * 
    * see https://material-ui.com/api/typography/ for more info
    */
-  ;
   gutterBottom(value: Observable<GutterBottom> | GutterBottom): LabelElement {
     if (TypeGuards.isGutterBottom(value)) return this.gutterBottomR(value);
     else if (isObservable(value)) return this.gutterBottomO(value);
@@ -140,7 +137,6 @@ export class LabelElement extends BaseElement implements IElement {
    * 
    * see https://material-ui.com/api/typography/ for more info
    */
-  ;
   colors(value: Observable<Colors> | Colors): LabelElement {
     if (TypeGuards.isColor(value)) return this.colorsR(value);
     else if (isObservable(value)) return this.colorsO(value);
@@ -170,7 +166,6 @@ export class LabelElement extends BaseElement implements IElement {
    * 
    * see https://material-ui.com/api/typography/ for more info
    */
-  ;
   variant(value: Observable<Variant> | Variant): LabelElement {
     if (TypeGuards.isLabelVariant(value)) return this.variantR(value);
     else if (isObservable(value)) return this.variantO(value);
@@ -200,7 +195,6 @@ export class LabelElement extends BaseElement implements IElement {
    * 
    * see https://material-ui.com/api/typography/ for more info
    */
-  ;
   display(value: Observable<Display> | Display): LabelElement {
     if (TypeGuards.isDisplayType(value)) return this.displayR(value);
     else if (isObservable(value)) return this.displayO(value);
@@ -230,7 +224,6 @@ export class LabelElement extends BaseElement implements IElement {
    * 
    * see https://material-ui.com/api/typography/ for more info
    */
-  ;
   align(value: Observable<Align> | Align): LabelElement {
     if (TypeGuards.isAlign(value)) return this.alignR(value);
     else if (isObservable(value)) return this.alignO(value);

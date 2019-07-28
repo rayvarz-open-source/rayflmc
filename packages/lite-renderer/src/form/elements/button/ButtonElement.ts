@@ -44,7 +44,6 @@ export class ButtonElement extends BaseElement implements IElement {
    * 
    * 
    */
-  ;
   text(value: Observable<Text> | Text): ButtonElement {
     if (TypeGuards.isText(value)) return this.textR(value);
     else if (isObservable(value)) return this.textO(value);
@@ -72,7 +71,6 @@ export class ButtonElement extends BaseElement implements IElement {
    * if true, button will be disabled and shows an loading indicator
    * 
    */
-  ;
   loading(value: Observable<Loading> | Loading): ButtonElement {
     if (TypeGuards.isLoading(value)) return this.loadingR(value);
     else if (isObservable(value)) return this.loadingO(value);
@@ -101,7 +99,6 @@ export class ButtonElement extends BaseElement implements IElement {
    * 
    * see https://material-ui.com/api/button/ for more info
    */
-  ;
   disabled(value: Observable<Disabled> | Disabled): ButtonElement {
     if (TypeGuards.isDisabled(value)) return this.disabledR(value);
     else if (isObservable(value)) return this.disabledO(value);
@@ -132,7 +129,6 @@ export class ButtonElement extends BaseElement implements IElement {
    * 
    * see https://material-ui.com/api/button/ for more info
    */
-  ;
   colors(value: Observable<Colors> | Colors): ButtonElement {
     if (TypeGuards.isColors(value)) return this.colorsR(value);
     else if (isObservable(value)) return this.colorsO(value);
@@ -163,7 +159,6 @@ export class ButtonElement extends BaseElement implements IElement {
    * 
    * see https://material-ui.com/api/button/ for more info
    */
-  ;
   variant(value: Observable<Variant> | Variant): ButtonElement {
     if (TypeGuards.isVariant(value)) return this.variantR(value);
     else if (isObservable(value)) return this.variantO(value);
@@ -192,7 +187,6 @@ export class ButtonElement extends BaseElement implements IElement {
    * 
    * all supported icon names : https://material.io/tools/icons
    */
-  ;
   icon(value: Observable<Icon> | Icon): ButtonElement {
     if (TypeGuards.isIcon(value)) return this.iconR(value);
     else if (isObservable(value)) return this.iconO(value);
@@ -220,7 +214,6 @@ export class ButtonElement extends BaseElement implements IElement {
    * fires when user clicks on button
    * 
    */
-  ;
   onClick(value: Observable<OnClick> | OnClick): ButtonElement {
     if (TypeGuards.isOnClick(value)) return this.onClickR(value);
     else if (isObservable(value)) return this.onClickO(value);

@@ -44,7 +44,6 @@ export class ImageElement extends BaseElement implements IElement {
    * address of image
    * 
    */
-  ;
   address(value: Observable<Address> | Address): ImageElement {
     if (TypeGuards.isAddress(value)) return this.addressR(value);
     else if (isObservable(value)) return this.addressO(value);
@@ -72,7 +71,6 @@ export class ImageElement extends BaseElement implements IElement {
    * same as <image alt=".."/>
    * 
    */
-  ;
   alt(value: Observable<Alt> | Alt): ImageElement {
     if (TypeGuards.isAlt(value)) return this.altR(value);
     else if (isObservable(value)) return this.altO(value);
@@ -128,7 +126,6 @@ export class ImageElement extends BaseElement implements IElement {
    * image height
    * 
    */
-  ;
   height(value: Observable<Height> | Height): ImageElement {
     if (TypeGuards.isHeight(value)) return this.heightR(value);
     else if (isObservable(value)) return this.heightO(value);
@@ -156,7 +153,6 @@ export class ImageElement extends BaseElement implements IElement {
    * scale type // TODO: add docs
    * 
    */
-  ;
   scale(value: Observable<Scale> | Scale): ImageElement {
     if (TypeGuards.isScale(value)) return this.scaleR(value);
     else if (isObservable(value)) return this.scaleO(value);
@@ -184,7 +180,6 @@ export class ImageElement extends BaseElement implements IElement {
    * border type // TODO: add docs
    * 
    */
-  ;
   border(value: Observable<Border> | Border): ImageElement {
     if (TypeGuards.isBorder(value)) return this.borderR(value);
     else if (isObservable(value)) return this.borderO(value);
