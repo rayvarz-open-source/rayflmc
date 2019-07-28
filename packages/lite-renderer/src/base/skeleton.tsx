@@ -19,6 +19,7 @@ import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import Sidebar, { SidebarItemWithChildren, SidebaSingleItem } from './Sidebar';
 import { Route } from '../router/route';
 import { changeRoute } from '../router/router';
+import { CSSProperties } from '@material-ui/styles';
 
 const drawerWidth = 240;
 
@@ -68,7 +69,7 @@ const useStyles = makeStyles(theme => ({
     }),
   },
   appBarShift: {
-    marginLeft: drawerWidth,
+    marginRight: drawerWidth,
     width: `calc(100% - ${drawerWidth}px)`,
     transition: theme.transitions.create(['width', 'margin'], {
       easing: theme.transitions.easing.sharp,
@@ -76,7 +77,7 @@ const useStyles = makeStyles(theme => ({
     }),
   },
   menuButton: {
-    marginRight: 36,
+    marginLeft: 36,
   },
   menuButtonHidden: {
     display: 'none',
@@ -166,9 +167,9 @@ const createSidebarItems = ({ routes, currentRoute }: Props) => {
 
 export default function Skeleton({ children, routes, currentRoute }: any) {
   const routesProp = routes as Route[];
-  const currentRouteProp = currentRoute as Route[];
+  const currentRouteProp = currentRoute as Route;
   const classes = useStyles() as any;
-  const [open, setOpen] = React.useState(true);
+  const [open, setOpen] = React.useState<boolean>(true);
   const handleDrawerOpen = () => {
     setOpen(true);
   };
@@ -182,8 +183,12 @@ export default function Skeleton({ children, routes, currentRoute }: any) {
       <CssBaseline />
       <AppBar position="absolute" className={clsx(classes.appBar, open && classes.appBarShift)}>
         <Toolbar className={classes.toolbar}>
+         
+          <Typography component="h1" align="right" variant="h6" color="inherit" noWrap className={classes.title}>
+            {currentRouteProp == null ? "Dashboard" : currentRouteProp.name}
+          </Typography>
           <IconButton
-            edge="start"
+            edge="end"
             color="inherit"
             aria-label="Open drawer"
             onClick={handleDrawerOpen}
@@ -191,14 +196,24 @@ export default function Skeleton({ children, routes, currentRoute }: any) {
           >
             <MenuIcon />
           </IconButton>
-          <Typography component="h1" variant="h6" color="inherit" noWrap className={classes.title}>
-            {currentRouteProp == null ? "Dashboard" : currentRouteProp.name}
-          </Typography>
         </Toolbar>
       </AppBar>
+
+      <main className={classes.content}>
+        <div className={classes.appBarSpacer} />
+        <Container maxWidth="lg" className={classes.container}>
+          <Grid container spacing={3}>
+            <Grid item xs={12}>
+              <Paper>
+                {children}
+              </Paper>
+            </Grid>
+          </Grid>
+        </Container>
+      </main>
       <Drawer
         variant="permanent"
-        anchor={classes.direction == "rtl" ? "right" : "left"}
+        anchor={"right"}
         classes={{
           paper: clsx(classes.drawerPaper, !open && classes.drawerPaperClose),
         }}
@@ -214,18 +229,6 @@ export default function Skeleton({ children, routes, currentRoute }: any) {
           {createSidebarItems({ routes: routesProp, currentRoute: currentRoute })}
         </Sidebar>
       </Drawer>
-      <main className={classes.content}>
-        <div className={classes.appBarSpacer} />
-        <Container maxWidth="lg" className={classes.container}>
-          <Grid container spacing={3}>
-            <Grid item xs={12}>
-              <Paper>
-                {children}
-              </Paper>
-            </Grid>
-          </Grid>
-        </Container>
-      </main>
     </div>
   );
 }
