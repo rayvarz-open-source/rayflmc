@@ -1,10 +1,11 @@
-import { Icon as MIcon, Button, CircularProgress, withStyles, useTheme } from '@material-ui/core';
+import { Icon as MIcon, Button, CircularProgress, withStyles } from '@material-ui/core';
 import { ButtonElement } from './ButtonElement';
 import * as React from 'react';
 import { Text, Loading, Disabled, Colors, Variant, Icon, OnClick } from './ButtonElementAttributes';
 import { Visibility } from '../base/BaseElement';
 import { ButtonColor } from './ButtonColor';
 import { ButtonVariant } from './ButtonVariant';
+import useTheme from '@material-ui/styles/useTheme';
 
 type Props = {
   element: ButtonElement,

@@ -3,8 +3,9 @@ import Typography from '@material-ui/core/Typography';
 import * as React from 'react';
 import FormLabel from '@material-ui/core/FormLabel';
 import jMoment from "moment-jalaali";
-import * as moment from "moment";
+import * as moment_ from "moment";
 import JalaliUtils from "@date-io/jalaali";
+const moment = moment_;
 
 import {
   KeyboardTimePicker,
