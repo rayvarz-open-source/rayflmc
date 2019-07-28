@@ -88,6 +88,7 @@ const useStyles = makeStyles(theme => ({
   drawerPaper: {
     position: 'relative',
     whiteSpace: 'nowrap',
+    color:"#534546",
     width: drawerWidth,
     transition: theme.transitions.create('width', {
       easing: theme.transitions.easing.sharp,
@@ -199,7 +200,7 @@ export default function Skeleton({ children, routes, currentRoute }: any) {
         </Toolbar>
       </AppBar>
       <Drawer
-        variant="permanent"
+        variant="persistent"
         anchor={"right"}
         classes={{
           paper: clsx(classes.drawerPaper, !open && classes.drawerPaperClose),
