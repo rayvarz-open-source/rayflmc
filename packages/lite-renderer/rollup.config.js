@@ -11,6 +11,11 @@ import pkg from './package.json'
 
 export default {
   input: 'src/index.tsx',
+  onwarn: function(warning, rollupWarn) {
+    if (warning.code !== 'CIRCULAR_DEPENDENCY') {
+      rollupWarn(warning);
+    }
+  },
   output: [
     {
       file: pkg.main,
@@ -27,6 +32,7 @@ export default {
   ],
   plugins: [
     external(),
+    
     postcss({
       modules: true
     }),
