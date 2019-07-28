@@ -172,7 +172,7 @@ export const TypeGuards = {
     isDisabled: (value: any): value is Disabled => typeof(value) == "boolean",
     isPassword: (value: any): value is Password => typeof(value) == "boolean",
     isMultiline: (value: any): value is Multiline => typeof(value) == "boolean",
-    isInError: (value: any): value is Error => typeof(value) == "boolean",
+    isInError: (value: any): value is IsInError => typeof(value) == "boolean",
     isStartText: (value: any): value is StartText => value === undefined || typeof(value) == "string",
     isEndText: (value: any): value is EndText => value === undefined || typeof(value) == "string",
     isStartIcon: (value: any): value is StartIcon => value === undefined || typeof(value) == "string",
