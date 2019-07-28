@@ -157,8 +157,8 @@ return this;
 ${attributeDefinition.comment.trimRight(';').trim()}
 ${lowercaseTypeName}(value: BehaviorSubject<${typename}> | Observable<${typename}> | ${typename}): ${elementType} {
 if (TypeGuards.${attributeDefinition.options.typeguard}(value)) return this.${rFunctiuonName}(value);
-else if (isObservable(value)) return this.${oFunctiuonName}(value);
 else if (isSubject(value)) return this.${bFunctiuonName}(value);
+else if (isObservable(value)) return this.${oFunctiuonName}(value);
 throw new Error(\`invalid type \${typeof(value)} for ${typename}\`)
 }
 `.trim();
