@@ -27,7 +27,6 @@ import {SelectBoxStyleType} from './form/elements/selectBox/SelectBoxStyleType';
 import {ImageBorderType} from './form/elements/image/ImageBorderType';
 import {ImageScaleType} from './form/elements/image/ImageScaleType';
 import {VisibilityType} from './form/elements/share/VisibilityType';
-import {Direction} from './form/elements/container/ContainerDirection';
 import {TextDirection} from './form/elements/share/TextDirection';
 import {ChipSelectionType} from './form/elements/chip/ChipSelectionType';
 import {ChipModel} from './form/elements/chip/ChipModel';
@@ -35,6 +34,7 @@ import TimePicker from './form/elements/picker/time/TimePickerElement.js';
 import Modal from './form/elements/modal/ModalElement';
 import Tab from './form/elements/tab/TabElement';
 import Chip from './form/elements/chip/ChipElement';
+import { ContainerDirection } from './form/elements/container/ContainerDirection.js';
 
 export {
   FormController, Button,
@@ -67,7 +67,7 @@ export {
   ImageScaleType,
   ImageBorderType,
   TextDirection,
-  Direction,
+  ContainerDirection,
   changeRoute
 };
 

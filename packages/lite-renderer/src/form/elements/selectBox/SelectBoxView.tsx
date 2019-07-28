@@ -17,7 +17,8 @@ import useTheme from "@material-ui/core/styles/useTheme";
 import {SelectBoxStyleType} from "./SelectBoxStyleType";
 
 type Props = {
-  element: SelectBoxElement
+  element: SelectBoxElement,
+  weight: number,
 }
 
 function getProgressColor(styleType, styleColor) {

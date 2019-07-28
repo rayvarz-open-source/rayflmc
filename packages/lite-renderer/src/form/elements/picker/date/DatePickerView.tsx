@@ -3,7 +3,7 @@ import Typography from '@material-ui/core/Typography';
 import * as React from 'react';
 import FormLabel from '@material-ui/core/FormLabel';
 import jMoment from "moment-jalaali";
-import moment from "moment";
+import * as moment from "moment";
 import JalaliUtils from "@date-io/jalaali";
 
 import {
@@ -12,6 +12,7 @@ import {
 } from "@material-ui/pickers";
 import {VisibilityType} from "../../../..";
 import TextField from "@material-ui/core/TextField";
+import { Visibility } from '../../base/BaseElement';
 
 type Props = {
   element: DatePickerElement,
@@ -27,13 +28,13 @@ export default function DatePickerView({element,weight}: Props) {
   const [textStyle, setTextStyle] = React.useState();
   const [noWrap, setNoWrap] = React.useState();
   const [gutterBottom, setGutterBottom] = React.useState();
-  const [visibility, setVisibility] = React.useState('');
+  const [visibility, setVisibility] = React.useState<Visibility>(VisibilityType.Show);
 
   jMoment.loadPersian({dialect: "persian-modern", usePersianDigits: true});
 
   React.useEffect(() => {
     let textSub = element.value.subscribe({
-      next: (v) => setText(v)
+      next: (v) => setText(v as any)
     });
     let timeSub = element.datePickerTime.subscribe({
       next: (v) => setTime(v)
@@ -50,7 +51,7 @@ export default function DatePickerView({element,weight}: Props) {
     let gutterBottomSub = element.labelIsGutterBottom.subscribe({
       next: (v) => setGutterBottom(v)
     });
-    let visibilitySub = element.elementVisibility.subscribe({
+    let visibilitySub = element.elementVisibilityContainer.subscribe({
       next: (v) => setVisibility(v)
     });
     return () => {
@@ -82,10 +83,10 @@ export default function DatePickerView({element,weight}: Props) {
           let myDate: Date = (date as any)._d;
           console.log(myDate)
           setTime(myDate)
-          if (myDate == selectedDate) return;
+          if (myDate.toDateString() == selectedDate.format()) return;
           element.datePickerTime.next(myDate.toString());
         }}
-        onChange={handleDateChange}
+        onChange={handleDateChange as any}
         animateYearScrolling={true}
       />
     </MuiPickersUtilsProvider>

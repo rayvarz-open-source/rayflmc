@@ -15,7 +15,8 @@ import FormControlLabel from "@material-ui/core/FormControlLabel";
 import {MapToView} from "../ElementToViewMapper";
 
 type Props = {
-  element: SelectGroupElement
+  element: SelectGroupElement,
+  weight: number,
 }
 
 function getProgressColor(styleType, styleColor) {
@@ -72,7 +73,7 @@ export default function SelectGroupView({element}: Props) {
     }
   })
   function renderChildren() {
-    return elements.map((v, i) => <MapToView element={v} key={`${v.type}_${i}`} />);
+    return elements.map((v, i) => <MapToView element={v} key={`${v.type}_${i}`} weight={0} />);
   }
   return (
     <RadioGroup

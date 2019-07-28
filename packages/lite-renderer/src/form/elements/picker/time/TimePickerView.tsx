@@ -3,7 +3,7 @@ import Typography from '@material-ui/core/Typography';
 import * as React from 'react';
 import FormLabel from '@material-ui/core/FormLabel';
 import jMoment from "moment-jalaali";
-import moment from "moment";
+import * as moment from "moment";
 import JalaliUtils from "@date-io/jalaali";
 
 import {
@@ -11,6 +11,7 @@ import {
   MuiPickersUtilsProvider,
 } from "@material-ui/pickers";
 import {VisibilityType} from "../../../..";
+import { Visibility } from '../../base/BaseElement';
 type Props = {
   element: TimePickerElement,
   weight:number
@@ -29,14 +30,14 @@ export default function TimePickerView({ element,weight }: Props) {
   const [textStyle, setTextStyle] = React.useState();
   const [noWrap, setNoWrap] = React.useState();
   const [gutterBottom, setGutterBottom] = React.useState();
-  const [visibility, setVisibility] = React.useState('');
+  const [visibility, setVisibility] = React.useState<Visibility>(VisibilityType.Show);
 
   //let labelText="test for label";
   jMoment.loadPersian({ dialect: "persian-modern", usePersianDigits: true });
   let titleSub;
   React.useEffect(() => {
     let textSub = element.value.subscribe({
-      next: (v) => setText(v)
+      next: (v) => setText(v as any)
     });
  element.timePickerTitle.subscribe(
     {
@@ -68,7 +69,7 @@ export default function TimePickerView({ element,weight }: Props) {
     let gutterBottomSub = element.labelIsGutterBottom.subscribe({
       next: (v) => setGutterBottom(v)
     });
-    let visibilitySub = element.elementVisibility.subscribe({
+    let visibilitySub = element.elementVisibilityContainer.subscribe({
       next: (v) => setVisibility(v)
     });
     return () => {
@@ -103,12 +104,12 @@ let eleme;
         labelFunc={date => (date ? date.format("hh:mm") : "")}
         value={selectedDate}
         ampm={false}
-        onChange={handleDateChange}
+        onChange={handleDateChange as any}
         onAccept={(date)=>{
           let myDate:Date=(date as any)._d;
           console.log(myDate.getHours()+":"+myDate.getMinutes());
           setTime(myDate.getHours()+":"+myDate.getMinutes())
-          if (myDate == selectedDate) return;
+          if (myDate.toDateString() == selectedDate.format()) return;
           element.TimePickerTime.next(myDate.getHours()+":"+myDate.getMinutes());}}
       />
     </MuiPickersUtilsProvider>
