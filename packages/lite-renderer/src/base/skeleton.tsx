@@ -183,11 +183,7 @@ export default function Skeleton({ children, routes, currentRoute }: any) {
       <CssBaseline />
       <AppBar position="absolute" className={clsx(classes.appBar, open && classes.appBarShift)}>
         <Toolbar className={classes.toolbar}>
-         
-          <Typography component="h1" align="right" variant="h6" color="inherit" noWrap className={classes.title}>
-            {currentRouteProp == null ? "Dashboard" : currentRouteProp.name}
-          </Typography>
-          <IconButton
+        <IconButton
             edge="end"
             color="inherit"
             aria-label="Open drawer"
@@ -196,6 +192,10 @@ export default function Skeleton({ children, routes, currentRoute }: any) {
           >
             <MenuIcon />
           </IconButton>
+          <Typography component="h1" align="right" variant="h6" color="inherit" noWrap className={classes.title}>
+            {currentRouteProp == null ? "Dashboard" : currentRouteProp.name}
+          </Typography>
+         
         </Toolbar>
       </AppBar>
       <Drawer
