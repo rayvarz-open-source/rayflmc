@@ -1,58 +1,62 @@
-import {TabElement} from './TabElement';
-import Box from '@material-ui/core/Box';
+
+import { TabElement } from './TabElement';
 import * as React from 'react';
-import {Direction} from '../container/ContainerDirection';
-import IElement from 'flmc-data-layer/FormController/IElement';
-import {MapToView} from '../ElementToViewMapper';
-import {VisibilityType} from "../../..";
-import AppBar from '@material-ui/core/AppBar';
-import Tabs from '@material-ui/core/Tabs';
-import Tab from '@material-ui/core/Tab';
+import { TabElements, TabTitles, CurrentTab } from './TabElementAttributes';
+import { Visibility } from '../base/BaseElement';
+import { AppBar, Tabs, Tab } from '@material-ui/core';
+import { MapToView } from '../ElementToViewMapper';
+
 type Props = {
   element: TabElement,
-  weight:number
+  weight: number
 }
 
-export default function TabView({element,weight}: Props) {
+export default function TabView({ element, weight }: Props) {
 
-  const [direction, setDirection] = React.useState(Direction.Column);
-  const [children, setChildren] = React.useState<IElement[]>([]);
-  const [childrenTitle, setChildrenTitle] = React.useState<String[]>([]);
-  const [visibility, setVisibility] = React.useState('');
-  const [value, setValue] = React.useState(0);
+  //region generated
+  /*******************************************/
+  /* GENERATED CODE, DO NOT MODIFY BY HAND!! */
+  /*******************************************/
+  const [tabElements, setTabElements] = React.useState<TabElements>([]);
+  const [tabTitles, setTabTitles] = React.useState<TabTitles>([]);
+  const [currentTab, setCurrentTab] = React.useState<CurrentTab>(0);
+  const [visibility, setVisibility] = React.useState<Visibility>('show');
 
-  function handleChange(event, newValue) {
-    setValue(newValue);
-  }
   React.useEffect(() => {
 
-    let dirSub = element.directionValue.subscribe({
-      next: (v) => setDirection(v)
-    });
+    let tabElementsSub = element.tabElementsContainer.subscribe({ next: v => setTabElements(v) });
+    let tabTitlesSub = element.tabTitlesContainer.subscribe({ next: v => setTabTitles(v) });
+    let currentTabSub = element.currentTabContainer.subscribe({ next: v => setCurrentTab(v) });
+    let visibilitySub = element.elementVisibilityContainer.subscribe({ next: v => setVisibility(v) });
 
-    let childrenSub = element.childrenContainer.subscribe({
-      next: (v) => setChildren(v)
-    });
-    let childrenTitleSub = element.childrenTitleContainer.subscribe({
-      next: (v) => setChildrenTitle(v)
-    });
-    let visibilitySub = element.elementVisibility.subscribe({
-      next: (v) => setVisibility(v)
-    });
     return () => {
-      dirSub.unsubscribe();
+      tabElementsSub.unsubscribe();
+      tabTitlesSub.unsubscribe();
+      currentTabSub.unsubscribe();
       visibilitySub.unsubscribe();
-    }
+    };
+  }, []);
+  /*******************************************/
+  /* END OF GENERATED CODE                   */
+  /*******************************************/
+  //endregion
 
-  })
+  function handleChange(event: any, newValue: number) {
+    setCurrentTab(newValue);
+  }
 
   function renderChildren() {
+    return tabElements.map((v, i) =>
+      <div style={i == currentTab ? element.showStyle : element.goneStyle}>
+        <MapToView element={v} weight={0} key={`${v.type}_${i}`} />
+      </div>
+    );
+  }
 
-    return children.map((v, i) =><div style={i==value? element.showStyle : element.goneStyle}><MapToView element={v} weight={} key={`${v.type}_${i}`}/></div>);
-  }
   function renderChildrenTitle() {
-    return childrenTitle.map((v, i) => <Tab label={v} key={`${i}`}/>);
+    return tabTitles.map((v, i) => <Tab label={v} key={`${i}`} />);
   }
+
   return (
     <div
       style={
@@ -61,24 +65,20 @@ export default function TabView({element,weight}: Props) {
           ...element.getWeightStyle(weight)
         }
       }>
-    <AppBar position="static" color="default">
-      <Tabs
-        value={value}
-        onChange={handleChange}
-        indicatorColor="primary"
-        variant="scrollable"
-        scrollButtons="auto"
-      >
-        {renderChildrenTitle()}
-      </Tabs>
-    </AppBar>
+      <AppBar position="static" color="default">
+        <Tabs
+          value={currentTab}
+          onChange={handleChange}
+          indicatorColor="primary"
+          variant="scrollable"
+          scrollButtons="auto"
+        >
+          {renderChildrenTitle()}
+        </Tabs>
+      </AppBar>
       {renderChildren()}
     </div>
-    // <Box
-    //   style={visibility == VisibilityType.Gone ? element.goneStyle : visibility == VisibilityType.Hidden ? element.hiddenStyle : element.showStyle}
-    //   display="flex" flexDirection={direction == Direction.Column ? "column" : "row"}>
-    //   {renderChildren()}
-    // </Box>
   )
 
 }
+s

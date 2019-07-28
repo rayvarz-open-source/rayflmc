@@ -5,7 +5,7 @@ export enum ElementType {
     TextInput = "LiteRenderer_TextInput",
     Image = "LiteRenderer_Image",
     Container = "LiteRenderer_Container",
-    TAB = "LITE_RENDERER_TAB",
+    Tab = "LiteRenderer_Tab",
     Grid = "LiteRenderer_Grid",
     Modal = "LiteRenderer_Modal",
     SELECT_BOX = "LITE_RENDERER_SELECT_BOX",
