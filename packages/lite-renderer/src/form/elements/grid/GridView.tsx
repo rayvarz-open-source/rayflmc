@@ -1,63 +1,64 @@
-import * as React from 'react';
+
 import { GridElement } from './GridElement';
-import MaterialTable, { } from 'material-table';
+import * as React from 'react';
+import { ColumnDefinitions, ActionDefinitions, ComponentsOverride, Datasource, RowActionDefinitions, GridOptions, Title } from './GridElementAttributes';
+import { Visibility } from '../base/BaseElement';
+import MaterialTable from 'material-table';
 
 type Props = {
-    element: GridElement
-};
+    element: GridElement,
+    weight: number
+}
 
-export default function GridView({ element }: Props) {
+export default function GridView({ element, weight }: Props) {
 
-    const [title, setTitle] = React.useState();
-    const [columnDefinitions, setColumnDefinitions] = React.useState();
-    const [actionDefinitions, setActionDefinitions] = React.useState();
-    const [componentsOverride, setComponentsOverride] = React.useState();
-    const [datasource, setDatasource] = React.useState();
-    const [rowActionDefinitions, setRowActionDefinitions] = React.useState();
-    const [gridOptions, setGridOptions] = React.useState();
+    //region generated
+    /*******************************************/
+    /* GENERATED CODE, DO NOT MODIFY BY HAND!! */
+    /*******************************************/
+    const [columnDefinitions, setColumnDefinitions] = React.useState<ColumnDefinitions>([]);
+    const [actionDefinitions, setActionDefinitions] = React.useState<ActionDefinitions>([]);
+    const [componentsOverride, setComponentsOverride] = React.useState<ComponentsOverride>({});
+    const [datasource, setDatasource] = React.useState<Datasource>([]);
+    const [rowActionDefinitions, setRowActionDefinitions] = React.useState<RowActionDefinitions>({});
+    const [gridOptions, setGridOptions] = React.useState<GridOptions>({});
+    const [title, setTitle] = React.useState<Title>('');
+    const [visibility, setVisibility] = React.useState<Visibility>('show');
 
     React.useEffect(() => {
 
-        let titleSub = element.titleContainer.subscribe({
-            next: v => setTitle(v)
-        });
-        let columnDefinitionsSub = element.columnDefinitionsContainer.subscribe({
-            next: v => setColumnDefinitions(v)
-        });
-        
-        let actionDefinitionsSub = element.actionDefinitionsContainer.subscribe({
-            next: v => setActionDefinitions(v)
-        });
-
-        let componentsOverrideSub = element.componentsOverrideContainer.subscribe({
-            next: v => setComponentsOverride(v)
-        });
-
-        let datasourceSub = element.datasourceContainer.subscribe({
-            next: v => setDatasource(v)
-        });
-
-        let rowActionDefinitionsSub = element.rowActionDefinitionsContainer.subscribe({
-            next: v => setRowActionDefinitions(v)
-        });
-
-        let gridOptionsSub = element.gridOptionsContainer.subscribe({
-            next: v => setGridOptions(v)
-        });
+        let columnDefinitionsSub = element.columnDefinitionsContainer.subscribe({ next: v => setColumnDefinitions(v) });
+        let actionDefinitionsSub = element.actionDefinitionsContainer.subscribe({ next: v => setActionDefinitions(v) });
+        let componentsOverrideSub = element.componentsOverrideContainer.subscribe({ next: v => setComponentsOverride(v) });
+        let datasourceSub = element.datasourceContainer.subscribe({ next: v => setDatasource(v) });
+        let rowActionDefinitionsSub = element.rowActionDefinitionsContainer.subscribe({ next: v => setRowActionDefinitions(v) });
+        let gridOptionsSub = element.gridOptionsContainer.subscribe({ next: v => setGridOptions(v) });
+        let titleSub = element.titleContainer.subscribe({ next: v => setTitle(v) });
+        let visibilitySub = element.elementVisibilityContainer.subscribe({ next: v => setVisibility(v) });
 
         return () => {
-            titleSub.unsubscribe();
             columnDefinitionsSub.unsubscribe();
             actionDefinitionsSub.unsubscribe();
             componentsOverrideSub.unsubscribe();
             datasourceSub.unsubscribe();
             rowActionDefinitionsSub.unsubscribe();
             gridOptionsSub.unsubscribe();
-        }
-    })
+            titleSub.unsubscribe();
+            visibilitySub.unsubscribe();
+        };
+    }, []);
+    /*******************************************/
+    /* END OF GENERATED CODE                   */
+    /*******************************************/
+    //endregion
 
     return (
-        <div style={{ width: '100%' }} >
+        <div style={
+            {
+                ...element.getVisibilityStyle(visibility),
+                ...element.getWeightStyle(weight)
+            }
+        } >
             <MaterialTable
                 title={title}
                 columns={columnDefinitions}
@@ -68,6 +69,6 @@ export default function GridView({ element }: Props) {
                 options={gridOptions}
             />
         </div>
-    )
+    );
 
 }
