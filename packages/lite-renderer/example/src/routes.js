@@ -1,13 +1,9 @@
-import SampleForm from "./forms/sampleForm";
+import ButtonForm from "./forms/ButtonForm";
 import { RootRouteCategory } from 'lite-renderer';
 
 const categoties = {
-    users: {
-        name: "Users",
-        hidden: false,
-    },
-    items: {
-        name: "Items",
+    elementGallery: {
+        name: "Element Gallery",
         hidden: false,
     },
 }
@@ -15,30 +11,16 @@ const categoties = {
 const routes = [
     {
         path: "/",
-        builder: (path, params) => new SampleForm(),
+        builder: (path, params) => new ButtonForm(),
         category: RootRouteCategory,
         name: "Home",
         hidden: false,
     },
     {
-        path: "/users",
-        builder: (path, params) => new SampleForm(),
-        category: categoties.users,
-        name: "Users",
-        hidden: false,
-    },
-    {
-        path: "/users/add",
-        builder: (path, params) => new SampleForm(),
-        category: categoties.users,
-        name: "+ Add new user",
-        hidden: false,
-    },
-    {
-        path: "/items",
-        builder: (path, params) => new SampleForm(),
-        category: categoties.items,
-        name: "Items",
+        path: "/button",
+        builder: (path, params) => new ButtonForm(),
+        name: "Button Element",
+        category: categoties.elementGallery,
         hidden: false,
     },
 ];
