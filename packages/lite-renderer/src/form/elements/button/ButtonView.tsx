@@ -57,11 +57,6 @@ export default function ButtonView({ element, weight }: Props) {
   //endregion
 
   function getProgressColor(variant: Variant, color: Colors) {
-    if (variant == ButtonVariant.Contained && (color == ButtonColor.Primary || color == ButtonColor.Secondary))
-      return "#fefefe"; // TODO: USE THEME
-    else if (color == ButtonColor.Primary || color == ButtonColor.Secondary)
-      return color == ButtonColor.Primary ? theme.palette.primary.main : theme.palette.secondary.main;
-    else
       return "#000000"  // TODO: USE THEME
   }
 
