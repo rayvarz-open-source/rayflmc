@@ -6,7 +6,7 @@ export enum ElementType {
     Image = "LiteRenderer_Image",
     Container = "LiteRenderer_Container",
     TAB = "LITE_RENDERER_TAB",
-    GRID = "LITE_RENDERER_GRID",
+    Grid = "LiteRenderer_Grid",
     Modal = "LiteRenderer_Modal",
     SELECT_BOX = "LITE_RENDERER_SELECT_BOX",
     SELECT_BOX_GROUP = "LITE_RENDERER_SELECT_BOX_GROUP",

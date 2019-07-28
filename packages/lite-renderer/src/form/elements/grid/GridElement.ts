@@ -3,7 +3,6 @@ import IElement, { ValidationResult } from '../../../flmc-data-layer/FormControl
 import { ElementType } from '../ElementType';
 import { Observable, BehaviorSubject, isObservable } from 'rxjs';
 import { BaseElement } from "../base/BaseElement";
-import { isSubject } from '../../../flmc-data-layer';
 import { TypeGuards, ColumnDefinitions, ActionDefinitions, ComponentsOverride, Datasource, RowActionDefinitions, GridOptions, Title } from './GridElementAttributes';
 
 export class GridElement extends BaseElement implements IElement {
