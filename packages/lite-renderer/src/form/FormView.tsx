@@ -9,5 +9,5 @@ type Props = {
 
 export default function FormView({ controller }: Props) {
     let container = Container(controller.elements);
-    return <ContainerView element={container} />
+    return <ContainerView element={container} weight={0} />
 }

@@ -108,7 +108,7 @@ export default class FLMC extends React.Component<Props, States> {
 
     return (
       <Skeleton currentRoute={currentRoute} routes={this.props.routes} >
-        {currentController != null ? <FormView controller={this.state.currentController as FormController} /> : null}
+        {currentController != null ? <FormView controller={this.state.currentController as FormController} key={Math.random()}/> : null}
       </Skeleton>
     )
   }
