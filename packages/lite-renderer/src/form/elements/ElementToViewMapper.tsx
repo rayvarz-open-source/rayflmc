@@ -37,7 +37,7 @@ type Props = {
 export function MapToView({ element,weight }: Props) {
     switch (element.type) {
         case (ElementType.Button): return <ButtonView element={element as ButtonElement} weight={weight}/>;
-        case (ElementType.MODAL): return <ModalView element={element as ModalElement}  weight={weight}/>;
+        case (ElementType.Modal): return <ModalView element={element as ModalElement}  weight={weight}/>;
         case (ElementType.SELECT_BOX): return <SelectView element={element as SelectBoxElement} weight={weight}/>;
         case (ElementType.DATE_PICKER): return <DatePickerView element={element as DatePickerElement} weight={weight}/>;
         case (ElementType.TIME_PICKER): return <TimePickerView element={element as TimePickerElement} weight={weight}/>;

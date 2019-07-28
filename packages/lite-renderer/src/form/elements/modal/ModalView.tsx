@@ -1,83 +1,65 @@
-import {ModalElement} from './ModalElement';
-import Box from '@material-ui/core/Box';
+
+import { ModalElement } from './ModalElement';
 import * as React from 'react';
-import {Direction} from '../container/ContainerDirection';
-import IElement from 'flmc-data-layer/FormController/IElement';
-import {MapToView} from '../ElementToViewMapper';
-import Modal from '@material-ui/core/Modal';
-import {Container} from "@material-ui/core";
-import Card from "@material-ui/core/Card";
-import CardContent from "@material-ui/core/CardContent";
-import CardHeader from '@material-ui/core/CardHeader';
-import IconButton from '@material-ui/core/IconButton';
+import { Child, Open, VisibileHeader, VisibileHeaderCloseButton, Title } from './ModalElementAttributes';
+import { Visibility } from '../base/BaseElement';
+import { Modal, Card, CardHeader, IconButton, CardContent } from '@material-ui/core';
+import { CSSProperties } from '@material-ui/core/styles/withStyles';
 import MoreVertIcon from '@material-ui/icons/Close';
+import { MapToView } from '../ElementToViewMapper';
 
 type Props = {
   element: ModalElement,
-  weight:number
+  weight: number
 }
 
-export default function ModalView({element,weight}: Props) {
-  const [modalStyle] = React.useState(getModalStyle);
-  const [title, setTitle] = React.useState("");
+export default function ModalView({ element }: Props) {
 
-  const [direction, setDirection] = React.useState(Direction.Column);
-  const [children, setChildren] = React.useState<IElement[]>([]);
-  const [openStatus, setOpenStatus] = React.useState(false);
-  const [headerCloseIconVisibleSub, setHeaderCloseIconVisibleSub] = React.useState(false);
-  const [headerVisibleSub, setHeaderVisibleSub] = React.useState(false);
-  let onClose: VoidFunction = () => {
-  };
+  //region generated
+  /*******************************************/
+  /* GENERATED CODE, DO NOT MODIFY BY HAND!! */
+  /*******************************************/
+  const [child, setChild] = React.useState<Child>(undefined);
+  const [open, setOpen] = React.useState<Open>(false);
+  const [visibileHeader, setVisibileHeader] = React.useState<VisibileHeader>(true);
+  const [visibileHeaderCloseButton, setVisibileHeaderCloseButton] = React.useState<VisibileHeaderCloseButton>(true);
+  const [title, setTitle] = React.useState<Title>(undefined);
+  const [visibility, setVisibility] = React.useState<Visibility>('show');
 
   React.useEffect(() => {
-    let titleSub = element.modalTitle.subscribe({
-      next: (v) => setTitle(v)
-    });
-    let openStatusSub = element.modalOpenStatus.subscribe({
 
-      next: (v) => setOpenStatus(v)
-    });
+    let childSub = element.childContainer.subscribe({ next: v => setChild(v) });
+    let openSub = element.openContainer.subscribe({ next: v => setOpen(v) });
+    let visibileHeaderSub = element.visibileHeaderContainer.subscribe({ next: v => setVisibileHeader(v) });
+    let visibileHeaderCloseButtonSub = element.visibileHeaderCloseButtonContainer.subscribe({ next: v => setVisibileHeaderCloseButton(v) });
+    let titleSub = element.titleContainer.subscribe({ next: v => setTitle(v) });
+    let visibilitySub = element.elementVisibilityContainer.subscribe({ next: v => setVisibility(v) });
 
-    let headerCloseIconVisibleSub = element.modalIsHeaderCloseIconVisible.subscribe({
-
-      next: (v) => setHeaderCloseIconVisibleSub(v)
-    });
-    let headerVisibleSub = element.modalIsHeaderVisible.subscribe({
-
-      next: (v) => setHeaderVisibleSub(v)
-    });
-
-
-    let dirSub = element.directionValue.subscribe({
-      next: (v) => {
-        setDirection(v)
-      }
-    });
-
-    let childrenSub = element.childrenContainer.subscribe({
-      next: (v) => setChildren(v)
-    });
-    let callbackSub = element.onCloseCallBack.subscribe({
-      next: (v) => onClose = v == null ? () => {
-      } : v
-    });
     return () => {
-      dirSub.unsubscribe();
-      openStatusSub.unsubscribe();
-      childrenSub.unsubscribe();
-      callbackSub.unsubscribe();
-      headerCloseIconVisibleSub.unsubscribe();
-      headerVisibleSub.unsubscribe();
-    }
+      childSub.unsubscribe();
+      openSub.unsubscribe();
+      visibileHeaderSub.unsubscribe();
+      visibileHeaderCloseButtonSub.unsubscribe();
+      titleSub.unsubscribe();
+      visibilitySub.unsubscribe();
+    };
+  }, []);
+  /*******************************************/
+  /* END OF GENERATED CODE                   */
+  /*******************************************/
+  //endregion
 
-  })
+  if (child == null)
+    throw new Error("child cannot be null or undefined");
 
+  function handleClose() {
+    element.openContainer.next(false);
+  }
 
-
-  function getModalStyle() {
+  function getModalStyle(): CSSProperties {
     const top = 50;
     const left = 50;
-
+    // TODO: add to theme
     return {
       position: 'absolute',
       top: `${top}%`,
@@ -86,29 +68,30 @@ export default function ModalView({element,weight}: Props) {
     };
   }
 
-  function renderChildren() {
-    return children.map((v, i) => <MapToView element={v} key={`${v.type}_${i}`}/>);
+  function getHeader(): React.ReactElement | null {
+    if (!visibileHeader) return null;
+    let action: React.ReactElement | undefined = undefined;
+
+    if (visibileHeaderCloseButton)
+      action = (
+        <IconButton
+          onClick={handleClose}>
+          <MoreVertIcon />
+        </IconButton>
+      );
+
+    return (<CardHeader action={action} title={title} />);
   }
 
   return (
-    <Modal open={openStatus} onClose={() => onClose()}>
-      <Card style={modalStyle}>
-        {headerVisibleSub && <CardHeader
-
-           action={
-             headerCloseIconVisibleSub && <IconButton aria-label="Settings"
-                                                      onClick={()=>onClose()}>
-              <MoreVertIcon />
-            </IconButton>
-          }
-          title={title}
-
-        />}
+    <Modal open={open} onClose={handleClose}>
+      <Card style={getModalStyle()}>
+        {getHeader()}
         <CardContent>
-        {renderChildren()}
+          <MapToView element={child} weight={0} />
         </CardContent>
       </Card>
     </Modal>
-  )
+  );
 
 }

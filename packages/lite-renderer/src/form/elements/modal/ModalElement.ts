@@ -1,159 +1,186 @@
-import IElement, { ValidationResult, areElements } from '../../../flmc-data-layer/FormController/IElement';
+
+import IElement, { ValidationResult } from '../../../flmc-data-layer/FormController/IElement';
 import { ElementType } from '../ElementType';
 import { Observable, BehaviorSubject, isObservable } from 'rxjs';
-import { Direction } from '../container/ContainerDirection';
+import { BaseElement } from "../base/BaseElement";
+import { isSubject } from '../../../flmc-data-layer';
+import { TypeGuards, Child, Open, VisibileHeader, VisibileHeaderCloseButton, Title } from './ModalElementAttributes';
 
-export class ModalElement implements IElement {
-  dispose(): void {}
-
-  get type(): string {
-    return ElementType.MODAL;
-  }
-
-  childrenContainer!: BehaviorSubject<IElement[]>;
-  modalOpenStatus = new BehaviorSubject<boolean>(false);
-  modalIsHeaderVisible = new BehaviorSubject<boolean>(false);
-  modalIsHeaderCloseIconVisible = new BehaviorSubject<boolean>(false);
-  onCloseCallBack = new BehaviorSubject<VoidFunction | null>(null);
-  modalTitle = new BehaviorSubject<string>("");
+export class ModalElement extends BaseElement implements IElement {
 
   validate(): ValidationResult {
-    return new ValidationResult(this.childrenContainer.value.map(i => i.validate().isValid).reduce((p, c) => p && c));
+    return new ValidationResult(true);
   }
-  private onCloseR(action: VoidFunction): ModalElement {
-    this.onCloseCallBack.next(action);
+
+  dispose(): void { }
+
+  //region auto generated code
+  /*******************************************/
+  /* GENERATED CODE, DO NOT MODIFY BY HAND!! */
+  /*******************************************/
+
+  get type(): string {
+    return ElementType.Modal;
+  }
+
+  childContainer = new BehaviorSubject<Child>(undefined);
+
+  /** iternal function for handling raw Child types*/
+  private childR(value: Child): ModalElement {
+    this.childContainer.next(value);
     return this;
   }
 
-  private onCloseO(action: Observable<VoidFunction>): ModalElement {
-    action.subscribe({
-      next: v => this.onCloseCallBack.next(v),
-    });
+  /** iternal function for handling Observable<Child> types*/
+  private childO(value: Observable<Child>): ModalElement {
+    value.subscribe({ next: v => this.childContainer.next(v) });
     return this;
   }
 
-  onClose(action: Observable<VoidFunction> | VoidFunction): ModalElement {
-    if (typeof action === 'function') return this.onCloseR(action);
-    if (isObservable(action)) return this.onCloseO(action);
-    throw new Error('given action type is not supported');
+  /**
+   * default value: undefined
+   * 
+   * container children
+   */
+  child(value: Observable<Child> | Child): ModalElement {
+    if (TypeGuards.isChild(value)) return this.childR(value);
+    else if (isObservable(value)) return this.childO(value);
+    throw new Error(`invalid type ${typeof (value)} for Child`)
   }
-  private childrenR(children: IElement[]): ModalElement {
-    if (this.childrenContainer == null) this.childrenContainer = new BehaviorSubject<IElement[]>([]);
-    this.childrenContainer.next(children);
+
+
+  openContainer = new BehaviorSubject<Open>(false);
+
+  /** iternal function for handling BehaviorSubject<Open> types used for bidirectional bindings*/
+  private openB(value: BehaviorSubject<Open>): ModalElement {
+    this.openContainer = value;
     return this;
   }
 
-  private childrenO(children: Observable<IElement[]>): ModalElement {
-    if (this.childrenContainer == null) this.childrenContainer = new BehaviorSubject<IElement[]>([]);
-    children.subscribe({
-      next: v => this.childrenContainer.next(v),
-    });
+  /** iternal function for handling raw Open types*/
+  private openR(value: Open): ModalElement {
+    this.openContainer.next(value);
     return this;
   }
 
-  children(children_: Observable<IElement[]> | IElement[]): ModalElement {
-    if (isObservable(children_)) return this.childrenO(children_);
-    if (areElements(children_)) return this.childrenR(children_); // TODO: move array check in areElements
-    throw new Error('given children type is not support');
-  }
-
-  private headerIconVisibilityR(isDisabled: boolean): ModalElement {
-    this.modalIsHeaderCloseIconVisible.next(isDisabled);
-    return this;
-  }
-  private headerIconVisibilityO(isDisabled: Observable<boolean>): ModalElement {
-    isDisabled.subscribe({
-      next: v => this.modalIsHeaderCloseIconVisible.next(v),
-    });
+  /** iternal function for handling Observable<Open> types*/
+  private openO(value: Observable<Open>): ModalElement {
+    value.subscribe({ next: v => this.openContainer.next(v) });
     return this;
   }
 
-  headerIconVisibility(headerIconVisibility: Observable<boolean> | boolean): ModalElement {
-    if (typeof headerIconVisibility === 'boolean') return this.headerIconVisibilityR(headerIconVisibility);
-    if (isObservable(headerIconVisibility)) return this.headerIconVisibilityO(headerIconVisibility);
-    throw new Error('given isDisabled is not supported');
-  }
-
-  private headerVisibilityR(isDisabled: boolean): ModalElement {
-    this.modalIsHeaderVisible.next(isDisabled);
-    return this;
-  }
-  private headerVisibilityO(isDisabled: Observable<boolean>): ModalElement {
-    isDisabled.subscribe({
-      next: v => this.modalIsHeaderVisible.next(v),
-    });
-    return this;
-  }
-
-  headerVisibility(headerIconVisibility: Observable<boolean> | boolean): ModalElement {
-    if (typeof headerIconVisibility === 'boolean') return this.headerVisibilityR(headerIconVisibility);
-    if (isObservable(headerIconVisibility)) return this.headerVisibilityO(headerIconVisibility);
-    throw new Error('given isDisabled is not supported');
+  /**
+   * default value: false
+   * 
+   * 
+   */
+  open(value: BehaviorSubject<Open> | Observable<Open> | Open): ModalElement {
+    if (TypeGuards.isOpen(value)) return this.openR(value);
+    else if (isObservable(value)) return this.openO(value);
+    else if (isSubject(value)) return this.openB(value);
+    throw new Error(`invalid type ${typeof (value)} for Open`)
   }
 
 
-  private openStatusR(isDisabled: boolean): ModalElement {
-    this.modalOpenStatus.next(isDisabled);
-    return this;
-  }
-  private openStatusO(isDisabled: Observable<boolean>): ModalElement {
-    isDisabled.subscribe({
-      next: v => this.modalOpenStatus.next(v),
-    });
+  visibileHeaderContainer = new BehaviorSubject<VisibileHeader>(true);
+
+  /** iternal function for handling raw VisibileHeader types*/
+  private visibileHeaderR(value: VisibileHeader): ModalElement {
+    this.visibileHeaderContainer.next(value);
     return this;
   }
 
-  openStatus(openStatus: Observable<boolean> | boolean): ModalElement {
-    if (typeof openStatus === 'boolean') return this.openStatusR(openStatus);
-    if (isObservable(openStatus)) return this.openStatusO(openStatus);
-    throw new Error('given isDisabled is not supported');
-  }
-
-  private titleR(title: string): ModalElement {
-    this.modalTitle.next(title);
+  /** iternal function for handling Observable<VisibileHeader> types*/
+  private visibileHeaderO(value: Observable<VisibileHeader>): ModalElement {
+    value.subscribe({ next: v => this.visibileHeaderContainer.next(v) });
     return this;
   }
 
-  private titleO(title: Observable<string>): ModalElement {
-    title.subscribe({
-      next: v => this.modalTitle.next(v),
-    });
+  /**
+   * default value: true
+   * 
+   * 
+   */
+  visibileHeader(value: Observable<VisibileHeader> | VisibileHeader): ModalElement {
+    if (TypeGuards.isVisibileHeader(value)) return this.visibileHeaderR(value);
+    else if (isObservable(value)) return this.visibileHeaderO(value);
+    throw new Error(`invalid type ${typeof (value)} for VisibileHeader`)
+  }
+
+
+  visibileHeaderCloseButtonContainer = new BehaviorSubject<VisibileHeaderCloseButton>(true);
+
+  /** iternal function for handling raw VisibileHeaderCloseButton types*/
+  private visibileHeaderCloseButtonR(value: VisibileHeaderCloseButton): ModalElement {
+    this.visibileHeaderCloseButtonContainer.next(value);
     return this;
   }
 
-  title(title: Observable<string> | string): ModalElement {
-    if (typeof title === 'string') return this.titleR(title);
-    if (isObservable(title)) return this.titleO(title);
-    throw new Error('given title type is not supported');
-  }
-
-  // direction
-
-  directionValue = new BehaviorSubject<Direction>(Direction.Column);
-
-  private directionR(dir: Direction): ModalElement {
-    this.directionValue.next(dir);
+  /** iternal function for handling Observable<VisibileHeaderCloseButton> types*/
+  private visibileHeaderCloseButtonO(value: Observable<VisibileHeaderCloseButton>): ModalElement {
+    value.subscribe({ next: v => this.visibileHeaderCloseButtonContainer.next(v) });
     return this;
   }
 
-  private directionO(dir: Observable<Direction>): ModalElement {
-    dir.subscribe({
-      next: v => this.directionValue.next(v),
-    });
+  /**
+   * default value: true
+   * 
+   * 
+   */
+  visibileHeaderCloseButton(value: Observable<VisibileHeaderCloseButton> | VisibileHeaderCloseButton): ModalElement {
+    if (TypeGuards.isVisibileHeaderCloseButton(value)) return this.visibileHeaderCloseButtonR(value);
+    else if (isObservable(value)) return this.visibileHeaderCloseButtonO(value);
+    throw new Error(`invalid type ${typeof (value)} for VisibileHeaderCloseButton`)
+  }
+
+
+  titleContainer = new BehaviorSubject<Title>(undefined);
+
+  /** iternal function for handling raw Title types*/
+  private titleR(value: Title): ModalElement {
+    this.titleContainer.next(value);
     return this;
   }
 
-  direction(dir: Observable<Direction> | Direction): ModalElement {
-    if (typeof dir === 'number') return this.directionR(dir);
-    if (isObservable(dir)) return this.directionO(dir);
-    throw new Error('given dir type is not support');
+  /** iternal function for handling Observable<Title> types*/
+  private titleO(value: Observable<Title>): ModalElement {
+    value.subscribe({ next: v => this.titleContainer.next(v) });
+    return this;
   }
+
+  /**
+   * default value: undefined
+   * 
+   * 
+   */
+  title(value: Observable<Title> | Title): ModalElement {
+    if (TypeGuards.isTitle(value)) return this.titleR(value);
+    else if (isObservable(value)) return this.titleO(value);
+    throw new Error(`invalid type ${typeof (value)} for Title`)
+  }
+
+  /*******************************************/
+  /* END OF GENERATED CODE                   */
+  /*******************************************/
+  //endregion
 }
 
-const Modal = (children?: Observable<IElement[]> | IElement[]): ModalElement => {
-  let element = new ModalElement();
-  if (children) return element.children(children);
-  return element;
+
+/*******************************************/
+/* GENERATED CODE, DO NOT MODIFY BY HAND!! */
+/*******************************************/
+
+/** 
+ * @example
+ * 
+ */
+const Modal = (child: Observable<Child> | Child): ModalElement => {
+  return new ModalElement()
+    .child(child);
 };
 
 export default Modal;
+/*******************************************/
+/* END OF GENERATED CODE                   */
+/*******************************************/
+
