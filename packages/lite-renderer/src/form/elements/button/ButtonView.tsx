@@ -1,11 +1,11 @@
-import { Icon as MIcon, Button, CircularProgress, withStyles } from '@material-ui/core';
+import { Icon as MIcon, Button, CircularProgress, withStyles, createMuiTheme } from '@material-ui/core';
 import { ButtonElement } from './ButtonElement';
 import * as React from 'react';
 import { Text, Loading, Disabled, Colors, Variant, Icon, OnClick } from './ButtonElementAttributes';
 import { Visibility } from '../base/BaseElement';
 import { ButtonColor } from './ButtonColor';
 import { ButtonVariant } from './ButtonVariant';
-import useTheme from '@material-ui/styles/useTheme';
+import useFunctionAsState from '../../../custom-hooks/function-state';
 
 type Props = {
   element: ButtonElement,
@@ -14,7 +14,7 @@ type Props = {
 
 export default function ButtonView({ element, weight }: Props) {
 
-  const theme = useTheme();
+  const theme = createMuiTheme()
 
   //region generated
   /*******************************************/
@@ -26,7 +26,7 @@ export default function ButtonView({ element, weight }: Props) {
   const [colors, setColors] = React.useState<Colors>('default');
   const [variant, setVariant] = React.useState<Variant>('contained');
   const [icon, setIcon] = React.useState<Icon>(undefined);
-  const [onClick, setOnClick] = React.useState<OnClick>(undefined);
+  const [onClick, setOnClick] = useFunctionAsState<OnClick>(undefined);
   const [visibility, setVisibility] = React.useState<Visibility>('show');
 
   React.useEffect(() => {
@@ -56,8 +56,6 @@ export default function ButtonView({ element, weight }: Props) {
   /*******************************************/
   //endregion
 
-
-
   function getProgressColor(variant: Variant, color: Colors) {
     if (variant == ButtonVariant.Contained && (color == ButtonColor.Primary || color == ButtonColor.Secondary))
       return "#fefefe"; // TODO: USE THEME
@@ -83,10 +81,11 @@ export default function ButtonView({ element, weight }: Props) {
     return (<ColorCircularProgress style={{ marginRight: 8 }} size={20} thickness={3} />);
   }
 
-  function handleClick() {
+  const handleClick = () => {
     if (loading || onClick == null) return;
     onClick();
   }
+
 
   return (
     <Button style={

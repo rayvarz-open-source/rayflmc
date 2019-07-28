@@ -35,6 +35,7 @@ import Modal from './form/elements/modal/ModalElement';
 import Tab from './form/elements/tab/TabElement';
 import Chip from './form/elements/chip/ChipElement';
 import { ContainerDirection } from './form/elements/container/ContainerDirection.js';
+import { ButtonColor } from './form/elements/button/ButtonColor.js';
 
 export {
   FormController, Button,
@@ -68,7 +69,8 @@ export {
   ImageBorderType,
   TextDirection,
   ContainerDirection,
-  changeRoute
+  changeRoute,
+  ButtonColor,
 };
 
 
