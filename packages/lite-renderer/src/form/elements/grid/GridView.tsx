@@ -4,6 +4,7 @@ import * as React from 'react';
 import { ColumnDefinitions, ActionDefinitions, ComponentsOverride, Datasource, RowActionDefinitions, GridOptions, Title } from './GridElementAttributes';
 import { Visibility } from '../base/BaseElement';
 import MaterialTable from 'material-table';
+import useFunctionAsState from '../../../custom-hooks/function-state';
 
 type Props = {
     element: GridElement,
@@ -19,7 +20,7 @@ export default function GridView({ element, weight }: Props) {
     const [columnDefinitions, setColumnDefinitions] = React.useState<ColumnDefinitions>([]);
     const [actionDefinitions, setActionDefinitions] = React.useState<ActionDefinitions>([]);
     const [componentsOverride, setComponentsOverride] = React.useState<ComponentsOverride>({});
-    const [datasource, setDatasource] = React.useState<Datasource>([]);
+    const [datasource, setDatasource] = useFunctionAsState<Datasource>([]);
     const [rowActionDefinitions, setRowActionDefinitions] = React.useState<RowActionDefinitions>({});
     const [gridOptions, setGridOptions] = React.useState<GridOptions>({});
     const [title, setTitle] = React.useState<Title>('');
@@ -51,7 +52,7 @@ export default function GridView({ element, weight }: Props) {
     /* END OF GENERATED CODE                   */
     /*******************************************/
     //endregion
-
+    
     return (
         <div style={
             {
