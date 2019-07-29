@@ -74,6 +74,7 @@ export {
   changeRoute,
   ButtonColor,
   ButtonVariant,
+  FormView,
 };
 
 
