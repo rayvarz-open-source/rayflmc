@@ -1,4 +1,4 @@
-import { Components, Action, Column, Options, Query, QueryResult } from "material-table";
+import { Components, Action, Column, Options, Query, QueryResult, Localization } from "material-table";
 import { GridRowActionDefinitions } from "./GridRowActionDefinitions";
 /** @ElementDoc
  * @example
@@ -42,6 +42,11 @@ export type GridOptions = Options;
  * TODO: add docs
  */
 export type Title = string;
+/**
+ * @[{"bidirectional":false,"required":false,"default":"undefined"}]
+ * TODO: add docs
+ */
+export type LocalizationDefinition = Localization | undefined;
 // End Element
 
 // type guards

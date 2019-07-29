@@ -1,7 +1,7 @@
 
 import { GridElement } from './GridElement';
 import * as React from 'react';
-import { ColumnDefinitions, ActionDefinitions, ComponentsOverride, Datasource, RowActionDefinitions, GridOptions, Title } from './GridElementAttributes';
+import { ColumnDefinitions, ActionDefinitions, ComponentsOverride, Datasource, RowActionDefinitions, GridOptions, Title, LocalizationDefinition } from './GridElementAttributes';
 import { Visibility } from '../base/BaseElement';
 import MaterialTable from 'material-table';
 import useFunctionAsState from '../../../custom-hooks/function-state';
@@ -24,6 +24,7 @@ export default function GridView({ element, weight }: Props) {
     const [rowActionDefinitions, setRowActionDefinitions] = React.useState<RowActionDefinitions>({});
     const [gridOptions, setGridOptions] = React.useState<GridOptions>({});
     const [title, setTitle] = React.useState<Title>('');
+    const [localizationDefinition, setLocalizationDefinition] = React.useState<LocalizationDefinition>(undefined);
     const [visibility, setVisibility] = React.useState<Visibility>('show');
 
     React.useEffect(() => {
@@ -35,6 +36,7 @@ export default function GridView({ element, weight }: Props) {
         let rowActionDefinitionsSub = element.rowActionDefinitionsContainer.subscribe({ next: v => setRowActionDefinitions(v) });
         let gridOptionsSub = element.gridOptionsContainer.subscribe({ next: v => setGridOptions(v) });
         let titleSub = element.titleContainer.subscribe({ next: v => setTitle(v) });
+        let localizationDefinitionSub = element.localizationDefinitionContainer.subscribe({ next: v => setLocalizationDefinition(v) });
         let visibilitySub = element.elementVisibilityContainer.subscribe({ next: v => setVisibility(v) });
 
         return () => {
@@ -45,6 +47,7 @@ export default function GridView({ element, weight }: Props) {
             rowActionDefinitionsSub.unsubscribe();
             gridOptionsSub.unsubscribe();
             titleSub.unsubscribe();
+            localizationDefinitionSub.unsubscribe();
             visibilitySub.unsubscribe();
         };
     }, []);
@@ -52,7 +55,7 @@ export default function GridView({ element, weight }: Props) {
     /* END OF GENERATED CODE                   */
     /*******************************************/
     //endregion
-    
+
     return (
         <div style={
             {
@@ -68,6 +71,7 @@ export default function GridView({ element, weight }: Props) {
                 components={componentsOverride}
                 editable={rowActionDefinitions}
                 options={gridOptions}
+                localization={localizationDefinition}
             />
         </div>
     );
