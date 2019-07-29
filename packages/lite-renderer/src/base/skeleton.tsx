@@ -155,7 +155,6 @@ const createSidebarItems = ({ routes, currentRoute }: Props) => {
   let otherItems: any[] = [];
 
   for (let item in categoryItems) {
-    debugger
     if (item == "root")
       rootItems = [...rootItems, ...categoryItems[item]];
     else
