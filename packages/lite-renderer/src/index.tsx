@@ -37,6 +37,7 @@ import Chip from './form/elements/chip/ChipElement';
 import { ContainerDirection } from './form/elements/container/ContainerDirection.js';
 import { ButtonColor } from './form/elements/button/ButtonColor.js';
 import { ButtonVariant } from './form/elements/button/ButtonVariant.js';
+import { ThemeProvider } from '@material-ui/styles';
 
 export {
   FormController, Button,
@@ -77,7 +78,7 @@ export {
 
 
 
-export type Props = { routes: Route[] }
+export type Props = { routes: Route[] ,theme:any}
 type States = {
   currentController: IDataController | null,
   currentRoute: Route | null,
@@ -107,9 +108,11 @@ export default class FLMC extends React.Component<Props, States> {
     const { currentController, currentRoute } = this.state
 
     return (
+      <ThemeProvider theme={this.props.theme}>
       <Skeleton currentRoute={currentRoute} routes={this.props.routes} >
         {currentController != null ? <FormView controller={this.state.currentController as FormController} key={Math.random()}/> : null}
       </Skeleton>
+      </ThemeProvider>
     )
   }
 }
