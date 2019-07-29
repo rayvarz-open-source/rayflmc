@@ -49,8 +49,8 @@ export default function ModalView({ element }: Props) {
   /*******************************************/
   //endregion
 
-  if (child == null)
-    throw new Error("child cannot be null or undefined");
+  // if (child == null)
+  //   throw new Error("child cannot be null or undefined");
 
   function handleClose() {
     element.openContainer.next(false);
