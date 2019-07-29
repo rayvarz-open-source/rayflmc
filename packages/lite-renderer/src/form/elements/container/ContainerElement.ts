@@ -43,8 +43,8 @@ export class ContainerElement extends BaseElement implements IElement {
    * container children
    */
   children(value: Observable<Children> | Children): ContainerElement {
-    if (TypeGuards.isChildren(value)) return this.childrenR(value);
-    else if (isObservable(value)) return this.childrenO(value);
+    if (isObservable(value)) return this.childrenO(value);
+    else if (TypeGuards.isChildren(value)) return this.childrenR(value);
     throw new Error(`invalid type ${typeof (value)} for Children`)
   }
 
