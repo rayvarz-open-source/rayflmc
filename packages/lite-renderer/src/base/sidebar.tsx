@@ -13,11 +13,14 @@ const useStyles = makeStyles((theme: Theme) =>
         root: {
             width: '100%',
             maxWidth: 360,
-            backgroundColor: theme.palette.background.paper,
+            color:theme.palette.background.paper,
         },
         nested: {
-            paddingLeft: theme.spacing(4),
+            paddingRight: theme.spacing(4),
         },
+        icon:{
+            color:theme.palette.background.paper,
+        }
     }),
 );
 
@@ -26,12 +29,14 @@ type SingleItemProps = {
 }
 
 export function SidebaSingleItem({ title, onClick, icon }: SingleItemProps) {
+    const classes = useStyles();
+
     return (
         <ListItem button onClick={onClick}>
-            <ListItemIcon>
+            <ListItemText primary={title} />
+            <ListItemIcon className={classes.icon}>
                 {icon}
             </ListItemIcon>
-            <ListItemText primary={title} />
         </ListItem>
     );
 }
@@ -47,15 +52,16 @@ export function SidebarItemWithChildren({ title, icon, children }: ItemWithChild
     function handleClick() {
         setOpen(!open);
     }
-
+    
     return (
         <React.Fragment>
             <ListItem button onClick={handleClick}>
-                <ListItemIcon>
-                    {icon}
-                </ListItemIcon>
+            {open ? <ExpandLess /> : <ExpandMore />}
+           
                 <ListItemText primary={title} />
-                {open ? <ExpandLess /> : <ExpandMore />}
+                <ListItemIcon className={classes.icon}>
+                {icon}
+            </ListItemIcon>
             </ListItem>
             <Collapse in={open} timeout="auto" unmountOnExit>
                 <List component="div" disablePadding>

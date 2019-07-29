@@ -15,7 +15,7 @@ import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
 import Link from '@material-ui/core/Link';
 import MenuIcon from '@material-ui/icons/Menu';
-import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
+import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 import Sidebar, { SidebarItemWithChildren, SidebaSingleItem } from './Sidebar';
 import { Route } from '../router/route';
 import { changeRoute } from '../router/router';
@@ -54,16 +54,20 @@ const useStyles = makeStyles(theme => ({
   mr: {
     marginRight: 80,
   },
+  colorWhite: {
+    color: theme.palette.background.paper,
+  },
   toolbarIcon: {
     display: 'flex',
     alignItems: 'center',
+    color: theme.palette.background.paper,
     justifyContent: 'flex-end',
-    padding: '0 8px',
+    padding: '0px 38px 0px 8px',
     ...theme.mixins.toolbar,
   },
   appBar: {
     zIndex: theme.zIndex.drawer + 1,
-    transition: theme.transitions.create(['width', 'margin'], {
+    transition: theme.transitions.create(['margin', 'width'], {
       easing: theme.transitions.easing.sharp,
       duration: theme.transitions.duration.leavingScreen,
     }),
@@ -71,7 +75,7 @@ const useStyles = makeStyles(theme => ({
   appBarShift: {
     marginRight: drawerWidth,
     width: `calc(100% - ${drawerWidth}px)`,
-    transition: theme.transitions.create(['width', 'margin'], {
+    transition: theme.transitions.create(['margin', 'width'], {
       easing: theme.transitions.easing.sharp,
       duration: theme.transitions.duration.enteringScreen,
     }),
@@ -88,12 +92,13 @@ const useStyles = makeStyles(theme => ({
   drawerPaper: {
     position: 'relative',
     whiteSpace: 'nowrap',
-    color:"#534546",
+    backgroundColor: theme.palette.grey[800],
     width: drawerWidth,
     transition: theme.transitions.create('width', {
       easing: theme.transitions.easing.sharp,
       duration: theme.transitions.duration.enteringScreen,
     }),
+    drawerWidth
   },
   drawerPaperClose: {
     overflowX: 'hidden',
@@ -101,10 +106,7 @@ const useStyles = makeStyles(theme => ({
       easing: theme.transitions.easing.sharp,
       duration: theme.transitions.duration.leavingScreen,
     }),
-    width: theme.spacing(7),
-    [theme.breakpoints.up('sm')]: {
-      width: theme.spacing(9),
-    },
+    width: 0,
   },
   appBarSpacer: theme.mixins.toolbar,
   content: {
@@ -137,9 +139,10 @@ const createSidebarItems = ({ routes, currentRoute }: Props) => {
 
   let categoryItems: any = {};
   for (let route of routes) {
-    if (!((route.category.name) in categoryItems))
+    if (!((route.category.name) in categoryItems)) {
       categoryItems[route.category.name] = [];
-
+      categoryItems[route.category.name].indicator = route.category.indicator;
+    } 
     categoryItems[route.category.name]
       .push(
         <SidebaSingleItem
@@ -152,13 +155,14 @@ const createSidebarItems = ({ routes, currentRoute }: Props) => {
   let otherItems: any[] = [];
 
   for (let item in categoryItems) {
+    debugger
     if (item == "root")
       rootItems = [...rootItems, ...categoryItems[item]];
     else
       otherItems.push(<SidebarItemWithChildren
         key={item}
         children={categoryItems[item]}
-        icon={<div />}
+        icon={categoryItems[item].indicator || <div />}
         title={item}
       />)
   }
@@ -184,7 +188,7 @@ export default function Skeleton({ children, routes, currentRoute }: any) {
       <CssBaseline />
       <AppBar position="absolute" className={clsx(classes.appBar, open && classes.appBarShift)}>
         <Toolbar className={classes.toolbar}>
-        <IconButton
+          <IconButton
             edge="end"
             color="inherit"
             aria-label="Open drawer"
@@ -196,7 +200,7 @@ export default function Skeleton({ children, routes, currentRoute }: any) {
           <Typography component="h1" align="right" variant="h6" color="inherit" noWrap className={classes.title}>
             {currentRouteProp == null ? "Dashboard" : currentRouteProp.name}
           </Typography>
-         
+
         </Toolbar>
       </AppBar>
       <Drawer
@@ -208,8 +212,12 @@ export default function Skeleton({ children, routes, currentRoute }: any) {
         open={open}
       >
         <div className={classes.toolbarIcon}>
-          <IconButton onClick={handleDrawerClose}>
-            <ChevronLeftIcon />
+
+          <Typography component="h1" align="right" variant="body1" color="inherit" noWrap className={classes.title}>
+            {"پورتال مدیریت"}
+          </Typography>
+          <IconButton onClick={handleDrawerClose} className={classes.colorWhite}>
+            <ChevronRightIcon />
           </IconButton>
         </div>
         <Divider />
@@ -229,7 +237,7 @@ export default function Skeleton({ children, routes, currentRoute }: any) {
           </Grid>
         </Container>
       </main>
-      
+
     </div>
   );
 }
