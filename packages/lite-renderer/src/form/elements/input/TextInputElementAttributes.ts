@@ -1,5 +1,6 @@
 import { TextDirection } from "../share/TextDirection";
 import { TextInputStyleType } from "./TextInputStyleType";
+import { TextInputValidator, isTextInputValidator } from "./TextInputValidators";
 
 /** @ElementDoc
  * @example
@@ -160,6 +161,14 @@ export type OnEndIconClick = VoidFunction | undefined;
  * see https://material-ui.com/components/text-fields/ or https://material-ui.com/api/text-field/ for more info
  */
 export type OnStartIconClick = VoidFunction | undefined;
+/**
+ * @[{"bidirectional":false,"required":false,"typeguard":"isValidation","default": "[]"}]
+ * validations
+ * create a custom validation or use TextInputValidations.*
+ * 
+ * TODO: add docs
+ */
+export type Validations = TextInputValidator[];
 // End Element
 
 // type guards
@@ -183,4 +192,5 @@ export const TypeGuards = {
     isDirection: (value: any): value is Direction => value === "rtl" || value === "ltr",
     isOnEndIconClick: (value: any): value is OnEndIconClick => typeof(value) == "function",
     isOnStartIconClick: (value: any): value is OnStartIconClick => typeof(value) == "function",
+    isValidation: (value: any): value is Validations => (value.map != null) && (value.length < 2 || value.map((i: any) => typeof (i) == "function").reduce((p: boolean, c: boolean) => p && c)),
 }

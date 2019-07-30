@@ -1,5 +1,5 @@
 import { BehaviorSubject } from "rxjs";
-import { Container, TextInput, FormController, Button, ContainerDirection, TextInputStyleType, TextDirection } from 'lite-renderer'
+import { Container, TextInput, FormController, Button, ContainerDirection, TextInputStyleType, TextDirection, TextInputValidations } from 'lite-renderer'
 
 export default class TextInputForm extends FormController {
 
@@ -36,6 +36,8 @@ export default class TextInputForm extends FormController {
         TextInput(this.value).variant(this.variant).label("Icon Clicks")
             .endIcon("check_circle").onEndIconClick(() => alert('end icon clicked'))
             .startIcon("check_circle").onStartIconClick(() => alert('start icon clicked')),
+        TextInput(this.value).variant(this.variant).label("With validation ( must contain 'a' )").validations([TextInputValidations.contains("a")]),
+        Button("Validate").onClick(() => this.validate())
     ]
 
 }

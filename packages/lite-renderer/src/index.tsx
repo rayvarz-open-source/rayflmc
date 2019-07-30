@@ -15,21 +15,21 @@ import { Route } from './router/route.js';
 import IDataController from './flmc-data-layer/Base/IDataController';
 import { createOnHashChangeFunction, changeRoute } from './router/router.js';
 import { RootRouteCategory } from './router/route';
-import {StyleType} from './form/elements/share/StyleType.js';
-import {StyleColor} from './form/elements/share/StyleColor.js';
-import {Alignment} from './form/elements/share/Alignment.js';
-import {TextSize} from './form/elements/share/TextSize.js';
-import {TextAlignment} from './form/elements/share/TextAlignment.js';
-import {DisplayType} from './form/elements/share/DisplayType.js';
-import {Size} from './form/elements/share/Size';
-import {TextInputStyleType} from './form/elements/input/TextInputStyleType';
-import {SelectBoxStyleType} from './form/elements/selectBox/SelectBoxStyleType';
-import {ImageBorderType} from './form/elements/image/ImageBorderType';
-import {ImageScaleType} from './form/elements/image/ImageScaleType';
-import {VisibilityType} from './form/elements/share/VisibilityType';
-import {TextDirection} from './form/elements/share/TextDirection';
-import {ChipSelectionType} from './form/elements/chip/ChipSelectionType';
-import {ChipModel} from './form/elements/chip/ChipModel';
+import { StyleType } from './form/elements/share/StyleType.js';
+import { StyleColor } from './form/elements/share/StyleColor.js';
+import { Alignment } from './form/elements/share/Alignment.js';
+import { TextSize } from './form/elements/share/TextSize.js';
+import { TextAlignment } from './form/elements/share/TextAlignment.js';
+import { DisplayType } from './form/elements/share/DisplayType.js';
+import { Size } from './form/elements/share/Size';
+import { TextInputStyleType } from './form/elements/input/TextInputStyleType';
+import { SelectBoxStyleType } from './form/elements/selectBox/SelectBoxStyleType';
+import { ImageBorderType } from './form/elements/image/ImageBorderType';
+import { ImageScaleType } from './form/elements/image/ImageScaleType';
+import { VisibilityType } from './form/elements/share/VisibilityType';
+import { TextDirection } from './form/elements/share/TextDirection';
+import { ChipSelectionType } from './form/elements/chip/ChipSelectionType';
+import { ChipModel } from './form/elements/chip/ChipModel';
 import TimePicker from './form/elements/picker/time/TimePickerElement.js';
 import Modal from './form/elements/modal/ModalElement';
 import Tab from './form/elements/tab/TabElement';
@@ -39,6 +39,7 @@ import { ButtonColor } from './form/elements/button/ButtonColor.js';
 import { ButtonVariant } from './form/elements/button/ButtonVariant.js';
 import { ThemeProvider } from '@material-ui/styles';
 import Space from './form/elements/space/SpaceElement.js';
+import { TextInputValidations } from './form/elements/input/TextInputValidators.js';
 
 export {
   FormController, Button,
@@ -77,11 +78,11 @@ export {
   ButtonVariant,
   FormView,
   Space,
+  TextInputValidations,
 };
 
 
-
-export type Props = { routes: Route[] ,theme:any}
+export type Props = { routes: Route[], theme: any }
 type States = {
   currentController: IDataController | null,
   currentRoute: Route | null,
@@ -112,9 +113,9 @@ export default class FLMC extends React.Component<Props, States> {
 
     return (
       <ThemeProvider theme={this.props.theme}>
-      <Skeleton currentRoute={currentRoute} routes={this.props.routes} >
-        {currentController != null ? <FormView controller={this.state.currentController as FormController} key={Math.random()}/> : null}
-      </Skeleton>
+        <Skeleton currentRoute={currentRoute} routes={this.props.routes} >
+          {currentController != null ? <FormView controller={this.state.currentController as FormController} key={Math.random()} /> : null}
+        </Skeleton>
       </ThemeProvider>
     )
   }

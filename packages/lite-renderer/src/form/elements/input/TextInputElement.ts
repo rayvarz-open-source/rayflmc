@@ -4,11 +4,23 @@ import { ElementType } from '../ElementType';
 import { Observable, BehaviorSubject, isObservable } from 'rxjs';
 import { BaseElement } from "../base/BaseElement";
 import { isSubject } from '../../../flmc-data-layer';
-import { TypeGuards, Value, Label, Placeholder, Disabled, HelperText, IsInError, StartText, EndText, StartIcon, EndIcon, Variant, Password, Multiline, Rows, RowsMax, Direction, OnEndIconClick, OnStartIconClick } from './TextInputElementAttributes';
+import { TypeGuards, Value, Label, Placeholder, Disabled, HelperText, IsInError, StartText, EndText, StartIcon, EndIcon, Variant, Password, Multiline, Rows, RowsMax, Direction, OnEndIconClick, OnStartIconClick, Validations } from './TextInputElementAttributes';
 
 export class TextInputElement extends BaseElement implements IElement {
 
   validate(): ValidationResult {
+    this.isInErrorContainer.next(false);
+    this.helperTextContainer.next('');
+
+    for (let validator of this.validationsContainer.value) {
+      let validatorResult = validator(this.valueContainer.value);
+      if (!validatorResult.isValid) {
+        this.isInErrorContainer.next(true);
+        this.helperTextContainer.next(validatorResult.validationMessage);
+        return validatorResult;
+      }
+
+    }
     return new ValidationResult(true);
   }
 
@@ -560,6 +572,35 @@ export class TextInputElement extends BaseElement implements IElement {
     if (TypeGuards.isOnStartIconClick(value)) return this.onStartIconClickR(value);
     else if (isObservable(value)) return this.onStartIconClickO(value);
     throw new Error(`invalid type ${typeof (value)} for OnStartIconClick`)
+  }
+
+
+  validationsContainer = new BehaviorSubject<Validations>([]);
+
+  /** iternal function for handling raw Validations types*/
+  private validationsR(value: Validations): TextInputElement {
+    this.validationsContainer.next(value);
+    return this;
+  }
+
+  /** iternal function for handling Observable<Validations> types*/
+  private validationsO(value: Observable<Validations>): TextInputElement {
+    value.subscribe({ next: v => this.validationsContainer.next(v) });
+    return this;
+  }
+
+  /**
+   * default value: []
+   * 
+   * validations
+   * create a custom validation or use TextInputValidations.*
+   * 
+   * TODO: add docs
+   */
+  validations(value: Observable<Validations> | Validations): TextInputElement {
+    if (TypeGuards.isValidation(value)) return this.validationsR(value);
+    else if (isObservable(value)) return this.validationsO(value);
+    throw new Error(`invalid type ${typeof (value)} for Validations`)
   }
 
   /*******************************************/
