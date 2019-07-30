@@ -6,7 +6,14 @@ import routes from './routes';
 export default class App extends Component {
   render() {
     return (
-      <FLMC routes={routes} />
+      <FLMC 
+        routes={routes}
+        routerMiddlewares={{
+          afterRouteChanged: [
+            (route) => console.log("route changed to", route)
+          ]
+        }}
+      />
     )
   }
 }

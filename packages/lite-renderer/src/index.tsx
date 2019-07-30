@@ -40,6 +40,8 @@ import { ButtonVariant } from './form/elements/button/ButtonVariant.js';
 import { ThemeProvider } from '@material-ui/styles';
 import Space from './form/elements/space/SpaceElement.js';
 import { TextInputValidations } from './form/elements/input/TextInputValidators.js';
+import { Theme } from '@material-ui/core';
+import { RouteMiddleWares } from './router/middleware.js';
 
 export {
   FormController, Button,
@@ -82,7 +84,11 @@ export {
 };
 
 
-export type Props = { routes: Route[], theme: any }
+export type Props = {
+  routes: Route[],
+  routerMiddlewares?: RouteMiddleWares,
+  theme?: Theme,
+}
 type States = {
   currentController: IDataController | null,
   currentRoute: Route | null,
@@ -98,14 +104,21 @@ export default class FLMC extends React.Component<Props, States> {
     }
   }
 
+  handleOnAfterRouteChangedMiddlewares () {
+    if (this.props.routerMiddlewares == null) return;
+    (this.props.routerMiddlewares.afterRouteChanged || []).forEach(middleware => {
+      middleware(this.state.currentRoute);
+    })
+  }
+
   componentDidMount() {
     let controllerBuilder = createOnHashChangeFunction(this.props.routes);
     window.onhashchange = () => {
       const [controller, route] = controllerBuilder()!;
-      this.setState({ currentController: controller, currentRoute: route });
+      this.setState({ currentController: controller, currentRoute: route }, () => this.handleOnAfterRouteChangedMiddlewares());
     };
     const [controller, route] = controllerBuilder()!;
-    this.setState({ currentController: controller, currentRoute: route });
+    this.setState({ currentController: controller, currentRoute: route }, () => this.handleOnAfterRouteChangedMiddlewares());
   }
 
   render() {
