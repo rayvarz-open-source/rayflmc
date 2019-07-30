@@ -81,7 +81,7 @@ export default class FLMC extends React.Component<Props, States> {
         else
             return (
                 <ThemeProvider theme={this.props.theme}>
-                    {this.renderView()}
+                    {view}
                 </ThemeProvider>
             )
     }
