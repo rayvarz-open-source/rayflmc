@@ -7,6 +7,7 @@ import { Modal, Card, CardHeader, IconButton, CardContent } from '@material-ui/c
 import { CSSProperties } from '@material-ui/core/styles/withStyles';
 import MoreVertIcon from '@material-ui/icons/Close';
 import { MapToView } from '../ElementToViewMapper';
+import IElement from '../../../flmc-data-layer/FormController/IElement';
 
 type Props = {
   element: ModalElement,
@@ -84,11 +85,11 @@ export default function ModalView({ element }: Props) {
   }
 
   return (
-    <Modal open={open} onClose={handleClose}>
+    <Modal open={open} onClose={handleClose} disableBackdropClick={true} disableEscapeKeyDown={true} >
       <Card style={getModalStyle()}>
         {getHeader()}
         <CardContent>
-          <MapToView element={child} weight={0} />
+          <MapToView element={child as IElement} weight={0} />
         </CardContent>
       </Card>
     </Modal>

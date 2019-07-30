@@ -1,5 +1,6 @@
 import ButtonForm from "./forms/ButtonForm";
 import ImageForm from "./forms/ImageForm";
+import ModalForm from "./forms/ModalForm";
 import TextInputForm from "./forms/TextInputForm";
 import { RootRouteCategory } from 'lite-renderer';
 
@@ -22,6 +23,13 @@ const routes = [
         path: "/button",
         builder: (path, params) => new ButtonForm(),
         name: "Button Element",
+        category: categoties.elementGallery,
+        hidden: false,
+    },
+    {
+        path: "/modal",
+        builder: (path, params) => new ModalForm(),
+        name: "Modal Element",
         category: categoties.elementGallery,
         hidden: false,
     },

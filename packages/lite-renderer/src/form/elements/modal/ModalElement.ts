@@ -76,8 +76,8 @@ export class ModalElement extends BaseElement implements IElement {
    */
   open(value: BehaviorSubject<Open> | Observable<Open> | Open): ModalElement {
     if (TypeGuards.isOpen(value)) return this.openR(value);
-    else if (isObservable(value)) return this.openO(value);
     else if (isSubject(value)) return this.openB(value);
+    else if (isObservable(value)) return this.openO(value);
     throw new Error(`invalid type ${typeof (value)} for Open`)
   }
 
