@@ -1,5 +1,5 @@
 import { BehaviorSubject } from "rxjs";
-import { Modal, Button, Label, FormController, Container, Space } from 'lite-renderer'
+import { Modal, Button, Label, FormController, Container, Space, Skeleton } from 'lite-renderer'
 
 export default class ModalForm extends FormController {
 

@@ -17,8 +17,8 @@ import Link from '@material-ui/core/Link';
 import MenuIcon from '@material-ui/icons/Menu';
 import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 import Sidebar, { SidebarItemWithChildren, SidebaSingleItem } from './Sidebar';
-import { Route } from '../router/route';
-import { changeRoute } from '../router/router';
+import { Route } from '../../router/route';
+import { changeRoute } from '../../router/router';
 import { CSSProperties } from '@material-ui/styles';
 
 const drawerWidth = 240;
@@ -169,7 +169,7 @@ const createSidebarItems = ({ routes, currentRoute }: Props) => {
   return [...otherItems, ...rootItems];
 }
 
-export default function Skeleton({ children, routes, currentRoute }: any) {
+export default function DefaultSkeleton({ children, routes, currentRoute }: any) {
   const routesProp = routes as Route[];
   const currentRouteProp = currentRoute as Route;
   const classes = useStyles() as any;

@@ -1,5 +1,3 @@
-import * as React from 'react'
-import Skeleton from './base/Skeleton.js';
 import FormController from './flmc-data-layer/FormController/FormController';
 import FormView from './form/FormView.js';
 import Button from './form/elements/button/ButtonElement.js';
@@ -11,9 +9,7 @@ import Container from './form/elements/container/ContainerElement.js';
 import Image from './form/elements/image/ImageElement';
 import Grid from './form/elements/grid/GridElement';
 import Label from './form/elements/label/LabelElement.js';
-import { Route } from './router/route.js';
-import IDataController from './flmc-data-layer/Base/IDataController';
-import { createOnHashChangeFunction, changeRoute } from './router/router.js';
+import { changeRoute } from './router/router.js';
 import { RootRouteCategory } from './router/route';
 import { StyleType } from './form/elements/share/StyleType.js';
 import { StyleColor } from './form/elements/share/StyleColor.js';
@@ -37,11 +33,10 @@ import Chip from './form/elements/chip/ChipElement';
 import { ContainerDirection } from './form/elements/container/ContainerDirection.js';
 import { ButtonColor } from './form/elements/button/ButtonColor.js';
 import { ButtonVariant } from './form/elements/button/ButtonVariant.js';
-import { ThemeProvider } from '@material-ui/styles';
 import Space from './form/elements/space/SpaceElement.js';
 import { TextInputValidations } from './form/elements/input/TextInputValidators.js';
-import { Theme } from '@material-ui/core';
-import { RouteMiddleWares } from './router/middleware.js';
+import FLMC from './FLMC';
+import { Skeleton } from './skeleton/SkeletonAttribute';
 
 export {
   FormController, Button,
@@ -81,55 +76,7 @@ export {
   FormView,
   Space,
   TextInputValidations,
+  Skeleton,
 };
 
-
-export type Props = {
-  routes: Route[],
-  routerMiddlewares?: RouteMiddleWares,
-  theme?: Theme,
-}
-type States = {
-  currentController: IDataController | null,
-  currentRoute: Route | null,
-}
-
-export default class FLMC extends React.Component<Props, States> {
-
-  constructor(props: Props) {
-    super(props);
-    this.state = {
-      currentController: null,
-      currentRoute: null
-    }
-  }
-
-  handleOnAfterRouteChangedMiddlewares () {
-    if (this.props.routerMiddlewares == null) return;
-    (this.props.routerMiddlewares.afterRouteChanged || []).forEach(middleware => {
-      middleware(this.state.currentRoute);
-    })
-  }
-
-  componentDidMount() {
-    let controllerBuilder = createOnHashChangeFunction(this.props.routes);
-    window.onhashchange = () => {
-      const [controller, route] = controllerBuilder()!;
-      this.setState({ currentController: controller, currentRoute: route }, () => this.handleOnAfterRouteChangedMiddlewares());
-    };
-    const [controller, route] = controllerBuilder()!;
-    this.setState({ currentController: controller, currentRoute: route }, () => this.handleOnAfterRouteChangedMiddlewares());
-  }
-
-  render() {
-    const { currentController, currentRoute } = this.state
-
-    return (
-      <ThemeProvider theme={this.props.theme}>
-        <Skeleton currentRoute={currentRoute} routes={this.props.routes} >
-          {currentController != null ? <FormView controller={this.state.currentController as FormController} key={Math.random()} /> : null}
-        </Skeleton>
-      </ThemeProvider>
-    )
-  }
-}
+export default FLMC;

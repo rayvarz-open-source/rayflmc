@@ -2,6 +2,7 @@ import ButtonForm from "./forms/ButtonForm";
 import ImageForm from "./forms/ImageForm";
 import ModalForm from "./forms/ModalForm";
 import TextInputForm from "./forms/TextInputForm";
+import CustomSkeletonForm from "./forms/CustomSkeletonForm";
 import { RootRouteCategory } from 'lite-renderer';
 
 const categoties = {
@@ -17,6 +18,13 @@ const routes = [
         builder: (path, params) => new ButtonForm(),
         category: RootRouteCategory,
         name: "Home",
+        hidden: false,
+    },
+    {
+        path: "/custom-skeleton",
+        builder: (path, params) => new CustomSkeletonForm(),
+        category: RootRouteCategory,
+        name: "Custom Skeleton",
         hidden: false,
     },
     {
