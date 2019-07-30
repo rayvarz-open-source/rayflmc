@@ -10,7 +10,7 @@ import svgr from '@svgr/rollup'
 import pkg from './package.json'
 
 export default {
-  input: 'src/index.tsx',
+  input: 'src/index.ts',
   onwarn: function(warning, rollupWarn) {
     if (warning.code !== 'CIRCULAR_DEPENDENCY') {
       rollupWarn(warning);
