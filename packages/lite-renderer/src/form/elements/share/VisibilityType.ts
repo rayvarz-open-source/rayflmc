@@ -1,5 +1,5 @@
 export enum VisibilityType {
-  Show = "Show",
-  Hidden = "Hidden",
-  Gone = "Gone",
+  Show = "show",
+  Hidden = "hidden",
+  Gone = "gone",
 }
