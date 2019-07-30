@@ -1,5 +1,5 @@
 import { BehaviorSubject } from "rxjs";
-import { Modal, Button, Label, FormController, Container } from 'lite-renderer'
+import { Modal, Button, Label, FormController, Container, Space } from 'lite-renderer'
 
 export default class ModalForm extends FormController {
 
@@ -11,9 +11,13 @@ export default class ModalForm extends FormController {
 
     elements = [
         Button("Open Sample Modal").onClick(() => this.isSampleModalOpen.next(!this.isSampleModalOpen.value)),
+        Space().height(10),
         Button("Open Sample Modal without close button").onClick(() => this.isSampleModalWithoutCloseButtonOpen.next(!this.isSampleModalWithoutCloseButtonOpen.value)),
+        Space().height(10),
         Button("Open Sample Modal with title").onClick(() => this.isSampleModalWithTitleOpen.next(!this.isSampleModalWithTitleOpen.value)),
+        Space().height(10),
         Button("Open Sample Modal without header").onClick(() => this.isSampleModalWithoutHeaderOpen.next(!this.isSampleModalWithoutHeaderOpen.value)),
+        Space().height(10),
         Button("Open Sample Modal with self handled close button").onClick(() => this.isSampleModalWithSelfHandledCloseButtonOpen.next(!this.isSampleModalWithSelfHandledCloseButtonOpen.value)),
 
         Modal(Container([

@@ -38,6 +38,7 @@ import { ContainerDirection } from './form/elements/container/ContainerDirection
 import { ButtonColor } from './form/elements/button/ButtonColor.js';
 import { ButtonVariant } from './form/elements/button/ButtonVariant.js';
 import { ThemeProvider } from '@material-ui/styles';
+import Space from './form/elements/space/SpaceElement.js';
 
 export {
   FormController, Button,
@@ -75,6 +76,7 @@ export {
   ButtonColor,
   ButtonVariant,
   FormView,
+  Space,
 };
 
 

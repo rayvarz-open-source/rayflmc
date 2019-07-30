@@ -28,6 +28,8 @@ import ChipView from "./chip/ChipView";
 import {ChipElement} from "./chip/ChipElement";
 import ImageView from "./image/ImageView";
 import {ImageElement} from "./image/ImageElement";
+import SpaceView from "./space/SpaceView";
+import { SpaceElement } from "./space/SpaceElement";
 
 type Props = {
     element: IElement,
@@ -49,6 +51,7 @@ export function MapToView({ element,weight }: Props) {
         case (ElementType.TextInput): return <TextInputView element={element as TextInputElement} weight={weight}/>;
         case (ElementType.Grid): return <GridView element={element as GridElement} weight={weight}/>;
         case (ElementType.Image): return <ImageView element={element as ImageElement} weight={weight}/>;
+        case (ElementType.Space): return <SpaceView element={element as SpaceElement} weight={weight}/>;
     }
     throw Error(`can't map ${element.type} to a view`)
 }
