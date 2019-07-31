@@ -46,7 +46,7 @@ type ItemWithChildrenProps = {
 }
 
 export function SidebarItemWithChildren({ title, icon, children }: ItemWithChildrenProps) {
-    const [open, setOpen] = React.useState(true);
+    const [open, setOpen] = React.useState(false);
     const classes = useStyles();
 
     function handleClick() {
