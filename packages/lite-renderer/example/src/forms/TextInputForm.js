@@ -37,6 +37,7 @@ export default class TextInputForm extends FormController {
             .endIcon("check_circle").onEndIconClick(() => alert('end icon clicked'))
             .startIcon("check_circle").onStartIconClick(() => alert('start icon clicked')),
         TextInput(this.value).variant(this.variant).label("With validation ( must contain 'a' )").validations([TextInputValidations.contains("a")]),
+        TextInput(this.value).variant(this.variant).label("With validation ( noEmpty )").validations([TextInputValidations.notEmpty()]),
         Button("Validate").onClick(() => this.validate())
     ]
 
