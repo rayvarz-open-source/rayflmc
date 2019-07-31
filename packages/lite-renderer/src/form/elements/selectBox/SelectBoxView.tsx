@@ -1,4 +1,4 @@
-import {SelectBoxElement} from './SelectBoxElement';
+import { SelectBoxElement, OnChange } from './SelectBoxElement';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
 import Switch from '@material-ui/core/Switch';
@@ -6,15 +6,16 @@ import Radio from '@material-ui/core/Radio';
 import Favorite from '@material-ui/icons/Favorite';
 import FavoriteBorder from '@material-ui/icons/FavoriteBorder';
 import * as React from 'react';
-import {useRef} from 'react';
+import { useRef } from 'react';
 import Icon from '@material-ui/core/Icon';
-import {Alignment} from "../share/Alignment";
-import {StyleColor} from "../share/StyleColor";
-import {StyleType} from "../share/StyleType";
-import {CircularProgress} from "@material-ui/core";
-import {withStyles} from "@material-ui/core/styles";
+import { Alignment } from "../share/Alignment";
+import { StyleColor } from "../share/StyleColor";
+import { StyleType } from "../share/StyleType";
+import { CircularProgress } from "@material-ui/core";
+import { withStyles } from "@material-ui/core/styles";
 import useTheme from "@material-ui/core/styles/useTheme";
-import {SelectBoxStyleType} from "./SelectBoxStyleType";
+import { SelectBoxStyleType } from "./SelectBoxStyleType";
+import useFunctionAsState from '../../../custom-hooks/function-state';
 
 type Props = {
   element: SelectBoxElement,
@@ -30,12 +31,10 @@ function getProgressColor(styleType, styleColor) {
     return "#000000"
 }
 
-export default function SelectBoxView({element}: Props) {
+export default function SelectBoxView({ element }: Props) {
   const inputEl = useRef(null);
 
-  let onChange: (value) => void = (value) => {
-    setInputValue(value.target.checked);
-  };
+  const [onChange, setOnChange] = useFunctionAsState<OnChange>(undefined);
   const [inputTitle, setInputTitle] = React.useState("");
   const [inputValue, setInputValue] = React.useState(false);
   const [styleType, setStyleType] = React.useState("CheckBox");
@@ -45,11 +44,7 @@ export default function SelectBoxView({element}: Props) {
 
 
   React.useEffect(() => {
-
-    let callbackSub = element.buttonCallback.subscribe({
-      next: (v) => onChange = v == null ? () => {
-      } : v
-    });
+    let onCheckChangeSub = element.onCheckChangeContainer.subscribe({ next: v => setOnChange(v) });
 
     let titleSub = element.selectBoxText.subscribe({
       next: (v) => setInputTitle(v)
@@ -71,13 +66,13 @@ export default function SelectBoxView({element}: Props) {
     });
 
     return () => {
-      callbackSub.unsubscribe();
       titleSub.unsubscribe();
       valueSub.unsubscribe();
       styleTypeSub.unsubscribe();
       styleColorSub.unsubscribe();
       disabledSub.unsubscribe();
       alignmentSub.unsubscribe();
+      onCheckChangeSub.unsubscribe();
     }
 
   })
@@ -92,12 +87,12 @@ export default function SelectBoxView({element}: Props) {
         disabled={disabled}
         color={styleColor}
       />) : styleType === SelectBoxStyleType.CheckBox ?
-        <Checkbox disabled={disabled} value={inputValue} color={styleColor} onChange={onChange}/> :
-        styleType === SelectBoxStyleType.Like ?
-          <Checkbox disabled={disabled} icon={<FavoriteBorder/>}
-                    checkedIcon={<Favorite/>}
-                    value={inputValue} color={styleColor} onChange={onChange}/> :
-          <Radio disabled={disabled} color={styleColor} value={inputTitle} onChange={onChange}/>}
+          <Checkbox disabled={disabled} value={inputValue} color={styleColor} onChange={onChange} /> :
+          styleType === SelectBoxStyleType.Like ?
+            <Checkbox disabled={disabled} icon={<FavoriteBorder />}
+              checkedIcon={<Favorite />}
+              value={inputValue} color={styleColor} onChange={onChange} /> :
+            <Radio disabled={disabled} color={styleColor} value={inputTitle} onChange={onChange} />}
       label={inputTitle}
       value={inputTitle}
       labelPlacement={alignment}

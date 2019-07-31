@@ -1,6 +1,7 @@
 import IElement, { ValidationResult } from '../../../flmc-data-layer/FormController/IElement';
 import { ElementType } from '../ElementType';
 import { Observable, BehaviorSubject, isObservable } from 'rxjs';
+export type OnChange = VoidFunction | undefined;
 
 export class SelectBoxElement implements IElement {
   dispose(): void {}
@@ -14,6 +15,7 @@ export class SelectBoxElement implements IElement {
   }
 
   // text
+  onCheckChangeContainer = new BehaviorSubject<OnChange>(undefined);
 
   selectBoxText = new BehaviorSubject<string>('');
   selectBoxValue = new BehaviorSubject<boolean>(false);
@@ -60,23 +62,21 @@ export class SelectBoxElement implements IElement {
   }
   // callback
 
-  buttonCallback = new BehaviorSubject<VoidFunction | null>(null);
-
-  private onTapR(action: VoidFunction): SelectBoxElement {
-    this.buttonCallback.next(action);
+  private onCheckChangeR(action: VoidFunction): SelectBoxElement {
+    this.onCheckChangeContainer.next(action);
     return this;
   }
 
-  private onTapO(action: Observable<VoidFunction>): SelectBoxElement {
+  private onCheckChangeO(action: Observable<VoidFunction>): SelectBoxElement {
     action.subscribe({
-      next: v => this.buttonCallback.next(v),
+      next: v => this.onCheckChangeContainer.next(v),
     });
     return this;
   }
 
   onCheckChange(action: Observable<VoidFunction> | VoidFunction): SelectBoxElement {
-    if (typeof action === 'function') return this.onTapR(action);
-    if (isObservable(action)) return this.onTapO(action);
+    if (typeof action === 'function') return this.onCheckChangeR(action);
+    if (isObservable(action)) return this.onCheckChangeO(action);
     throw new Error('given action type is not supported');
   }
   private styleTypeR(text: string): SelectBoxElement {
