@@ -298,7 +298,7 @@ const changeHash = (hash: string) => {
 }
 
 export const changeRoute = (path: string, params?: object) => {
-    let hash = btoa(JSON.stringify({
+    let hash = Base64.encode(JSON.stringify({
         path, 
         params: params || {}
     }));
