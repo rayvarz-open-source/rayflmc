@@ -1,5 +1,6 @@
 import { Components, Action, Column, Options, Query, QueryResult, Localization } from "material-table";
 import { GridRowActionDefinitions } from "./GridRowActionDefinitions";
+import { EventType } from "../base/Evenet";
 /** @ElementDoc
  * @example
  * // usage: TODO: add docs
@@ -47,6 +48,11 @@ export type Title = string;
  * TODO: add docs
  */
 export type LocalizationDefinition = Localization | undefined;
+/**
+ * @[{"bidirectional":true,"required":false,"default":"null"}]
+ * TODO: add docs
+ */
+export type RefreshEvent = EventType;
 // End Element
 
 // type guards

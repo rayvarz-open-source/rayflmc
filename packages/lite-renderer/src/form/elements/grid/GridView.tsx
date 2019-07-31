@@ -13,6 +13,8 @@ type Props = {
 
 export default function GridView({ element, weight }: Props) {
 
+    const tableRef = React.useRef();
+
     //region generated
     /*******************************************/
     /* GENERATED CODE, DO NOT MODIFY BY HAND!! */
@@ -38,6 +40,7 @@ export default function GridView({ element, weight }: Props) {
         let titleSub = element.titleContainer.subscribe({ next: v => setTitle(v) });
         let localizationDefinitionSub = element.localizationDefinitionContainer.subscribe({ next: v => setLocalizationDefinition(v) });
         let visibilitySub = element.elementVisibilityContainer.subscribe({ next: v => setVisibility(v) });
+        let refreshEventSub = element.refreshEventContainer.subscribe({ next: _ => tableRef.current != null && (tableRef.current as any).onQueryChange() });
 
         return () => {
             columnDefinitionsSub.unsubscribe();
@@ -48,6 +51,7 @@ export default function GridView({ element, weight }: Props) {
             gridOptionsSub.unsubscribe();
             titleSub.unsubscribe();
             localizationDefinitionSub.unsubscribe();
+            refreshEventSub.unsubscribe();
             visibilitySub.unsubscribe();
         };
     }, []);
@@ -64,6 +68,7 @@ export default function GridView({ element, weight }: Props) {
             }
         } >
             <MaterialTable
+                tableRef={tableRef}
                 title={title}
                 columns={columnDefinitions}
                 data={datasource}
