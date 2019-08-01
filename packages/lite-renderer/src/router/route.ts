@@ -2,7 +2,7 @@ import * as React from 'react';
 import IDataController from "../flmc-data-layer/Base/IDataController";
 
 export interface DataControllerBuilder {
-    (path: string, params: object): IDataController
+    (path: string, params: any): IDataController
 }
 
 export interface Route {
