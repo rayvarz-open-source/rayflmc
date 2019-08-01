@@ -138,11 +138,11 @@ type Props = {
 const createSidebarItems = ({ routes, currentRoute }: Props) => {
 
   let categoryItems: any = {};
-  for (let route of routes) {
+  for (let route of routes.filter(x => !x.hidden)) {
     if (!((route.category.name) in categoryItems)) {
       categoryItems[route.category.name] = [];
       categoryItems[route.category.name].indicator = route.category.indicator;
-    } 
+    }
     categoryItems[route.category.name]
       .push(
         <SidebaSingleItem
@@ -154,7 +154,7 @@ const createSidebarItems = ({ routes, currentRoute }: Props) => {
   let rootItems: any[] = [];
   let otherItems: any[] = [];
 
-  for (let item in categoryItems) {
+  for (let item in categoryItems.filter(x => !x.hidden)) {
     if (item == "root")
       rootItems = [...rootItems, ...categoryItems[item]];
     else
