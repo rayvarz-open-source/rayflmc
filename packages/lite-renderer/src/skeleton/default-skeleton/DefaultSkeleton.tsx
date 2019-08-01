@@ -154,7 +154,7 @@ const createSidebarItems = ({ routes, currentRoute }: Props) => {
   let rootItems: any[] = [];
   let otherItems: any[] = [];
 
-  for (let item in categoryItems.filter(x => !x.hidden)) {
+  for (let item in categoryItems) {
     if (item == "root")
       rootItems = [...rootItems, ...categoryItems[item]];
     else
