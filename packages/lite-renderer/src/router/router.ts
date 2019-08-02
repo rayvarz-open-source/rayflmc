@@ -297,9 +297,10 @@ const changeHash = (hash: string) => {
     (window as any).onhashchange();
 }
 
-export const changeRoute = (path: string, params?: object) => {
+export const changeRoute = (path: string | Route, params?: object) => {
+    let _path = typeof (path) == "string" ? path : path.path;
     let hash = Base64.encode(JSON.stringify({
-        path, 
+        _path, 
         params: params || {}
     }));
     changeHash(hash);
