@@ -9,8 +9,9 @@ import { TypeGuards, TabElements, TabTitles, CurrentTab } from './TabElementAttr
 export class TabElement extends BaseElement implements IElement {
 
   validate(): ValidationResult {
-    for (let child of this.tabElementsContainer.value || []) {
-      if (!child.validate().isValid)
+    let validationResults = (this.tabElementsContainer.value || []).map(v => v.validate());
+    for (let validationResult of validationResults) {
+      if (!validationResult.isValid)
         return new ValidationResult(false, "");
     }
     return new ValidationResult(true, "");

@@ -9,8 +9,9 @@ import { ContainerDirection } from './ContainerDirection';
 export class ContainerElement extends BaseElement implements IElement {
 
   validate(): ValidationResult {
-    for (let child of this.childrenContainer.value || []) {
-      if (!child.validate().isValid)
+    let validationResults = (this.childrenContainer.value || []).map(v => v.validate());
+    for (let validationResult of validationResults) {
+      if (!validationResult.isValid)
         return new ValidationResult(false, "");
     }
     return new ValidationResult(true, "");
