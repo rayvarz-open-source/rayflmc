@@ -9,7 +9,11 @@ import { TypeGuards, TabElements, TabTitles, CurrentTab } from './TabElementAttr
 export class TabElement extends BaseElement implements IElement {
 
   validate(): ValidationResult {
-    return new ValidationResult(this.tabElementsContainer.value.map(i => i.validate().isValid).reduce((p, c) => p && c));
+    for (let child of this.tabElementsContainer.value || []) {
+      if (!child.validate().isValid)
+        return new ValidationResult(false, "");
+    }
+    return new ValidationResult(true, "");
   }
 
   dispose(): void { }
