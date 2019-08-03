@@ -20,7 +20,7 @@ export class DatePickerElement extends BaseElement implements IElement {
   value = new BehaviorSubject<string>('');
   labelIsNoWrap = new BehaviorSubject<boolean>(false);
   labelIsGutterBottom = new BehaviorSubject<boolean>(false);
-  datePickerTime = new BehaviorSubject<string>('');
+  datePickerTime = new BehaviorSubject<Date>(new Date());
   labelTextSize = new BehaviorSubject<string>('');
   labelDisplayType = new BehaviorSubject<string>('');
   labelTextAlign = new BehaviorSubject<string>('');
@@ -76,27 +76,26 @@ export class DatePickerElement extends BaseElement implements IElement {
     throw new Error('given gutterBottom is not supported');
   }
 
-  private selectedDateR(text: string): DatePickerElement {
-    if (this.datePickerTime == null) this.datePickerTime = new BehaviorSubject<string>('');
+  private selectedDateR(text: Date): DatePickerElement {
+    if (this.datePickerTime == null) this.datePickerTime = new BehaviorSubject<Date>(new Date());
     this.datePickerTime.next(text);
     return this;
   }
 
-  private selectedDateO(text: Observable<string>): DatePickerElement {
-    if (this.datePickerTime == null) this.datePickerTime = new BehaviorSubject<string>('');
+  private selectedDateO(text: Observable<Date>): DatePickerElement {
+    if (this.datePickerTime == null) this.datePickerTime = new BehaviorSubject<Date>(new Date());
     text.subscribe({
       next: v => this.datePickerTime.next(v),
     });
     return this;
   }
 s
-  private selectedDateB(text: BehaviorSubject<string>): DatePickerElement {
+  private selectedDateB(text: BehaviorSubject<Date>): DatePickerElement {
     this.datePickerTime = text;
     return this;
   }
 
-  selectedDate(title: BehaviorSubject<string> | Observable<string> | string): DatePickerElement {
-    if (typeof title === 'string') return this.selectedDateR(title);
+  selectedDate(title: BehaviorSubject<Date> | Observable<Date> | Date): DatePickerElement {
     if (isSubject(title)) return this.selectedDateB(title);
     if (isObservable(title)) return this.selectedDateO(title);
     throw new Error('given text type is not supported');
@@ -156,7 +155,7 @@ s
   }
 
 }
-const DatePicker = (controller: string | Observable<string> | BehaviorSubject<string>): DatePickerElement => {
+const DatePicker = (controller: Observable<Date> | BehaviorSubject<Date>): DatePickerElement => {
   return new DatePickerElement().selectedDate(controller);
 };
 

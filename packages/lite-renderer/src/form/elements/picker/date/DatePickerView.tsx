@@ -77,15 +77,14 @@ export default function DatePickerView({element,weight}: Props) {
             ...element.getWeightStyle(weight)
           }
         }        labelFunc={date => (date ? date.format("jYYYY/jMM/jDD") : "")}
-        value={selectedDate}
+        value={time}
         okLabel="تأیید"
         cancelLabel="لغو"
+        inputVariant={"filled"}
         onAccept={(date) => {
           let myDate: Date = (date as any)._d;
-          console.log(myDate)
-          setTime(myDate)
-          if (myDate.toDateString() == selectedDate.format()) return;
-          element.datePickerTime.next(myDate.toString());
+          
+          element.datePickerTime.next(myDate);
         }}
         onChange={handleDateChange as any}
         animateYearScrolling={true}
