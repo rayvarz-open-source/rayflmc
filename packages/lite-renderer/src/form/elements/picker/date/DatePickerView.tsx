@@ -2,10 +2,11 @@ import {DatePickerElement} from './DatePickerElement';
 import Typography from '@material-ui/core/Typography';
 import * as React from 'react';
 import FormLabel from '@material-ui/core/FormLabel';
-import jMoment from "moment-jalaali";
+import * as jMoment_ from "moment-jalaali";
 import * as moment_ from 'moment';
 import JalaliUtils from "@date-io/jalaali";
 const moment = moment_;
+const jMoment = jMoment_;
 
 import {
   DatePicker,
@@ -22,7 +23,7 @@ type Props = {
 
 export default function DatePickerView({element,weight}: Props) {
   const [selectedDate, handleDateChange] = React.useState(moment());
-  const [text, setText] = React.useState(moment());
+  const [text, setText] = React.useState("");
   const [time, setTime] = React.useState();
   const [displayType, setDisplayType] = React.useState();
   const [textSize, setTextSize] = React.useState();
@@ -76,11 +77,13 @@ export default function DatePickerView({element,weight}: Props) {
             ...element.getVisibilityStyle(visibility),
             ...element.getWeightStyle(weight)
           }
-        }        labelFunc={date => (date ? date.format("jYYYY/jMM/jDD") : "")}
+        }       
+        labelFunc={date => (date ? jMoment(date).format("jYYYY/jMM/jDD") : "")}
         value={time}
         okLabel="تأیید"
         cancelLabel="لغو"
         inputVariant={"filled"}
+        label={text}
         onAccept={(date) => {
           let myDate: Date = (date as any)._d;
           
