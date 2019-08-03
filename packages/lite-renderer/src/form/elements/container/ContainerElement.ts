@@ -9,7 +9,7 @@ import { ContainerDirection } from './ContainerDirection';
 export class ContainerElement extends BaseElement implements IElement {
 
   validate(): ValidationResult {
-    return new ValidationResult(true);
+    return new ValidationResult(this.childrenContainer.value.map(i => i.validate().isValid).reduce((p, c) => p && c));
   }
 
   dispose(): void { }
