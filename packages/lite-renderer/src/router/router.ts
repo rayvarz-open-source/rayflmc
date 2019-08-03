@@ -300,7 +300,7 @@ const changeHash = (hash: string) => {
 export const changeRoute = (path: string | Route, params?: object) => {
     let _path = typeof (path) == "string" ? path : path.path;
     let hash = Base64.encode(JSON.stringify({
-        _path, 
+        path: _path, 
         params: params || {}
     }));
     changeHash(hash);
