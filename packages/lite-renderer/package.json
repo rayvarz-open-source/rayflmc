@@ -65,6 +65,6 @@
     "typescript": "^3.5.1"
   },
   "files": [
-    "dist"
+    "build/**/*"
   ]
 }
