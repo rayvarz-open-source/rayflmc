@@ -1,6 +1,6 @@
+import { CSSProperties } from "react";
 import { BehaviorSubject, isObservable, Observable } from "rxjs";
 import { VisibilityType } from "../share/VisibilityType";
-import { CSSProperties } from "react";
 
 export type Visibility = "show" | "gone" | "hidden" | VisibilityType;
 
@@ -8,16 +8,16 @@ export class BaseElement {
   elementVisibilityContainer = new BehaviorSubject<Visibility>("show");
 
   showStyle: CSSProperties = {
-    visibility: 'visible'
-  }
+    visibility: "visible"
+  };
   hiddenStyle: CSSProperties = {
-    visibility: 'hidden'
-  }
+    visibility: "hidden"
+  };
   goneStyle: CSSProperties = {
-    display: 'none'
-  }
+    display: "none"
+  };
   getWeightStyle(weight: number): CSSProperties {
-    return { "flexGrow": weight };
+    return weight ? { flexGrow: weight } : { flex: weight };
   }
   getVisibilityStyle(type: Visibility): CSSProperties {
     switch (type) {
@@ -38,13 +38,20 @@ export class BaseElement {
   }
 
   private visibilityO(visibilityType: Observable<Visibility>) {
-    visibilityType.subscribe({ next: v => this.elementVisibilityContainer.next(v) });
+    visibilityType.subscribe({
+      next: v => this.elementVisibilityContainer.next(v)
+    });
     return this;
   }
 
   visibility(visibilityType: Observable<Visibility> | Visibility) {
-    if (visibilityType === "show" || visibilityType === "hidden" || visibilityType === "gone") return this.visibilityR(visibilityType);
+    if (
+      visibilityType === "show" ||
+      visibilityType === "hidden" ||
+      visibilityType === "gone"
+    )
+      return this.visibilityR(visibilityType);
     if (isObservable(visibilityType)) return this.visibilityO(visibilityType);
-    throw new Error('given visibility is not supported');
+    throw new Error("given visibility is not supported");
   }
 }
