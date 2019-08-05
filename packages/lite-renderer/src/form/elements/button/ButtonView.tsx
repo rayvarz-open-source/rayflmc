@@ -1,11 +1,9 @@
-import { Icon as MIcon, Button, CircularProgress, withStyles, createMuiTheme } from '@material-ui/core';
-import { ButtonElement } from './ButtonElement';
+import { Button, CircularProgress, createMuiTheme, Icon as MIcon, withStyles } from '@material-ui/core';
 import * as React from 'react';
-import { Text, Loading, Disabled, Colors, Variant, Icon, OnClick } from './ButtonElementAttributes';
-import { Visibility } from '../base/BaseElement';
-import { ButtonColor } from './ButtonColor';
-import { ButtonVariant } from './ButtonVariant';
 import useFunctionAsState from '../../../custom-hooks/function-state';
+import { Visibility } from '../base/BaseElement';
+import { ButtonElement } from './ButtonElement';
+import { Colors, Disabled, Icon, Loading, OnClick, Text, Variant } from './ButtonElementAttributes';
 
 type Props = {
   element: ButtonElement,
@@ -68,12 +66,12 @@ export default function ButtonView({ element, weight }: Props) {
 
   function createIcon() {
     if (!icon) return null;
-    return (<MIcon style={{ marginRight: 8 }}>{icon}</MIcon>);
+    return (<MIcon style={{ marginRight: !!text?8:0 }}>{icon}</MIcon>);
   }
 
   function createLoading() {
     if (!loading) return null;
-    return (<ColorCircularProgress style={{ marginRight: 8 }} size={20} thickness={3} />);
+    return (<ColorCircularProgress style={{ marginRight: !!text?8:0 }} size={20} thickness={3} />);
   }
 
   const handleClick = () => {
