@@ -1,3 +1,3 @@
-export * from './IDataController';
-export * from './IModel';
-export * from './JSONCodable';
+export * from "./IDataController";
+export * from "./IModel";
+export * from "./JSONCodable";

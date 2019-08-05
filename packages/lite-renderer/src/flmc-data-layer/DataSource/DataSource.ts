@@ -1,5 +1,5 @@
-import { BehaviorSubject } from 'rxjs';
-import { IEncodable } from '../Base/IModel';
+import { BehaviorSubject } from "rxjs";
+import { IEncodable } from "../Base/IModel";
 
 /**
  * if a class implement this data interface, it can be used
@@ -28,7 +28,9 @@ export class SingleValueDataSource<T extends IEncodable> implements DataSource {
   loading = new BehaviorSubject<boolean>(false);
 }
 
-export function isSingleValueDataSource(value: any): value is SingleValueDataSource<any> {
+export function isSingleValueDataSource(
+  value: any
+): value is SingleValueDataSource<any> {
   return value.value != null;
 }
 

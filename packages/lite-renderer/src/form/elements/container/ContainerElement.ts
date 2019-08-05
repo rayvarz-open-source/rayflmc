@@ -1,23 +1,29 @@
-
-import IElement, { ValidationResult } from '../../../flmc-data-layer/FormController/IElement';
-import { ElementType } from '../ElementType';
-import { Observable, BehaviorSubject, isObservable } from 'rxjs';
+import IElement, {
+  ValidationResult
+} from "../../../flmc-data-layer/FormController/IElement";
+import { ElementType } from "../ElementType";
+import { Observable, BehaviorSubject, isObservable } from "rxjs";
 import { BaseElement } from "../base/BaseElement";
-import { TypeGuards, Children, Direction, Flex } from './ContainerElementAttributes';
-import { ContainerDirection } from './ContainerDirection';
+import {
+  TypeGuards,
+  Children,
+  Direction,
+  Flex
+} from "./ContainerElementAttributes";
+import { ContainerDirection } from "./ContainerDirection";
 
 export class ContainerElement extends BaseElement implements IElement {
-
   validate(): ValidationResult {
-    let validationResults = (this.childrenContainer.value || []).map(v => v.validate());
+    let validationResults = (this.childrenContainer.value || []).map(v =>
+      v.validate()
+    );
     for (let validationResult of validationResults) {
-      if (!validationResult.isValid)
-        return new ValidationResult(false, "");
+      if (!validationResult.isValid) return new ValidationResult(false, "");
     }
     return new ValidationResult(true, "");
   }
 
-  dispose(): void { }
+  dispose(): void {}
 
   //region auto generated code
   /*******************************************/
@@ -44,17 +50,18 @@ export class ContainerElement extends BaseElement implements IElement {
 
   /**
    * default value: []
-   * 
+   *
    * container children
    */
   children(value: Observable<Children> | Children): ContainerElement {
     if (isObservable(value)) return this.childrenO(value);
     else if (TypeGuards.isChildren(value)) return this.childrenR(value);
-    throw new Error(`invalid type ${typeof (value)} for Children`)
+    throw new Error(`invalid type ${typeof value} for Children`);
   }
 
-
-  directionContainer = new BehaviorSubject<Direction>(ContainerDirection.Column);
+  directionContainer = new BehaviorSubject<Direction>(
+    ContainerDirection.Column
+  );
 
   /** iternal function for handling raw Direction types*/
   private directionR(value: Direction): ContainerElement {
@@ -70,18 +77,17 @@ export class ContainerElement extends BaseElement implements IElement {
 
   /**
    * default value: ContainerDirection.Column
-   * 
+   *
    * children direction
-   * 
+   *
    * valid options: ContainerDirection.*
-   * 
+   *
    */
   direction(value: Observable<Direction> | Direction): ContainerElement {
     if (TypeGuards.isDirection(value)) return this.directionR(value);
     else if (isObservable(value)) return this.directionO(value);
-    throw new Error(`invalid type ${typeof (value)} for Direction`)
+    throw new Error(`invalid type ${typeof value} for Direction`);
   }
-
 
   flexContainer = new BehaviorSubject<Flex>([]);
 
@@ -99,22 +105,22 @@ export class ContainerElement extends BaseElement implements IElement {
 
   /**
    * default value: []
-   * 
+   *
    * array of numbers representing flex number of each child
-   * 
+   *
    * must be same size as children
    * @example
-   * 
+   *
    * Container([Label('test'), TextInput(controller)])
    *  .flex([3, 1]) // Label will be 3 times bigger than TextInput
-   * 
-   * 
-   * 
+   *
+   *
+   *
    */
   flex(value: Observable<Flex> | Flex): ContainerElement {
     if (TypeGuards.isFlex(value)) return this.flexR(value);
     else if (isObservable(value)) return this.flexO(value);
-    throw new Error(`invalid type ${typeof (value)} for Flex`)
+    throw new Error(`invalid type ${typeof value} for Flex`);
   }
 
   /*******************************************/
@@ -123,27 +129,26 @@ export class ContainerElement extends BaseElement implements IElement {
   //endregion
 }
 
-
 /*******************************************/
 /* GENERATED CODE, DO NOT MODIFY BY HAND!! */
 /*******************************************/
 
-/** 
+/**
  * @example
  * // usage:
  * Container([
  *  Label('I\'m a label'),
  *  Button('Submit'),
  * ]);
- * 
+ *
  */
-const Container = (children: Observable<Children> | Children): ContainerElement => {
-  return new ContainerElement()
-    .children(children);
+const Container = (
+  children: Observable<Children> | Children
+): ContainerElement => {
+  return new ContainerElement().children(children);
 };
 
 export default Container;
 /*******************************************/
 /* END OF GENERATED CODE                   */
 /*******************************************/
-

@@ -1,4 +1,4 @@
-import { BehaviorSubject, Observable } from 'rxjs';
+import { BehaviorSubject, Observable } from "rxjs";
 
 type Constructor<T = {}> = new (...args: any[]) => T;
 

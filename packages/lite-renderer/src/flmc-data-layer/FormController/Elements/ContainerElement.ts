@@ -1,10 +1,10 @@
-import IElement, { ValidationResult, areElements } from '../IElement';
-import { ElementTypes } from './ElementTypes';
-import { Observable, BehaviorSubject, isObservable } from 'rxjs';
+import IElement, { ValidationResult, areElements } from "../IElement";
+import { ElementTypes } from "./ElementTypes";
+import { Observable, BehaviorSubject, isObservable } from "rxjs";
 
 export enum Direction {
   Column = 0,
-  Row = 1,
+  Row = 1
 }
 
 export class ContainerElement implements IElement {
@@ -17,19 +17,25 @@ export class ContainerElement implements IElement {
   childrenContainer!: BehaviorSubject<IElement[]>;
 
   validate(): ValidationResult {
-    return new ValidationResult(this.childrenContainer.value.map(i => i.validate().isValid).reduce((p, c) => p && c));
+    return new ValidationResult(
+      this.childrenContainer.value
+        .map(i => i.validate().isValid)
+        .reduce((p, c) => p && c)
+    );
   }
 
   private childrenR(children: IElement[]): ContainerElement {
-    if (this.childrenContainer == null) this.childrenContainer = new BehaviorSubject<IElement[]>([]);
+    if (this.childrenContainer == null)
+      this.childrenContainer = new BehaviorSubject<IElement[]>([]);
     this.childrenContainer.next(children);
     return this;
   }
 
   private childrenO(children: Observable<IElement[]>): ContainerElement {
-    if (this.childrenContainer == null) this.childrenContainer = new BehaviorSubject<IElement[]>([]);
+    if (this.childrenContainer == null)
+      this.childrenContainer = new BehaviorSubject<IElement[]>([]);
     children.subscribe({
-      next: v => this.childrenContainer.next(v),
+      next: v => this.childrenContainer.next(v)
     });
     return this;
   }
@@ -37,7 +43,7 @@ export class ContainerElement implements IElement {
   children(children_: Observable<IElement[]> | IElement[]): ContainerElement {
     if (areElements(children_)) return this.childrenR(children_);
     if (isObservable(children_)) return this.childrenO(children_);
-    throw new Error('given children type is not support');
+    throw new Error("given children type is not support");
   }
 
   // direction
@@ -51,19 +57,21 @@ export class ContainerElement implements IElement {
 
   private directionO(dir: Observable<Direction>): ContainerElement {
     dir.subscribe({
-      next: v => this.directionValue.next(v),
+      next: v => this.directionValue.next(v)
     });
     return this;
   }
 
   direction(dir: Observable<Direction> | Direction): ContainerElement {
-    if (typeof dir === 'number') return this.directionR(dir);
+    if (typeof dir === "number") return this.directionR(dir);
     if (isObservable(dir)) return this.directionO(dir);
-    throw new Error('given dir type is not support');
+    throw new Error("given dir type is not support");
   }
 }
 
-const Container = (children?: Observable<IElement[]> | IElement[]): ContainerElement => {
+const Container = (
+  children?: Observable<IElement[]> | IElement[]
+): ContainerElement => {
   let element = new ContainerElement();
   if (children) return element.children(children);
   return element;

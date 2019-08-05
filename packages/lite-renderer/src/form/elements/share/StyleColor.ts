@@ -1,4 +1,4 @@
 export enum StyleColor {
   Primary = "primary",
-  Secondary = "secondary",
+  Secondary = "secondary"
 }

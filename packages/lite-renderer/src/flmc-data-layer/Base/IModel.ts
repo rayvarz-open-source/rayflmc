@@ -1,4 +1,4 @@
-import { DecodableModelMixin, EncodableModelMixin } from './JSONCodable';
+import { DecodableModelMixin, EncodableModelMixin } from "./JSONCodable";
 
 export interface IModel {}
 

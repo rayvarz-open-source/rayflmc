@@ -1,7 +1,7 @@
-import IElement, { ValidationResult } from '../IElement';
-import { ElementTypes } from './ElementTypes';
-import { Observable, BehaviorSubject, isObservable } from 'rxjs';
-import { isSubject } from './RxUtils';
+import IElement, { ValidationResult } from "../IElement";
+import { ElementTypes } from "./ElementTypes";
+import { Observable, BehaviorSubject, isObservable } from "rxjs";
+import { isSubject } from "./RxUtils";
 
 export class TextInputElement implements IElement {
   dispose(): void {}
@@ -19,15 +19,15 @@ export class TextInputElement implements IElement {
   value!: BehaviorSubject<string>;
 
   private textR(text: string): TextInputElement {
-    if (this.value == null) this.value = new BehaviorSubject<string>('');
+    if (this.value == null) this.value = new BehaviorSubject<string>("");
     this.value.next(text);
     return this;
   }
 
   private textO(text: Observable<string>): TextInputElement {
-    if (this.value == null) this.value = new BehaviorSubject<string>('');
+    if (this.value == null) this.value = new BehaviorSubject<string>("");
     text.subscribe({
-      next: v => this.value.next(v),
+      next: v => this.value.next(v)
     });
     return this;
   }
@@ -37,15 +37,19 @@ export class TextInputElement implements IElement {
     return this;
   }
 
-  text(text: BehaviorSubject<string> | Observable<string> | string): TextInputElement {
-    if (typeof text === 'string') return this.textR(text);
+  text(
+    text: BehaviorSubject<string> | Observable<string> | string
+  ): TextInputElement {
+    if (typeof text === "string") return this.textR(text);
     if (isSubject(text)) return this.textB(text);
     if (isObservable(text)) return this.textO(text);
-    throw new Error('given text type is not supported');
+    throw new Error("given text type is not supported");
   }
 }
 
-const TextInput = (controller: string | Observable<string> | BehaviorSubject<string>): TextInputElement => {
+const TextInput = (
+  controller: string | Observable<string> | BehaviorSubject<string>
+): TextInputElement => {
   return new TextInputElement().text(controller);
 };
 

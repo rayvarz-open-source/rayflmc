@@ -1,16 +1,37 @@
-
-import IElement, { ValidationResult } from '../../../flmc-data-layer/FormController/IElement';
-import { ElementType } from '../ElementType';
-import { Observable, BehaviorSubject, isObservable } from 'rxjs';
+import IElement, {
+  ValidationResult
+} from "../../../flmc-data-layer/FormController/IElement";
+import { ElementType } from "../ElementType";
+import { Observable, BehaviorSubject, isObservable } from "rxjs";
 import { BaseElement } from "../base/BaseElement";
-import { isSubject } from '../../../flmc-data-layer';
-import { TypeGuards, Value, Label, Placeholder, Disabled, HelperText, IsInError, StartText, EndText, StartIcon, EndIcon, Variant, Password, Multiline, Rows, RowsMax, Direction, OnEndIconClick, OnStartIconClick, Validations } from './TextInputElementAttributes';
+import { isSubject } from "../../../flmc-data-layer";
+import {
+  TypeGuards,
+  Value,
+  Label,
+  Placeholder,
+  Disabled,
+  HelperText,
+  IsInError,
+  StartText,
+  EndText,
+  StartIcon,
+  EndIcon,
+  Variant,
+  Password,
+  Multiline,
+  Rows,
+  RowsMax,
+  Direction,
+  OnEndIconClick,
+  OnStartIconClick,
+  Validations
+} from "./TextInputElementAttributes";
 
 export class TextInputElement extends BaseElement implements IElement {
-
   validate(): ValidationResult {
     this.isInErrorContainer.next(false);
-    this.helperTextContainer.next('');
+    this.helperTextContainer.next("");
 
     for (let validator of this.validationsContainer.value) {
       let validatorResult = validator(this.valueContainer.value);
@@ -19,12 +40,11 @@ export class TextInputElement extends BaseElement implements IElement {
         this.helperTextContainer.next(validatorResult.validationMessage);
         return validatorResult;
       }
-
     }
     return new ValidationResult(true);
   }
 
-  dispose(): void { }
+  dispose(): void {}
 
   //region auto generated code
   /*******************************************/
@@ -35,7 +55,7 @@ export class TextInputElement extends BaseElement implements IElement {
     return ElementType.TextInput;
   }
 
-  valueContainer = new BehaviorSubject<Value>('');
+  valueContainer = new BehaviorSubject<Value>("");
   // when we call valueB it becomes true and in TextInputView we will use this to
   // prevent calling .next
   isExternalValueContainer = false;
@@ -61,27 +81,28 @@ export class TextInputElement extends BaseElement implements IElement {
 
   /**
    * default value: ''
-   * 
+   *
    * container that holds value of text input.
    * @example
    * // read a text input value
-   * 
+   *
    * controller = new BehaviorSubject<string>("text input default value");
    * TextInput(controller);
    * console.log(controller.value);
-   * 
+   *
    * // set text input value
-   * 
+   *
    * controller.next("new value")
-   * 
+   *
    */
-  value(value: BehaviorSubject<Value> | Observable<Value> | Value): TextInputElement {
+  value(
+    value: BehaviorSubject<Value> | Observable<Value> | Value
+  ): TextInputElement {
     if (TypeGuards.isValue(value)) return this.valueR(value);
     else if (isSubject(value)) return this.valueB(value);
     else if (isObservable(value)) return this.valueO(value);
-    throw new Error(`invalid type ${typeof (value)} for Value`)
+    throw new Error(`invalid type ${typeof value} for Value`);
   }
-
 
   labelContainer = new BehaviorSubject<Label>(undefined);
 
@@ -99,17 +120,16 @@ export class TextInputElement extends BaseElement implements IElement {
 
   /**
    * default value: undefined
-   * 
+   *
    * label of text input
-   * 
+   *
    * see https://material-ui.com/components/text-fields/ or https://material-ui.com/api/text-field/ for more info
    */
   label(value: Observable<Label> | Label): TextInputElement {
     if (TypeGuards.isLabel(value)) return this.labelR(value);
     else if (isObservable(value)) return this.labelO(value);
-    throw new Error(`invalid type ${typeof (value)} for Label`)
+    throw new Error(`invalid type ${typeof value} for Label`);
   }
-
 
   placeholderContainer = new BehaviorSubject<Placeholder>(undefined);
 
@@ -127,7 +147,7 @@ export class TextInputElement extends BaseElement implements IElement {
 
   /**
    * default value: undefined
-   * 
+   *
    * placeholder of text input
    * when value is empty it shows this value instead
    * @example
@@ -139,9 +159,8 @@ export class TextInputElement extends BaseElement implements IElement {
   placeholder(value: Observable<Placeholder> | Placeholder): TextInputElement {
     if (TypeGuards.isPlaceholder(value)) return this.placeholderR(value);
     else if (isObservable(value)) return this.placeholderO(value);
-    throw new Error(`invalid type ${typeof (value)} for Placeholder`)
+    throw new Error(`invalid type ${typeof value} for Placeholder`);
   }
-
 
   disabledContainer = new BehaviorSubject<Disabled>(false);
 
@@ -159,17 +178,16 @@ export class TextInputElement extends BaseElement implements IElement {
 
   /**
    * default value: false
-   * 
+   *
    * control if user can input data or not
-   * 
+   *
    * see https://material-ui.com/components/text-fields/ or https://material-ui.com/api/text-field/ for more info
    */
   disabled(value: Observable<Disabled> | Disabled): TextInputElement {
     if (TypeGuards.isDisabled(value)) return this.disabledR(value);
     else if (isObservable(value)) return this.disabledO(value);
-    throw new Error(`invalid type ${typeof (value)} for Disabled`)
+    throw new Error(`invalid type ${typeof value} for Disabled`);
   }
-
 
   helperTextContainer = new BehaviorSubject<HelperText>(undefined);
 
@@ -187,19 +205,18 @@ export class TextInputElement extends BaseElement implements IElement {
 
   /**
    * default value: undefined
-   * 
+   *
    * the text under text field
    * if error attribute is enabled it change colors to error color else
    * it can act as description
-   * 
+   *
    * see https://material-ui.com/components/text-fields/ or https://material-ui.com/api/text-field/ for more info
    */
   helperText(value: Observable<HelperText> | HelperText): TextInputElement {
     if (TypeGuards.isHelperText(value)) return this.helperTextR(value);
     else if (isObservable(value)) return this.helperTextO(value);
-    throw new Error(`invalid type ${typeof (value)} for HelperText`)
+    throw new Error(`invalid type ${typeof value} for HelperText`);
   }
-
 
   isInErrorContainer = new BehaviorSubject<IsInError>(false);
 
@@ -217,18 +234,17 @@ export class TextInputElement extends BaseElement implements IElement {
 
   /**
    * default value: false
-   * 
+   *
    * If true, the text field will be displayed in an error state.
    * error message can be set in helperText
-   * 
+   *
    * see https://material-ui.com/components/text-fields/ or https://material-ui.com/api/text-field/ for more info
    */
   isInError(value: Observable<IsInError> | IsInError): TextInputElement {
     if (TypeGuards.isInError(value)) return this.isInErrorR(value);
     else if (isObservable(value)) return this.isInErrorO(value);
-    throw new Error(`invalid type ${typeof (value)} for IsInError`)
+    throw new Error(`invalid type ${typeof value} for IsInError`);
   }
-
 
   startTextContainer = new BehaviorSubject<StartText>(undefined);
 
@@ -246,17 +262,16 @@ export class TextInputElement extends BaseElement implements IElement {
 
   /**
    * default value: undefined
-   * 
+   *
    * text input prefix
-   * 
+   *
    * see https://material-ui.com/components/text-fields/ or https://material-ui.com/api/text-field/ for more info
    */
   startText(value: Observable<StartText> | StartText): TextInputElement {
     if (TypeGuards.isStartText(value)) return this.startTextR(value);
     else if (isObservable(value)) return this.startTextO(value);
-    throw new Error(`invalid type ${typeof (value)} for StartText`)
+    throw new Error(`invalid type ${typeof value} for StartText`);
   }
-
 
   endTextContainer = new BehaviorSubject<EndText>(undefined);
 
@@ -274,17 +289,16 @@ export class TextInputElement extends BaseElement implements IElement {
 
   /**
    * default value: undefined
-   * 
+   *
    * text input suffix
-   * 
+   *
    * see https://material-ui.com/components/text-fields/ or https://material-ui.com/api/text-field/ for more info
    */
   endText(value: Observable<EndText> | EndText): TextInputElement {
     if (TypeGuards.isEndText(value)) return this.endTextR(value);
     else if (isObservable(value)) return this.endTextO(value);
-    throw new Error(`invalid type ${typeof (value)} for EndText`)
+    throw new Error(`invalid type ${typeof value} for EndText`);
   }
-
 
   startIconContainer = new BehaviorSubject<StartIcon>(undefined);
 
@@ -302,18 +316,17 @@ export class TextInputElement extends BaseElement implements IElement {
 
   /**
    * default value: undefined
-   * 
+   *
    * name of text input prefix icon
    * all supported icon names : https://material.io/tools/icons
-   * 
+   *
    * see https://material-ui.com/components/text-fields/ or https://material-ui.com/api/text-field/ for more info
    */
   startIcon(value: Observable<StartIcon> | StartIcon): TextInputElement {
     if (TypeGuards.isStartIcon(value)) return this.startIconR(value);
     else if (isObservable(value)) return this.startIconO(value);
-    throw new Error(`invalid type ${typeof (value)} for StartIcon`)
+    throw new Error(`invalid type ${typeof value} for StartIcon`);
   }
-
 
   endIconContainer = new BehaviorSubject<EndIcon>(undefined);
 
@@ -331,20 +344,19 @@ export class TextInputElement extends BaseElement implements IElement {
 
   /**
    * default value: undefined
-   * 
+   *
    * name of text input suffix icon
    * all supported icon names : https://material.io/tools/icons
-   * 
+   *
    * see https://material-ui.com/components/text-fields/ or https://material-ui.com/api/text-field/ for more info
    */
   endIcon(value: Observable<EndIcon> | EndIcon): TextInputElement {
     if (TypeGuards.isEndIcon(value)) return this.endIconR(value);
     else if (isObservable(value)) return this.endIconO(value);
-    throw new Error(`invalid type ${typeof (value)} for EndIcon`)
+    throw new Error(`invalid type ${typeof value} for EndIcon`);
   }
 
-
-  variantContainer = new BehaviorSubject<Variant>('standard');
+  variantContainer = new BehaviorSubject<Variant>("standard");
 
   /** iternal function for handling raw Variant types*/
   private variantR(value: Variant): TextInputElement {
@@ -360,18 +372,17 @@ export class TextInputElement extends BaseElement implements IElement {
 
   /**
    * default value: 'standard'
-   * 
+   *
    * text input style
    * supported styles : 'standard' | 'filled' | 'outlined' | TextInputStyleType.Standard | TextInputStyleType.Outlined | TextInputStyleType.Filled
-   * 
+   *
    * see https://material-ui.com/components/text-fields/ or https://material-ui.com/api/text-field/ for more info
    */
   variant(value: Observable<Variant> | Variant): TextInputElement {
     if (TypeGuards.isVariant(value)) return this.variantR(value);
     else if (isObservable(value)) return this.variantO(value);
-    throw new Error(`invalid type ${typeof (value)} for Variant`)
+    throw new Error(`invalid type ${typeof value} for Variant`);
   }
-
 
   passwordContainer = new BehaviorSubject<Password>(false);
 
@@ -389,18 +400,17 @@ export class TextInputElement extends BaseElement implements IElement {
 
   /**
    * default value: false
-   * 
+   *
    * show value in protected mode
    * if true sets html input type to 'password' otherwise 'test'
-   * 
+   *
    * see https://material-ui.com/components/text-fields/ or https://material-ui.com/api/text-field/ for more info
    */
   password(value: Observable<Password> | Password): TextInputElement {
     if (TypeGuards.isPassword(value)) return this.passwordR(value);
     else if (isObservable(value)) return this.passwordO(value);
-    throw new Error(`invalid type ${typeof (value)} for Password`)
+    throw new Error(`invalid type ${typeof value} for Password`);
   }
-
 
   multilineContainer = new BehaviorSubject<Multiline>(false);
 
@@ -418,17 +428,16 @@ export class TextInputElement extends BaseElement implements IElement {
 
   /**
    * default value: false
-   * 
+   *
    * enables multiline text input
-   * 
+   *
    * see https://material-ui.com/components/text-fields/ or https://material-ui.com/api/text-field/ for more info
    */
   multiline(value: Observable<Multiline> | Multiline): TextInputElement {
     if (TypeGuards.isMultiline(value)) return this.multilineR(value);
     else if (isObservable(value)) return this.multilineO(value);
-    throw new Error(`invalid type ${typeof (value)} for Multiline`)
+    throw new Error(`invalid type ${typeof value} for Multiline`);
   }
-
 
   rowsContainer = new BehaviorSubject<Rows>(0);
 
@@ -446,18 +455,17 @@ export class TextInputElement extends BaseElement implements IElement {
 
   /**
    * default value: 0
-   * 
+   *
    * numbers of rows for multi line input (set 0 for default)
    * cannot be used with RowsMax attribute
-   * 
+   *
    * see https://material-ui.com/components/text-fields/ or https://material-ui.com/api/text-field/ for more info
    */
   rows(value: Observable<Rows> | Rows): TextInputElement {
     if (TypeGuards.isRows(value)) return this.rowsR(value);
     else if (isObservable(value)) return this.rowsO(value);
-    throw new Error(`invalid type ${typeof (value)} for Rows`)
+    throw new Error(`invalid type ${typeof value} for Rows`);
   }
-
 
   rowsMaxContainer = new BehaviorSubject<RowsMax>(0);
 
@@ -475,20 +483,19 @@ export class TextInputElement extends BaseElement implements IElement {
 
   /**
    * default value: 0
-   * 
+   *
    * maxium number of lines for multi line input (set 0 for default)
    * cannot be used with Rows attribute
-   * 
+   *
    * see https://material-ui.com/components/text-fields/ or https://material-ui.com/api/text-field/ for more info
    */
   rowsMax(value: Observable<RowsMax> | RowsMax): TextInputElement {
     if (TypeGuards.isRowsMax(value)) return this.rowsMaxR(value);
     else if (isObservable(value)) return this.rowsMaxO(value);
-    throw new Error(`invalid type ${typeof (value)} for RowsMax`)
+    throw new Error(`invalid type ${typeof value} for RowsMax`);
   }
 
-
-  directionContainer = new BehaviorSubject<Direction>('ltr');
+  directionContainer = new BehaviorSubject<Direction>("ltr");
 
   /** iternal function for handling raw Direction types*/
   private directionR(value: Direction): TextInputElement {
@@ -504,18 +511,17 @@ export class TextInputElement extends BaseElement implements IElement {
 
   /**
    * default value: 'ltr'
-   * 
+   *
    * text direction
    * valid inputs : TextDirection.rtl, TextDirection.ltr, "rtl", "ltr"
-   * 
+   *
    * see https://material-ui.com/components/text-fields/ or https://material-ui.com/api/text-field/ for more info
    */
   direction(value: Observable<Direction> | Direction): TextInputElement {
     if (TypeGuards.isDirection(value)) return this.directionR(value);
     else if (isObservable(value)) return this.directionO(value);
-    throw new Error(`invalid type ${typeof (value)} for Direction`)
+    throw new Error(`invalid type ${typeof value} for Direction`);
   }
-
 
   onEndIconClickContainer = new BehaviorSubject<OnEndIconClick>(undefined);
 
@@ -533,18 +539,19 @@ export class TextInputElement extends BaseElement implements IElement {
 
   /**
    * default value: undefined
-   * 
+   *
    * fires when user clicks on EndIcon
    * must also set endIcon attribute
-   * 
+   *
    * see https://material-ui.com/components/text-fields/ or https://material-ui.com/api/text-field/ for more info
    */
-  onEndIconClick(value: Observable<OnEndIconClick> | OnEndIconClick): TextInputElement {
+  onEndIconClick(
+    value: Observable<OnEndIconClick> | OnEndIconClick
+  ): TextInputElement {
     if (TypeGuards.isOnEndIconClick(value)) return this.onEndIconClickR(value);
     else if (isObservable(value)) return this.onEndIconClickO(value);
-    throw new Error(`invalid type ${typeof (value)} for OnEndIconClick`)
+    throw new Error(`invalid type ${typeof value} for OnEndIconClick`);
   }
-
 
   onStartIconClickContainer = new BehaviorSubject<OnStartIconClick>(undefined);
 
@@ -555,25 +562,29 @@ export class TextInputElement extends BaseElement implements IElement {
   }
 
   /** iternal function for handling Observable<OnStartIconClick> types*/
-  private onStartIconClickO(value: Observable<OnStartIconClick>): TextInputElement {
+  private onStartIconClickO(
+    value: Observable<OnStartIconClick>
+  ): TextInputElement {
     value.subscribe({ next: v => this.onStartIconClickContainer.next(v) });
     return this;
   }
 
   /**
    * default value: undefined
-   * 
+   *
    * fires when user clicks on StartIcon
    * must also set startIcon attribute
-   * 
+   *
    * see https://material-ui.com/components/text-fields/ or https://material-ui.com/api/text-field/ for more info
    */
-  onStartIconClick(value: Observable<OnStartIconClick> | OnStartIconClick): TextInputElement {
-    if (TypeGuards.isOnStartIconClick(value)) return this.onStartIconClickR(value);
+  onStartIconClick(
+    value: Observable<OnStartIconClick> | OnStartIconClick
+  ): TextInputElement {
+    if (TypeGuards.isOnStartIconClick(value))
+      return this.onStartIconClickR(value);
     else if (isObservable(value)) return this.onStartIconClickO(value);
-    throw new Error(`invalid type ${typeof (value)} for OnStartIconClick`)
+    throw new Error(`invalid type ${typeof value} for OnStartIconClick`);
   }
-
 
   validationsContainer = new BehaviorSubject<Validations>([]);
 
@@ -591,16 +602,16 @@ export class TextInputElement extends BaseElement implements IElement {
 
   /**
    * default value: []
-   * 
+   *
    * validations
    * create a custom validation or use TextInputValidations.*
-   * 
+   *
    * TODO: add docs
    */
   validations(value: Observable<Validations> | Validations): TextInputElement {
     if (TypeGuards.isValidation(value)) return this.validationsR(value);
     else if (isObservable(value)) return this.validationsO(value);
-    throw new Error(`invalid type ${typeof (value)} for Validations`)
+    throw new Error(`invalid type ${typeof value} for Validations`);
   }
 
   /*******************************************/
@@ -609,25 +620,24 @@ export class TextInputElement extends BaseElement implements IElement {
   //endregion
 }
 
-
 /*******************************************/
 /* GENERATED CODE, DO NOT MODIFY BY HAND!! */
 /*******************************************/
 
-/** 
+/**
  * @example
  * // usage:
  * let controller = new BehaviorSubject<string>(""); // or BehaviorSubject<Value>
  * TextInput(controller);
- * 
+ *
  */
-const TextInput = (value: BehaviorSubject<Value> | Observable<Value> | Value): TextInputElement => {
-  return new TextInputElement()
-    .value(value);
+const TextInput = (
+  value: BehaviorSubject<Value> | Observable<Value> | Value
+): TextInputElement => {
+  return new TextInputElement().value(value);
 };
 
 export default TextInput;
 /*******************************************/
 /* END OF GENERATED CODE                   */
 /*******************************************/
-

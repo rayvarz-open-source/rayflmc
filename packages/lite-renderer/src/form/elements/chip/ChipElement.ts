@@ -1,19 +1,19 @@
-
-import IElement, { ValidationResult } from '../../../flmc-data-layer/FormController/IElement';
-import { ElementType } from '../ElementType';
-import { Observable, BehaviorSubject, isObservable } from 'rxjs';
+import IElement, {
+  ValidationResult
+} from "../../../flmc-data-layer/FormController/IElement";
+import { ElementType } from "../ElementType";
+import { Observable, BehaviorSubject, isObservable } from "rxjs";
 import { BaseElement } from "../base/BaseElement";
-import { isSubject } from '../../../flmc-data-layer';
-import { TypeGuards, Value, SelectionType } from './ChipElementAttributes';
-import { ChipSelectionType } from './ChipSelectionType';
+import { isSubject } from "../../../flmc-data-layer";
+import { TypeGuards, Value, SelectionType } from "./ChipElementAttributes";
+import { ChipSelectionType } from "./ChipSelectionType";
 
 export class ChipElement extends BaseElement implements IElement {
-
   validate(): ValidationResult {
     return new ValidationResult(true);
   }
 
-  dispose(): void { }
+  dispose(): void {}
 
   //region auto generated code
   /*******************************************/
@@ -46,19 +46,22 @@ export class ChipElement extends BaseElement implements IElement {
 
   /**
    * default value: undefined
-   * 
+   *
    * container that holds chips.
-   * 
+   *
    */
-  value(value: BehaviorSubject<Value> | Observable<Value> | Value): ChipElement {
+  value(
+    value: BehaviorSubject<Value> | Observable<Value> | Value
+  ): ChipElement {
     if (TypeGuards.isValue(value)) return this.valueR(value);
     else if (isObservable(value)) return this.valueO(value);
     else if (isSubject(value)) return this.valueB(value);
-    throw new Error(`invalid type ${typeof (value)} for Value`)
+    throw new Error(`invalid type ${typeof value} for Value`);
   }
 
-
-  selectionTypeContainer = new BehaviorSubject<SelectionType>(ChipSelectionType.Show);
+  selectionTypeContainer = new BehaviorSubject<SelectionType>(
+    ChipSelectionType.Show
+  );
 
   /** iternal function for handling raw SelectionType types*/
   private selectionTypeR(value: SelectionType): ChipElement {
@@ -74,14 +77,14 @@ export class ChipElement extends BaseElement implements IElement {
 
   /**
    * default value: ChipSelectionType.Show
-   * 
+   *
    * selection type // TODO: add docs
-   * 
+   *
    */
   selectionType(value: Observable<SelectionType> | SelectionType): ChipElement {
     if (TypeGuards.isSelectionType(value)) return this.selectionTypeR(value);
     else if (isObservable(value)) return this.selectionTypeO(value);
-    throw new Error(`invalid type ${typeof (value)} for SelectionType`)
+    throw new Error(`invalid type ${typeof value} for SelectionType`);
   }
 
   /*******************************************/
@@ -90,25 +93,24 @@ export class ChipElement extends BaseElement implements IElement {
   //endregion
 }
 
-
 /*******************************************/
 /* GENERATED CODE, DO NOT MODIFY BY HAND!! */
 /*******************************************/
 
-/** 
+/**
  * @example
  * // usage:
  * let controller = new BehaviorSubject<ChipModel[]>([new ChipModel({title: "test", id: 1})]);
  * Chip(controller);
- * 
+ *
  */
-const Chip = (value: BehaviorSubject<Value> | Observable<Value> | Value): ChipElement => {
-  return new ChipElement()
-    .value(value);
+const Chip = (
+  value: BehaviorSubject<Value> | Observable<Value> | Value
+): ChipElement => {
+  return new ChipElement().value(value);
 };
 
 export default Chip;
 /*******************************************/
 /* END OF GENERATED CODE                   */
 /*******************************************/
-

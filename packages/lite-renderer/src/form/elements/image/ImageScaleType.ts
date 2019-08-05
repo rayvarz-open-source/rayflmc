@@ -6,8 +6,10 @@ export enum ImageScaleType {
 }
 
 export function isImageScaleType(value: any): value is ImageScaleType {
-  return value === "contain" ||
+  return (
+    value === "contain" ||
     value === "cover" ||
     value === "fill" ||
-    value === "scale-down";
+    value === "scale-down"
+  );
 }

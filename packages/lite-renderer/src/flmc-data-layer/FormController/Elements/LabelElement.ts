@@ -1,6 +1,6 @@
-import IElement, { ValidationResult } from '../IElement';
-import { ElementTypes } from './ElementTypes';
-import { Observable, BehaviorSubject, isObservable } from 'rxjs';
+import IElement, { ValidationResult } from "../IElement";
+import { ElementTypes } from "./ElementTypes";
+import { Observable, BehaviorSubject, isObservable } from "rxjs";
 
 export class LabelElement implements IElement {
   dispose(): void {}
@@ -15,7 +15,7 @@ export class LabelElement implements IElement {
 
   // text
 
-  value = new BehaviorSubject<string>('');
+  value = new BehaviorSubject<string>("");
 
   private textR(text: string): LabelElement {
     this.value.next(text);
@@ -24,15 +24,15 @@ export class LabelElement implements IElement {
 
   private textO(text: Observable<string>): LabelElement {
     text.subscribe({
-      next: v => this.value.next(v),
+      next: v => this.value.next(v)
     });
     return this;
   }
 
   text(text: Observable<string> | string): LabelElement {
-    if (typeof text === 'string') return this.textR(text);
+    if (typeof text === "string") return this.textR(text);
     if (isObservable(text)) return this.textO(text);
-    throw new Error('given text type is not supported');
+    throw new Error("given text type is not supported");
   }
 }
 

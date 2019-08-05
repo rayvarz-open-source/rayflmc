@@ -1,18 +1,29 @@
-
-import IElement, { ValidationResult } from '../../../flmc-data-layer/FormController/IElement';
-import { ElementType } from '../ElementType';
-import { Observable, BehaviorSubject, isObservable } from 'rxjs';
+import IElement, {
+  ValidationResult
+} from "../../../flmc-data-layer/FormController/IElement";
+import { ElementType } from "../ElementType";
+import { Observable, BehaviorSubject, isObservable } from "rxjs";
 import { BaseElement } from "../base/BaseElement";
-import { isSubject } from '../../../flmc-data-layer';
-import { TypeGuards, ColumnDefinitions, ActionDefinitions, ComponentsOverride, Datasource, RowActionDefinitions, GridOptions, Title, LocalizationDefinition, RefreshEvent } from './GridElementAttributes';
+import { isSubject } from "../../../flmc-data-layer";
+import {
+  TypeGuards,
+  ColumnDefinitions,
+  ActionDefinitions,
+  ComponentsOverride,
+  Datasource,
+  RowActionDefinitions,
+  GridOptions,
+  Title,
+  LocalizationDefinition,
+  RefreshEvent
+} from "./GridElementAttributes";
 
 export class GridElement extends BaseElement implements IElement {
-
   validate(): ValidationResult {
     return new ValidationResult(true);
   }
 
-  dispose(): void { }
+  dispose(): void {}
 
   //region auto generated code
   /*******************************************/
@@ -32,22 +43,26 @@ export class GridElement extends BaseElement implements IElement {
   }
 
   /** iternal function for handling Observable<ColumnDefinitions> types*/
-  private columnDefinitionsO(value: Observable<ColumnDefinitions>): GridElement {
+  private columnDefinitionsO(
+    value: Observable<ColumnDefinitions>
+  ): GridElement {
     value.subscribe({ next: v => this.columnDefinitionsContainer.next(v) });
     return this;
   }
 
   /**
    * default value: []
-   * 
+   *
    * TODO: add docs
    */
-  columnDefinitions(value: Observable<ColumnDefinitions> | ColumnDefinitions): GridElement {
-    if (TypeGuards.isColumnDefinitions(value)) return this.columnDefinitionsR(value);
+  columnDefinitions(
+    value: Observable<ColumnDefinitions> | ColumnDefinitions
+  ): GridElement {
+    if (TypeGuards.isColumnDefinitions(value))
+      return this.columnDefinitionsR(value);
     else if (isObservable(value)) return this.columnDefinitionsO(value);
-    throw new Error(`invalid type ${typeof (value)} for ColumnDefinitions`)
+    throw new Error(`invalid type ${typeof value} for ColumnDefinitions`);
   }
-
 
   actionDefinitionsContainer = new BehaviorSubject<ActionDefinitions>([]);
 
@@ -58,22 +73,26 @@ export class GridElement extends BaseElement implements IElement {
   }
 
   /** iternal function for handling Observable<ActionDefinitions> types*/
-  private actionDefinitionsO(value: Observable<ActionDefinitions>): GridElement {
+  private actionDefinitionsO(
+    value: Observable<ActionDefinitions>
+  ): GridElement {
     value.subscribe({ next: v => this.actionDefinitionsContainer.next(v) });
     return this;
   }
 
   /**
    * default value: []
-   * 
+   *
    * TODO: add docs
    */
-  actionDefinitions(value: Observable<ActionDefinitions> | ActionDefinitions): GridElement {
-    if (TypeGuards.isActionDefinitions(value)) return this.actionDefinitionsR(value);
+  actionDefinitions(
+    value: Observable<ActionDefinitions> | ActionDefinitions
+  ): GridElement {
+    if (TypeGuards.isActionDefinitions(value))
+      return this.actionDefinitionsR(value);
     else if (isObservable(value)) return this.actionDefinitionsO(value);
-    throw new Error(`invalid type ${typeof (value)} for ActionDefinitions`)
+    throw new Error(`invalid type ${typeof value} for ActionDefinitions`);
   }
-
 
   componentsOverrideContainer = new BehaviorSubject<ComponentsOverride>({});
 
@@ -84,22 +103,25 @@ export class GridElement extends BaseElement implements IElement {
   }
 
   /** iternal function for handling Observable<ComponentsOverride> types*/
-  private componentsOverrideO(value: Observable<ComponentsOverride>): GridElement {
+  private componentsOverrideO(
+    value: Observable<ComponentsOverride>
+  ): GridElement {
     value.subscribe({ next: v => this.componentsOverrideContainer.next(v) });
     return this;
   }
 
   /**
    * default value: {}
-   * 
+   *
    * TODO: add docs
    */
-  componentsOverride(value: Observable<ComponentsOverride> | ComponentsOverride): GridElement {
+  componentsOverride(
+    value: Observable<ComponentsOverride> | ComponentsOverride
+  ): GridElement {
     if (isObservable(value)) this.componentsOverrideO(value);
     else this.componentsOverrideR(value);
     return this;
   }
-
 
   datasourceContainer = new BehaviorSubject<Datasource>([]);
 
@@ -117,15 +139,14 @@ export class GridElement extends BaseElement implements IElement {
 
   /**
    * default value: []
-   * 
+   *
    * TODO: add docs
    */
   datasource(value: Observable<Datasource> | Datasource): GridElement {
     if (TypeGuards.isDatasource(value)) return this.datasourceR(value);
     else if (isObservable(value)) return this.datasourceO(value);
-    throw new Error(`invalid type ${typeof (value)} for Datasource`)
+    throw new Error(`invalid type ${typeof value} for Datasource`);
   }
-
 
   rowActionDefinitionsContainer = new BehaviorSubject<RowActionDefinitions>({});
 
@@ -136,22 +157,25 @@ export class GridElement extends BaseElement implements IElement {
   }
 
   /** iternal function for handling Observable<RowActionDefinitions> types*/
-  private rowActionDefinitionsO(value: Observable<RowActionDefinitions>): GridElement {
+  private rowActionDefinitionsO(
+    value: Observable<RowActionDefinitions>
+  ): GridElement {
     value.subscribe({ next: v => this.rowActionDefinitionsContainer.next(v) });
     return this;
   }
 
   /**
    * default value: {}
-   * 
+   *
    * TODO: add docs
    */
-  rowActionDefinitions(value: Observable<RowActionDefinitions> | RowActionDefinitions): GridElement {
+  rowActionDefinitions(
+    value: Observable<RowActionDefinitions> | RowActionDefinitions
+  ): GridElement {
     if (isObservable(value)) this.rowActionDefinitionsO(value);
     else this.rowActionDefinitionsR(value);
     return this;
   }
-
 
   gridOptionsContainer = new BehaviorSubject<GridOptions>({});
 
@@ -169,7 +193,7 @@ export class GridElement extends BaseElement implements IElement {
 
   /**
    * default value: {}
-   * 
+   *
    * TODO: add docs
    */
   gridOptions(value: Observable<GridOptions> | GridOptions): GridElement {
@@ -178,8 +202,7 @@ export class GridElement extends BaseElement implements IElement {
     return this;
   }
 
-
-  titleContainer = new BehaviorSubject<Title>('');
+  titleContainer = new BehaviorSubject<Title>("");
 
   /** iternal function for handling raw Title types*/
   private titleR(value: Title): GridElement {
@@ -195,17 +218,18 @@ export class GridElement extends BaseElement implements IElement {
 
   /**
    * default value: ''
-   * 
+   *
    * TODO: add docs
    */
   title(value: Observable<Title> | Title): GridElement {
     if (TypeGuards.isTitle(value)) return this.titleR(value);
     else if (isObservable(value)) return this.titleO(value);
-    throw new Error(`invalid type ${typeof (value)} for Title`)
+    throw new Error(`invalid type ${typeof value} for Title`);
   }
 
-
-  localizationDefinitionContainer = new BehaviorSubject<LocalizationDefinition>(undefined);
+  localizationDefinitionContainer = new BehaviorSubject<LocalizationDefinition>(
+    undefined
+  );
 
   /** iternal function for handling raw LocalizationDefinition types*/
   private localizationDefinitionR(value: LocalizationDefinition): GridElement {
@@ -214,22 +238,27 @@ export class GridElement extends BaseElement implements IElement {
   }
 
   /** iternal function for handling Observable<LocalizationDefinition> types*/
-  private localizationDefinitionO(value: Observable<LocalizationDefinition>): GridElement {
-    value.subscribe({ next: v => this.localizationDefinitionContainer.next(v) });
+  private localizationDefinitionO(
+    value: Observable<LocalizationDefinition>
+  ): GridElement {
+    value.subscribe({
+      next: v => this.localizationDefinitionContainer.next(v)
+    });
     return this;
   }
 
   /**
    * default value: undefined
-   * 
+   *
    * TODO: add docs
    */
-  localizationDefinition(value: Observable<LocalizationDefinition> | LocalizationDefinition): GridElement {
+  localizationDefinition(
+    value: Observable<LocalizationDefinition> | LocalizationDefinition
+  ): GridElement {
     if (isObservable(value)) this.localizationDefinitionO(value);
     else this.localizationDefinitionR(value);
     return this;
   }
-
 
   refreshEventContainer = new BehaviorSubject<RefreshEvent>(null);
 
@@ -253,10 +282,15 @@ export class GridElement extends BaseElement implements IElement {
 
   /**
    * default value: null
-   * 
+   *
    * TODO: add docs
    */
-  refreshEvent(value: BehaviorSubject<RefreshEvent> | Observable<RefreshEvent> | RefreshEvent): GridElement {
+  refreshEvent(
+    value:
+      | BehaviorSubject<RefreshEvent>
+      | Observable<RefreshEvent>
+      | RefreshEvent
+  ): GridElement {
     if (isSubject(value)) return this.refreshEventB(value);
     else if (isObservable(value)) return this.refreshEventO(value);
     return this.refreshEventR(value);
@@ -268,24 +302,21 @@ export class GridElement extends BaseElement implements IElement {
   //endregion
 }
 
-
 /*******************************************/
 /* GENERATED CODE, DO NOT MODIFY BY HAND!! */
 /*******************************************/
 
-/** 
+/**
  * @example
  * // usage: TODO: add docs
- * 
- * 
+ *
+ *
  */
 const Grid = (): GridElement => {
-  return new GridElement()
-    ;
+  return new GridElement();
 };
 
 export default Grid;
 /*******************************************/
 /* END OF GENERATED CODE                   */
 /*******************************************/
-

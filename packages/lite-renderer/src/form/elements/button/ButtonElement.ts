@@ -1,18 +1,27 @@
-
-import IElement, { ValidationResult } from '../../../flmc-data-layer/FormController/IElement';
-import { ElementType } from '../ElementType';
-import { Observable, BehaviorSubject, isObservable } from 'rxjs';
+import IElement, {
+  ValidationResult
+} from "../../../flmc-data-layer/FormController/IElement";
+import { ElementType } from "../ElementType";
+import { Observable, BehaviorSubject, isObservable } from "rxjs";
 import { BaseElement } from "../base/BaseElement";
-import { isSubject } from '../../../flmc-data-layer';
-import { TypeGuards, Text, Loading, Disabled, Colors, Variant, Icon, OnClick } from './ButtonElementAttributes';
+import { isSubject } from "../../../flmc-data-layer";
+import {
+  TypeGuards,
+  Text,
+  Loading,
+  Disabled,
+  Colors,
+  Variant,
+  Icon,
+  OnClick
+} from "./ButtonElementAttributes";
 
 export class ButtonElement extends BaseElement implements IElement {
-
   validate(): ValidationResult {
     return new ValidationResult(true);
   }
 
-  dispose(): void { }
+  dispose(): void {}
 
   //region auto generated code
   /*******************************************/
@@ -39,17 +48,16 @@ export class ButtonElement extends BaseElement implements IElement {
 
   /**
    * default value: undefined
-   * 
+   *
    * label of button.
-   * 
-   * 
+   *
+   *
    */
   text(value: Observable<Text> | Text): ButtonElement {
     if (TypeGuards.isText(value)) return this.textR(value);
     else if (isObservable(value)) return this.textO(value);
-    throw new Error(`invalid type ${typeof (value)} for Text`)
+    throw new Error(`invalid type ${typeof value} for Text`);
   }
-
 
   loadingContainer = new BehaviorSubject<Loading>(false);
 
@@ -67,16 +75,15 @@ export class ButtonElement extends BaseElement implements IElement {
 
   /**
    * default value: false
-   * 
+   *
    * if true, button will be disabled and shows an loading indicator
-   * 
+   *
    */
   loading(value: Observable<Loading> | Loading): ButtonElement {
     if (TypeGuards.isLoading(value)) return this.loadingR(value);
     else if (isObservable(value)) return this.loadingO(value);
-    throw new Error(`invalid type ${typeof (value)} for Loading`)
+    throw new Error(`invalid type ${typeof value} for Loading`);
   }
-
 
   disabledContainer = new BehaviorSubject<Disabled>(false);
 
@@ -94,19 +101,18 @@ export class ButtonElement extends BaseElement implements IElement {
 
   /**
    * default value: false
-   * 
+   *
    * If true, the button will be disabled.
-   * 
+   *
    * see https://material-ui.com/api/button/ for more info
    */
   disabled(value: Observable<Disabled> | Disabled): ButtonElement {
     if (TypeGuards.isDisabled(value)) return this.disabledR(value);
     else if (isObservable(value)) return this.disabledO(value);
-    throw new Error(`invalid type ${typeof (value)} for Disabled`)
+    throw new Error(`invalid type ${typeof value} for Disabled`);
   }
 
-
-  colorsContainer = new BehaviorSubject<Colors>('default');
+  colorsContainer = new BehaviorSubject<Colors>("default");
 
   /** iternal function for handling raw Colors types*/
   private colorsR(value: Colors): ButtonElement {
@@ -122,21 +128,20 @@ export class ButtonElement extends BaseElement implements IElement {
 
   /**
    * default value: 'default'
-   * 
+   *
    * The color of the component. It supports those theme colors that make sense for this component.
-   * 
+   *
    * valid colors : ButtonColor.* | 'default' | 'inherit' | 'primary' | 'secondary'
-   * 
+   *
    * see https://material-ui.com/api/button/ for more info
    */
   colors(value: Observable<Colors> | Colors): ButtonElement {
     if (TypeGuards.isColors(value)) return this.colorsR(value);
     else if (isObservable(value)) return this.colorsO(value);
-    throw new Error(`invalid type ${typeof (value)} for Colors`)
+    throw new Error(`invalid type ${typeof value} for Colors`);
   }
 
-
-  variantContainer = new BehaviorSubject<Variant>('contained');
+  variantContainer = new BehaviorSubject<Variant>("contained");
 
   /** iternal function for handling raw Variant types*/
   private variantR(value: Variant): ButtonElement {
@@ -152,19 +157,18 @@ export class ButtonElement extends BaseElement implements IElement {
 
   /**
    * default value: 'contained'
-   * 
+   *
    * 	The variant to use.
-   * 
+   *
    * valid colors : ButtonVariant.* | 'text' | 'outlined' | 'contained'
-   * 
+   *
    * see https://material-ui.com/api/button/ for more info
    */
   variant(value: Observable<Variant> | Variant): ButtonElement {
     if (TypeGuards.isVariant(value)) return this.variantR(value);
     else if (isObservable(value)) return this.variantO(value);
-    throw new Error(`invalid type ${typeof (value)} for Variant`)
+    throw new Error(`invalid type ${typeof value} for Variant`);
   }
-
 
   iconContainer = new BehaviorSubject<Icon>(undefined);
 
@@ -182,17 +186,16 @@ export class ButtonElement extends BaseElement implements IElement {
 
   /**
    * default value: undefined
-   * 
+   *
    * name of button's icon
-   * 
+   *
    * all supported icon names : https://material.io/tools/icons
    */
   icon(value: Observable<Icon> | Icon): ButtonElement {
     if (TypeGuards.isIcon(value)) return this.iconR(value);
     else if (isObservable(value)) return this.iconO(value);
-    throw new Error(`invalid type ${typeof (value)} for Icon`)
+    throw new Error(`invalid type ${typeof value} for Icon`);
   }
-
 
   onClickContainer = new BehaviorSubject<OnClick>(undefined);
 
@@ -210,14 +213,14 @@ export class ButtonElement extends BaseElement implements IElement {
 
   /**
    * default value: undefined
-   * 
+   *
    * fires when user clicks on button
-   * 
+   *
    */
   onClick(value: Observable<OnClick> | OnClick): ButtonElement {
     if (TypeGuards.isOnClick(value)) return this.onClickR(value);
     else if (isObservable(value)) return this.onClickO(value);
-    throw new Error(`invalid type ${typeof (value)} for OnClick`)
+    throw new Error(`invalid type ${typeof value} for OnClick`);
   }
 
   /*******************************************/
@@ -226,24 +229,21 @@ export class ButtonElement extends BaseElement implements IElement {
   //endregion
 }
 
-
 /*******************************************/
 /* GENERATED CODE, DO NOT MODIFY BY HAND!! */
 /*******************************************/
 
-/** 
+/**
  * @example
  * // usage:
  * Button("This is button's label");
- * 
+ *
  */
 const Button = (text: Observable<Text> | Text): ButtonElement => {
-  return new ButtonElement()
-    .text(text);
+  return new ButtonElement().text(text);
 };
 
 export default Button;
 /*******************************************/
 /* END OF GENERATED CODE                   */
 /*******************************************/
-

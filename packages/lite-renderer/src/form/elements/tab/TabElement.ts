@@ -1,23 +1,29 @@
-
-import IElement, { ValidationResult } from '../../../flmc-data-layer/FormController/IElement';
-import { ElementType } from '../ElementType';
-import { Observable, BehaviorSubject, isObservable } from 'rxjs';
+import IElement, {
+  ValidationResult
+} from "../../../flmc-data-layer/FormController/IElement";
+import { ElementType } from "../ElementType";
+import { Observable, BehaviorSubject, isObservable } from "rxjs";
 import { BaseElement } from "../base/BaseElement";
-import { isSubject } from '../../../flmc-data-layer';
-import { TypeGuards, TabElements, TabTitles, CurrentTab } from './TabElementAttributes';
+import { isSubject } from "../../../flmc-data-layer";
+import {
+  TypeGuards,
+  TabElements,
+  TabTitles,
+  CurrentTab
+} from "./TabElementAttributes";
 
 export class TabElement extends BaseElement implements IElement {
-
   validate(): ValidationResult {
-    let validationResults = (this.tabElementsContainer.value || []).map(v => v.validate());
+    let validationResults = (this.tabElementsContainer.value || []).map(v =>
+      v.validate()
+    );
     for (let validationResult of validationResults) {
-      if (!validationResult.isValid)
-        return new ValidationResult(false, "");
+      if (!validationResult.isValid) return new ValidationResult(false, "");
     }
     return new ValidationResult(true, "");
   }
 
-  dispose(): void { }
+  dispose(): void {}
 
   //region auto generated code
   /*******************************************/
@@ -44,15 +50,14 @@ export class TabElement extends BaseElement implements IElement {
 
   /**
    * default value: []
-   * 
+   *
    * TODO: add docs
    */
   tabElements(value: Observable<TabElements> | TabElements): TabElement {
     if (TypeGuards.isTabs(value)) return this.tabElementsR(value);
     else if (isObservable(value)) return this.tabElementsO(value);
-    throw new Error(`invalid type ${typeof (value)} for TabElements`)
+    throw new Error(`invalid type ${typeof value} for TabElements`);
   }
-
 
   tabTitlesContainer = new BehaviorSubject<TabTitles>([]);
 
@@ -70,16 +75,15 @@ export class TabElement extends BaseElement implements IElement {
 
   /**
    * default value: []
-   * 
+   *
    * TODO: add docs
-   * 
+   *
    */
   tabTitles(value: Observable<TabTitles> | TabTitles): TabElement {
     if (TypeGuards.isTabTitles(value)) return this.tabTitlesR(value);
     else if (isObservable(value)) return this.tabTitlesO(value);
-    throw new Error(`invalid type ${typeof (value)} for TabTitles`)
+    throw new Error(`invalid type ${typeof value} for TabTitles`);
   }
-
 
   currentTabContainer = new BehaviorSubject<CurrentTab>(0);
 
@@ -103,15 +107,17 @@ export class TabElement extends BaseElement implements IElement {
 
   /**
    * default value: 0
-   * 
+   *
    * TODO: add docs
-   * 
+   *
    */
-  currentTab(value: BehaviorSubject<CurrentTab> | Observable<CurrentTab> | CurrentTab): TabElement {
+  currentTab(
+    value: BehaviorSubject<CurrentTab> | Observable<CurrentTab> | CurrentTab
+  ): TabElement {
     if (TypeGuards.isCurrentTab(value)) return this.currentTabR(value);
     else if (isObservable(value)) return this.currentTabO(value);
     else if (isSubject(value)) return this.currentTabB(value);
-    throw new Error(`invalid type ${typeof (value)} for CurrentTab`)
+    throw new Error(`invalid type ${typeof value} for CurrentTab`);
   }
 
   /*******************************************/
@@ -120,24 +126,23 @@ export class TabElement extends BaseElement implements IElement {
   //endregion
 }
 
-
 /*******************************************/
 /* GENERATED CODE, DO NOT MODIFY BY HAND!! */
 /*******************************************/
 
-/** 
+/**
  * @example
  * // usage:
  * TODO: add docs
- * 
+ *
  */
-const Tab = (currentTab: BehaviorSubject<CurrentTab> | Observable<CurrentTab> | CurrentTab): TabElement => {
-  return new TabElement()
-    .currentTab(currentTab);
+const Tab = (
+  currentTab: BehaviorSubject<CurrentTab> | Observable<CurrentTab> | CurrentTab
+): TabElement => {
+  return new TabElement().currentTab(currentTab);
 };
 
 export default Tab;
 /*******************************************/
 /* END OF GENERATED CODE                   */
 /*******************************************/
-

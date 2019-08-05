@@ -1,19 +1,27 @@
-
-import IElement, { ValidationResult } from '../../../flmc-data-layer/FormController/IElement';
-import { ElementType } from '../ElementType';
-import { Observable, BehaviorSubject, isObservable } from 'rxjs';
+import IElement, {
+  ValidationResult
+} from "../../../flmc-data-layer/FormController/IElement";
+import { ElementType } from "../ElementType";
+import { Observable, BehaviorSubject, isObservable } from "rxjs";
 import { BaseElement } from "../base/BaseElement";
-import { TypeGuards, Address, Alt, Width, Height, Scale, Border } from './ImageElementAttributes';
-import { ImageBorderType } from './ImageBorderType';
-import { ImageScaleType } from './ImageScaleType';
+import {
+  TypeGuards,
+  Address,
+  Alt,
+  Width,
+  Height,
+  Scale,
+  Border
+} from "./ImageElementAttributes";
+import { ImageBorderType } from "./ImageBorderType";
+import { ImageScaleType } from "./ImageScaleType";
 
 export class ImageElement extends BaseElement implements IElement {
-
   validate(): ValidationResult {
     return new ValidationResult(true);
   }
 
-  dispose(): void { }
+  dispose(): void {}
 
   //region auto generated code
   /*******************************************/
@@ -40,16 +48,15 @@ export class ImageElement extends BaseElement implements IElement {
 
   /**
    * default value: undefined
-   * 
+   *
    * address of image
-   * 
+   *
    */
   address(value: Observable<Address> | Address): ImageElement {
     if (TypeGuards.isAddress(value)) return this.addressR(value);
     else if (isObservable(value)) return this.addressO(value);
-    throw new Error(`invalid type ${typeof (value)} for Address`)
+    throw new Error(`invalid type ${typeof value} for Address`);
   }
-
 
   altContainer = new BehaviorSubject<Alt>(undefined);
 
@@ -67,16 +74,15 @@ export class ImageElement extends BaseElement implements IElement {
 
   /**
    * default value: undefined
-   * 
+   *
    * same as <image alt=".."/>
-   * 
+   *
    */
   alt(value: Observable<Alt> | Alt): ImageElement {
     if (TypeGuards.isAlt(value)) return this.altR(value);
     else if (isObservable(value)) return this.altO(value);
-    throw new Error(`invalid type ${typeof (value)} for Alt`)
+    throw new Error(`invalid type ${typeof value} for Alt`);
   }
-
 
   widthContainer = new BehaviorSubject<Width>(60);
 
@@ -94,17 +100,15 @@ export class ImageElement extends BaseElement implements IElement {
 
   /**
    * default value: 60
-   * 
+   *
    * image width
-   * 
+   *
    */
-  ;
   width(value: Observable<Width> | Width): ImageElement {
     if (TypeGuards.isWidth(value)) return this.widthR(value);
     else if (isObservable(value)) return this.widthO(value);
-    throw new Error(`invalid type ${typeof (value)} for Width`)
+    throw new Error(`invalid type ${typeof value} for Width`);
   }
-
 
   heightContainer = new BehaviorSubject<Height>(60);
 
@@ -122,16 +126,15 @@ export class ImageElement extends BaseElement implements IElement {
 
   /**
    * default value: 60
-   * 
+   *
    * image height
-   * 
+   *
    */
   height(value: Observable<Height> | Height): ImageElement {
     if (TypeGuards.isHeight(value)) return this.heightR(value);
     else if (isObservable(value)) return this.heightO(value);
-    throw new Error(`invalid type ${typeof (value)} for Height`)
+    throw new Error(`invalid type ${typeof value} for Height`);
   }
-
 
   scaleContainer = new BehaviorSubject<Scale>(ImageScaleType.Contain);
 
@@ -149,16 +152,15 @@ export class ImageElement extends BaseElement implements IElement {
 
   /**
    * default value: ImageScaleType.Contain
-   * 
+   *
    * scale type // TODO: add docs
-   * 
+   *
    */
   scale(value: Observable<Scale> | Scale): ImageElement {
     if (TypeGuards.isScale(value)) return this.scaleR(value);
     else if (isObservable(value)) return this.scaleO(value);
-    throw new Error(`invalid type ${typeof (value)} for Scale`)
+    throw new Error(`invalid type ${typeof value} for Scale`);
   }
-
 
   borderContainer = new BehaviorSubject<Border>(ImageBorderType.None);
 
@@ -176,14 +178,14 @@ export class ImageElement extends BaseElement implements IElement {
 
   /**
    * default value: ImageBorderType.None
-   * 
+   *
    * border type // TODO: add docs
-   * 
+   *
    */
   border(value: Observable<Border> | Border): ImageElement {
     if (TypeGuards.isBorder(value)) return this.borderR(value);
     else if (isObservable(value)) return this.borderO(value);
-    throw new Error(`invalid type ${typeof (value)} for Border`)
+    throw new Error(`invalid type ${typeof value} for Border`);
   }
 
   /*******************************************/
@@ -192,25 +194,22 @@ export class ImageElement extends BaseElement implements IElement {
   //endregion
 }
 
-
 /*******************************************/
 /* GENERATED CODE, DO NOT MODIFY BY HAND!! */
 /*******************************************/
 
-/** 
+/**
  * @example
  * // usage:
  * let controller = new BehaviorSubject<string>("http://images.test/placeholder.png");
  * Image(controller);
- * 
+ *
  */
 const Image = (address: Observable<Address> | Address): ImageElement => {
-  return new ImageElement()
-    .address(address);
+  return new ImageElement().address(address);
 };
 
 export default Image;
 /*******************************************/
 /* END OF GENERATED CODE                   */
 /*******************************************/
-

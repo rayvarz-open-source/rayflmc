@@ -1,6 +1,6 @@
 import { Components, Action, Column, Options, Query, QueryResult, Localization } from "material-table";
 import { GridRowActionDefinitions } from "./GridRowActionDefinitions";
-import { EventType } from "../base/Evenet";
+import { EventType } from "../base/Event";
 /** @ElementDoc
  * @example
  * // usage: TODO: add docs
@@ -8,7 +8,7 @@ import { EventType } from "../base/Evenet";
  * 
  */
 // Element: Grid
-/**
+/**../base/Event
  * @[{"bidirectional":false,"required":false,"typeguard":"isColumnDefinitions","default":"[]"}]
  * TODO: add docs
  */

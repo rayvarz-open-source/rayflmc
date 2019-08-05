@@ -1,6 +1,6 @@
-import IDataController from '../Base/IDataController';
-import { DataControllerTypes } from '../DataControllerTypes';
-import IElement, { ValidationResult } from './IElement';
+import IDataController from "../Base/IDataController";
+import { DataControllerTypes } from "../DataControllerTypes";
+import IElement, { ValidationResult } from "./IElement";
 
 /**
  * used for handling forms data
@@ -29,6 +29,7 @@ export default class FormController implements IDataController {
   }
 
   init(): void {
-    if (this.elements.length == 0) throw new Error('Must have atleast one element');
+    if (this.elements.length == 0)
+      throw new Error("Must have atleast one element");
   }
 }

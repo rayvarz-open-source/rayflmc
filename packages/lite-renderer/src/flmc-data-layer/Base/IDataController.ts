@@ -33,5 +33,10 @@ export default interface IDataController {
 }
 
 export function isDataController(item: any): item is IDataController {
-  return item.type != null && item.beforeDispose != null && item.afterDispose != null && item.init != null;
+  return (
+    item.type != null &&
+    item.beforeDispose != null &&
+    item.afterDispose != null &&
+    item.init != null
+  );
 }

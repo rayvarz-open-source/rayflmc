@@ -11,6 +11,5 @@ export enum TextSize {
   Body2 = "body2",
   Caption = "caption",
   Button = "button",
-  Overline = "overline",
-
+  Overline = "overline"
 }

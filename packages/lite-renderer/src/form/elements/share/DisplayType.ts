@@ -1,7 +1,7 @@
 export enum DisplayType {
   Block = "block",
   Initial = "initial",
-  Inline = "inline",
+  Inline = "inline"
 }
 
 export function isDisplayType(value: any): value is DisplayType {

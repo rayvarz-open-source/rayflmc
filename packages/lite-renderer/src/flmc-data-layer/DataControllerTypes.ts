@@ -1,4 +1,4 @@
 export enum DataControllerTypes {
-  FormController = 'FORM',
-  ListController = 'LIST',
+  FormController = "FORM",
+  ListController = "LIST"
 }
