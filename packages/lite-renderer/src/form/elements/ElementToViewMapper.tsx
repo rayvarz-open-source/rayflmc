@@ -14,9 +14,7 @@ import { TextInputElement } from "./input/TextInputElement";
 import GridView from "./grid/GridView";
 import { GridElement } from "./grid/GridElement";
 import {SelectBoxElement} from "./selectBox/SelectBoxElement";
-import {SelectGroupElement} from "./selectGroup/SelectGroupElement";
 import {DatePickerElement} from "./picker/date/DatePickerElement";
-import SelectGroupView from "./selectGroup/SelectGroupView";
 import DatePickerView from "./picker/date/DatePickerView";
 import TimePickerView from "./picker/time/TimePickerView";
 import {TimePickerElement} from "./picker/time/TimePickerElement";
@@ -43,7 +41,6 @@ export function MapToView({ element,weight }: Props) {
         case (ElementType.SelectBox): return <SelectView element={element as SelectBoxElement<any>} weight={weight}/>;
         case (ElementType.DATE_PICKER): return <DatePickerView element={element as DatePickerElement} weight={weight}/>;
         case (ElementType.TIME_PICKER): return <TimePickerView element={element as TimePickerElement} weight={weight}/>;
-        case (ElementType.SELECT_BOX_GROUP): return <SelectGroupView element={element as SelectGroupElement} weight={weight}/>;
         case (ElementType.Label): return <LabelView element={element as LabelElement} weight={weight}/>;
         case (ElementType.Container): return <ContainerView element={element as ContainerElement} weight={weight}/>;
         case (ElementType.Tab): return <TabView element={element as TabElement} weight={weight}/>;

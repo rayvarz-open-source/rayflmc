@@ -3,7 +3,6 @@ import FormView from './form/FormView.js';
 import Button from './form/elements/button/ButtonElement.js';
 import SelectBox from './form/elements/selectBox/SelectBoxElement';
 import DatePicker from './form/elements/picker/date/DatePickerElement';
-import SelectBoxGroup from './form/elements/selectGroup/SelectGroupElement';
 import TextInput from './form/elements/input/TextInputElement.js';
 import Container from './form/elements/container/ContainerElement.js';
 import Image from './form/elements/image/ImageElement';
@@ -45,7 +44,6 @@ export {
   SelectBox,
   SelectBoxLabelPlacement,
   Container,
-  SelectBoxGroup,
   DatePicker,
   TimePicker,
   Chip,
