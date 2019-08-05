@@ -17,7 +17,7 @@ export class BaseElement {
     display: "none"
   };
   getWeightStyle(weight: number): CSSProperties {
-    return weight ? { flexGrow: weight } : { flex: weight };
+    return weight === 0 ? { flexGrow: weight } : { flex: weight };
   }
   getVisibilityStyle(type: Visibility): CSSProperties {
     switch (type) {
