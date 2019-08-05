@@ -2,6 +2,7 @@ import ButtonForm from "./forms/ButtonForm";
 import ImageForm from "./forms/ImageForm";
 import ModalForm from "./forms/ModalForm";
 import TextInputForm from "./forms/TextInputForm";
+import SelectBoxForm from "./forms/SelectBoxForm";
 import CustomSkeletonForm from "./forms/CustomSkeletonForm";
 import { RootRouteCategory } from 'lite-renderer';
 
@@ -52,6 +53,13 @@ const routes = [
         path: "/textInput",
         builder: (path, params) => new TextInputForm(),
         name: "Text Input Element",
+        category: categoties.elementGallery,
+        hidden: false,
+    },
+    {
+        path: "/selectBox",
+        builder: (path, params) => new SelectBoxForm(),
+        name: "Select Box Element",
         category: categoties.elementGallery,
         hidden: false,
     },

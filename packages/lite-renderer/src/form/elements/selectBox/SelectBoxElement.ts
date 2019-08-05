@@ -1,156 +1,227 @@
+
 import IElement, { ValidationResult } from '../../../flmc-data-layer/FormController/IElement';
 import { ElementType } from '../ElementType';
 import { Observable, BehaviorSubject, isObservable } from 'rxjs';
-export type OnChange = VoidFunction | undefined;
+import { BaseElement } from "../base/BaseElement";
+import { isSubject } from '../../../flmc-data-layer';
+import { TypeGuards, Value, SelectedValue, Label, LabelPlacement, Variant, Disabled } from './SelectBoxElementAttributes';
+import { SelectBoxLabelPlacement } from './SelectBoxLabelPlacement';
+import { SelectBoxVariant } from './SelectBoxVariant';
 
-export class SelectBoxElement implements IElement {
-  dispose(): void {}
-
-  get type(): string {
-    return ElementType.SELECT_BOX;
-  }
+export class SelectBoxElement<T> extends BaseElement implements IElement {
 
   validate(): ValidationResult {
     return new ValidationResult(true);
   }
 
-  // text
-  onCheckChangeContainer = new BehaviorSubject<OnChange>(undefined);
+  dispose(): void { }
 
-  selectBoxText = new BehaviorSubject<string>('');
-  selectBoxValue = new BehaviorSubject<boolean>(false);
-  selectBoxStyleType = new BehaviorSubject<string>('');
-  selectBoxStyleColor = new BehaviorSubject<string>('');
-  selectBoxAlign = new BehaviorSubject<string>('');
-  selectBoxIsDisabled = new BehaviorSubject<boolean>(false);
+  //region auto generated code
+  /*******************************************/
+  /* GENERATED CODE, DO NOT MODIFY BY HAND!! */
+  /*******************************************/
 
-  private textR(text: string): SelectBoxElement {
-    this.selectBoxText.next(text);
+  get type(): string {
+    return ElementType.SelectBox;
+  }
+
+  valueContainer = new BehaviorSubject<Value<T>>(null);
+
+  /** iternal function for handling BehaviorSubject<value> types used for bidirectional bindings*/
+  private valueB(value: BehaviorSubject<Value<T>>): SelectBoxElement<T> {
+    this.valueContainer = value;
     return this;
   }
 
-  private textO(text: Observable<string>): SelectBoxElement {
-    text.subscribe({
-      next: v => this.selectBoxText.next(v),
-    });
+  /** iternal function for handling raw value types*/
+  private valueR(value: Value<T>): SelectBoxElement<T> {
+    this.valueContainer.next(value);
     return this;
   }
 
-  text(text: Observable<string> | string): SelectBoxElement {
-    if (typeof text === 'string') return this.textR(text);
-    if (isObservable(text)) return this.textO(text);
-    throw new Error('given text type is not supported');
-  }
-
-
-  private valueR(value: boolean): SelectBoxElement {
-    this.selectBoxValue.next(value);
+  /** iternal function for handling Observable<value> types*/
+  private valueO(value: Observable<Value<T>>): SelectBoxElement<T> {
+    value.subscribe({ next: v => this.valueContainer.next(v) });
     return this;
   }
 
-  private valueO(value: Observable<boolean>): SelectBoxElement {
-    value.subscribe({
-      next: v => this.selectBoxValue.next(v),
-    });
+  /**
+   * default value: null
+   * 
+   * current value
+   * 
+   */
+  value(value: BehaviorSubject<Value<T>> | Observable<Value<T>> | Value<T>): SelectBoxElement<T> {
+    if (isSubject(value)) return this.valueB(value);
+    else if (isObservable(value)) return this.valueO(value);
+    return this.valueR(value);
+  }
+
+
+  selectedValueContainer = new BehaviorSubject<SelectedValue<T>>(undefined);
+
+  /** iternal function for handling raw Selectedvalue types*/
+  private selectedValueR(value: SelectedValue<T>): SelectBoxElement<T> {
+    this.selectedValueContainer.next(value);
     return this;
   }
 
-  value(value: Observable<boolean> | boolean): SelectBoxElement {
-    if (typeof value === 'boolean') return this.valueR(value);
-    if (isObservable(value)) return this.valueO(value);
-    throw new Error('given value type is not supported');
-  }
-  // callback
-
-  private onCheckChangeR(action: VoidFunction): SelectBoxElement {
-    this.onCheckChangeContainer.next(action);
+  /** iternal function for handling Observable<Selectedvalue> types*/
+  private selectedValueO(value: Observable<SelectedValue<T>>): SelectBoxElement<T> {
+    value.subscribe({ next: v => this.selectedValueContainer.next(v) });
     return this;
   }
 
-  private onCheckChangeO(action: Observable<VoidFunction>): SelectBoxElement {
-    action.subscribe({
-      next: v => this.onCheckChangeContainer.next(v),
-    });
+  /**
+   * default value: undefined
+   * 
+   * if value equal to this value, select box will be checked
+   * 
+   */
+  selectedvalue(value: Observable<SelectedValue<T>> | SelectedValue<T>): SelectBoxElement<T> {
+    if (isObservable(value)) this.selectedValueO(value);
+    else this.selectedValueR(value);
     return this;
   }
 
-  onCheckChange(action: Observable<VoidFunction> | VoidFunction): SelectBoxElement {
-    if (typeof action === 'function') return this.onCheckChangeR(action);
-    if (isObservable(action)) return this.onCheckChangeO(action);
-    throw new Error('given action type is not supported');
-  }
-  private styleTypeR(text: string): SelectBoxElement {
-    this.selectBoxStyleType.next(text);
-    return this;
-  }
-  private styleTypeO(text: Observable<string>): SelectBoxElement {
-    text.subscribe({
-      next: v => this.selectBoxStyleType.next(v),
-    });
+
+  labelContainer = new BehaviorSubject<Label>(undefined);
+
+  /** iternal function for handling raw Label types*/
+  private labelR(value: Label): SelectBoxElement<T> {
+    this.labelContainer.next(value);
     return this;
   }
 
-  styleType(styleType: Observable<string> | string): SelectBoxElement {
-    if (typeof styleType === 'string') return this.styleTypeR(styleType);
-    if (isObservable(styleType)) return this.styleTypeO(styleType);
-    throw new Error('given styleType is not supported');
-  }
-  private styleColorR(text: string): SelectBoxElement {
-    this.selectBoxStyleColor.next(text);
-    return this;
-  }
-  private styleColorO(text: Observable<string>): SelectBoxElement {
-    text.subscribe({
-      next: v => this.selectBoxStyleColor.next(v),
-    });
+  /** iternal function for handling Observable<Label> types*/
+  private labelO(value: Observable<Label>): SelectBoxElement<T> {
+    value.subscribe({ next: v => this.labelContainer.next(v) });
     return this;
   }
 
-  styleColor(styleColor: Observable<string> | string): SelectBoxElement {
-    if (typeof styleColor === 'string') return this.styleColorR(styleColor);
-    if (isObservable(styleColor)) return this.styleColorO(styleColor);
-    throw new Error('given styleColor is not supported');
-  }
-  private disabledR(isDisabled: boolean): SelectBoxElement {
-    this.selectBoxIsDisabled.next(isDisabled);
-    return this;
-  }
-  private disabledO(isDisabled: Observable<boolean>): SelectBoxElement {
-    isDisabled.subscribe({
-      next: v => this.selectBoxIsDisabled.next(v),
-    });
-    return this;
+  /**
+   * default value: undefined
+   * 
+   * text to describe this select box
+   * enter undefined for no label
+   * 
+   */
+  label(value: Observable<Label> | Label): SelectBoxElement<T> {
+    if (TypeGuards.isLabel(value)) return this.labelR(value);
+    else if (isObservable(value)) return this.labelO(value);
+    throw new Error(`invalid type ${typeof (value)} for Label`)
   }
 
-  disabled(isDisabled: Observable<boolean> | boolean): SelectBoxElement {
-    if (typeof isDisabled === 'boolean') return this.disabledR(isDisabled);
-    if (isObservable(isDisabled)) return this.disabledO(isDisabled);
-    throw new Error('given isDisabled is not supported');
-  }
 
-  private alignR(alignment: string): SelectBoxElement {
-    this.selectBoxAlign.next(alignment);
-    return this;
-  }
-  private alignO(alignment: Observable<string>): SelectBoxElement {
-    alignment.subscribe({
-      next: v => this.selectBoxAlign.next(v),
-    });
+  labelPlacementContainer = new BehaviorSubject<LabelPlacement>(SelectBoxLabelPlacement.End);
+
+  /** iternal function for handling raw LabelPlacement types*/
+  private labelPlacementR(value: LabelPlacement): SelectBoxElement<T> {
+    this.labelPlacementContainer.next(value);
     return this;
   }
 
-  align(alignment: Observable<string> | string): SelectBoxElement {
-    if (typeof alignment === 'string') return this.alignR(alignment);
-    if (isObservable(alignment)) return this.alignO(alignment);
-    throw new Error('given alignment is not supported');
+  /** iternal function for handling Observable<LabelPlacement> types*/
+  private labelPlacementO(value: Observable<LabelPlacement>): SelectBoxElement<T> {
+    value.subscribe({ next: v => this.labelPlacementContainer.next(v) });
+    return this;
   }
 
+  /**
+   * default value: SelectBoxLabelPlacement.End
+   * 
+   * position of label relative to SelectBox
+   * 
+   */
+  labelPlacement(value: Observable<LabelPlacement> | LabelPlacement): SelectBoxElement<T> {
+    if (TypeGuards.isLabelPlacement(value)) return this.labelPlacementR(value);
+    else if (isObservable(value)) return this.labelPlacementO(value);
+    throw new Error(`invalid type ${typeof (value)} for LabelPlacement`)
+  }
+
+
+  variantContainer = new BehaviorSubject<Variant>(SelectBoxVariant.CheckBox);
+
+  /** iternal function for handling raw Variant types*/
+  private variantR(value: Variant): SelectBoxElement<T> {
+    this.variantContainer.next(value);
+    return this;
+  }
+
+  /** iternal function for handling Observable<Variant> types*/
+  private variantO(value: Observable<Variant>): SelectBoxElement<T> {
+    value.subscribe({ next: v => this.variantContainer.next(v) });
+    return this;
+  }
+
+  /**
+   * default value: SelectBoxVariant.CheckBox
+   * 
+   * shape of SelectBox
+   * 
+   */
+  variant(value: Observable<Variant> | Variant): SelectBoxElement<T> {
+    if (TypeGuards.isVariant(value)) return this.variantR(value);
+    else if (isObservable(value)) return this.variantO(value);
+    throw new Error(`invalid type ${typeof (value)} for Variant`)
+  }
+
+
+  disabledContainer = new BehaviorSubject<Disabled>(false);
+
+  /** iternal function for handling raw Disabled types*/
+  private disabledR(value: Disabled): SelectBoxElement<T> {
+    this.disabledContainer.next(value);
+    return this;
+  }
+
+  /** iternal function for handling Observable<Disabled> types*/
+  private disabledO(value: Observable<Disabled>): SelectBoxElement<T> {
+    value.subscribe({ next: v => this.disabledContainer.next(v) });
+    return this;
+  }
+
+  /**
+   * default value: false
+   * 
+   * 
+   * TODO: add docs
+   */
+  disabled(value: Observable<Disabled> | Disabled): SelectBoxElement<T> {
+    if (TypeGuards.isDisabled(value)) return this.disabledR(value);
+    else if (isObservable(value)) return this.disabledO(value);
+    throw new Error(`invalid type ${typeof (value)} for Disabled`)
+  }
+
+
+  /*******************************************/
+  /* END OF GENERATED CODE                   */
+  /*******************************************/
+  //endregion
 }
 
-const SelectBox = (title: string | null): SelectBoxElement => {
-  let element = new SelectBoxElement();
-  if (title == null) return element;
-  return element.text(title);
+
+/*******************************************/
+/* GENERATED CODE, DO NOT MODIFY BY HAND!! */
+/*******************************************/
+
+/** 
+ * @example
+ * // usage:
+ * let value = new BehaviorSubject<int | null>(1);
+ * SelectBox(controller, 2); // 2 == checkedValue
+ * 
+ * // if controller value == 2, select box state will be selected
+ * 
+ */
+const SelectBox = <T>(value: BehaviorSubject<Value<T>> | Observable<Value<T>> | Value<T>, selectedvalue: Observable<SelectedValue<T>> | SelectedValue<T>): SelectBoxElement<T> => {
+  return new SelectBoxElement<T>()
+    .value(value)
+    .selectedvalue(selectedvalue);
 };
 
 export default SelectBox;
+/*******************************************/
+/* END OF GENERATED CODE                   */
+/*******************************************/
+

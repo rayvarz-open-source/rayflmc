@@ -9,7 +9,7 @@ export enum ElementType {
     Tab = "LiteRenderer_Tab",
     Grid = "LiteRenderer_Grid",
     Modal = "LiteRenderer_Modal",
-    SELECT_BOX = "LITE_RENDERER_SELECT_BOX",
+    SelectBox = "LiteRenderer_SelectBox",
     SELECT_BOX_GROUP = "LITE_RENDERER_SELECT_BOX_GROUP",
     DATE_PICKER = "LITE_RENDERER_DATE_PICKER",
     TIME_PICKER = "LITE_RENDERER_TIME_PICKER",

@@ -19,7 +19,8 @@ import { TextAlignment } from './form/elements/share/TextAlignment.js';
 import { DisplayType } from './form/elements/share/DisplayType.js';
 import { Size } from './form/elements/share/Size';
 import { TextInputStyleType } from './form/elements/input/TextInputStyleType';
-import { SelectBoxStyleType } from './form/elements/selectBox/SelectBoxStyleType';
+import { SelectBoxVariant } from './form/elements/selectBox/SelectBoxVariant';
+import { SelectBoxLabelPlacement } from './form/elements/selectBox/SelectBoxLabelPlacement';
 import { ImageBorderType } from './form/elements/image/ImageBorderType';
 import { ImageScaleType } from './form/elements/image/ImageScaleType';
 import { VisibilityType } from './form/elements/share/VisibilityType';
@@ -42,6 +43,7 @@ export {
   FormController, Button,
   TextInput,
   SelectBox,
+  SelectBoxLabelPlacement,
   Container,
   SelectBoxGroup,
   DatePicker,
@@ -62,7 +64,7 @@ export {
   TextAlignment,
   DisplayType,
   TextInputStyleType,
-  SelectBoxStyleType,
+  SelectBoxVariant,
   VisibilityType,
   ChipModel,
   ChipSelectionType,
@@ -81,7 +83,6 @@ export {
 
   Skeleton,
 };
-
 
 
 export default FLMC;
