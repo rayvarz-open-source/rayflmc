@@ -10,6 +10,7 @@ export enum ElementType {
   Grid = "LiteRenderer_Grid",
   Modal = "LiteRenderer_Modal",
   SelectBox = "LiteRenderer_SelectBox",
+  Raw = "LiteRenderer_Raw",
   DATE_PICKER = "LITE_RENDERER_DATE_PICKER",
   TIME_PICKER = "LITE_RENDERER_TIME_PICKER"
 }
