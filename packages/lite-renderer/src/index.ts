@@ -37,6 +37,7 @@ import Space from "./form/elements/space/SpaceElement.js";
 import { TextInputValidations, makeTextInputValidations } from "./form/elements/input/TextInputValidators.js";
 import FLMC from "./FLMC";
 import { Skeleton } from "./skeleton/SkeletonAttribute";
+import Raw from "./form/elements/raw/RawElement";
 
 export {
   FormController,
@@ -51,6 +52,7 @@ export {
   Modal,
   Label,
   Tab,
+  Raw,
   Image,
   StyleType,
   StyleColor,
