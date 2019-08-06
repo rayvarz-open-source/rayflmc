@@ -17,5 +17,6 @@ export function isElement(item: any): item is IElement {
 }
 
 export function areElements(item: any): item is IElement[] {
+  if (item.length != null && item.length == 0) return true;
   return item.map != null && (item as any).map((i: any) => isElement(i)).reduce((p: boolean, c: boolean) => p && c);
 }
