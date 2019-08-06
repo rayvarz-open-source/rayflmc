@@ -30,6 +30,11 @@ export type VisibileHeaderCloseButton = boolean;
  * 
  */
 export type Title = string | undefined;
+/**
+ * @[{"bidirectional":false,"required":false,"typeguard":"isNoPadding","default":"false"}]
+ * 
+ */
+export type NoPadding = boolean;
 // End Element
 
 // type guards
@@ -40,4 +45,5 @@ export const TypeGuards = {
     isVisibileHeader: (value: any): value is VisibileHeader => typeof (value) == "boolean",
     isVisibileHeaderCloseButton: (value: any): value is VisibileHeaderCloseButton => typeof (value) == "boolean",
     isTitle: (value: any): value is Title => typeof (value) == "string" || typeof (value) == "undefined",
+    isNoPadding: (value: any): value is NoPadding => typeof (value) == "boolean",
 }

@@ -3,7 +3,15 @@ import { ElementType } from "../ElementType";
 import { Observable, BehaviorSubject, isObservable } from "rxjs";
 import { BaseElement } from "../base/BaseElement";
 import { isSubject } from "../../../flmc-data-layer";
-import { TypeGuards, Child, Open, VisibileHeader, VisibileHeaderCloseButton, Title } from "./ModalElementAttributes";
+import {
+  TypeGuards,
+  Child,
+  Open,
+  VisibileHeader,
+  VisibileHeaderCloseButton,
+  Title,
+  NoPadding
+} from "./ModalElementAttributes";
 
 export class ModalElement extends BaseElement implements IElement {
   validate(): ValidationResult {
@@ -153,6 +161,31 @@ export class ModalElement extends BaseElement implements IElement {
     if (TypeGuards.isTitle(value)) return this.titleR(value);
     else if (isObservable(value)) return this.titleO(value);
     throw new Error(`invalid type ${typeof value} for Title`);
+  }
+
+  noPaddingContainer = new BehaviorSubject<NoPadding>(false);
+
+  /** iternal function for handling raw NoPadding types*/
+  private noPaddingR(value: NoPadding): ModalElement {
+    this.noPaddingContainer.next(value);
+    return this;
+  }
+
+  /** iternal function for handling Observable<NoPadding> types*/
+  private noPaddingO(value: Observable<NoPadding>): ModalElement {
+    value.subscribe({ next: v => this.noPaddingContainer.next(v) });
+    return this;
+  }
+
+  /**
+   * default value: false
+   *
+   *
+   */
+  noPadding(value: Observable<NoPadding> | NoPadding): ModalElement {
+    if (TypeGuards.isNoPadding(value)) return this.noPaddingR(value);
+    else if (isObservable(value)) return this.noPaddingO(value);
+    throw new Error(`invalid type ${typeof value} for NoPadding`);
   }
 
   /*******************************************/
