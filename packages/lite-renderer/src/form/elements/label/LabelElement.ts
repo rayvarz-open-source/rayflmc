@@ -1,19 +1,8 @@
-import IElement, {
-  ValidationResult
-} from "../../../flmc-data-layer/FormController/IElement";
+import IElement, { ValidationResult } from "../../../flmc-data-layer/FormController/IElement";
 import { ElementType } from "../ElementType";
 import { Observable, BehaviorSubject, isObservable } from "rxjs";
 import { BaseElement } from "../base/BaseElement";
-import {
-  TypeGuards,
-  Value,
-  NoWrap,
-  GutterBottom,
-  Colors,
-  Variant,
-  Display,
-  Align
-} from "./LabelElementAttributes";
+import { TypeGuards, Value, NoWrap, GutterBottom, Colors, Variant, Display, Align } from "./LabelElementAttributes";
 
 export class LabelElement extends BaseElement implements IElement {
   validate(): ValidationResult {

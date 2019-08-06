@@ -6,10 +6,5 @@ export enum ContainerDirection {
 }
 
 export function isContainerDirection(value: any): value is ContainerDirection {
-  return (
-    value === "column" ||
-    value === "column-reverse" ||
-    value === "row" ||
-    value === "row-reverse"
-  );
+  return value === "column" || value === "column-reverse" || value === "row" || value === "row-reverse";
 }

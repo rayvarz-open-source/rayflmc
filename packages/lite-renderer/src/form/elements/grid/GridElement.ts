@@ -1,6 +1,4 @@
-import IElement, {
-  ValidationResult
-} from "../../../flmc-data-layer/FormController/IElement";
+import IElement, { ValidationResult } from "../../../flmc-data-layer/FormController/IElement";
 import { ElementType } from "../ElementType";
 import { Observable, BehaviorSubject, isObservable } from "rxjs";
 import { BaseElement } from "../base/BaseElement";
@@ -43,9 +41,7 @@ export class GridElement extends BaseElement implements IElement {
   }
 
   /** iternal function for handling Observable<ColumnDefinitions> types*/
-  private columnDefinitionsO(
-    value: Observable<ColumnDefinitions>
-  ): GridElement {
+  private columnDefinitionsO(value: Observable<ColumnDefinitions>): GridElement {
     value.subscribe({ next: v => this.columnDefinitionsContainer.next(v) });
     return this;
   }
@@ -55,11 +51,8 @@ export class GridElement extends BaseElement implements IElement {
    *
    * TODO: add docs
    */
-  columnDefinitions(
-    value: Observable<ColumnDefinitions> | ColumnDefinitions
-  ): GridElement {
-    if (TypeGuards.isColumnDefinitions(value))
-      return this.columnDefinitionsR(value);
+  columnDefinitions(value: Observable<ColumnDefinitions> | ColumnDefinitions): GridElement {
+    if (TypeGuards.isColumnDefinitions(value)) return this.columnDefinitionsR(value);
     else if (isObservable(value)) return this.columnDefinitionsO(value);
     throw new Error(`invalid type ${typeof value} for ColumnDefinitions`);
   }
@@ -73,9 +66,7 @@ export class GridElement extends BaseElement implements IElement {
   }
 
   /** iternal function for handling Observable<ActionDefinitions> types*/
-  private actionDefinitionsO(
-    value: Observable<ActionDefinitions>
-  ): GridElement {
+  private actionDefinitionsO(value: Observable<ActionDefinitions>): GridElement {
     value.subscribe({ next: v => this.actionDefinitionsContainer.next(v) });
     return this;
   }
@@ -85,11 +76,8 @@ export class GridElement extends BaseElement implements IElement {
    *
    * TODO: add docs
    */
-  actionDefinitions(
-    value: Observable<ActionDefinitions> | ActionDefinitions
-  ): GridElement {
-    if (TypeGuards.isActionDefinitions(value))
-      return this.actionDefinitionsR(value);
+  actionDefinitions(value: Observable<ActionDefinitions> | ActionDefinitions): GridElement {
+    if (TypeGuards.isActionDefinitions(value)) return this.actionDefinitionsR(value);
     else if (isObservable(value)) return this.actionDefinitionsO(value);
     throw new Error(`invalid type ${typeof value} for ActionDefinitions`);
   }
@@ -103,9 +91,7 @@ export class GridElement extends BaseElement implements IElement {
   }
 
   /** iternal function for handling Observable<ComponentsOverride> types*/
-  private componentsOverrideO(
-    value: Observable<ComponentsOverride>
-  ): GridElement {
+  private componentsOverrideO(value: Observable<ComponentsOverride>): GridElement {
     value.subscribe({ next: v => this.componentsOverrideContainer.next(v) });
     return this;
   }
@@ -115,9 +101,7 @@ export class GridElement extends BaseElement implements IElement {
    *
    * TODO: add docs
    */
-  componentsOverride(
-    value: Observable<ComponentsOverride> | ComponentsOverride
-  ): GridElement {
+  componentsOverride(value: Observable<ComponentsOverride> | ComponentsOverride): GridElement {
     if (isObservable(value)) this.componentsOverrideO(value);
     else this.componentsOverrideR(value);
     return this;
@@ -157,9 +141,7 @@ export class GridElement extends BaseElement implements IElement {
   }
 
   /** iternal function for handling Observable<RowActionDefinitions> types*/
-  private rowActionDefinitionsO(
-    value: Observable<RowActionDefinitions>
-  ): GridElement {
+  private rowActionDefinitionsO(value: Observable<RowActionDefinitions>): GridElement {
     value.subscribe({ next: v => this.rowActionDefinitionsContainer.next(v) });
     return this;
   }
@@ -169,9 +151,7 @@ export class GridElement extends BaseElement implements IElement {
    *
    * TODO: add docs
    */
-  rowActionDefinitions(
-    value: Observable<RowActionDefinitions> | RowActionDefinitions
-  ): GridElement {
+  rowActionDefinitions(value: Observable<RowActionDefinitions> | RowActionDefinitions): GridElement {
     if (isObservable(value)) this.rowActionDefinitionsO(value);
     else this.rowActionDefinitionsR(value);
     return this;
@@ -227,9 +207,7 @@ export class GridElement extends BaseElement implements IElement {
     throw new Error(`invalid type ${typeof value} for Title`);
   }
 
-  localizationDefinitionContainer = new BehaviorSubject<LocalizationDefinition>(
-    undefined
-  );
+  localizationDefinitionContainer = new BehaviorSubject<LocalizationDefinition>(undefined);
 
   /** iternal function for handling raw LocalizationDefinition types*/
   private localizationDefinitionR(value: LocalizationDefinition): GridElement {
@@ -238,9 +216,7 @@ export class GridElement extends BaseElement implements IElement {
   }
 
   /** iternal function for handling Observable<LocalizationDefinition> types*/
-  private localizationDefinitionO(
-    value: Observable<LocalizationDefinition>
-  ): GridElement {
+  private localizationDefinitionO(value: Observable<LocalizationDefinition>): GridElement {
     value.subscribe({
       next: v => this.localizationDefinitionContainer.next(v)
     });
@@ -252,9 +228,7 @@ export class GridElement extends BaseElement implements IElement {
    *
    * TODO: add docs
    */
-  localizationDefinition(
-    value: Observable<LocalizationDefinition> | LocalizationDefinition
-  ): GridElement {
+  localizationDefinition(value: Observable<LocalizationDefinition> | LocalizationDefinition): GridElement {
     if (isObservable(value)) this.localizationDefinitionO(value);
     else this.localizationDefinitionR(value);
     return this;
@@ -285,12 +259,7 @@ export class GridElement extends BaseElement implements IElement {
    *
    * TODO: add docs
    */
-  refreshEvent(
-    value:
-      | BehaviorSubject<RefreshEvent>
-      | Observable<RefreshEvent>
-      | RefreshEvent
-  ): GridElement {
+  refreshEvent(value: BehaviorSubject<RefreshEvent> | Observable<RefreshEvent> | RefreshEvent): GridElement {
     if (isSubject(value)) return this.refreshEventB(value);
     else if (isObservable(value)) return this.refreshEventO(value);
     return this.refreshEventR(value);

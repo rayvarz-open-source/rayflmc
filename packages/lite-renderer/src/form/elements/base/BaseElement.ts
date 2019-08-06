@@ -45,11 +45,7 @@ export class BaseElement {
   }
 
   visibility(visibilityType: Observable<Visibility> | Visibility) {
-    if (
-      visibilityType === "show" ||
-      visibilityType === "hidden" ||
-      visibilityType === "gone"
-    )
+    if (visibilityType === "show" || visibilityType === "hidden" || visibilityType === "gone")
       return this.visibilityR(visibilityType);
     if (isObservable(visibilityType)) return this.visibilityO(visibilityType);
     throw new Error("given visibility is not supported");

@@ -1,6 +1,4 @@
-import IElement, {
-  ValidationResult
-} from "../../../../flmc-data-layer/FormController/IElement";
+import IElement, { ValidationResult } from "../../../../flmc-data-layer/FormController/IElement";
 import { ElementType } from "../../ElementType";
 import { Observable, BehaviorSubject, isObservable } from "rxjs";
 import { isSubject } from "../../../../flmc-data-layer/FormController/Elements/RxUtils";
@@ -73,22 +71,19 @@ export class DatePickerElement extends BaseElement implements IElement {
   }
 
   gutterBottom(gutterBottom: Observable<boolean> | boolean): DatePickerElement {
-    if (typeof gutterBottom === "boolean")
-      return this.gutterBottomR(gutterBottom);
+    if (typeof gutterBottom === "boolean") return this.gutterBottomR(gutterBottom);
     if (isObservable(gutterBottom)) return this.gutterBottomO(gutterBottom);
     throw new Error("given gutterBottom is not supported");
   }
 
   private selectedDateR(text: Date): DatePickerElement {
-    if (this.datePickerTime == null)
-      this.datePickerTime = new BehaviorSubject<Date>(new Date());
+    if (this.datePickerTime == null) this.datePickerTime = new BehaviorSubject<Date>(new Date());
     this.datePickerTime.next(text);
     return this;
   }
 
   private selectedDateO(text: Observable<Date>): DatePickerElement {
-    if (this.datePickerTime == null)
-      this.datePickerTime = new BehaviorSubject<Date>(new Date());
+    if (this.datePickerTime == null) this.datePickerTime = new BehaviorSubject<Date>(new Date());
     text.subscribe({
       next: v => this.datePickerTime.next(v)
     });
@@ -100,9 +95,7 @@ export class DatePickerElement extends BaseElement implements IElement {
     return this;
   }
 
-  selectedDate(
-    title: BehaviorSubject<Date> | Observable<Date> | Date
-  ): DatePickerElement {
+  selectedDate(title: BehaviorSubject<Date> | Observable<Date> | Date): DatePickerElement {
     if (isSubject(title)) return this.selectedDateB(title);
     if (isObservable(title)) return this.selectedDateO(title);
     throw new Error("given text type is not supported");
@@ -159,9 +152,7 @@ export class DatePickerElement extends BaseElement implements IElement {
     throw new Error("given textAlign is not supported");
   }
 }
-const DatePicker = (
-  controller: Observable<Date> | BehaviorSubject<Date>
-): DatePickerElement => {
+const DatePicker = (controller: Observable<Date> | BehaviorSubject<Date>): DatePickerElement => {
   return new DatePickerElement().selectedDate(controller);
 };
 

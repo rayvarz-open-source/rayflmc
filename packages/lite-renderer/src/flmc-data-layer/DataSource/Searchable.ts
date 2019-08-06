@@ -61,9 +61,7 @@ export function SearchableMixin<TBase extends Constructor>(Base: TBase) {
     }
 
     getSearchText(): Observable<string> {
-      return (this as any).datasource.searchText.pipe(
-        map(v => (v == null ? "" : v))
-      );
+      return (this as any).datasource.searchText.pipe(map(v => (v == null ? "" : v)));
     }
   };
 }

@@ -1,22 +1,13 @@
-import IElement, {
-  ValidationResult
-} from "../../../flmc-data-layer/FormController/IElement";
+import IElement, { ValidationResult } from "../../../flmc-data-layer/FormController/IElement";
 import { ElementType } from "../ElementType";
 import { Observable, BehaviorSubject, isObservable } from "rxjs";
 import { BaseElement } from "../base/BaseElement";
-import {
-  TypeGuards,
-  Children,
-  Direction,
-  Flex
-} from "./ContainerElementAttributes";
+import { TypeGuards, Children, Direction, Flex } from "./ContainerElementAttributes";
 import { ContainerDirection } from "./ContainerDirection";
 
 export class ContainerElement extends BaseElement implements IElement {
   validate(): ValidationResult {
-    let validationResults = (this.childrenContainer.value || []).map(v =>
-      v.validate()
-    );
+    let validationResults = (this.childrenContainer.value || []).map(v => v.validate());
     for (let validationResult of validationResults) {
       if (!validationResult.isValid) return new ValidationResult(false, "");
     }
@@ -59,9 +50,7 @@ export class ContainerElement extends BaseElement implements IElement {
     throw new Error(`invalid type ${typeof value} for Children`);
   }
 
-  directionContainer = new BehaviorSubject<Direction>(
-    ContainerDirection.Column
-  );
+  directionContainer = new BehaviorSubject<Direction>(ContainerDirection.Column);
 
   /** iternal function for handling raw Direction types*/
   private directionR(value: Direction): ContainerElement {
@@ -142,9 +131,7 @@ export class ContainerElement extends BaseElement implements IElement {
  * ]);
  *
  */
-const Container = (
-  children: Observable<Children> | Children
-): ContainerElement => {
+const Container = (children: Observable<Children> | Children): ContainerElement => {
   return new ContainerElement().children(children);
 };
 

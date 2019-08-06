@@ -6,10 +6,5 @@ export enum ButtonColor {
 }
 
 export function isButtonColor(value: any): value is ButtonColor {
-  return (
-    value === "default" ||
-    value === "inherit" ||
-    value === "primary" ||
-    value === "secondary"
-  );
+  return value === "default" || value === "inherit" || value === "primary" || value === "secondary";
 }

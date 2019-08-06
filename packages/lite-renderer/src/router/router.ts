@@ -120,9 +120,7 @@ var Base64 = {
       } else {
         c2 = utftext.charCodeAt(i + 1);
         c3 = utftext.charCodeAt(i + 2);
-        string += String.fromCharCode(
-          ((c & 15) << 12) | ((c2 & 63) << 6) | (c3 & 63)
-        );
+        string += String.fromCharCode(((c & 15) << 12) | ((c2 & 63) << 6) | (c3 & 63));
         i += 3;
       }
     } // Whend
@@ -131,8 +129,7 @@ var Base64 = {
   } // End Function _utf8_decode
 };
 
-const isObject = (obj: any) =>
-  obj && typeof obj === "object" && !Array.isArray(obj);
+const isObject = (obj: any) => obj && typeof obj === "object" && !Array.isArray(obj);
 const getObjectKeys = (obj: object) => (isObject(obj) ? Object.keys(obj) : []);
 
 const viewsForDirector = (views: any, store: any) =>
@@ -146,11 +143,7 @@ interface RegexCallBack {
   (value: RegExpExecArray): void;
 }
 
-const getRegexMatches = (
-  string: string,
-  regexExpression: RegExp,
-  callback: RegexCallBack
-) => {
+const getRegexMatches = (string: string, regexExpression: RegExp, callback: RegexCallBack) => {
   let match;
   while ((match = regexExpression.exec(string)) !== null) {
     callback(match);
@@ -252,14 +245,8 @@ export const createOnHashChangeFunction = (routes: FRoute[]) => {
   return (): [IDataController, FRoute] | undefined => {
     var currentRoute = onRoutChange();
     for (let route of routes) {
-      if (
-        route.path == currentRoute.path ||
-        (route.path == "/" && !currentRoute.path)
-      )
-        return [
-          route.builder(route.path, currentRoute.params),
-          route as FRoute
-        ];
+      if (route.path == currentRoute.path || (route.path == "/" && !currentRoute.path))
+        return [route.builder(route.path, currentRoute.params), route as FRoute];
     }
   };
 };

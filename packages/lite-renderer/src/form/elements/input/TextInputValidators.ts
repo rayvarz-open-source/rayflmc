@@ -2,9 +2,7 @@ import { ValidationResult } from "../../../flmc-data-layer/FormController/IEleme
 export type TextInputValidator = (value: string) => ValidationResult;
 export type TextInputValidatorBuilder = (...args: any[]) => TextInputValidator;
 
-export function isTextInputValidator(
-  value: any
-): value is TextInputValidatorBuilder {
+export function isTextInputValidator(value: any): value is TextInputValidatorBuilder {
   return typeof value == "function";
 }
 
@@ -20,22 +18,12 @@ export function makeTextInputValidations(
 ): { [name: string]: TextInputValidatorBuilder } {
   return {
     contains: (compare: string) => (value: string) =>
-      new ValidationResult(
-        value.includes(compare),
-        localization.contains.replace("{compare}", compare)
-      ),
-    notEmpty: () => (value: string) =>
-      new ValidationResult(value != "" && value != null, localization.notEmpty),
+      new ValidationResult(value.includes(compare), localization.contains.replace("{compare}", compare)),
+    notEmpty: () => (value: string) => new ValidationResult(value != "" && value != null, localization.notEmpty),
     maxLength: (length: number) => (value: string) =>
-      new ValidationResult(
-        value.length <= length,
-        localization.maxLength.replace("{length}", length.toString())
-      ),
+      new ValidationResult(value.length <= length, localization.maxLength.replace("{length}", length.toString())),
     minLength: (length: number) => (value: string) =>
-      new ValidationResult(
-        value.length >= length,
-        localization.maxLength.replace("{length}", length.toString())
-      )
+      new ValidationResult(value.length >= length, localization.maxLength.replace("{length}", length.toString()))
   };
 }
 

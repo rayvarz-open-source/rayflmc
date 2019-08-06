@@ -1,6 +1,4 @@
-import IElement, {
-  ValidationResult
-} from "../../../flmc-data-layer/FormController/IElement";
+import IElement, { ValidationResult } from "../../../flmc-data-layer/FormController/IElement";
 import { ElementType } from "../ElementType";
 import { Observable, BehaviorSubject, isObservable } from "rxjs";
 import { BaseElement } from "../base/BaseElement";
@@ -95,9 +93,7 @@ export class TextInputElement extends BaseElement implements IElement {
    * controller.next("new value")
    *
    */
-  value(
-    value: BehaviorSubject<Value> | Observable<Value> | Value
-  ): TextInputElement {
+  value(value: BehaviorSubject<Value> | Observable<Value> | Value): TextInputElement {
     if (TypeGuards.isValue(value)) return this.valueR(value);
     else if (isSubject(value)) return this.valueB(value);
     else if (isObservable(value)) return this.valueO(value);
@@ -545,9 +541,7 @@ export class TextInputElement extends BaseElement implements IElement {
    *
    * see https://material-ui.com/components/text-fields/ or https://material-ui.com/api/text-field/ for more info
    */
-  onEndIconClick(
-    value: Observable<OnEndIconClick> | OnEndIconClick
-  ): TextInputElement {
+  onEndIconClick(value: Observable<OnEndIconClick> | OnEndIconClick): TextInputElement {
     if (TypeGuards.isOnEndIconClick(value)) return this.onEndIconClickR(value);
     else if (isObservable(value)) return this.onEndIconClickO(value);
     throw new Error(`invalid type ${typeof value} for OnEndIconClick`);
@@ -562,9 +556,7 @@ export class TextInputElement extends BaseElement implements IElement {
   }
 
   /** iternal function for handling Observable<OnStartIconClick> types*/
-  private onStartIconClickO(
-    value: Observable<OnStartIconClick>
-  ): TextInputElement {
+  private onStartIconClickO(value: Observable<OnStartIconClick>): TextInputElement {
     value.subscribe({ next: v => this.onStartIconClickContainer.next(v) });
     return this;
   }
@@ -577,11 +569,8 @@ export class TextInputElement extends BaseElement implements IElement {
    *
    * see https://material-ui.com/components/text-fields/ or https://material-ui.com/api/text-field/ for more info
    */
-  onStartIconClick(
-    value: Observable<OnStartIconClick> | OnStartIconClick
-  ): TextInputElement {
-    if (TypeGuards.isOnStartIconClick(value))
-      return this.onStartIconClickR(value);
+  onStartIconClick(value: Observable<OnStartIconClick> | OnStartIconClick): TextInputElement {
+    if (TypeGuards.isOnStartIconClick(value)) return this.onStartIconClickR(value);
     else if (isObservable(value)) return this.onStartIconClickO(value);
     throw new Error(`invalid type ${typeof value} for OnStartIconClick`);
   }
@@ -631,9 +620,7 @@ export class TextInputElement extends BaseElement implements IElement {
  * TextInput(controller);
  *
  */
-const TextInput = (
-  value: BehaviorSubject<Value> | Observable<Value> | Value
-): TextInputElement => {
+const TextInput = (value: BehaviorSubject<Value> | Observable<Value> | Value): TextInputElement => {
   return new TextInputElement().value(value);
 };
 

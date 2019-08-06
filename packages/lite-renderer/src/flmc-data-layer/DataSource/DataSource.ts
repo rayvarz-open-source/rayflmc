@@ -28,9 +28,7 @@ export class SingleValueDataSource<T extends IEncodable> implements DataSource {
   loading = new BehaviorSubject<boolean>(false);
 }
 
-export function isSingleValueDataSource(
-  value: any
-): value is SingleValueDataSource<any> {
+export function isSingleValueDataSource(value: any): value is SingleValueDataSource<any> {
   return value.value != null;
 }
 

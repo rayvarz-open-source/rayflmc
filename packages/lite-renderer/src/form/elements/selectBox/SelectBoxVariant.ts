@@ -6,10 +6,5 @@ export enum SelectBoxVariant {
 }
 
 export function isSelectBoxVariant(value: any): value is SelectBoxVariant {
-  return (
-    value == "CheckBox" ||
-    value == "Radio" ||
-    value == "Switch" ||
-    value == "like"
-  );
+  return value == "CheckBox" || value == "Radio" || value == "Switch" || value == "like";
 }

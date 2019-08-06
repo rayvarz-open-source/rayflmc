@@ -1,6 +1,4 @@
-import IElement, {
-  ValidationResult
-} from "../../../flmc-data-layer/FormController/IElement";
+import IElement, { ValidationResult } from "../../../flmc-data-layer/FormController/IElement";
 import { ElementType } from "../ElementType";
 import { Observable, BehaviorSubject, isObservable } from "rxjs";
 import { BaseElement } from "../base/BaseElement";
@@ -50,18 +48,14 @@ export class ChipElement extends BaseElement implements IElement {
    * container that holds chips.
    *
    */
-  value(
-    value: BehaviorSubject<Value> | Observable<Value> | Value
-  ): ChipElement {
+  value(value: BehaviorSubject<Value> | Observable<Value> | Value): ChipElement {
     if (TypeGuards.isValue(value)) return this.valueR(value);
     else if (isObservable(value)) return this.valueO(value);
     else if (isSubject(value)) return this.valueB(value);
     throw new Error(`invalid type ${typeof value} for Value`);
   }
 
-  selectionTypeContainer = new BehaviorSubject<SelectionType>(
-    ChipSelectionType.Show
-  );
+  selectionTypeContainer = new BehaviorSubject<SelectionType>(ChipSelectionType.Show);
 
   /** iternal function for handling raw SelectionType types*/
   private selectionTypeR(value: SelectionType): ChipElement {
@@ -104,9 +98,7 @@ export class ChipElement extends BaseElement implements IElement {
  * Chip(controller);
  *
  */
-const Chip = (
-  value: BehaviorSubject<Value> | Observable<Value> | Value
-): ChipElement => {
+const Chip = (value: BehaviorSubject<Value> | Observable<Value> | Value): ChipElement => {
   return new ChipElement().value(value);
 };
 

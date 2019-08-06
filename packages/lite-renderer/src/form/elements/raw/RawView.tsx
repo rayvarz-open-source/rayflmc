@@ -14,15 +14,13 @@ export default function RawView({ element, weight }: Props) {
   /*******************************************/
   /* GENERATED CODE, DO NOT MODIFY BY HAND!! */
   /*******************************************/
-  const [reactElementBuilder, setReactElementBuilder] = useFunctionAsState<
-    ReactElementBuilder
-  >(_ => null);
+  const [reactElementBuilder, setReactElementBuilder] = useFunctionAsState<ReactElementBuilder>(_ => null);
   const [visibility, setVisibility] = React.useState<Visibility>("show");
 
   React.useEffect(() => {
-    let reactElementBuilderSub = element.reactElementBuilderContainer.subscribe(
-      { next: v => setReactElementBuilder(v) }
-    );
+    let reactElementBuilderSub = element.reactElementBuilderContainer.subscribe({
+      next: v => setReactElementBuilder(v)
+    });
     let visibilitySub = element.elementVisibilityContainer.subscribe({
       next: v => setVisibility(v)
     });

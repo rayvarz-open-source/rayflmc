@@ -1,18 +1,8 @@
-import IElement, {
-  ValidationResult
-} from "../../../flmc-data-layer/FormController/IElement";
+import IElement, { ValidationResult } from "../../../flmc-data-layer/FormController/IElement";
 import { ElementType } from "../ElementType";
 import { Observable, BehaviorSubject, isObservable } from "rxjs";
 import { BaseElement } from "../base/BaseElement";
-import {
-  TypeGuards,
-  Address,
-  Alt,
-  Width,
-  Height,
-  Scale,
-  Border
-} from "./ImageElementAttributes";
+import { TypeGuards, Address, Alt, Width, Height, Scale, Border } from "./ImageElementAttributes";
 import { ImageBorderType } from "./ImageBorderType";
 import { ImageScaleType } from "./ImageScaleType";
 

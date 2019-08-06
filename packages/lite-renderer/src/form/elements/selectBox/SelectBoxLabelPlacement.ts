@@ -5,10 +5,6 @@ export enum SelectBoxLabelPlacement {
   Bottom = "bottom"
 }
 
-export function isSelectBoxLabelPlacement(
-  value: any
-): value is SelectBoxLabelPlacement {
-  return (
-    value == "end" || value == "start" || value == "top" || value == "bottom"
-  );
+export function isSelectBoxLabelPlacement(value: any): value is SelectBoxLabelPlacement {
+  return value == "end" || value == "start" || value == "top" || value == "bottom";
 }

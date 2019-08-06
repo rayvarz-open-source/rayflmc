@@ -6,10 +6,5 @@ export enum ChipSelectionType {
 }
 
 export function isChipSelectionType(value: any): value is ChipSelectionType {
-  return (
-    value === "delete" ||
-    value === "select" ||
-    value === "multiselect" ||
-    value === "show"
-  );
+  return value === "delete" || value === "select" || value === "multiselect" || value === "show";
 }

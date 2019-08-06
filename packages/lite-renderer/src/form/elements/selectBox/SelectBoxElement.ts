@@ -1,6 +1,4 @@
-import IElement, {
-  ValidationResult
-} from "../../../flmc-data-layer/FormController/IElement";
+import IElement, { ValidationResult } from "../../../flmc-data-layer/FormController/IElement";
 import { ElementType } from "../ElementType";
 import { Observable, BehaviorSubject, isObservable } from "rxjs";
 import { BaseElement } from "../base/BaseElement";
@@ -59,9 +57,7 @@ export class SelectBoxElement<T> extends BaseElement implements IElement {
    * current value
    *
    */
-  value(
-    value: BehaviorSubject<Value<T>> | Observable<Value<T>> | Value<T>
-  ): SelectBoxElement<T> {
+  value(value: BehaviorSubject<Value<T>> | Observable<Value<T>> | Value<T>): SelectBoxElement<T> {
     if (isSubject(value)) return this.valueB(value);
     else if (isObservable(value)) return this.valueO(value);
     return this.valueR(value);
@@ -76,9 +72,7 @@ export class SelectBoxElement<T> extends BaseElement implements IElement {
   }
 
   /** iternal function for handling Observable<Selectedvalue> types*/
-  private selectedValueO(
-    value: Observable<SelectedValue<T>>
-  ): SelectBoxElement<T> {
+  private selectedValueO(value: Observable<SelectedValue<T>>): SelectBoxElement<T> {
     value.subscribe({ next: v => this.selectedValueContainer.next(v) });
     return this;
   }
@@ -89,9 +83,7 @@ export class SelectBoxElement<T> extends BaseElement implements IElement {
    * if value equal to this value, select box will be checked
    *
    */
-  selectedvalue(
-    value: Observable<SelectedValue<T>> | SelectedValue<T>
-  ): SelectBoxElement<T> {
+  selectedvalue(value: Observable<SelectedValue<T>> | SelectedValue<T>): SelectBoxElement<T> {
     if (isObservable(value)) this.selectedValueO(value);
     else this.selectedValueR(value);
     return this;
@@ -124,9 +116,7 @@ export class SelectBoxElement<T> extends BaseElement implements IElement {
     throw new Error(`invalid type ${typeof value} for Label`);
   }
 
-  labelPlacementContainer = new BehaviorSubject<LabelPlacement>(
-    SelectBoxLabelPlacement.End
-  );
+  labelPlacementContainer = new BehaviorSubject<LabelPlacement>(SelectBoxLabelPlacement.End);
 
   /** iternal function for handling raw LabelPlacement types*/
   private labelPlacementR(value: LabelPlacement): SelectBoxElement<T> {
@@ -135,9 +125,7 @@ export class SelectBoxElement<T> extends BaseElement implements IElement {
   }
 
   /** iternal function for handling Observable<LabelPlacement> types*/
-  private labelPlacementO(
-    value: Observable<LabelPlacement>
-  ): SelectBoxElement<T> {
+  private labelPlacementO(value: Observable<LabelPlacement>): SelectBoxElement<T> {
     value.subscribe({ next: v => this.labelPlacementContainer.next(v) });
     return this;
   }
@@ -148,9 +136,7 @@ export class SelectBoxElement<T> extends BaseElement implements IElement {
    * position of label relative to SelectBox
    *
    */
-  labelPlacement(
-    value: Observable<LabelPlacement> | LabelPlacement
-  ): SelectBoxElement<T> {
+  labelPlacement(value: Observable<LabelPlacement> | LabelPlacement): SelectBoxElement<T> {
     if (TypeGuards.isLabelPlacement(value)) return this.labelPlacementR(value);
     else if (isObservable(value)) return this.labelPlacementO(value);
     throw new Error(`invalid type ${typeof value} for LabelPlacement`);

@@ -1,6 +1,4 @@
-import IElement, {
-  ValidationResult
-} from "../../../flmc-data-layer/FormController/IElement";
+import IElement, { ValidationResult } from "../../../flmc-data-layer/FormController/IElement";
 import { ElementType } from "../ElementType";
 import { Observable, BehaviorSubject, isObservable } from "rxjs";
 import { BaseElement } from "../base/BaseElement";
@@ -22,9 +20,7 @@ export class RawElement extends BaseElement implements IElement {
     return ElementType.Raw;
   }
 
-  reactElementBuilderContainer = new BehaviorSubject<ReactElementBuilder>(
-    _ => null
-  );
+  reactElementBuilderContainer = new BehaviorSubject<ReactElementBuilder>(_ => null);
 
   /** iternal function for handling raw ReactElementBuilder types*/
   private reactElementBuilderR(value: ReactElementBuilder): RawElement {
@@ -33,9 +29,7 @@ export class RawElement extends BaseElement implements IElement {
   }
 
   /** iternal function for handling Observable<ReactElementBuilder> types*/
-  private reactElementBuilderO(
-    value: Observable<ReactElementBuilder>
-  ): RawElement {
+  private reactElementBuilderO(value: Observable<ReactElementBuilder>): RawElement {
     value.subscribe({ next: v => this.reactElementBuilderContainer.next(v) });
     return this;
   }
@@ -45,11 +39,8 @@ export class RawElement extends BaseElement implements IElement {
    *
    * container children
    */
-  reactElementBuilder(
-    value: Observable<ReactElementBuilder> | ReactElementBuilder
-  ): RawElement {
-    if (TypeGuards.isReactElementBuilder(value))
-      return this.reactElementBuilderR(value);
+  reactElementBuilder(value: Observable<ReactElementBuilder> | ReactElementBuilder): RawElement {
+    if (TypeGuards.isReactElementBuilder(value)) return this.reactElementBuilderR(value);
     else if (isObservable(value)) return this.reactElementBuilderO(value);
     throw new Error(`invalid type ${typeof value} for ReactElementBuilder`);
   }
@@ -68,9 +59,7 @@ export class RawElement extends BaseElement implements IElement {
  * @example
  *
  */
-const Raw = (
-  reactElementBuilder: Observable<ReactElementBuilder> | ReactElementBuilder
-): RawElement => {
+const Raw = (reactElementBuilder: Observable<ReactElementBuilder> | ReactElementBuilder): RawElement => {
   return new RawElement().reactElementBuilder(reactElementBuilder);
 };
 

@@ -1,20 +1,9 @@
-import IElement, {
-  ValidationResult
-} from "../../../flmc-data-layer/FormController/IElement";
+import IElement, { ValidationResult } from "../../../flmc-data-layer/FormController/IElement";
 import { ElementType } from "../ElementType";
 import { Observable, BehaviorSubject, isObservable } from "rxjs";
 import { BaseElement } from "../base/BaseElement";
 import { isSubject } from "../../../flmc-data-layer";
-import {
-  TypeGuards,
-  Text,
-  Loading,
-  Disabled,
-  Colors,
-  Variant,
-  Icon,
-  OnClick
-} from "./ButtonElementAttributes";
+import { TypeGuards, Text, Loading, Disabled, Colors, Variant, Icon, OnClick } from "./ButtonElementAttributes";
 
 export class ButtonElement extends BaseElement implements IElement {
   validate(): ValidationResult {

@@ -34,10 +34,7 @@ import { ContainerDirection } from "./form/elements/container/ContainerDirection
 import { ButtonColor } from "./form/elements/button/ButtonColor.js";
 import { ButtonVariant } from "./form/elements/button/ButtonVariant.js";
 import Space from "./form/elements/space/SpaceElement.js";
-import {
-  TextInputValidations,
-  makeTextInputValidations
-} from "./form/elements/input/TextInputValidators.js";
+import { TextInputValidations, makeTextInputValidations } from "./form/elements/input/TextInputValidators.js";
 import FLMC from "./FLMC";
 import { Skeleton } from "./skeleton/SkeletonAttribute";
 

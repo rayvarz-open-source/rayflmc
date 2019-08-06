@@ -1,6 +1,4 @@
-import IElement, {
-  ValidationResult
-} from "../../../../flmc-data-layer/FormController/IElement";
+import IElement, { ValidationResult } from "../../../../flmc-data-layer/FormController/IElement";
 import { ElementType } from "../../ElementType";
 import { Observable, BehaviorSubject, isObservable } from "rxjs";
 import { isSubject } from "../../../../flmc-data-layer/FormController/Elements/RxUtils";
@@ -121,15 +119,13 @@ export class TimePickerElement extends BaseElement implements IElement {
   }
 
   private selectedTimeR(text: string): TimePickerElement {
-    if (this.TimePickerTime == null)
-      this.TimePickerTime = new BehaviorSubject<string>("");
+    if (this.TimePickerTime == null) this.TimePickerTime = new BehaviorSubject<string>("");
     this.TimePickerTime.next(text);
     return this;
   }
 
   private selectedTimeO(text: Observable<string>): TimePickerElement {
-    if (this.TimePickerTime == null)
-      this.TimePickerTime = new BehaviorSubject<string>("");
+    if (this.TimePickerTime == null) this.TimePickerTime = new BehaviorSubject<string>("");
     text.subscribe({
       next: v => this.TimePickerTime.next(v)
     });
@@ -141,11 +137,8 @@ export class TimePickerElement extends BaseElement implements IElement {
     return this;
   }
 
-  selectedTime(
-    selectedTime: BehaviorSubject<string> | Observable<string> | string
-  ): TimePickerElement {
-    if (typeof selectedTime === "string")
-      return this.selectedTimeR(selectedTime);
+  selectedTime(selectedTime: BehaviorSubject<string> | Observable<string> | string): TimePickerElement {
+    if (typeof selectedTime === "string") return this.selectedTimeR(selectedTime);
     if (isSubject(selectedTime)) return this.selectedTimeB(selectedTime);
     if (isObservable(selectedTime)) return this.selectedTimeO(selectedTime);
     throw new Error("given text type is not supported");

@@ -10,10 +10,7 @@ import { SearchableMixin } from "../DataSource/Searchable";
  *
  * TODO: finalize interface
  */
-export class RawListController<
-  T extends IEncodable,
-  DS extends ListDataSource<any>
-> implements IDataController {
+export class RawListController<T extends IEncodable, DS extends ListDataSource<any>> implements IDataController {
   constructor(public datasource: DS) {}
 
   beforeDispose(): void {

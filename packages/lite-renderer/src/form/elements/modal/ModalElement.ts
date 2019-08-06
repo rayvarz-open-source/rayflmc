@@ -1,18 +1,9 @@
-import IElement, {
-  ValidationResult
-} from "../../../flmc-data-layer/FormController/IElement";
+import IElement, { ValidationResult } from "../../../flmc-data-layer/FormController/IElement";
 import { ElementType } from "../ElementType";
 import { Observable, BehaviorSubject, isObservable } from "rxjs";
 import { BaseElement } from "../base/BaseElement";
 import { isSubject } from "../../../flmc-data-layer";
-import {
-  TypeGuards,
-  Child,
-  Open,
-  VisibileHeader,
-  VisibileHeaderCloseButton,
-  Title
-} from "./ModalElementAttributes";
+import { TypeGuards, Child, Open, VisibileHeader, VisibileHeaderCloseButton, Title } from "./ModalElementAttributes";
 
 export class ModalElement extends BaseElement implements IElement {
   validate(): ValidationResult {
@@ -106,30 +97,22 @@ export class ModalElement extends BaseElement implements IElement {
    *
    *
    */
-  visibileHeader(
-    value: Observable<VisibileHeader> | VisibileHeader
-  ): ModalElement {
+  visibileHeader(value: Observable<VisibileHeader> | VisibileHeader): ModalElement {
     if (TypeGuards.isVisibileHeader(value)) return this.visibileHeaderR(value);
     else if (isObservable(value)) return this.visibileHeaderO(value);
     throw new Error(`invalid type ${typeof value} for VisibileHeader`);
   }
 
-  visibileHeaderCloseButtonContainer = new BehaviorSubject<
-    VisibileHeaderCloseButton
-  >(true);
+  visibileHeaderCloseButtonContainer = new BehaviorSubject<VisibileHeaderCloseButton>(true);
 
   /** iternal function for handling raw VisibileHeaderCloseButton types*/
-  private visibileHeaderCloseButtonR(
-    value: VisibileHeaderCloseButton
-  ): ModalElement {
+  private visibileHeaderCloseButtonR(value: VisibileHeaderCloseButton): ModalElement {
     this.visibileHeaderCloseButtonContainer.next(value);
     return this;
   }
 
   /** iternal function for handling Observable<VisibileHeaderCloseButton> types*/
-  private visibileHeaderCloseButtonO(
-    value: Observable<VisibileHeaderCloseButton>
-  ): ModalElement {
+  private visibileHeaderCloseButtonO(value: Observable<VisibileHeaderCloseButton>): ModalElement {
     value.subscribe({
       next: v => this.visibileHeaderCloseButtonContainer.next(v)
     });
@@ -141,15 +124,10 @@ export class ModalElement extends BaseElement implements IElement {
    *
    *
    */
-  visibileHeaderCloseButton(
-    value: Observable<VisibileHeaderCloseButton> | VisibileHeaderCloseButton
-  ): ModalElement {
-    if (TypeGuards.isVisibileHeaderCloseButton(value))
-      return this.visibileHeaderCloseButtonR(value);
+  visibileHeaderCloseButton(value: Observable<VisibileHeaderCloseButton> | VisibileHeaderCloseButton): ModalElement {
+    if (TypeGuards.isVisibileHeaderCloseButton(value)) return this.visibileHeaderCloseButtonR(value);
     else if (isObservable(value)) return this.visibileHeaderCloseButtonO(value);
-    throw new Error(
-      `invalid type ${typeof value} for VisibileHeaderCloseButton`
-    );
+    throw new Error(`invalid type ${typeof value} for VisibileHeaderCloseButton`);
   }
 
   titleContainer = new BehaviorSubject<Title>(undefined);

@@ -37,9 +37,7 @@ export class TextInputElement implements IElement {
     return this;
   }
 
-  text(
-    text: BehaviorSubject<string> | Observable<string> | string
-  ): TextInputElement {
+  text(text: BehaviorSubject<string> | Observable<string> | string): TextInputElement {
     if (typeof text === "string") return this.textR(text);
     if (isSubject(text)) return this.textB(text);
     if (isObservable(text)) return this.textO(text);
@@ -47,9 +45,7 @@ export class TextInputElement implements IElement {
   }
 }
 
-const TextInput = (
-  controller: string | Observable<string> | BehaviorSubject<string>
-): TextInputElement => {
+const TextInput = (controller: string | Observable<string> | BehaviorSubject<string>): TextInputElement => {
   return new TextInputElement().text(controller);
 };
 

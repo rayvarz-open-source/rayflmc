@@ -7,11 +7,5 @@ export enum TextAlignment {
 }
 
 export function isTextAlignment(value: any): value is TextAlignment {
-  return (
-    value === "left" ||
-    value === "center" ||
-    value === "right" ||
-    value === "justify" ||
-    value === "inherit"
-  );
+  return value === "left" || value === "center" || value === "right" || value === "justify" || value === "inherit";
 }

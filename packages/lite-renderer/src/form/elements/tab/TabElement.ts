@@ -1,22 +1,13 @@
-import IElement, {
-  ValidationResult
-} from "../../../flmc-data-layer/FormController/IElement";
+import IElement, { ValidationResult } from "../../../flmc-data-layer/FormController/IElement";
 import { ElementType } from "../ElementType";
 import { Observable, BehaviorSubject, isObservable } from "rxjs";
 import { BaseElement } from "../base/BaseElement";
 import { isSubject } from "../../../flmc-data-layer";
-import {
-  TypeGuards,
-  TabElements,
-  TabTitles,
-  CurrentTab
-} from "./TabElementAttributes";
+import { TypeGuards, TabElements, TabTitles, CurrentTab } from "./TabElementAttributes";
 
 export class TabElement extends BaseElement implements IElement {
   validate(): ValidationResult {
-    let validationResults = (this.tabElementsContainer.value || []).map(v =>
-      v.validate()
-    );
+    let validationResults = (this.tabElementsContainer.value || []).map(v => v.validate());
     for (let validationResult of validationResults) {
       if (!validationResult.isValid) return new ValidationResult(false, "");
     }
@@ -111,9 +102,7 @@ export class TabElement extends BaseElement implements IElement {
    * TODO: add docs
    *
    */
-  currentTab(
-    value: BehaviorSubject<CurrentTab> | Observable<CurrentTab> | CurrentTab
-  ): TabElement {
+  currentTab(value: BehaviorSubject<CurrentTab> | Observable<CurrentTab> | CurrentTab): TabElement {
     if (TypeGuards.isCurrentTab(value)) return this.currentTabR(value);
     else if (isObservable(value)) return this.currentTabO(value);
     else if (isSubject(value)) return this.currentTabB(value);
@@ -136,9 +125,7 @@ export class TabElement extends BaseElement implements IElement {
  * TODO: add docs
  *
  */
-const Tab = (
-  currentTab: BehaviorSubject<CurrentTab> | Observable<CurrentTab> | CurrentTab
-): TabElement => {
+const Tab = (currentTab: BehaviorSubject<CurrentTab> | Observable<CurrentTab> | CurrentTab): TabElement => {
   return new TabElement().currentTab(currentTab);
 };
 

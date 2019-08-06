@@ -17,23 +17,17 @@ export class ContainerElement implements IElement {
   childrenContainer!: BehaviorSubject<IElement[]>;
 
   validate(): ValidationResult {
-    return new ValidationResult(
-      this.childrenContainer.value
-        .map(i => i.validate().isValid)
-        .reduce((p, c) => p && c)
-    );
+    return new ValidationResult(this.childrenContainer.value.map(i => i.validate().isValid).reduce((p, c) => p && c));
   }
 
   private childrenR(children: IElement[]): ContainerElement {
-    if (this.childrenContainer == null)
-      this.childrenContainer = new BehaviorSubject<IElement[]>([]);
+    if (this.childrenContainer == null) this.childrenContainer = new BehaviorSubject<IElement[]>([]);
     this.childrenContainer.next(children);
     return this;
   }
 
   private childrenO(children: Observable<IElement[]>): ContainerElement {
-    if (this.childrenContainer == null)
-      this.childrenContainer = new BehaviorSubject<IElement[]>([]);
+    if (this.childrenContainer == null) this.childrenContainer = new BehaviorSubject<IElement[]>([]);
     children.subscribe({
       next: v => this.childrenContainer.next(v)
     });
@@ -69,9 +63,7 @@ export class ContainerElement implements IElement {
   }
 }
 
-const Container = (
-  children?: Observable<IElement[]> | IElement[]
-): ContainerElement => {
+const Container = (children?: Observable<IElement[]> | IElement[]): ContainerElement => {
   let element = new ContainerElement();
   if (children) return element.children(children);
   return element;
