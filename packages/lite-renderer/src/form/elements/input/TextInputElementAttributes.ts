@@ -138,13 +138,13 @@ export type Rows = number;
  */
 export type RowsMax = number;
 /**
- * @[{"bidirectional":false,"required":false,"typeguard":"isDirection","default": "'ltr'"}]
+ * @[{"bidirectional":false,"required":false,"typeguard":"isDirection","default": "'default'"}]
  * text direction
  * valid inputs : TextDirection.rtl, TextDirection.ltr, "rtl", "ltr"
  * 
  * see https://material-ui.com/components/text-fields/ or https://material-ui.com/api/text-field/ for more info
  */
-export type Direction = TextDirection | "rtl" | "ltr";
+export type Direction = TextDirection | "rtl" | "ltr" | "default";
 /**
  * @[{"bidirectional":false,"required":false,"typeguard":"isOnEndIconClick","default": "undefined"}]
  * fires when user clicks on EndIcon
@@ -189,7 +189,7 @@ export const TypeGuards = {
     isVariant: (value: any): value is Variant => value === 'standard' || value === 'filled' || value === 'outlined',
     isRows: (value: any): value is Rows => typeof(value) == "number",
     isRowsMax: (value: any): value is RowsMax => typeof(value) == "number",
-    isDirection: (value: any): value is Direction => value === "rtl" || value === "ltr",
+    isDirection: (value: any): value is Direction => value === "rtl" || value === "ltr" || value === "default",
     isOnEndIconClick: (value: any): value is OnEndIconClick => typeof(value) == "function",
     isOnStartIconClick: (value: any): value is OnStartIconClick => typeof(value) == "function",
     isValidation: (value: any): value is Validations => (value.map != null) && (value.length < 2 || value.map((i: any) => typeof (i) == "function").reduce((p: boolean, c: boolean) => p && c)),

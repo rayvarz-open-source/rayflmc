@@ -1,21 +1,44 @@
-import { TextInputElement } from './TextInputElement';
-import * as React from 'react';
-import { Value, Label, Placeholder, Disabled, HelperText, IsInError ,StartText, EndText, StartIcon, EndIcon, Variant, Password, Multiline, Rows, RowsMax, Direction, OnEndIconClick, OnStartIconClick } from './TextInputElementAttributes';
-import { Visibility } from '../base/BaseElement';
-import { TextField, InputAdornment, IconButton, Icon } from '@material-ui/core';
-import useFunctionAsState from '../../../custom-hooks/function-state';
+import { TextInputElement } from "./TextInputElement";
+import * as React from "react";
+import {
+  Value,
+  Label,
+  Placeholder,
+  Disabled,
+  HelperText,
+  IsInError,
+  StartText,
+  EndText,
+  StartIcon,
+  EndIcon,
+  Variant,
+  Password,
+  Multiline,
+  Rows,
+  RowsMax,
+  Direction,
+  OnEndIconClick,
+  OnStartIconClick
+} from "./TextInputElementAttributes";
+import { Visibility } from "../base/BaseElement";
+import { TextField, InputAdornment, IconButton, Icon } from "@material-ui/core";
+import useFunctionAsState from "../../../custom-hooks/function-state";
+import { useTheme } from "@material-ui/styles";
+import { Theme } from "@material-ui/core/styles/createMuiTheme";
 
 type Props = {
-  element: TextInputElement,
-  weight: number
-}
+  element: TextInputElement;
+  weight: number;
+};
 
 export default function TextInputView({ element, weight }: Props) {
+  const theme = useTheme<Theme>();
+
   //region generated
   /*******************************************/
   /* GENERATED CODE, DO NOT MODIFY BY HAND!! */
   /*******************************************/
-  const [value, setValue] = React.useState<Value>('');
+  const [value, setValue] = React.useState<Value>("");
   const [label, setLabel] = React.useState<Label>(undefined);
   const [placeholder, setPlaceholder] = React.useState<Placeholder>(undefined);
   const [disabled, setDisabled] = React.useState<Disabled>(false);
@@ -25,18 +48,17 @@ export default function TextInputView({ element, weight }: Props) {
   const [endText, setEndText] = React.useState<EndText>(undefined);
   const [startIcon, setStartIcon] = React.useState<StartIcon>(undefined);
   const [endIcon, setEndIcon] = React.useState<EndIcon>(undefined);
-  const [variant, setVariant] = React.useState<Variant>('standard');
+  const [variant, setVariant] = React.useState<Variant>("standard");
   const [password, setPassword] = React.useState<Password>(false);
   const [multiline, setMultiline] = React.useState<Multiline>(false);
   const [rows, setRows] = React.useState<Rows>(0);
   const [rowsMax, setRowsMax] = React.useState<RowsMax>(0);
-  const [direction, setDirection] = React.useState<Direction>('ltr');
+  const [direction, setDirection] = React.useState<Direction>("default");
   const [onEndIconClick, setOnEndIconClick] = useFunctionAsState<OnEndIconClick>(undefined);
   const [onStartIconClick, setOnStartIconClick] = useFunctionAsState<OnStartIconClick>(undefined);
-  const [visibility, setVisibility] = React.useState<Visibility>('show');
+  const [visibility, setVisibility] = React.useState<Visibility>("show");
 
   React.useEffect(() => {
-
     let valueSub = element.valueContainer.subscribe({ next: v => setValue(v) });
     let labelSub = element.labelContainer.subscribe({ next: v => setLabel(v) });
     let placeholderSub = element.placeholderContainer.subscribe({ next: v => setPlaceholder(v) });
@@ -100,8 +122,7 @@ export default function TextInputView({ element, weight }: Props) {
           </IconButton>
         </InputAdornment>
       );
-    if (endText !== undefined)
-      return (<InputAdornment position="end">{endText}</InputAdornment>);
+    if (endText !== undefined) return <InputAdornment position="end">{endText}</InputAdornment>;
 
     return undefined;
   }
@@ -116,27 +137,26 @@ export default function TextInputView({ element, weight }: Props) {
           </IconButton>
         </InputAdornment>
       );
-    if (startText !== undefined)
-      return (<InputAdornment position="start">{startText}</InputAdornment>);
+    if (startText !== undefined) return <InputAdornment position="start">{startText}</InputAdornment>;
 
     return undefined;
   }
 
+  const viewDirection = direction == "default" ? (theme == null ? "ltr" : theme.direction) : direction;
+
   return (
     <TextField
-      style={
-        {
-          ...element.getVisibilityStyle(visibility),
-          ...element.getWeightStyle(weight)
-        }
-      }
+      style={{
+        ...element.getVisibilityStyle(visibility),
+        ...element.getWeightStyle(weight)
+      }}
       placeholder={placeholder}
       variant={variant as any}
       multiline={multiline}
       rowsMax={rowsMax}
-      inputProps={{ dir: direction }}
+      inputProps={{ dir: viewDirection }}
       rows={rows}
-      type={password ? 'password' : 'text'}
+      type={password ? "password" : "text"}
       label={label}
       helperText={helperText}
       onChange={handleChange}
@@ -145,10 +165,8 @@ export default function TextInputView({ element, weight }: Props) {
       error={isInError}
       InputProps={{
         endAdornment: createEndAdornment(),
-        startAdornment: createStartAdornment(),
+        startAdornment: createStartAdornment()
       }}
-
     />
   );
-
 }

@@ -1,4 +1,5 @@
 export enum TextDirection {
   Rtl = "rtl",
-  Ltr = "ltr"
+  Ltr = "ltr",
+  Default = "default"
 }

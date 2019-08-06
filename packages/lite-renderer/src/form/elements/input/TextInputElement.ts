@@ -491,7 +491,7 @@ export class TextInputElement extends BaseElement implements IElement {
     throw new Error(`invalid type ${typeof value} for RowsMax`);
   }
 
-  directionContainer = new BehaviorSubject<Direction>("ltr");
+  directionContainer = new BehaviorSubject<Direction>("default");
 
   /** iternal function for handling raw Direction types*/
   private directionR(value: Direction): TextInputElement {
