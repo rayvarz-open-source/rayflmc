@@ -26,13 +26,21 @@ import SpaceView from "./space/SpaceView";
 import { SpaceElement } from "./space/SpaceElement";
 import RawView from "./raw/RawView";
 import { RawElement } from "./raw/RawElement";
+import { CustomElementContext } from "./CustomElementsContext";
 
-type Props = {
+export type MapperProps = {
   element: IElement;
   weight: number;
 };
 
-export function MapToView({ element, weight }: Props) {
+export function MapToView({ element, weight }: MapperProps) {
+  const customMappers = React.useContext(CustomElementContext);
+
+  for (let mapper of customMappers) {
+    let view = mapper({ element, weight });
+    if (view != null) return view;
+  }
+
   switch (element.type) {
     case ElementType.Button:
       return <ButtonView element={element as ButtonElement} weight={weight} />;
