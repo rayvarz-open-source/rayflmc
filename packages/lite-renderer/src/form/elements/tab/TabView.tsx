@@ -1,18 +1,16 @@
-
-import { TabElement } from './TabElement';
-import * as React from 'react';
-import { TabElements, TabTitles, CurrentTab } from './TabElementAttributes';
-import { Visibility } from '../base/BaseElement';
-import { AppBar, Tabs, Tab } from '@material-ui/core';
-import { MapToView } from '../ElementToViewMapper';
+import { TabElement } from "./TabElement";
+import * as React from "react";
+import { TabElements, TabTitles, CurrentTab } from "./TabElementAttributes";
+import { Visibility } from "../base/BaseElement";
+import { AppBar, Tabs, Tab } from "@material-ui/core";
+import { MapToView } from "../ElementToViewMapper";
 
 type Props = {
-  element: TabElement,
-  weight: number
-}
+  element: TabElement;
+  weight: number;
+};
 
 export default function TabView({ element, weight }: Props) {
-
   //region generated
   /*******************************************/
   /* GENERATED CODE, DO NOT MODIFY BY HAND!! */
@@ -20,10 +18,9 @@ export default function TabView({ element, weight }: Props) {
   const [tabElements, setTabElements] = React.useState<TabElements>([]);
   const [tabTitles, setTabTitles] = React.useState<TabTitles>([]);
   const [currentTab, setCurrentTab] = React.useState<CurrentTab>(0);
-  const [visibility, setVisibility] = React.useState<Visibility>('show');
+  const [visibility, setVisibility] = React.useState<Visibility>("show");
 
   React.useEffect(() => {
-
     let tabElementsSub = element.tabElementsContainer.subscribe({ next: v => setTabElements(v) });
     let tabTitlesSub = element.tabTitlesContainer.subscribe({ next: v => setTabTitles(v) });
     let currentTabSub = element.currentTabContainer.subscribe({ next: v => setCurrentTab(v) });
@@ -46,25 +43,24 @@ export default function TabView({ element, weight }: Props) {
   }
 
   function renderChildren() {
-    return tabElements.map((v, i) =>
-      <div style={i == currentTab ? element.showStyle : element.goneStyle}>
-        <MapToView element={v} weight={0} key={`${v.type}_${i}`} />
+    return tabElements.map((v, i) => (
+      <div style={i == currentTab ? element.showStyle : element.goneStyle} key={`${v.type}_${i}`}>
+        <MapToView element={v} weight={0} />
       </div>
-    );
+    ));
   }
 
   function renderChildrenTitle() {
-    return tabTitles.map((v, i) => <Tab label={v} key={`${i}`} />);
+    return tabTitles.map((v, i) => <Tab label={v} key={`tab_title_${i}`} />);
   }
 
   return (
     <div
-      style={
-        {
-          ...element.getVisibilityStyle(visibility),
-          ...element.getWeightStyle(weight)
-        }
-      }>
+      style={{
+        ...element.getVisibilityStyle(visibility),
+        ...element.getWeightStyle(weight)
+      }}
+    >
       <AppBar position="static" color="default">
         <Tabs
           value={currentTab}
@@ -78,6 +74,5 @@ export default function TabView({ element, weight }: Props) {
       </AppBar>
       {renderChildren()}
     </div>
-  )
-
+  );
 }
