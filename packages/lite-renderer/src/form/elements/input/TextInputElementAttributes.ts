@@ -162,13 +162,19 @@ export type OnEndIconClick = VoidFunction | undefined;
  */
 export type OnStartIconClick = VoidFunction | undefined;
 /**
- * @[{"bidirectional":false,"required":false,"typeguard":"isValidation","default": "[]"}]
+ * @[{"bidirectional":false,"required":false,"typeguard":"isValidation","default":"[]"}]
  * validations
  * create a custom validation or use TextInputValidations.*
  * 
  * TODO: add docs
  */
 export type Validations = TextInputValidator[];
+/**
+ * @[{"bidirectional":false,"required":false,"default":"false"}]
+ * 
+ * TODO: add docs
+ */
+export type NumberFormatter = boolean;
 // End Element
 
 // type guards

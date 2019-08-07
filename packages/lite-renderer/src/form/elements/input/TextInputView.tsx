@@ -18,13 +18,15 @@ import {
   RowsMax,
   Direction,
   OnEndIconClick,
-  OnStartIconClick
+  OnStartIconClick,
+  NumberFormatter
 } from "./TextInputElementAttributes";
 import { Visibility } from "../base/BaseElement";
 import { TextField, InputAdornment, IconButton, Icon } from "@material-ui/core";
 import useFunctionAsState from "../../../custom-hooks/function-state";
 import { useTheme } from "@material-ui/styles";
 import { Theme } from "@material-ui/core/styles/createMuiTheme";
+import { TextInputNumberFormatter } from "./TextInputNumberFormatter";
 
 type Props = {
   element: TextInputElement;
@@ -56,6 +58,7 @@ export default function TextInputView({ element, weight }: Props) {
   const [direction, setDirection] = React.useState<Direction>("default");
   const [onEndIconClick, setOnEndIconClick] = useFunctionAsState<OnEndIconClick>(undefined);
   const [onStartIconClick, setOnStartIconClick] = useFunctionAsState<OnStartIconClick>(undefined);
+  const [numberFormatter, setNumberFormatter] = React.useState<NumberFormatter>(false);
   const [visibility, setVisibility] = React.useState<Visibility>("show");
 
   React.useEffect(() => {
@@ -77,6 +80,7 @@ export default function TextInputView({ element, weight }: Props) {
     let directionSub = element.directionContainer.subscribe({ next: v => setDirection(v) });
     let onEndIconClickSub = element.onEndIconClickContainer.subscribe({ next: v => setOnEndIconClick(v) });
     let onStartIconClickSub = element.onStartIconClickContainer.subscribe({ next: v => setOnStartIconClick(v) });
+    let numberFormatterSub = element.numberFormatterContainer.subscribe({ next: v => setNumberFormatter(v) });
     let visibilitySub = element.elementVisibilityContainer.subscribe({ next: v => setVisibility(v) });
 
     return () => {
@@ -98,6 +102,7 @@ export default function TextInputView({ element, weight }: Props) {
       directionSub.unsubscribe();
       onEndIconClickSub.unsubscribe();
       onStartIconClickSub.unsubscribe();
+      numberFormatterSub.unsubscribe();
       visibilitySub.unsubscribe();
     };
   }, []);
@@ -144,6 +149,11 @@ export default function TextInputView({ element, weight }: Props) {
 
   const viewDirection = direction == "default" ? (theme == null ? "ltr" : theme.direction) : direction;
 
+  function createInputComponent(): any {
+    if (numberFormatter) return TextInputNumberFormatter;
+    return undefined;
+  }
+
   return (
     <TextField
       style={{
@@ -165,7 +175,8 @@ export default function TextInputView({ element, weight }: Props) {
       error={isInError}
       InputProps={{
         endAdornment: createEndAdornment(),
-        startAdornment: createStartAdornment()
+        startAdornment: createStartAdornment(),
+        inputComponent: createInputComponent()
       }}
     />
   );

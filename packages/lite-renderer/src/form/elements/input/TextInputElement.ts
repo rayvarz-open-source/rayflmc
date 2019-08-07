@@ -23,7 +23,8 @@ import {
   Direction,
   OnEndIconClick,
   OnStartIconClick,
-  Validations
+  Validations,
+  NumberFormatter
 } from "./TextInputElementAttributes";
 
 export class TextInputElement extends BaseElement implements IElement {
@@ -601,6 +602,32 @@ export class TextInputElement extends BaseElement implements IElement {
     if (TypeGuards.isValidation(value)) return this.validationsR(value);
     else if (isObservable(value)) return this.validationsO(value);
     throw new Error(`invalid type ${typeof value} for Validations`);
+  }
+
+  numberFormatterContainer = new BehaviorSubject<NumberFormatter>(false);
+
+  /** iternal function for handling raw NumberFormatter types*/
+  private numberFormatterR(value: NumberFormatter): TextInputElement {
+    this.numberFormatterContainer.next(value);
+    return this;
+  }
+
+  /** iternal function for handling Observable<NumberFormatter> types*/
+  private numberFormatterO(value: Observable<NumberFormatter>): TextInputElement {
+    value.subscribe({ next: v => this.numberFormatterContainer.next(v) });
+    return this;
+  }
+
+  /**
+   * default value: false
+   *
+   *
+   * TODO: add docs
+   */
+  numberFormatter(value: Observable<NumberFormatter> | NumberFormatter): TextInputElement {
+    if (isObservable(value)) this.numberFormatterO(value);
+    else this.numberFormatterR(value);
+    return this;
   }
 
   /*******************************************/
