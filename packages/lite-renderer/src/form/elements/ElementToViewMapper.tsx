@@ -28,6 +28,7 @@ import RawView from "./raw/RawView";
 import { RawElement } from "./raw/RawElement";
 import { CustomElementContext } from "./CustomElementsContext";
 import { InlineFormElement } from "./inline-form/InlineFormElement";
+import InlineFormView from "./inline-form/InlineFormView";
 
 export type MapperProps = {
   element: IElement;

@@ -33,7 +33,7 @@ export default function InlineFormView({ element, weight }: Props) {
   /*******************************************/
   //endregion
 
-  if (visibility === VisibilityType.Gone) return;
+  if (visibility === VisibilityType.Gone) return null;
 
   let controller = formBuilder();
   if (controller == null) return null;
