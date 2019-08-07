@@ -10,5 +10,6 @@ export enum ElementType {
   Grid = "LiteRenderer:Grid",
   Modal = "LiteRenderer:Modal",
   SelectBox = "LiteRenderer:SelectBox",
-  Raw = "LiteRenderer:Raw"
+  Raw = "LiteRenderer:Raw",
+  InlineForm = "LiteRenderer:InlineForm"
 }

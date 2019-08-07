@@ -27,6 +27,7 @@ import { SpaceElement } from "./space/SpaceElement";
 import RawView from "./raw/RawView";
 import { RawElement } from "./raw/RawElement";
 import { CustomElementContext } from "./CustomElementsContext";
+import { InlineFormElement } from "./inline-form/InlineFormElement";
 
 export type MapperProps = {
   element: IElement;
@@ -66,6 +67,8 @@ export function MapToView({ element, weight }: MapperProps) {
       return <SpaceView element={element as SpaceElement} weight={weight} />;
     case ElementType.Raw:
       return <RawView element={element as RawElement} weight={weight} />;
+    case ElementType.InlineForm:
+      return <InlineFormView element={element as InlineFormElement} weight={weight} />;
   }
   throw Error(`can't map ${element.type} to a view`);
 }
