@@ -134,12 +134,27 @@ export default function ModalView({ element }: Props) {
     return <CardContent>{view}</CardContent>;
   }
 
-  return (
-    <Modal open={open} onClose={handleClose} disableBackdropClick={true} disableEscapeKeyDown={true}>
+  let content: React.ReactElement;
+
+  if (noBackground) {
+    content = (
+      <div style={getModalStyle()}>
+        {createHeader()}
+        {createContent()}
+      </div>
+    );
+  } else {
+    content = (
       <Card style={getModalStyle()}>
         {createHeader()}
         {createContent()}
       </Card>
+    );
+  }
+
+  return (
+    <Modal open={open} onClose={handleClose} disableBackdropClick={true} disableEscapeKeyDown={true}>
+      {content}
     </Modal>
   );
 }

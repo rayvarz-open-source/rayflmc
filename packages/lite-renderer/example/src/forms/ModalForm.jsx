@@ -9,6 +9,7 @@ export default class ModalForm extends FormController {
   isSampleModalWithoutHeaderOpen = new BehaviorSubject(false);
   isSampleModalWithSelfHandledCloseButtonOpen = new BehaviorSubject(false);
   modalWithNoPadding = new BehaviorSubject(false);
+  noBackgroundOpen = new BehaviorSubject(false);
 
   elements = [
     Button("Open Sample Modal").onClick(() => this.isSampleModalOpen.next(!this.isSampleModalOpen.value)),
@@ -30,6 +31,8 @@ export default class ModalForm extends FormController {
     ),
     Space().height(10),
     Button("Open Modal with no padding").onClick(() => this.modalWithNoPadding.next(!this.modalWithNoPadding.value)),
+    Space().height(10),
+    Button("Open Modal with no background").onClick(() => this.noBackgroundOpen.next(!this.noBackgroundOpen.value)),
 
     Modal(Container([Label("This is a sample modal")])).open(this.isSampleModalOpen),
     Modal(Container([Label("This is a sample modal without close button")]))
@@ -60,6 +63,10 @@ export default class ModalForm extends FormController {
     )
       .noPadding(true)
       .visibileHeader(false)
-      .open(this.modalWithNoPadding)
+      .open(this.modalWithNoPadding),
+    Modal(Container([Label("other element")]))
+      .noBackground(true)
+      .visibileHeader(false)
+      .open(this.noBackgroundOpen)
   ];
 }
