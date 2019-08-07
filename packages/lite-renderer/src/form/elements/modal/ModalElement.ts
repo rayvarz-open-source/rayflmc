@@ -10,7 +10,15 @@ import {
   VisibileHeader,
   VisibileHeaderCloseButton,
   Title,
-  NoPadding
+  NoPadding,
+  NoBackground,
+  NoBackdropClickClose,
+  NoEscapeKeyDownClose,
+  LazyContent,
+  MinWidth,
+  MinHeight,
+  MaxWidth,
+  MaxHeight
 } from "./ModalElementAttributes";
 
 export class ModalElement extends BaseElement implements IElement {
@@ -121,9 +129,7 @@ export class ModalElement extends BaseElement implements IElement {
 
   /** iternal function for handling Observable<VisibileHeaderCloseButton> types*/
   private visibileHeaderCloseButtonO(value: Observable<VisibileHeaderCloseButton>): ModalElement {
-    value.subscribe({
-      next: v => this.visibileHeaderCloseButtonContainer.next(v)
-    });
+    value.subscribe({ next: v => this.visibileHeaderCloseButtonContainer.next(v) });
     return this;
   }
 
@@ -186,6 +192,206 @@ export class ModalElement extends BaseElement implements IElement {
     if (TypeGuards.isNoPadding(value)) return this.noPaddingR(value);
     else if (isObservable(value)) return this.noPaddingO(value);
     throw new Error(`invalid type ${typeof value} for NoPadding`);
+  }
+
+  noBackgroundContainer = new BehaviorSubject<NoBackground>(false);
+
+  /** iternal function for handling raw NoBackground types*/
+  private noBackgroundR(value: NoBackground): ModalElement {
+    this.noBackgroundContainer.next(value);
+    return this;
+  }
+
+  /** iternal function for handling Observable<NoBackground> types*/
+  private noBackgroundO(value: Observable<NoBackground>): ModalElement {
+    value.subscribe({ next: v => this.noBackgroundContainer.next(v) });
+    return this;
+  }
+
+  /**
+   * default value: false
+   *
+   *
+   */
+  noBackground(value: Observable<NoBackground> | NoBackground): ModalElement {
+    if (TypeGuards.isNoBackground(value)) return this.noBackgroundR(value);
+    else if (isObservable(value)) return this.noBackgroundO(value);
+    throw new Error(`invalid type ${typeof value} for NoBackground`);
+  }
+
+  noBackdropClickCloseContainer = new BehaviorSubject<NoBackdropClickClose>(true);
+
+  /** iternal function for handling raw NoBackdropClickClose types*/
+  private noBackdropClickCloseR(value: NoBackdropClickClose): ModalElement {
+    this.noBackdropClickCloseContainer.next(value);
+    return this;
+  }
+
+  /** iternal function for handling Observable<NoBackdropClickClose> types*/
+  private noBackdropClickCloseO(value: Observable<NoBackdropClickClose>): ModalElement {
+    value.subscribe({ next: v => this.noBackdropClickCloseContainer.next(v) });
+    return this;
+  }
+
+  /**
+   * default value: true
+   *
+   *
+   */
+  noBackdropClickClose(value: Observable<NoBackdropClickClose> | NoBackdropClickClose): ModalElement {
+    if (TypeGuards.isNoBackdropClickClose(value)) return this.noBackdropClickCloseR(value);
+    else if (isObservable(value)) return this.noBackdropClickCloseO(value);
+    throw new Error(`invalid type ${typeof value} for NoBackdropClickClose`);
+  }
+
+  noEscapeKeyDownCloseContainer = new BehaviorSubject<NoEscapeKeyDownClose>(true);
+
+  /** iternal function for handling raw NoEscapeKeyDownClose types*/
+  private noEscapeKeyDownCloseR(value: NoEscapeKeyDownClose): ModalElement {
+    this.noEscapeKeyDownCloseContainer.next(value);
+    return this;
+  }
+
+  /** iternal function for handling Observable<NoEscapeKeyDownClose> types*/
+  private noEscapeKeyDownCloseO(value: Observable<NoEscapeKeyDownClose>): ModalElement {
+    value.subscribe({ next: v => this.noEscapeKeyDownCloseContainer.next(v) });
+    return this;
+  }
+
+  /**
+   * default value: true
+   *
+   *
+   */
+  noEscapeKeyDownClose(value: Observable<NoEscapeKeyDownClose> | NoEscapeKeyDownClose): ModalElement {
+    if (TypeGuards.isNoEscapeKeyDownClose(value)) return this.noEscapeKeyDownCloseR(value);
+    else if (isObservable(value)) return this.noEscapeKeyDownCloseO(value);
+    throw new Error(`invalid type ${typeof value} for NoEscapeKeyDownClose`);
+  }
+
+  lazyContentContainer = new BehaviorSubject<LazyContent>(true);
+
+  /** iternal function for handling raw LazyContent types*/
+  private lazyContentR(value: LazyContent): ModalElement {
+    this.lazyContentContainer.next(value);
+    return this;
+  }
+
+  /** iternal function for handling Observable<LazyContent> types*/
+  private lazyContentO(value: Observable<LazyContent>): ModalElement {
+    value.subscribe({ next: v => this.lazyContentContainer.next(v) });
+    return this;
+  }
+
+  /**
+   * default value: true
+   *
+   *
+   */
+  lazyContent(value: Observable<LazyContent> | LazyContent): ModalElement {
+    if (TypeGuards.isLazyContent(value)) return this.lazyContentR(value);
+    else if (isObservable(value)) return this.lazyContentO(value);
+    throw new Error(`invalid type ${typeof value} for LazyContent`);
+  }
+
+  minWidthContainer = new BehaviorSubject<MinWidth>(undefined);
+
+  /** iternal function for handling raw MinWidth types*/
+  private minWidthR(value: MinWidth): ModalElement {
+    this.minWidthContainer.next(value);
+    return this;
+  }
+
+  /** iternal function for handling Observable<MinWidth> types*/
+  private minWidthO(value: Observable<MinWidth>): ModalElement {
+    value.subscribe({ next: v => this.minWidthContainer.next(v) });
+    return this;
+  }
+
+  /**
+   * default value: undefined
+   *
+   *
+   */
+  minWidth(value: Observable<MinWidth> | MinWidth): ModalElement {
+    if (isObservable(value)) this.minWidthO(value);
+    else this.minWidthR(value);
+    return this;
+  }
+
+  minHeightContainer = new BehaviorSubject<MinHeight>(undefined);
+
+  /** iternal function for handling raw MinHeight types*/
+  private minHeightR(value: MinHeight): ModalElement {
+    this.minHeightContainer.next(value);
+    return this;
+  }
+
+  /** iternal function for handling Observable<MinHeight> types*/
+  private minHeightO(value: Observable<MinHeight>): ModalElement {
+    value.subscribe({ next: v => this.minHeightContainer.next(v) });
+    return this;
+  }
+
+  /**
+   * default value: undefined
+   *
+   *
+   */
+  minHeight(value: Observable<MinHeight> | MinHeight): ModalElement {
+    if (isObservable(value)) this.minHeightO(value);
+    else this.minHeightR(value);
+    return this;
+  }
+
+  maxWidthContainer = new BehaviorSubject<MaxWidth>(undefined);
+
+  /** iternal function for handling raw MaxWidth types*/
+  private maxWidthR(value: MaxWidth): ModalElement {
+    this.maxWidthContainer.next(value);
+    return this;
+  }
+
+  /** iternal function for handling Observable<MaxWidth> types*/
+  private maxWidthO(value: Observable<MaxWidth>): ModalElement {
+    value.subscribe({ next: v => this.maxWidthContainer.next(v) });
+    return this;
+  }
+
+  /**
+   * default value: undefined
+   *
+   *
+   */
+  maxWidth(value: Observable<MaxWidth> | MaxWidth): ModalElement {
+    if (isObservable(value)) this.maxWidthO(value);
+    else this.maxWidthR(value);
+    return this;
+  }
+
+  maxHeightContainer = new BehaviorSubject<MaxHeight>(undefined);
+
+  /** iternal function for handling raw MaxHeight types*/
+  private maxHeightR(value: MaxHeight): ModalElement {
+    this.maxHeightContainer.next(value);
+    return this;
+  }
+
+  /** iternal function for handling Observable<MaxHeight> types*/
+  private maxHeightO(value: Observable<MaxHeight>): ModalElement {
+    value.subscribe({ next: v => this.maxHeightContainer.next(v) });
+    return this;
+  }
+
+  /**
+   * default value: undefined
+   *
+   *
+   */
+  maxHeight(value: Observable<MaxHeight> | MaxHeight): ModalElement {
+    if (isObservable(value)) this.maxHeightO(value);
+    else this.maxHeightR(value);
+    return this;
   }
 
   /*******************************************/

@@ -35,6 +35,46 @@ export type Title = string | undefined;
  * 
  */
 export type NoPadding = boolean;
+/**
+ * @[{"bidirectional":false,"required":false,"typeguard":"isNoBackground","default":"false"}]
+ * 
+ */
+export type NoBackground = boolean;
+/**
+ * @[{"bidirectional":false,"required":false,"typeguard":"isNoBackdropClickClose","default":"true"}]
+ * 
+ */
+export type NoBackdropClickClose = boolean;
+/**
+ * @[{"bidirectional":false,"required":false,"typeguard":"isNoEscapeKeyDownClose","default":"true"}]
+ * 
+ */
+export type NoEscapeKeyDownClose = boolean;
+/**
+ * @[{"bidirectional":false,"required":false,"typeguard":"isLazyContent","default":"true"}]
+ * 
+ */
+export type LazyContent = boolean;
+/**
+ * @[{"bidirectional":false,"required":false,"default":"undefined"}]
+ * 
+ */
+export type MinWidth = number | undefined;
+/**
+ * @[{"bidirectional":false,"required":false,"default":"undefined"}]
+ * 
+ */
+export type MinHeight = number | undefined;
+/**
+ * @[{"bidirectional":false,"required":false,"default":"undefined"}]
+ * 
+ */
+export type MaxWidth = number | undefined;
+/**
+ * @[{"bidirectional":false,"required":false,"default":"undefined"}]
+ * 
+ */
+export type MaxHeight = number | undefined;
 // End Element
 
 // type guards
@@ -46,4 +86,8 @@ export const TypeGuards = {
     isVisibileHeaderCloseButton: (value: any): value is VisibileHeaderCloseButton => typeof (value) == "boolean",
     isTitle: (value: any): value is Title => typeof (value) == "string" || typeof (value) == "undefined",
     isNoPadding: (value: any): value is NoPadding => typeof (value) == "boolean",
+    isNoBackground: (value: any): value is NoBackground => typeof (value) == "boolean",
+    isNoBackdropClickClose: (value: any): value is NoBackdropClickClose => typeof (value) == "boolean",
+    isNoEscapeKeyDownClose: (value: any): value is NoEscapeKeyDownClose => typeof (value) == "boolean",
+    isLazyContent: (value: any): value is LazyContent => typeof (value) == "boolean",
 }

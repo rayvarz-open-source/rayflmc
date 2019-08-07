@@ -1,6 +1,21 @@
 import { ModalElement } from "./ModalElement";
 import * as React from "react";
-import { Child, Open, VisibileHeader, VisibileHeaderCloseButton, Title } from "./ModalElementAttributes";
+import {
+  Child,
+  Open,
+  VisibileHeader,
+  VisibileHeaderCloseButton,
+  Title,
+  NoPadding,
+  NoBackdropClickClose,
+  NoBackground,
+  NoEscapeKeyDownClose,
+  LazyContent,
+  MinWidth,
+  MinHeight,
+  MaxWidth,
+  MaxHeight
+} from "./ModalElementAttributes";
 import { Visibility } from "../base/BaseElement";
 import { Modal, Card, CardHeader, IconButton, CardContent } from "@material-ui/core";
 import { CSSProperties } from "@material-ui/core/styles/withStyles";
@@ -24,6 +39,14 @@ export default function ModalView({ element }: Props) {
   const [visibileHeaderCloseButton, setVisibileHeaderCloseButton] = React.useState<VisibileHeaderCloseButton>(true);
   const [title, setTitle] = React.useState<Title>(undefined);
   const [noPadding, setNoPadding] = React.useState<NoPadding>(false);
+  const [noBackground, setNoBackground] = React.useState<NoBackground>(false);
+  const [noBackdropClickClose, setNoBackdropClickClose] = React.useState<NoBackdropClickClose>(true);
+  const [noEscapeKeyDownClose, setNoEscapeKeyDownClose] = React.useState<NoEscapeKeyDownClose>(true);
+  const [lazyContent, setLazyContent] = React.useState<LazyContent>(true);
+  const [minWidth, setMinWidth] = React.useState<MinWidth>(undefined);
+  const [minHeight, setMinHeight] = React.useState<MinHeight>(undefined);
+  const [maxWidth, setMaxWidth] = React.useState<MaxWidth>(undefined);
+  const [maxHeight, setMaxHeight] = React.useState<MaxHeight>(undefined);
   const [visibility, setVisibility] = React.useState<Visibility>("show");
 
   React.useEffect(() => {
@@ -35,6 +58,18 @@ export default function ModalView({ element }: Props) {
     });
     let titleSub = element.titleContainer.subscribe({ next: v => setTitle(v) });
     let noPaddingSub = element.noPaddingContainer.subscribe({ next: v => setNoPadding(v) });
+    let noBackgroundSub = element.noBackgroundContainer.subscribe({ next: v => setNoBackground(v) });
+    let noBackdropClickCloseSub = element.noBackdropClickCloseContainer.subscribe({
+      next: v => setNoBackdropClickClose(v)
+    });
+    let noEscapeKeyDownCloseSub = element.noEscapeKeyDownCloseContainer.subscribe({
+      next: v => setNoEscapeKeyDownClose(v)
+    });
+    let lazyContentSub = element.lazyContentContainer.subscribe({ next: v => setLazyContent(v) });
+    let minWidthSub = element.minWidthContainer.subscribe({ next: v => setMinWidth(v) });
+    let minHeightSub = element.minHeightContainer.subscribe({ next: v => setMinHeight(v) });
+    let maxWidthSub = element.maxWidthContainer.subscribe({ next: v => setMaxWidth(v) });
+    let maxHeightSub = element.maxHeightContainer.subscribe({ next: v => setMaxHeight(v) });
     let visibilitySub = element.elementVisibilityContainer.subscribe({ next: v => setVisibility(v) });
 
     return () => {
@@ -44,6 +79,14 @@ export default function ModalView({ element }: Props) {
       visibileHeaderCloseButtonSub.unsubscribe();
       titleSub.unsubscribe();
       noPaddingSub.unsubscribe();
+      noBackgroundSub.unsubscribe();
+      noBackdropClickCloseSub.unsubscribe();
+      noEscapeKeyDownCloseSub.unsubscribe();
+      lazyContentSub.unsubscribe();
+      minWidthSub.unsubscribe();
+      minHeightSub.unsubscribe();
+      maxWidthSub.unsubscribe();
+      maxHeightSub.unsubscribe();
       visibilitySub.unsubscribe();
     };
   }, []);
