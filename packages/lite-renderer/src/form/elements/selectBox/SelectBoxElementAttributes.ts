@@ -1,5 +1,6 @@
 import { SelectBoxLabelPlacement, isSelectBoxLabelPlacement } from "./SelectBoxLabelPlacement";
 import { SelectBoxVariant, isSelectBoxVariant } from "./SelectBoxVariant";
+import { SelectBoxColors, isSelectBoxColors } from "./SelectBoxColor";
 
 /** @ElementDoc
  * @example
@@ -48,6 +49,12 @@ export type Variant = SelectBoxVariant;
  * TODO: add docs
  */
 export type Disabled = boolean;
+/**
+ * @[{"bidirectional":false,"required":false,"typeguard":"isColors","default":"SelectBoxColors.Default"}]
+ * shape of SelectBox
+ * 
+ */
+export type Colors = SelectBoxColors;
 // End Element
 
 // type guards
@@ -57,4 +64,5 @@ export const TypeGuards = {
     isLabelPlacement: (value: any): value is LabelPlacement => isSelectBoxLabelPlacement(value),
     isVariant: (value: any): value is Variant => isSelectBoxVariant(value),
     isDisabled: (value: any): value is Disabled => typeof (value) == 'boolean',
+    isColors: (value: any): value is Colors => isSelectBoxColors(value),
 }

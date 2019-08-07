@@ -36,12 +36,14 @@ import { TextInputValidations, makeTextInputValidations } from "./form/elements/
 import FLMC from "./FLMC";
 import { Skeleton } from "./skeleton/SkeletonAttribute";
 import Raw from "./form/elements/raw/RawElement";
+import { SelectBoxColors } from "./form/elements/selectBox/SelectBoxColor";
 
 export {
   FormController,
   Button,
   TextInput,
   SelectBox,
+  SelectBoxColors,
   SelectBoxLabelPlacement,
   Container,
   Chip,

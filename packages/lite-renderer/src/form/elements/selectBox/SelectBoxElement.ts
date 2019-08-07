@@ -10,10 +10,12 @@ import {
   Label,
   LabelPlacement,
   Variant,
-  Disabled
+  Disabled,
+  Colors
 } from "./SelectBoxElementAttributes";
 import { SelectBoxLabelPlacement } from "./SelectBoxLabelPlacement";
 import { SelectBoxVariant } from "./SelectBoxVariant";
+import { SelectBoxColors } from "./SelectBoxColor";
 
 export class SelectBoxElement<T> extends BaseElement implements IElement {
   validate(): ValidationResult {
@@ -192,6 +194,32 @@ export class SelectBoxElement<T> extends BaseElement implements IElement {
     if (TypeGuards.isDisabled(value)) return this.disabledR(value);
     else if (isObservable(value)) return this.disabledO(value);
     throw new Error(`invalid type ${typeof value} for Disabled`);
+  }
+
+  colorsContainer = new BehaviorSubject<Colors>(SelectBoxColors.Default);
+
+  /** iternal function for handling raw Colors types*/
+  private colorsR(value: Colors): SelectBoxElement<T> {
+    this.colorsContainer.next(value);
+    return this;
+  }
+
+  /** iternal function for handling Observable<Colors> types*/
+  private colorsO(value: Observable<Colors>): SelectBoxElement<T> {
+    value.subscribe({ next: v => this.colorsContainer.next(v) });
+    return this;
+  }
+
+  /**
+   * default value: SelectBoxColors.Default
+   *
+   * shape of SelectBox
+   *
+   */
+  colors(value: Observable<Colors> | Colors): SelectBoxElement<T> {
+    if (TypeGuards.isColors(value)) return this.colorsR(value);
+    else if (isObservable(value)) return this.colorsO(value);
+    throw new Error(`invalid type ${typeof value} for Colors`);
   }
 
   /*******************************************/
