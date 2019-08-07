@@ -153,7 +153,12 @@ export default function ModalView({ element }: Props) {
   }
 
   return (
-    <Modal open={open} onClose={handleClose} disableBackdropClick={true} disableEscapeKeyDown={true}>
+    <Modal
+      open={open}
+      onClose={handleClose}
+      disableBackdropClick={noBackdropClickClose}
+      disableEscapeKeyDown={noEscapeKeyDownClose}
+    >
       {content}
     </Modal>
   );
