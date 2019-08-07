@@ -111,6 +111,7 @@ export default function ModalView({ element }: Props) {
       top: `${top}%`,
       left: `${left}%`,
       transform: `translate(-${top}%, -${left}%)`,
+      overflow: "auto",
       minWidth,
       minHeight,
       maxWidth,

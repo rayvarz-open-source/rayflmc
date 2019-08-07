@@ -10,6 +10,8 @@ export default class ModalForm extends FormController {
   isSampleModalWithSelfHandledCloseButtonOpen = new BehaviorSubject(false);
   modalWithNoPadding = new BehaviorSubject(false);
   noBackgroundOpen = new BehaviorSubject(false);
+  modalWithBigVerticalChildOpen = new BehaviorSubject(false);
+  modalWithBigHorizontalChildOpen = new BehaviorSubject(false);
 
   elements = [
     Button("Open Sample Modal").onClick(() => this.isSampleModalOpen.next(!this.isSampleModalOpen.value)),
@@ -33,6 +35,14 @@ export default class ModalForm extends FormController {
     Button("Open Modal with no padding").onClick(() => this.modalWithNoPadding.next(!this.modalWithNoPadding.value)),
     Space().height(10),
     Button("Open Modal with no background").onClick(() => this.noBackgroundOpen.next(!this.noBackgroundOpen.value)),
+    Space().height(10),
+    Button("Open Modal with big horizontal child").onClick(() =>
+      this.modalWithBigHorizontalChildOpen.next(!this.modalWithBigHorizontalChildOpen.value)
+    ),
+    Space().height(10),
+    Button("Open Modal with big vertical child").onClick(() =>
+      this.modalWithBigVerticalChildOpen.next(!this.modalWithBigVerticalChildOpen.value)
+    ),
 
     Modal(Container([Label("This is a sample modal")])).open(this.isSampleModalOpen),
     Modal(Container([Label("This is a sample modal without close button")]))
@@ -67,6 +77,20 @@ export default class ModalForm extends FormController {
     Modal(Container([Label("other element")]))
       .noBackground(true)
       .visibileHeader(false)
-      .open(this.noBackgroundOpen)
+      .open(this.noBackgroundOpen),
+
+    Modal(
+      Container([
+        Raw(_ => <div style={{ backgroundColor: "red", width: 10000, height: 50 }} />),
+        Label("other element")
+      ])
+    ).open(this.modalWithBigHorizontalChildOpen),
+
+    Modal(
+      Container([
+        Raw(_ => <div style={{ backgroundColor: "red", width: 100, height: 20000 }} />),
+        Label("other element")
+      ])
+    ).open(this.modalWithBigVerticalChildOpen)
   ];
 }
