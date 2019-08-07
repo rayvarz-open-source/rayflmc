@@ -37,6 +37,7 @@ import FLMC from "./FLMC";
 import { Skeleton } from "./skeleton/SkeletonAttribute";
 import Raw from "./form/elements/raw/RawElement";
 import { SelectBoxColors } from "./form/elements/selectBox/SelectBoxColor";
+import { ContainerWrap } from "./form/elements/container/ContainerWrap";
 
 export {
   FormController,
@@ -46,6 +47,7 @@ export {
   SelectBoxColors,
   SelectBoxLabelPlacement,
   Container,
+  ContainerWrap,
   Chip,
   Modal,
   Label,

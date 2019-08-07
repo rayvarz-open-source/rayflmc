@@ -2,8 +2,9 @@ import IElement, { ValidationResult } from "../../../flmc-data-layer/FormControl
 import { ElementType } from "../ElementType";
 import { Observable, BehaviorSubject, isObservable } from "rxjs";
 import { BaseElement } from "../base/BaseElement";
-import { TypeGuards, Children, Direction, Flex } from "./ContainerElementAttributes";
+import { TypeGuards, Children, Direction, Flex, Wrap } from "./ContainerElementAttributes";
 import { ContainerDirection } from "./ContainerDirection";
+import { ContainerWrap } from "./ContainerWrap";
 
 export class ContainerElement extends BaseElement implements IElement {
   validate(): ValidationResult {
@@ -110,6 +111,31 @@ export class ContainerElement extends BaseElement implements IElement {
     if (TypeGuards.isFlex(value)) return this.flexR(value);
     else if (isObservable(value)) return this.flexO(value);
     throw new Error(`invalid type ${typeof value} for Flex`);
+  }
+
+  wrapContainer = new BehaviorSubject<Wrap>(ContainerWrap.NoWrap);
+
+  /** iternal function for handling raw Wrap types*/
+  private wrapR(value: Wrap): ContainerElement {
+    this.wrapContainer.next(value);
+    return this;
+  }
+
+  /** iternal function for handling Observable<Wrap> types*/
+  private wrapO(value: Observable<Wrap>): ContainerElement {
+    value.subscribe({ next: v => this.wrapContainer.next(v) });
+    return this;
+  }
+
+  /**
+   * default value: ContainerWrap.NoWrap
+   *
+   *
+   */
+  wrap(value: Observable<Wrap> | Wrap): ContainerElement {
+    if (TypeGuards.isWrap(value)) return this.wrapR(value);
+    else if (isObservable(value)) return this.wrapO(value);
+    throw new Error(`invalid type ${typeof value} for Wrap`);
   }
 
   /*******************************************/
