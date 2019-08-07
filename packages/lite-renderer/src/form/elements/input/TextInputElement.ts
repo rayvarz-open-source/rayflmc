@@ -24,7 +24,8 @@ import {
   OnEndIconClick,
   OnStartIconClick,
   Validations,
-  NumberFormatter
+  NumberFormatter,
+  Mask
 } from "./TextInputElementAttributes";
 
 export class TextInputElement extends BaseElement implements IElement {
@@ -627,6 +628,31 @@ export class TextInputElement extends BaseElement implements IElement {
   numberFormatter(value: Observable<NumberFormatter> | NumberFormatter): TextInputElement {
     if (isObservable(value)) this.numberFormatterO(value);
     else this.numberFormatterR(value);
+    return this;
+  }
+
+  maskContainer = new BehaviorSubject<Mask>(undefined);
+
+  /** iternal function for handling raw Mask types*/
+  private maskR(value: Mask): TextInputElement {
+    this.maskContainer.next(value);
+    return this;
+  }
+
+  /** iternal function for handling Observable<Mask> types*/
+  private maskO(value: Observable<Mask>): TextInputElement {
+    value.subscribe({ next: v => this.maskContainer.next(v) });
+    return this;
+  }
+
+  /**
+   * default value: undefined
+   *
+   * example: ['(', /[1-9]/, /\d/, /\d/, ')', ' ', /\d/, /\d/, /\d/, '-', /\d/, /\d/, /\d/, /\d/]
+   */
+  mask(value: Observable<Mask> | Mask): TextInputElement {
+    if (isObservable(value)) this.maskO(value);
+    else this.maskR(value);
     return this;
   }
 

@@ -19,7 +19,8 @@ import {
   Direction,
   OnEndIconClick,
   OnStartIconClick,
-  NumberFormatter
+  NumberFormatter,
+  Mask
 } from "./TextInputElementAttributes";
 import { Visibility } from "../base/BaseElement";
 import { TextField, InputAdornment, IconButton, Icon } from "@material-ui/core";
@@ -27,6 +28,7 @@ import useFunctionAsState from "../../../custom-hooks/function-state";
 import { useTheme } from "@material-ui/styles";
 import { Theme } from "@material-ui/core/styles/createMuiTheme";
 import { TextInputNumberFormatter } from "./TextInputNumberFormatter";
+import { TextInputMask } from "./TextInputMask";
 
 type Props = {
   element: TextInputElement;
@@ -59,6 +61,7 @@ export default function TextInputView({ element, weight }: Props) {
   const [onEndIconClick, setOnEndIconClick] = useFunctionAsState<OnEndIconClick>(undefined);
   const [onStartIconClick, setOnStartIconClick] = useFunctionAsState<OnStartIconClick>(undefined);
   const [numberFormatter, setNumberFormatter] = React.useState<NumberFormatter>(false);
+  const [mask, setMask] = React.useState<Mask>(undefined);
   const [visibility, setVisibility] = React.useState<Visibility>("show");
 
   React.useEffect(() => {
@@ -81,6 +84,7 @@ export default function TextInputView({ element, weight }: Props) {
     let onEndIconClickSub = element.onEndIconClickContainer.subscribe({ next: v => setOnEndIconClick(v) });
     let onStartIconClickSub = element.onStartIconClickContainer.subscribe({ next: v => setOnStartIconClick(v) });
     let numberFormatterSub = element.numberFormatterContainer.subscribe({ next: v => setNumberFormatter(v) });
+    let maskSub = element.maskContainer.subscribe({ next: v => setMask(v) });
     let visibilitySub = element.elementVisibilityContainer.subscribe({ next: v => setVisibility(v) });
 
     return () => {
@@ -103,6 +107,7 @@ export default function TextInputView({ element, weight }: Props) {
       onEndIconClickSub.unsubscribe();
       onStartIconClickSub.unsubscribe();
       numberFormatterSub.unsubscribe();
+      maskSub.unsubscribe();
       visibilitySub.unsubscribe();
     };
   }, []);
@@ -150,6 +155,8 @@ export default function TextInputView({ element, weight }: Props) {
   const viewDirection = direction == "default" ? (theme == null ? "ltr" : theme.direction) : direction;
 
   function createInputComponent(): any {
+    if (mask != null && numberFormatter) throw new Error("only one of mask and numberFormatter can be provided");
+    if (mask) return TextInputMask(mask);
     if (numberFormatter) return TextInputNumberFormatter;
     return undefined;
   }

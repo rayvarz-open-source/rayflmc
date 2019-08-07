@@ -175,6 +175,12 @@ export type Validations = TextInputValidator[];
  * TODO: add docs
  */
 export type NumberFormatter = boolean;
+/**
+ * @[{"bidirectional":false,"required":false,"default":"undefined"}]
+ * 
+ * example: ['(', /[1-9]/, /\d/, /\d/, ')', ' ', /\d/, /\d/, /\d/, '-', /\d/, /\d/, /\d/, /\d/]
+ */
+export type Mask = string[] | undefined;
 // End Element
 
 // type guards
