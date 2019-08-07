@@ -133,7 +133,8 @@ export default function ModalView({ element }: Props) {
     return <CardHeader action={action} title={title} />;
   }
 
-  function createContent(): React.ReactElement {
+  function createContent(): React.ReactElement | null {
+    if (lazyContent && !open) return null;
     let view = <MapToView element={child as IElement} weight={0} />;
     if (noPadding) return view;
     return <CardContent>{view}</CardContent>;
