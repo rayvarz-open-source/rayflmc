@@ -20,7 +20,8 @@ import {
   OnEndIconClick,
   OnStartIconClick,
   NumberFormatter,
-  Mask
+  Mask,
+  PlaceholderDirection
 } from "./TextInputElementAttributes";
 import { Visibility } from "../base/BaseElement";
 import { TextField, InputAdornment, IconButton, Icon } from "@material-ui/core";
@@ -58,6 +59,7 @@ export default function TextInputView({ element, weight }: Props) {
   const [rows, setRows] = React.useState<Rows>(0);
   const [rowsMax, setRowsMax] = React.useState<RowsMax>(0);
   const [direction, setDirection] = React.useState<Direction>("default");
+  const [placeholderDirection, setPlaceholderDirection] = React.useState<PlaceholderDirection>(undefined);
   const [onEndIconClick, setOnEndIconClick] = useFunctionAsState<OnEndIconClick>(undefined);
   const [onStartIconClick, setOnStartIconClick] = useFunctionAsState<OnStartIconClick>(undefined);
   const [numberFormatter, setNumberFormatter] = React.useState<NumberFormatter>(false);
@@ -81,6 +83,9 @@ export default function TextInputView({ element, weight }: Props) {
     let rowsSub = element.rowsContainer.subscribe({ next: v => setRows(v) });
     let rowsMaxSub = element.rowsMaxContainer.subscribe({ next: v => setRowsMax(v) });
     let directionSub = element.directionContainer.subscribe({ next: v => setDirection(v) });
+    let placeholderDirectionSub = element.placeholderDirectionContainer.subscribe({
+      next: v => setPlaceholderDirection(v)
+    });
     let onEndIconClickSub = element.onEndIconClickContainer.subscribe({ next: v => setOnEndIconClick(v) });
     let onStartIconClickSub = element.onStartIconClickContainer.subscribe({ next: v => setOnStartIconClick(v) });
     let numberFormatterSub = element.numberFormatterContainer.subscribe({ next: v => setNumberFormatter(v) });
@@ -104,6 +109,7 @@ export default function TextInputView({ element, weight }: Props) {
       rowsSub.unsubscribe();
       rowsMaxSub.unsubscribe();
       directionSub.unsubscribe();
+      placeholderDirectionSub.unsubscribe();
       onEndIconClickSub.unsubscribe();
       onStartIconClickSub.unsubscribe();
       numberFormatterSub.unsubscribe();
@@ -152,7 +158,10 @@ export default function TextInputView({ element, weight }: Props) {
     return undefined;
   }
 
-  const viewDirection = direction == "default" ? (theme == null ? "ltr" : theme.direction) : direction;
+  function getDirection(): Direction {
+    if (value == "" && placeholderDirection != null) return placeholderDirection;
+    return direction == "default" ? (theme == null ? "ltr" : theme.direction) : direction;
+  }
 
   function createInputComponent(): any {
     if (mask != null && numberFormatter) throw new Error("only one of mask and numberFormatter can be provided");
@@ -171,7 +180,7 @@ export default function TextInputView({ element, weight }: Props) {
       variant={variant as any}
       multiline={multiline}
       rowsMax={rowsMax}
-      inputProps={{ dir: viewDirection }}
+      inputProps={{ dir: getDirection() }}
       rows={rows}
       type={password ? "password" : "text"}
       label={label}

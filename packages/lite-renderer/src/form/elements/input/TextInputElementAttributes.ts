@@ -146,6 +146,12 @@ export type RowsMax = number;
  */
 export type Direction = TextDirection | "rtl" | "ltr" | "default";
 /**
+ * @[{"bidirectional":false,"required":false,"default":"undefined"}]
+ * if undefined then it follows .direction attribute
+ * 
+ */
+export type PlaceholderDirection = Direction | undefined;
+/**
  * @[{"bidirectional":false,"required":false,"typeguard":"isOnEndIconClick","default": "undefined"}]
  * fires when user clicks on EndIcon
  * must also set endIcon attribute

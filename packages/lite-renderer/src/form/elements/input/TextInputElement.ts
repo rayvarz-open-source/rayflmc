@@ -25,7 +25,8 @@ import {
   OnStartIconClick,
   Validations,
   NumberFormatter,
-  Mask
+  Mask,
+  PlaceholderDirection
 } from "./TextInputElementAttributes";
 
 export class TextInputElement extends BaseElement implements IElement {
@@ -519,6 +520,32 @@ export class TextInputElement extends BaseElement implements IElement {
     if (TypeGuards.isDirection(value)) return this.directionR(value);
     else if (isObservable(value)) return this.directionO(value);
     throw new Error(`invalid type ${typeof value} for Direction`);
+  }
+
+  placeholderDirectionContainer = new BehaviorSubject<PlaceholderDirection>(undefined);
+
+  /** iternal function for handling raw PlaceholderDirection types*/
+  private placeholderDirectionR(value: PlaceholderDirection): TextInputElement {
+    this.placeholderDirectionContainer.next(value);
+    return this;
+  }
+
+  /** iternal function for handling Observable<PlaceholderDirection> types*/
+  private placeholderDirectionO(value: Observable<PlaceholderDirection>): TextInputElement {
+    value.subscribe({ next: v => this.placeholderDirectionContainer.next(v) });
+    return this;
+  }
+
+  /**
+   * default value: undefined
+   *
+   * if undefined then it follows .direction attribute
+   *
+   */
+  placeholderDirection(value: Observable<PlaceholderDirection> | PlaceholderDirection): TextInputElement {
+    if (isObservable(value)) this.placeholderDirectionO(value);
+    else this.placeholderDirectionR(value);
+    return this;
   }
 
   onEndIconClickContainer = new BehaviorSubject<OnEndIconClick>(undefined);
