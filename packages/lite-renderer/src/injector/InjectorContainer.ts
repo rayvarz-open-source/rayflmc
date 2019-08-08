@@ -37,8 +37,13 @@ export class InjectorContainer {
   }
 
   addSignleton({ serviceName, builder, isLazyBuilder }: RegisterProps) {
+    let instance = isLazyBuilder || false ? null : builder();
+    if (instance != null && isInjectorReciever(instance)) {
+      instance.injector = this.injector;
+      instance.inject();
+    }
     let service: SignletonService = {
-      instance: isLazyBuilder || false ? null : builder(),
+      instance: instance,
       type: ServiceTypes.Signleton,
       builder
     };
