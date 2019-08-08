@@ -56,7 +56,7 @@ export default function SelectBoxView({ element, weight }: Props<any>) {
 
   function handleChange(event: React.ChangeEvent<HTMLInputElement>, checked: boolean) {
     if (checked) element.valueContainer.next(selectedValue);
-    else element.valueContainer.next(true);
+    else element.valueContainer.next(null);
   }
 
   function createSelectBox() {
