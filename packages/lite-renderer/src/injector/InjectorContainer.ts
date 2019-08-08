@@ -50,7 +50,10 @@ export class InjectorContainer {
     let service = this.storage[serviceName];
     if (isSingletonService(service)) {
       if (service.instance == null) service.instance = service.builder();
-      if (isInjectorReciever(service)) service.injector = this.injector;
+      if (isInjectorReciever(service)) {
+        service.injector = this.injector;
+        service.inject();
+      }
       return service.instance;
     }
 
