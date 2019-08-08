@@ -7,8 +7,13 @@ import { ThemeProvider } from "@material-ui/styles";
 import IDataController from "./flmc-data-layer/Base/IDataController";
 import { Skeletons, RouteToFormView } from "./skeleton/RouteToFormView";
 import DefaultSkeleton from "./skeleton/default-skeleton/DefaultSkeleton";
-import { FormController, FormView } from ".";
+import { FormView } from ".";
 import { CustomElementMapper, CustomElementContext } from "./form/elements/CustomElementsContext";
+import { InjectorContainer } from "./injector/InjectorContainer";
+import { InjectorContext } from "./injector/InjectorContext";
+import { FLMCFormController } from "./FLMCFormController";
+
+export type ServiceRegisterer = (container: InjectorContainer) => void;
 
 export type Props = {
   routes: Route[];
@@ -16,17 +21,20 @@ export type Props = {
   theme?: Theme;
   skeletons?: Skeletons;
   customElementMappers?: CustomElementMapper[];
+  serviceRegisterer?: ServiceRegisterer;
 };
 type States = {
   currentController: IDataController | null;
   currentRoute: Route | null;
   formKey: number;
+  container: InjectorContainer;
 };
 
 export default class FLMC extends React.Component<Props, States> {
   constructor(props: Props) {
     super(props);
     this.state = {
+      container: new InjectorContainer(),
       currentController: null,
       currentRoute: null,
       formKey: 0
@@ -52,6 +60,9 @@ export default class FLMC extends React.Component<Props, States> {
     this.setState({ currentController: controller, currentRoute: route, formKey: this.state.formKey + 1 }, () =>
       this.handleOnAfterRouteChangedMiddlewares()
     );
+
+    // register services in contaienr
+    if (this.props.serviceRegisterer != null) this.props.serviceRegisterer(this.state.container);
   }
 
   renderView() {
@@ -68,7 +79,7 @@ export default class FLMC extends React.Component<Props, States> {
       <RouteToFormView
         skeletons={skeletons}
         currentRoute={this.state.currentRoute}
-        controller={this.state.currentController as FormController}
+        controller={this.state.currentController as FLMCFormController}
         formKey={`${this.state.formKey}_FormView`}
         routes={this.props.routes}
       />
@@ -77,9 +88,11 @@ export default class FLMC extends React.Component<Props, States> {
 
   render() {
     let view = (
-      <CustomElementContext.Provider value={this.props.customElementMappers || []}>
-        {this.renderView()}
-      </CustomElementContext.Provider>
+      <InjectorContext.Provider value={this.state.container}>
+        <CustomElementContext.Provider value={this.props.customElementMappers || []}>
+          {this.renderView()}
+        </CustomElementContext.Provider>
+      </InjectorContext.Provider>
     );
 
     if (this.props.theme == null) return view;

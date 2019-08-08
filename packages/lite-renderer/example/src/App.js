@@ -13,6 +13,14 @@ const skeletons = {
   )
 };
 
+class TestService {
+  value;
+
+  constructor() {
+    this.value = Math.random();
+  }
+}
+
 export default class App extends Component {
   render() {
     return (
@@ -20,6 +28,9 @@ export default class App extends Component {
         <FLMC
           routes={routes}
           skeletons={skeletons}
+          serviceRegisterer={container => {
+            container.addSignleton({ serviceName: "TestService", builder: () => new TestService() });
+          }}
           customElementMappers={
             [
               // props => {

@@ -1,4 +1,3 @@
-import FormController from "./flmc-data-layer/FormController/FormController";
 import FormView from "./form/FormView.js";
 import Button from "./form/elements/button/ButtonElement.js";
 import SelectBox from "./form/elements/selectBox/SelectBoxElement";
@@ -39,6 +38,7 @@ import Raw from "./form/elements/raw/RawElement";
 import { SelectBoxColors } from "./form/elements/selectBox/SelectBoxColor";
 import { ContainerWrap } from "./form/elements/container/ContainerWrap";
 import InlineForm from "./form/elements/inline-form/InlineFormElement";
+import { FLMCFormController as FormController } from "./FLMCFormController";
 
 export {
   FormController,

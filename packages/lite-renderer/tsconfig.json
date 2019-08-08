@@ -17,7 +17,8 @@
     "suppressImplicitAnyIndexErrors": true,
     "noUnusedLocals": false,
     "noUnusedParameters": false,
-    "experimentalDecorators": true
+    "experimentalDecorators": true,
+    "isolatedModules": false
   },
   "include": ["src"],
   "exclude": ["node_modules", "build", "dist", "example", "rollup.config.js"]
