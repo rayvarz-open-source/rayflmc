@@ -4,6 +4,7 @@ import { TabElements, TabTitles, CurrentTab } from "./TabElementAttributes";
 import { Visibility } from "../base/BaseElement";
 import { AppBar, Tabs, Tab } from "@material-ui/core";
 import { MapToView } from "../ElementToViewMapper";
+import { type } from "os";
 
 type Props = {
   element: TabElement;
@@ -51,7 +52,14 @@ export default function TabView({ element, weight }: Props) {
   }
 
   function renderChildrenTitle() {
-    return tabTitles.map((v, i) => <Tab label={v} key={`tab_title_${i}`} />);
+    return tabTitles.map((v, i) => {
+      let label = "";
+      let disabled = false;
+      if (typeof v === "string") label = v;
+      else [label, disabled] = v;
+
+      return <Tab label={label} disabled={disabled} key={`tab_title_${i}`} />;
+    });
   }
 
   return (
