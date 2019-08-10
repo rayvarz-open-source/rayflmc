@@ -34,12 +34,23 @@ export default class ButtonForm extends FormController {
   disabled = new BehaviorSubject(true);
   variant = new BehaviorSubject(ButtonVariant.Contained);
 
+  handleModals() {
+    this.modalService.enqueue(Label("modal 1"));
+    this.modalService.enqueue(Label("modal 2"));
+    this.modalService.enqueue(Label("modal 3"));
+    this.modalService.enqueue(
+      Button("Close").onClick(() => this.modalService.closeCurrent()),
+      { visibleHeaders: false }
+    );
+  }
+
   elements = [
     Label("Colors"),
     Container([
       Button("ButtonColor.Default")
         .colors(ButtonColor.Default)
-        .variant(this.variant),
+        .variant(this.variant)
+        .onClick(() => this.handleModals()),
       Button("ButtonColor.Inherit")
         .colors(ButtonColor.Inherit)
         .variant(this.variant),
@@ -55,7 +66,9 @@ export default class ButtonForm extends FormController {
 
     Label("Loading"),
     Container([
-      Button("Toggle loading").onClick(() => this.loading.next(!this.loading.value)),
+      Button("Toggle loading").onClick(() =>
+        this.loading.next(!this.loading.value)
+      ),
       Button("ButtonColor.Default")
         .colors(ButtonColor.Default)
         .onClick(() => alert("ButtonColor.Default"))
@@ -81,7 +94,9 @@ export default class ButtonForm extends FormController {
       .flex([1, 1, 1, 1, 1]),
     Label("Disabled"),
     Container([
-      Button("Toggle Disabled").onClick(() => this.disabled.next(!this.disabled.value)),
+      Button("Toggle Disabled").onClick(() =>
+        this.disabled.next(!this.disabled.value)
+      ),
       Button("ButtonColor.Default")
         .colors(ButtonColor.Default)
         .onClick(() => alert("ButtonColor.Default"))
@@ -107,9 +122,15 @@ export default class ButtonForm extends FormController {
       .flex([1, 1, 1, 1, 1]),
     Label("Variant text"),
     Container([
-      Button("Variant : Text").onClick(() => this.variant.next(ButtonVariant.Text)),
-      Button("Variant : Contained").onClick(() => this.variant.next(ButtonVariant.Contained)),
-      Button("Variant : Outlined").onClick(() => this.variant.next(ButtonVariant.Outlined))
+      Button("Variant : Text").onClick(() =>
+        this.variant.next(ButtonVariant.Text)
+      ),
+      Button("Variant : Contained").onClick(() =>
+        this.variant.next(ButtonVariant.Contained)
+      ),
+      Button("Variant : Outlined").onClick(() =>
+        this.variant.next(ButtonVariant.Outlined)
+      )
     ])
       .direction(ContainerDirection.Row)
       .flex([1, 1, 1])
