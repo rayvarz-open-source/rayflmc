@@ -16,15 +16,15 @@ export type Child = IElement | undefined;
  */
 export type Open = boolean;
 /**
- * @[{"bidirectional":false,"required":false,"typeguard":"isVisibileHeader","default":"true"}]
+ * @[{"bidirectional":false,"required":false,"typeguard":"isVisibleHeader","default":"true"}]
  * 
  */
-export type VisibileHeader = boolean;
+export type VisibleHeader = boolean;
 /**
- * @[{"bidirectional":false,"required":false,"typeguard":"isVisibileHeaderCloseButton","default":"true"}]
+ * @[{"bidirectional":false,"required":false,"typeguard":"isVisibleHeaderCloseButton","default":"true"}]
  * 
  */
-export type VisibileHeaderCloseButton = boolean;
+export type VisibleHeaderCloseButton = boolean;
 /**
  * @[{"bidirectional":false,"required":false,"typeguard":"isTitle","default":"undefined"}]
  * 
@@ -82,8 +82,8 @@ export type MaxHeight = number | undefined;
 export const TypeGuards = {
     isChild: (value: any): value is Child => isElement(value),
     isOpen: (value: any): value is Open => typeof (value) == "boolean",
-    isVisibileHeader: (value: any): value is VisibileHeader => typeof (value) == "boolean",
-    isVisibileHeaderCloseButton: (value: any): value is VisibileHeaderCloseButton => typeof (value) == "boolean",
+    isVisibleHeader: (value: any): value is VisibleHeader => typeof (value) == "boolean",
+    isVisibleHeaderCloseButton: (value: any): value is VisibleHeaderCloseButton => typeof (value) == "boolean",
     isTitle: (value: any): value is Title => typeof (value) == "string" || typeof (value) == "undefined",
     isNoPadding: (value: any): value is NoPadding => typeof (value) == "boolean",
     isNoBackground: (value: any): value is NoBackground => typeof (value) == "boolean",

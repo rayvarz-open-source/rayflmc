@@ -3,8 +3,8 @@ import * as React from "react";
 import {
   Child,
   Open,
-  VisibileHeader,
-  VisibileHeaderCloseButton,
+  VisibleHeader,
+  VisibleHeaderCloseButton,
   Title,
   NoPadding,
   NoBackdropClickClose,
@@ -35,8 +35,8 @@ export default function ModalView({ element }: Props) {
   /*******************************************/
   const [child, setChild] = React.useState<Child>(undefined);
   const [open, setOpen] = React.useState<Open>(false);
-  const [visibileHeader, setVisibileHeader] = React.useState<VisibileHeader>(true);
-  const [visibileHeaderCloseButton, setVisibileHeaderCloseButton] = React.useState<VisibileHeaderCloseButton>(true);
+  const [visibleHeader, setVisibleHeader] = React.useState<VisibleHeader>(true);
+  const [visibleHeaderCloseButton, setVisibleHeaderCloseButton] = React.useState<VisibleHeaderCloseButton>(true);
   const [title, setTitle] = React.useState<Title>(undefined);
   const [noPadding, setNoPadding] = React.useState<NoPadding>(false);
   const [noBackground, setNoBackground] = React.useState<NoBackground>(false);
@@ -52,9 +52,9 @@ export default function ModalView({ element }: Props) {
   React.useEffect(() => {
     let childSub = element.childContainer.subscribe({ next: v => setChild(v) });
     let openSub = element.openContainer.subscribe({ next: v => setOpen(v) });
-    let visibileHeaderSub = element.visibileHeaderContainer.subscribe({ next: v => setVisibileHeader(v) });
-    let visibileHeaderCloseButtonSub = element.visibileHeaderCloseButtonContainer.subscribe({
-      next: v => setVisibileHeaderCloseButton(v)
+    let visibleHeaderSub = element.visibleHeaderContainer.subscribe({ next: v => setVisibleHeader(v) });
+    let visibleHeaderCloseButtonSub = element.visibleHeaderCloseButtonContainer.subscribe({
+      next: v => setVisibleHeaderCloseButton(v)
     });
     let titleSub = element.titleContainer.subscribe({ next: v => setTitle(v) });
     let noPaddingSub = element.noPaddingContainer.subscribe({ next: v => setNoPadding(v) });
@@ -75,8 +75,8 @@ export default function ModalView({ element }: Props) {
     return () => {
       childSub.unsubscribe();
       openSub.unsubscribe();
-      visibileHeaderSub.unsubscribe();
-      visibileHeaderCloseButtonSub.unsubscribe();
+      visibleHeaderSub.unsubscribe();
+      visibleHeaderCloseButtonSub.unsubscribe();
       titleSub.unsubscribe();
       noPaddingSub.unsubscribe();
       noBackgroundSub.unsubscribe();
@@ -120,10 +120,10 @@ export default function ModalView({ element }: Props) {
   }
 
   function createHeader(): React.ReactElement | null {
-    if (!visibileHeader) return null;
+    if (!visibleHeader) return null;
     let action: React.ReactElement | undefined = undefined;
 
-    if (visibileHeaderCloseButton)
+    if (visibleHeaderCloseButton)
       action = (
         <IconButton onClick={handleClose}>
           <MoreVertIcon />
