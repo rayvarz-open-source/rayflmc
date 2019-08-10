@@ -20,7 +20,8 @@
     "deploy": "gh-pages -d example/build",
     "version:patch": "npm version patch && git add . && git commit -m \"Bump Version\"",
     "version:major": "npm version major && git add . && git commit -m \"Bump Version\"",
-    "format": "prettier --write \"src/**/*.ts\" \"src/**/*.js\" --print-width 120"
+    "format": "prettier --write \"src/**/*.ts\" \"src/**/*.js\" --print-width 120",
+    "publish-to-npm": "del .\\build\\ && npm run prepare-for-publish && npm run version:patch && npm publish"
   },
   "dependencies": {
     "notistack": "^0.8.9",

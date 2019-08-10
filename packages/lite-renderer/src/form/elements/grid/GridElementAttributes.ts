@@ -58,8 +58,8 @@ export type RefreshEvent = EventType;
 // type guards
 
 export const TypeGuards = {
-    isColumnDefinitions: (value: any): value is ColumnDefinitions => value.forEach != null,
-    isActionDefinitions: (value: any): value is ActionDefinitions => value.forEach != null,
-    isDatasource: (value: any): value is Datasource => (value.map != null && value.length != null) || typeof (value) == "function",
+    isColumnDefinitions: (value: any): value is ColumnDefinitions => Array.isArray(value),
+    isActionDefinitions: (value: any): value is ActionDefinitions => Array.isArray(value),
+    isDatasource: (value: any): value is Datasource => Array.isArray(value) || typeof (value) == "function",
     isTitle: (value: any): value is Title => typeof (value) == "string",
 }

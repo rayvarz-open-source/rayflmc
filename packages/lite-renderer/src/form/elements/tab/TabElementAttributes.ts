@@ -32,5 +32,5 @@ export type CurrentTab = number;
 export const TypeGuards = {
     isTabs: (value: any): value is TabElements => areElements(value),
     isCurrentTab: (value: any): value is CurrentTab => typeof (value) == "number",
-    isTabTitles: (value: any): value is TabTitles => value.map != null && (value as any).map((i: any) => typeof (i) == 'string' || i.map != null).reduce((p: boolean, c: boolean) => p && c),
+    isTabTitles: (value: any): value is TabTitles => Array.isArray(value) && (value as any).map((i: any) => typeof (i) == 'string' || i.map != null).reduce((p: boolean, c: boolean) => p && c),
 }

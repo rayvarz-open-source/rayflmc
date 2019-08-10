@@ -210,5 +210,5 @@ export const TypeGuards = {
     isDirection: (value: any): value is Direction => value === "rtl" || value === "ltr" || value === "default",
     isOnEndIconClick: (value: any): value is OnEndIconClick => typeof(value) == "function",
     isOnStartIconClick: (value: any): value is OnStartIconClick => typeof(value) == "function",
-    isValidation: (value: any): value is Validations => (value.map != null) && (value.length < 2 || value.map((i: any) => typeof (i) == "function").reduce((p: boolean, c: boolean) => p && c)),
+    isValidation: (value: any): value is Validations => Array.isArray(value) && (value.length < 2 || value.map((i: any) => typeof (i) == "function").reduce((p: boolean, c: boolean) => p && c)),
 }

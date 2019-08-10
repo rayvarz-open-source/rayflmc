@@ -52,5 +52,5 @@ export const TypeGuards = {
     isChildren: (value: any): value is Children => areElements(value),
     isDirection: (value: any): value is Direction => isContainerDirection(value),
     isWrap: (value: any): value is Wrap => isContainerWrap(value),
-    isFlex: (value: any): value is Flex => value.forEach != null && (value as any).map((i: any) => typeof (i) == 'number').reduce((p: boolean, c: boolean) => p && c),
+    isFlex: (value: any): value is Flex => Array.isArray(value) && (value as any).map((i: any) => typeof (i) == 'number').reduce((p: boolean, c: boolean) => p && c),
 }
