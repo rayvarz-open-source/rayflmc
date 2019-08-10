@@ -2,7 +2,7 @@ import { Route } from "./router/route";
 import { RouteMiddleWares } from "./router/middleware";
 import { Theme } from "@material-ui/core";
 import * as React from "react";
-import { createOnHashChangeFunction, changeRoute } from "./router/router";
+import { createOnHashChangeFunction, changeRoute, areRoutesValid as validateRoutes } from "./router/router";
 import { ThemeProvider } from "@material-ui/styles";
 import IDataController from "./flmc-data-layer/Base/IDataController";
 import { Skeletons, RouteToFormView } from "./skeleton/RouteToFormView";
@@ -43,6 +43,7 @@ export default class FLMC extends React.Component<Props, States> {
     };
 
     // validate routes:
+    validateRoutes(this.props.routes);
   }
 
   handleOnAfterRouteChangedMiddlewares() {
