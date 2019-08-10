@@ -42,48 +42,65 @@ import { FLMCFormController as FormController } from "./FLMCFormController";
 import useInject from "./custom-hooks/useInject.js";
 
 export {
-  useInject,
-  FormController,
+  // Button
   Button,
+  ButtonColor,
+  ButtonVariant,
+  // TextInput
   TextInput,
+  TextInputStyleType,
+  TextInputValidations,
+  makeTextInputValidations,
+  // SelectBox
   SelectBox,
   SelectBoxColors,
   SelectBoxLabelPlacement,
+  // Container
   Container,
   ContainerWrap,
+  ContainerDirection,
+  // Chip
   Chip,
+  ChipModel,
+  ChipSelectionType,
+  // Modal
   Modal,
+  // InlineForm
   InlineForm,
+  // Label
   Label,
+  // Tab
   Tab,
+  // Raw
   Raw,
+  // Image
   Image,
+  ImageScaleType,
+  ImageBorderType,
+  // Grid
+  Grid,
+  // FormView
+  FormView,
+  // Space
+  Space,
+  // SelectBoxVariant
+  SelectBoxVariant,
+  // Common
   StyleType,
   StyleColor,
-  Grid,
-  RootRouteCategory,
   Alignment,
   Size,
   TextSize,
-  TextAlignment,
   DisplayType,
-  TextInputStyleType,
-  SelectBoxVariant,
   VisibilityType,
-  ChipModel,
-  ChipSelectionType,
-  ImageScaleType,
-  ImageBorderType,
+  TextAlignment,
   TextDirection,
-  ContainerDirection,
+  // Base
+  Skeleton,
+  RootRouteCategory,
   changeRoute,
-  ButtonColor,
-  ButtonVariant,
-  FormView,
-  Space,
-  TextInputValidations,
-  makeTextInputValidations,
-  Skeleton
+  useInject,
+  FormController
 };
 
 export default FLMC;
