@@ -12,6 +12,8 @@ import { CustomElementMapper, CustomElementContext } from "./form/elements/Custo
 import { InjectorContainer } from "./injector/InjectorContainer";
 import { InjectorContext } from "./injector/InjectorContext";
 import { FLMCFormController } from "./FLMCFormController";
+import { SnackbarProvider } from "notistack";
+import { SNACK_SERVICE_NAME, SnackService } from "./services/SnackService";
 
 export type ServiceRegisterer = (container: InjectorContainer) => void;
 
@@ -48,7 +50,16 @@ export default class FLMC extends React.Component<Props, States> {
     });
   }
 
+  setupCoreServices() {
+    const container = this.state.container;
+    container.addSignleton({
+      serviceName: SNACK_SERVICE_NAME,
+      builder: () => new SnackService()
+    });
+  }
+
   componentDidMount() {
+    this.setupCoreServices();
     let controllerBuilder = createOnHashChangeFunction(this.props.routes);
     window.onhashchange = () => {
       const [controller, route] = controllerBuilder()!;
@@ -88,11 +99,14 @@ export default class FLMC extends React.Component<Props, States> {
 
   render() {
     let view = (
-      <InjectorContext.Provider value={this.state.container}>
-        <CustomElementContext.Provider value={this.props.customElementMappers || []}>
-          {this.renderView()}
-        </CustomElementContext.Provider>
-      </InjectorContext.Provider>
+      <SnackbarProvider maxSnack={2}>
+        {/* set maxSnack from options */}
+        <InjectorContext.Provider value={this.state.container}>
+          <CustomElementContext.Provider value={this.props.customElementMappers || []}>
+            {this.renderView()}
+          </CustomElementContext.Provider>
+        </InjectorContext.Provider>
+      </SnackbarProvider>
     );
 
     if (this.props.theme == null) return view;

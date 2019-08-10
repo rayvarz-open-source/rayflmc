@@ -4,6 +4,7 @@ import { Route } from "../router/route";
 import { isInjectorReciever } from "../injector/InjectorReciever";
 import { InjectorContext } from "../injector/InjectorContext";
 import { FLMCFormController } from "../FLMCFormController";
+import useInjector from "../custom-hooks/useInjector";
 
 type Props = {
   currentRoute: Route | null;
@@ -17,11 +18,8 @@ type SkeletonBuilder = (props: Props) => React.ReactElement;
 export type Skeletons = { [skeletonName: string]: SkeletonBuilder };
 
 export function RouteToFormView(props: Props & { skeletons: Skeletons }) {
-  // inject, injector to InjectorRecievers
-  const injectorContainer = React.useContext(InjectorContext);
-  if (injectorContainer != null && props.controller != null && isInjectorReciever(props.controller)) {
-    props.controller.inject(injectorContainer.injector);
-  }
+  // setup injector and it's dependecies
+  useInjector(props.controller);
 
   // perform life cycle methods
   // TODO: make sure it only fires one time

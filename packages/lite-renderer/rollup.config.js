@@ -51,12 +51,9 @@ export default {
       // relative to the current directory, or the name
       // of a module in node_modules
       namedExports: {
-        "node_modules/react-is/index.js": [
-          "ForwardRef",
-          "isValidElementType",
-          "isContextConsumer"
-        ],
-        "node_modules/material-table/dist/index.js": ["MTableBodyRow"]
+        "node_modules/react-is/index.js": ["ForwardRef", "isValidElementType", "isContextConsumer"],
+        "node_modules/material-table/dist/index.js": ["MTableBodyRow"],
+        "node_modules/notistack/build/index.js": ["SnackbarProvider", "useSnackbar"]
       }
     })
   ]

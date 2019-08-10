@@ -16,6 +16,15 @@ export default class ButtonForm extends FormController {
     console.log(service.value);
   }
 
+  ready() {
+    if (this.snackService == null) return;
+    this.snackService.error("Error");
+    this.snackService.info("Info");
+    this.snackService.warning("Warning");
+    this.snackService.success("Success");
+    this.snackService.show("Show");
+  }
+
   loading = new BehaviorSubject(true);
   disabled = new BehaviorSubject(true);
   variant = new BehaviorSubject(ButtonVariant.Contained);
