@@ -39,8 +39,10 @@ import { SelectBoxColors } from "./form/elements/selectBox/SelectBoxColor";
 import { ContainerWrap } from "./form/elements/container/ContainerWrap";
 import InlineForm from "./form/elements/inline-form/InlineFormElement";
 import { FLMCFormController as FormController } from "./FLMCFormController";
+import useInject from "./custom-hooks/useInject.js";
 
 export {
+  useInject,
   FormController,
   Button,
   TextInput,
