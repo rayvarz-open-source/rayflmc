@@ -1,9 +1,3 @@
-/**
- *
- *  Base64 encode / decode
- *  http://www.webtoolkit.info
- *
- **/
 var Base64 = {
   // private property
   _keyStr: "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/=",
@@ -129,31 +123,6 @@ var Base64 = {
   } // End Function _utf8_decode
 };
 
-const isObject = (obj: any) => obj && typeof obj === "object" && !Array.isArray(obj);
-const getObjectKeys = (obj: object) => (isObject(obj) ? Object.keys(obj) : []);
-
-const viewsForDirector = (views: any, store: any) =>
-  getObjectKeys(views).reduce((obj: any, viewKey) => {
-    const view = views[viewKey];
-    obj[view.path] = (...paramsArr: any[]) => view.goTo(store, paramsArr);
-    return obj;
-  }, {});
-
-interface RegexCallBack {
-  (value: RegExpExecArray): void;
-}
-
-const getRegexMatches = (string: string, regexExpression: RegExp, callback: RegexCallBack) => {
-  let match;
-  while ((match = regexExpression.exec(string)) !== null) {
-    callback(match);
-  }
-};
-
-/* eslint-disable */
-const paramRegex = /(:([^\/?]*)\??)/g;
-const optionalRegex = /(\/:[^\/]*\?)$/g;
-
 interface IControllerBuilder {
   (path: string, params: object): object;
 }
@@ -182,21 +151,20 @@ class Route {
     }
   }
 
-  // async go(){
-  //     console.log('go: ' + JSON.stringify(this))
-  // }
-
-  // changeLocation(prop){
-  //     console.log(prop)
-  // }
+  parse(hash: string): [string, object] {
+    let parts = hash.substring(2).split("/");
+    let path = parts.length == 1 ? parts[0] : parts.slice(0, parts.length - 1).join("/");
+    let params = parts.length == 1 ? "" : parts[parts.length - 1];
+    let paramsObj = params.trim() === "" ? {} : JSON.parse(Base64.decode(params));
+    return ["/" + path, paramsObj];
+  }
 
   __initFromUrl() {
     try {
-      this.hash = Base64.decode(window.location.hash.substring(1));
-      var routeObject = JSON.parse(this.hash);
-
-      this.path = routeObject.path;
-      this.params = routeObject.params;
+      this.hash = window.location.hash;
+      let [path, params] = this.parse(this.hash);
+      this.path = path;
+      this.params = params;
     } catch (err) {
       // this.changeLocation('404')
       changeRoute("/", {});
@@ -205,13 +173,10 @@ class Route {
 
   __setHash(hash: string) {
     this.hash = hash;
-    var routeObject = JSON.parse(Base64.decode(this.hash));
-    this.path = routeObject.path;
-    this.params = routeObject.params;
-  }
 
-  encode() {
-    return Base64.encode(JSON.stringify(this));
+    let [path, params] = this.parse(this.hash);
+    this.path = path;
+    this.params = params;
   }
 }
 
@@ -248,6 +213,8 @@ export const createOnHashChangeFunction = (routes: FRoute[]) => {
       if (route.path == currentRoute.path || (route.path == "/" && !currentRoute.path))
         return [route.builder(route.path, currentRoute.params), route as FRoute];
     }
+    changeRoute("/", {});
+    return undefined;
   };
 };
 
@@ -263,11 +230,13 @@ const changeHash = (hash: string) => {
 
 export const changeRoute = (path: string | Route, params?: object) => {
   let _path = typeof path == "string" ? path : path.path;
-  let hash = Base64.encode(
-    JSON.stringify({
-      path: _path,
-      params: params || {}
-    })
-  );
+
+  let hash = `${_path}/${Base64.encode(JSON.stringify(params))}`;
   changeHash(hash);
 };
+
+export function areRoutesValid(routes: Route[]): boolean {
+  for (let route of routes)
+    if (route.path.startsWith("/") && route.path.substring(1) !== "/" && !route.path.endsWith("/")) return false;
+  return true;
+}

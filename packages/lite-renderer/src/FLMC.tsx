@@ -2,7 +2,7 @@ import { Route } from "./router/route";
 import { RouteMiddleWares } from "./router/middleware";
 import { Theme } from "@material-ui/core";
 import * as React from "react";
-import { createOnHashChangeFunction } from "./router/router";
+import { createOnHashChangeFunction, changeRoute } from "./router/router";
 import { ThemeProvider } from "@material-ui/styles";
 import IDataController from "./flmc-data-layer/Base/IDataController";
 import { Skeletons, RouteToFormView } from "./skeleton/RouteToFormView";
@@ -41,6 +41,8 @@ export default class FLMC extends React.Component<Props, States> {
       currentRoute: null,
       formKey: 0
     };
+
+    // validate routes:
   }
 
   handleOnAfterRouteChangedMiddlewares() {
@@ -62,7 +64,12 @@ export default class FLMC extends React.Component<Props, States> {
     this.setupCoreServices();
     let controllerBuilder = createOnHashChangeFunction(this.props.routes);
     window.onhashchange = () => {
-      const [controller, route] = controllerBuilder()!;
+      let builder = controllerBuilder();
+      if (builder == null) {
+        changeRoute("/", {});
+        return;
+      }
+      const [controller, route] = builder;
       this.setState({ currentController: controller, currentRoute: route, formKey: this.state.formKey + 1 }, () =>
         this.handleOnAfterRouteChangedMiddlewares()
       );
