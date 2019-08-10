@@ -60,6 +60,6 @@ export type RefreshEvent = EventType;
 export const TypeGuards = {
     isColumnDefinitions: (value: any): value is ColumnDefinitions => value.forEach != null,
     isActionDefinitions: (value: any): value is ActionDefinitions => value.forEach != null,
-    isDatasource: (value: any): value is Datasource => value.forEach != null || typeof (value) == "function",
+    isDatasource: (value: any): value is Datasource => (value.map != null && value.length != null) || typeof (value) == "function",
     isTitle: (value: any): value is Title => typeof (value) == "string",
 }
