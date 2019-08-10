@@ -20,11 +20,11 @@ export function RouteToFormView(props: Props & { skeletons: Skeletons }) {
   // inject, injector to InjectorRecievers
   const injectorContainer = React.useContext(InjectorContext);
   if (injectorContainer != null && props.controller != null && isInjectorReciever(props.controller)) {
-    props.controller.injector = injectorContainer.injector;
-    props.controller.inject();
+    props.controller.inject(injectorContainer.injector);
   }
 
   // perform life cycle methods
+  // TODO: make sure it only fires one time
   if (props.controller != null) {
     props.controller.ready();
   }

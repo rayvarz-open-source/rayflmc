@@ -10,8 +10,9 @@ import {
 } from "lite-renderer";
 
 export default class ImageForm extends FormController {
-  inject() {
-    let service = this.injector.inject("TestService");
+  inject(injector) {
+    super.inject(injector);
+    let service = injector.inject("TestService");
     console.log(service.value);
   }
   loading = new BehaviorSubject(true);

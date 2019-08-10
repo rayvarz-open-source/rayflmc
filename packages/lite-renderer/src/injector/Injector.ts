@@ -1,4 +1,4 @@
-type ServiceResolver = (seviceName: string) => any | null;
+export type ServiceResolver = (seviceName: string) => any | null;
 
 export class Injector {
   private serviceResolver: ServiceResolver;
