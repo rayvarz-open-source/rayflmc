@@ -1,8 +1,8 @@
-import { Route } from "./router/route";
-import { RouteMiddleWares } from "./router/middleware";
+import { Route } from "./services/router/route";
+import { RouteMiddleWares } from "./services/router/middleware";
 import { Theme } from "@material-ui/core";
 import * as React from "react";
-import { createOnHashChangeFunction, changeRoute, areRoutesValid as validateRoutes } from "./router/router";
+import { createOnHashChangeFunction, changeRoute, areRoutesValid as validateRoutes } from "./services/router/router";
 import { ThemeProvider } from "@material-ui/styles";
 import IDataController from "./flmc-data-layer/Base/IDataController";
 import { Skeletons, RouteToFormView } from "./skeleton/RouteToFormView";
@@ -63,23 +63,6 @@ export default class FLMC extends React.Component<Props, States> {
 
   componentDidMount() {
     this.setupCoreServices();
-    let controllerBuilder = createOnHashChangeFunction(this.props.routes);
-    window.onhashchange = () => {
-      let builder = controllerBuilder();
-      if (builder == null) {
-        changeRoute("/", {});
-        return;
-      }
-      const [controller, route] = builder;
-      this.setState({ currentController: controller, currentRoute: route, formKey: this.state.formKey + 1 }, () =>
-        this.handleOnAfterRouteChangedMiddlewares()
-      );
-    };
-    const [controller, route] = controllerBuilder()!;
-    this.setState({ currentController: controller, currentRoute: route, formKey: this.state.formKey + 1 }, () =>
-      this.handleOnAfterRouteChangedMiddlewares()
-    );
-
     // register services in contaienr
     if (this.props.serviceRegisterer != null) this.props.serviceRegisterer(this.state.container);
   }

@@ -1,6 +1,6 @@
 import * as React from "react";
 
-import { Route } from "../router/route";
+import { Route } from "../services/router/route";
 import { isInjectorReciever } from "../injector/InjectorReciever";
 import { InjectorContext } from "../injector/InjectorContext";
 import { FLMCFormController } from "../FLMCFormController";

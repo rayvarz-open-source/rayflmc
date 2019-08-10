@@ -1,5 +1,5 @@
 import * as React from "react";
-import IDataController from "../flmc-data-layer/Base/IDataController";
+import IDataController from "../../flmc-data-layer/Base/IDataController";
 
 export interface DataControllerBuilder {
   (path: string, params: any): IDataController;

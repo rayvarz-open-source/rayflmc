@@ -49,7 +49,7 @@ class Route {
       this.params = params;
     } catch (err) {
       // this.changeLocation('404')
-      changeRoute("/", {});
+      changeWindowRoute("/", {});
     }
   }
 
@@ -86,7 +86,7 @@ function onRoutChange(props?: Props): Route {
 }
 
 import { Route as FRoute } from "./route";
-import IDataController from "../flmc-data-layer/Base/IDataController";
+import IDataController from "../../flmc-data-layer/Base/IDataController";
 
 export const createOnHashChangeFunction = (routes: FRoute[]) => {
   return (): [IDataController, FRoute] | undefined => {
@@ -95,14 +95,14 @@ export const createOnHashChangeFunction = (routes: FRoute[]) => {
       if (route.path == currentRoute.path || (route.path == "/" && !currentRoute.path))
         return [route.builder(route.path, currentRoute.params), route as FRoute];
     }
-    changeRoute("/", {});
     return undefined;
   };
 };
 
-const changeHash = (hash: string) => {
+const changeHash = (hash: string, replace: boolean = false) => {
   if (history.pushState) {
-    history.pushState(null, "", `#${hash}`);
+    if (replace) history.replaceState(null, "", `#${hash}`);
+    else history.pushState(null, "", `#${hash}`);
   } else {
     location.hash = `#${hash}`;
   }
@@ -110,11 +110,11 @@ const changeHash = (hash: string) => {
   (window as any).onhashchange();
 };
 
-export const changeRoute = (path: string | Route, params?: object) => {
+export const changeWindowRoute = (path: string | FRoute, params?: object, replace: boolean = false) => {
   let _path = typeof path == "string" ? path : path.path;
 
   let hash = `${_path}/${JSON.stringify(params || {})}`;
-  changeHash(hash);
+  changeHash(hash, replace);
 };
 
 export function areRoutesValid(routes: FRoute[]) {
