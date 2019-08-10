@@ -10,6 +10,11 @@ import {
 } from "lite-renderer";
 
 export default class ButtonForm extends FormController {
+  constructor(props) {
+    super();
+    console.log(props);
+  }
+
   inject(injector) {
     super.inject(injector);
     let service = injector.inject("TestService");

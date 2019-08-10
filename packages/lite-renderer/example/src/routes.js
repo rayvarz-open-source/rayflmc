@@ -17,7 +17,7 @@ const categoties = {
 const routes = [
   {
     path: "/",
-    builder: (path, params) => new ButtonForm(),
+    builder: (path, params) => new ButtonForm(params),
     category: RootRouteCategory,
     name: "Home",
     hidden: false
@@ -31,7 +31,7 @@ const routes = [
   },
   {
     path: "/button",
-    builder: (path, params) => new ButtonForm(),
+    builder: (path, params) => new ButtonForm(params),
     name: "Button Element",
     category: categoties.elementGallery,
     hidden: false
