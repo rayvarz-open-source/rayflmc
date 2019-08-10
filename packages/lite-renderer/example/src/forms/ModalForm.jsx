@@ -46,7 +46,7 @@ export default class ModalForm extends FormController {
 
     Modal(Container([Label("This is a sample modal")])).open(this.isSampleModalOpen),
     Modal(Container([Label("This is a sample modal without close button")]))
-      .visibileHeaderCloseButton(false)
+      .visibleHeaderCloseButton(false)
       .open(this.isSampleModalWithoutCloseButtonOpen),
 
     Modal(Container([Label("This is a sample modal with title")]))
@@ -54,7 +54,7 @@ export default class ModalForm extends FormController {
       .open(this.isSampleModalWithTitleOpen),
 
     Modal(Container([Label("This is a sample modal without header")]))
-      .visibileHeader(false)
+      .visibleHeader(false)
       .open(this.isSampleModalWithoutHeaderOpen),
 
     Modal(
@@ -65,18 +65,18 @@ export default class ModalForm extends FormController {
         )
       ])
     )
-      .visibileHeader(false)
+      .visibleHeader(false)
       .open(this.isSampleModalWithSelfHandledCloseButtonOpen),
 
     Modal(
       Container([Raw(_ => <div style={{ backgroundColor: "red", width: 200, height: 50 }} />), Label("other element")])
     )
       .noPadding(true)
-      .visibileHeader(false)
+      .visibleHeader(false)
       .open(this.modalWithNoPadding),
     Modal(Container([Label("other element")]))
       .noBackground(true)
-      .visibileHeader(false)
+      .visibleHeader(false)
       .open(this.noBackgroundOpen),
 
     Modal(
