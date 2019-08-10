@@ -134,7 +134,7 @@ now you can register your custom element and use it in your forms:
 
 ```
 
-## Vverride core element's view ( or other packages )
+## Override core element's view ( or other packages )
 
 as you can see above customMappers runs first from top to the button then core runs.
 
@@ -144,7 +144,7 @@ so you can use type name in core package ( or other packages ) and replace their
 export function overrideCoreButtonElement({ element, weight }: MapperProps) {
   switch (element.type) {
     case ElementType.Button: // ElementType from core pacakge
-      return <p>{"I am not a buton !"}</p>;
+      return <p>{"I am not a button !"}</p>;
   }
   return null;
 }
