@@ -186,7 +186,7 @@ export type NumberFormatter = boolean;
  * 
  * example: ['(', /[1-9]/, /\d/, /\d/, ')', ' ', /\d/, /\d/, /\d/, '-', /\d/, /\d/, /\d/, /\d/]
  */
-export type Mask = string[] | undefined;
+export type Mask = ((string | RegExp)[]) | undefined;
 // End Element
 
 // type guards
