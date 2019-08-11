@@ -53,6 +53,11 @@ export type LocalizationDefinition = Localization | undefined;
  * TODO: add docs
  */
 export type RefreshEvent = EventType;
+/**
+ * @[{"bidirectional":false,"required":false,"typeguard":"isOnSelectedChange","default":"undefined"}]
+ * TODO: add docs
+ */
+export type OnSelectedChange = ((data: any[], rowData?: any) => void) | undefined;
 // End Element
 
 // type guards
@@ -62,4 +67,5 @@ export const TypeGuards = {
     isActionDefinitions: (value: any): value is ActionDefinitions => Array.isArray(value),
     isDatasource: (value: any): value is Datasource => Array.isArray(value) || typeof (value) == "function",
     isTitle: (value: any): value is Title => typeof (value) == "string",
+    isOnSelectedChange: (value: any): value is OnSelectedChange => typeof (value) === "function" || typeof (value) === "undefined",
 }

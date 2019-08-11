@@ -13,7 +13,8 @@ import {
   GridOptions,
   Title,
   LocalizationDefinition,
-  RefreshEvent
+  RefreshEvent,
+  OnSelectedChange
 } from "./GridElementAttributes";
 
 export class GridElement extends BaseElement implements IElement {
@@ -265,10 +266,36 @@ export class GridElement extends BaseElement implements IElement {
     return this.refreshEventR(value);
   }
 
+  onSelectedChangeContainer = new BehaviorSubject<OnSelectedChange>(undefined);
+
+  /** iternal function for handling raw OnSelectedChange types*/
+  private onSelectedChangeR(value: OnSelectedChange): GridElement {
+    this.onSelectedChangeContainer.next(value);
+    return this;
+  }
+
+  /** iternal function for handling Observable<OnSelectedChange> types*/
+  private onSelectedChangeO(value: Observable<OnSelectedChange>): GridElement {
+    value.subscribe({ next: v => this.onSelectedChangeContainer.next(v) });
+    return this;
+  }
+
+  /**
+   * default value: undefined
+   *
+   * TODO: add docs
+   */
+  onSelectedChange(value: Observable<OnSelectedChange> | OnSelectedChange): GridElement {
+    if (TypeGuards.isOnSelectedChange(value)) return this.onSelectedChangeR(value);
+    else if (isObservable(value)) return this.onSelectedChangeO(value);
+    throw new Error(`invalid type ${typeof value} for OnSelectedChange`);
+  }
   /*******************************************/
   /* END OF GENERATED CODE                   */
   /*******************************************/
   //endregion
+
+  tableRef?: any;
 }
 
 /*******************************************/

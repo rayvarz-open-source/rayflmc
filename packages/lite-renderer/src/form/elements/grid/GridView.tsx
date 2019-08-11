@@ -9,7 +9,8 @@ import {
   GridOptions,
   Title,
   LocalizationDefinition,
-  TypeGuards
+  TypeGuards,
+  OnSelectedChange
 } from "./GridElementAttributes";
 import { Visibility } from "../base/BaseElement";
 import MaterialTable from "material-table";
@@ -35,6 +36,7 @@ export default function GridView({ element, weight }: Props) {
   const [gridOptions, setGridOptions] = React.useState<GridOptions>({});
   const [title, setTitle] = React.useState<Title>("");
   const [localizationDefinition, setLocalizationDefinition] = React.useState<LocalizationDefinition>(undefined);
+  const [onSelectedChange, setOnSelectedChange] = useFunctionAsState<OnSelectedChange>(undefined);
   const [visibility, setVisibility] = React.useState<Visibility>("show");
 
   React.useEffect(() => {
@@ -51,6 +53,7 @@ export default function GridView({ element, weight }: Props) {
       next: v => setLocalizationDefinition(v)
     });
     let visibilitySub = element.elementVisibilityContainer.subscribe({ next: v => setVisibility(v) });
+    let onSelectedChangeSub = element.onSelectedChangeContainer.subscribe({ next: v => setOnSelectedChange(v) });
     let refreshEventSub = element.refreshEventContainer.subscribe({
       next: _ => {
         if (Array.isArray(element.datasourceContainer.value)) return;
@@ -68,6 +71,7 @@ export default function GridView({ element, weight }: Props) {
       titleSub.unsubscribe();
       localizationDefinitionSub.unsubscribe();
       refreshEventSub.unsubscribe();
+      onSelectedChangeSub.unsubscribe();
       visibilitySub.unsubscribe();
     };
   }, []);
@@ -75,6 +79,8 @@ export default function GridView({ element, weight }: Props) {
   /* END OF GENERATED CODE                   */
   /*******************************************/
   //endregion
+
+  element.tableRef = tableRef.current;
 
   return (
     <div
@@ -93,6 +99,7 @@ export default function GridView({ element, weight }: Props) {
         editable={rowActionDefinitions}
         options={gridOptions}
         localization={localizationDefinition}
+        onSelectionChange={onSelectedChange}
       />
     </div>
   );
