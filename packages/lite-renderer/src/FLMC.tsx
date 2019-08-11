@@ -2,20 +2,13 @@ import { Route } from "./router/route";
 import { RouteMiddleWares } from "./router/middleware";
 import { Theme } from "@material-ui/core";
 import * as React from "react";
-import {
-  createOnHashChangeFunction,
-  changeRoute,
-  areRoutesValid as validateRoutes
-} from "./router/router";
+import { createOnHashChangeFunction, changeRoute, areRoutesValid as validateRoutes } from "./router/router";
 import { ThemeProvider } from "@material-ui/styles";
 import IDataController from "./flmc-data-layer/Base/IDataController";
 import { Skeletons, RouteToFormView } from "./skeleton/RouteToFormView";
 import DefaultSkeleton from "./skeleton/default-skeleton/DefaultSkeleton";
 import { FormView } from ".";
-import {
-  CustomElementMapper,
-  CustomElementContext
-} from "./form/elements/CustomElementsContext";
+import { CustomElementMapper, CustomElementContext } from "./form/elements/CustomElementsContext";
 import { InjectorContainer } from "./injector/InjectorContainer";
 import { InjectorContext } from "./injector/InjectorContext";
 import { FLMCFormController } from "./FLMCFormController";
@@ -23,10 +16,7 @@ import { SnackbarProvider } from "notistack";
 import { SNACK_SERVICE_NAME, SnackService } from "./services/SnackService";
 import { ModalProvider } from "./services/ModalService/ModalProvider";
 import { ModalElement } from "./form/elements/modal/ModalElement";
-import {
-  MODAL_SERVICE_NAME,
-  ModalService
-} from "./services/ModalService/ModalService";
+import { MODAL_SERVICE_NAME, ModalService } from "./services/ModalService/ModalService";
 
 export type ServiceRegisterer = (container: InjectorContainer) => void;
 
@@ -63,11 +53,9 @@ export default class FLMC extends React.Component<Props, States> {
 
   handleOnAfterRouteChangedMiddlewares() {
     if (this.props.routerMiddlewares == null) return;
-    (this.props.routerMiddlewares.afterRouteChanged || []).forEach(
-      middleware => {
-        middleware(this.state.currentRoute);
-      }
-    );
+    (this.props.routerMiddlewares.afterRouteChanged || []).forEach(middleware => {
+      middleware(this.state.currentRoute);
+    });
   }
 
   setupCoreServices() {
@@ -111,20 +99,14 @@ export default class FLMC extends React.Component<Props, States> {
     );
     // register services in contaienr
     this.setupCoreServices();
-    if (this.props.serviceRegisterer != null)
-      this.props.serviceRegisterer(this.state.container);
+    if (this.props.serviceRegisterer != null) this.props.serviceRegisterer(this.state.container);
   }
 
   renderView() {
     let skeletons: Skeletons = {
       default: route => (
-        <DefaultSkeleton
-          currentRoute={route.currentRoute}
-          routes={route.routes}
-        >
-          {route.controller != null ? (
-            <FormView controller={route.controller!} key={route.formKey} />
-          ) : null}
+        <DefaultSkeleton currentRoute={route.currentRoute} routes={route.routes}>
+          {route.controller != null ? <FormView controller={route.controller!} key={route.formKey} /> : null}
         </DefaultSkeleton>
       ),
       ...(this.props.skeletons || {})
@@ -144,12 +126,10 @@ export default class FLMC extends React.Component<Props, States> {
   render() {
     let view = (
       <ModalProvider modalElement={this.state.modalElement}>
-        <SnackbarProvider maxSnack={2}>
+        <SnackbarProvider hideIconVariant={true} maxSnack={2}>
           {/* TODO: set maxSnack from options */}
           <InjectorContext.Provider value={this.state.container}>
-            <CustomElementContext.Provider
-              value={this.props.customElementMappers || []}
-            >
+            <CustomElementContext.Provider value={this.props.customElementMappers || []}>
               {this.renderView()}
             </CustomElementContext.Provider>
           </InjectorContext.Provider>
