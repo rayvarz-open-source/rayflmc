@@ -36,7 +36,7 @@ export class InjectorContainer {
     this.injector = new Injector(serviceName => this.getService(serviceName));
   }
 
-  addSignleton({ serviceName, builder, isLazyBuilder }: RegisterProps) {
+  addSingleton({ serviceName, builder, isLazyBuilder }: RegisterProps) {
     let instance = isLazyBuilder || false ? null : builder();
     if (instance != null && isInjectorReciever(instance)) instance.inject(this.injector);
     let service: SignletonService = {

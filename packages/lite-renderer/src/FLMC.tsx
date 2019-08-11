@@ -60,11 +60,11 @@ export default class FLMC extends React.Component<Props, States> {
 
   setupCoreServices() {
     const container = this.state.container;
-    container.addSignleton({
+    container.addSingleton({
       serviceName: SNACK_SERVICE_NAME,
       builder: () => new SnackService()
     });
-    container.addSignleton({
+    container.addSingleton({
       serviceName: MODAL_SERVICE_NAME,
       builder: () => new ModalService(this.state.modalElement)
     });
