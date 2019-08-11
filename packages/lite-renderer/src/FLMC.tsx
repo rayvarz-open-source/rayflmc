@@ -54,7 +54,7 @@ export default class FLMC extends React.Component<Props, States> {
   handleOnAfterRouteChangedMiddlewares() {
     if (this.props.routerMiddlewares == null) return;
     (this.props.routerMiddlewares.afterRouteChanged || []).forEach(middleware => {
-      middleware(this.state.currentRoute);
+      middleware(this.state.currentRoute, this.state.container.injector);
     });
   }
 
