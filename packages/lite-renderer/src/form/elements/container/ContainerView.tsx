@@ -6,6 +6,7 @@ import { ContainerDirection } from "./ContainerDirection";
 import { Box } from "@material-ui/core";
 import { MapToView } from "../ElementToViewMapper";
 import { ContainerWrap } from "./ContainerWrap";
+import { skip } from "rxjs/operators";
 
 type Props = {
   element: ContainerElement;
@@ -17,14 +18,14 @@ export default function ContainerView({ element, weight }: Props) {
   /*******************************************/
   /* GENERATED CODE, DO NOT MODIFY BY HAND!! */
   /*******************************************/
-  const [children, setChildren] = React.useState<Children>([]);
+  const [children, setChildren] = React.useState<Children>(() => element.childrenContainer.value);
   const [direction, setDirection] = React.useState<Direction>(ContainerDirection.Column);
   const [flex, setFlex] = React.useState<Flex>([]);
   const [wrap, setWrap] = React.useState<Wrap>(ContainerWrap.NoWrap);
   const [visibility, setVisibility] = React.useState<Visibility>("show");
 
   React.useEffect(() => {
-    let childrenSub = element.childrenContainer.subscribe({ next: v => setChildren(v) });
+    let childrenSub = element.childrenContainer.pipe(skip(1)).subscribe({ next: v => setChildren(v) });
     let directionSub = element.directionContainer.subscribe({ next: v => setDirection(v) });
     let flexSub = element.flexContainer.subscribe({ next: v => setFlex(v) });
     let wrapSub = element.wrapContainer.subscribe({ next: v => setWrap(v) });
