@@ -63,11 +63,11 @@ export default function ButtonView({ element, weight }: Props) {
       case "default":
         return contrast ? "#ffffff" : "#000000";
       case "inherit":
-        return contrast ? theme.palette.primary.main : theme.palette.primary.contrastText;
+        return contrast ? "#ffffff" : "#000000";
       case "primary":
-        return contrast ? theme.palette.primary.main : theme.palette.primary.contrastText;
+        return contrast ? theme.palette.primary.contrastText : theme.palette.primary.main;
       case "secondary":
-        return contrast ? theme.palette.secondary.main : theme.palette.secondary.contrastText;
+        return contrast ? theme.palette.secondary.contrastText : theme.palette.secondary.main;
       default:
         return contrast ? "#ffffff" : "#000000";
     }
