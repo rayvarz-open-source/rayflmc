@@ -58,10 +58,32 @@ export default function ButtonView({ element, weight }: Props) {
   /*******************************************/
   //endregion
 
+  function getTextColor(color: Colors, contrast: boolean) {
+    switch (color) {
+      case "default":
+        return contrast ? "#ffffff" : "#000000";
+      case "inherit":
+        return contrast ? theme.palette.primary.main : theme.palette.primary.contrastText;
+      case "primary":
+        return contrast ? theme.palette.primary.main : theme.palette.primary.contrastText;
+      case "secondary":
+        return contrast ? theme.palette.secondary.main : theme.palette.secondary.contrastText;
+      default:
+        return contrast ? "#ffffff" : "#000000";
+    }
+  }
+
   function getProgressColor(variant: Variant, color: Colors) {
-    if (theme === null) return "#000000";
-    if (variant === "contained") return theme.palette.primary.light;
-    else return theme.palette.primary.dark;
+    switch (variant) {
+      case "contained":
+        return getTextColor(color, true);
+      case "outlined":
+        return getTextColor(color, false);
+      case "text":
+        return getTextColor(color, false);
+      default:
+        return getTextColor(color, false);
+    }
   }
 
   const ColorCircularProgress = withStyles({
