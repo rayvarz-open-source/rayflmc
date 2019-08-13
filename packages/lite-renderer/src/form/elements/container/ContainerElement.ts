@@ -2,9 +2,10 @@ import IElement, { ValidationResult } from "../../../flmc-data-layer/FormControl
 import { ElementType } from "../ElementType";
 import { Observable, BehaviorSubject, isObservable } from "rxjs";
 import { BaseElement } from "../base/BaseElement";
-import { TypeGuards, Children, Direction, Flex, Wrap } from "./ContainerElementAttributes";
+import { TypeGuards, Children, Direction, Flex, Wrap, Decoration } from "./ContainerElementAttributes";
 import { ContainerDirection } from "./ContainerDirection";
 import { ContainerWrap } from "./ContainerWrap";
+import { ContainerDecoration } from "./ContainerDecoration";
 
 export class ContainerElement extends BaseElement implements IElement {
   validate(): ValidationResult {
@@ -136,6 +137,31 @@ export class ContainerElement extends BaseElement implements IElement {
     if (TypeGuards.isWrap(value)) return this.wrapR(value);
     else if (isObservable(value)) return this.wrapO(value);
     throw new Error(`invalid type ${typeof value} for Wrap`);
+  }
+
+  decorationContainer = new BehaviorSubject<Decoration>(ContainerDecoration.None);
+
+  /** iternal function for handling raw Decoration types*/
+  private decorationR(value: Decoration): ContainerElement {
+    this.decorationContainer.next(value);
+    return this;
+  }
+
+  /** iternal function for handling Observable<Decoration> types*/
+  private decorationO(value: Observable<Decoration>): ContainerElement {
+    value.subscribe({ next: v => this.decorationContainer.next(v) });
+    return this;
+  }
+
+  /**
+   * default value: ContainerDecoration.None
+   *
+   *
+   */
+  decoration(value: Observable<Decoration> | Decoration): ContainerElement {
+    if (TypeGuards.isDecoration(value)) return this.decorationR(value);
+    else if (isObservable(value)) return this.decorationO(value);
+    throw new Error(`invalid type ${typeof value} for Decoration`);
   }
 
   /*******************************************/

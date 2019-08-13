@@ -40,6 +40,7 @@ import { ContainerWrap } from "./form/elements/container/ContainerWrap";
 import InlineForm from "./form/elements/inline-form/InlineFormElement";
 import { FLMCFormController as FormController } from "./FLMCFormController";
 import useInject from "./custom-hooks/useInject.js";
+import { ContainerDecoration } from "./form/elements/container/ContainerDecoration.js";
 
 export {
   // Button
@@ -59,6 +60,7 @@ export {
   Container,
   ContainerWrap,
   ContainerDirection,
+  ContainerDecoration,
   // Chip
   Chip,
   ChipModel,

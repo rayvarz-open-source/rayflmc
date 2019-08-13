@@ -1,6 +1,7 @@
 import IElement, { areElements } from "../../../flmc-data-layer/FormController/IElement";
 import { ContainerDirection, isContainerDirection } from "./ContainerDirection";
 import { ContainerWrap, isContainerWrap } from "./ContainerWrap";
+import { isContainerDecoration, ContainerDecoration } from "./ContainerDecoration";
 
 /** @ElementDoc
  * @example
@@ -44,6 +45,11 @@ export type Flex = number[];
  * 
  */
 export type Wrap = ContainerWrap;
+/**
+ * @[{"bidirectional":false,"required":false,"typeguard":"isDecoration","default":"ContainerDecoration.None"}]
+ * 
+ */
+export type Decoration = ContainerDecoration;
 // End Element
 
 // type guards
@@ -52,5 +58,6 @@ export const TypeGuards = {
     isChildren: (value: any): value is Children => areElements(value),
     isDirection: (value: any): value is Direction => isContainerDirection(value),
     isWrap: (value: any): value is Wrap => isContainerWrap(value),
+    isDecoration: (value: any): value is Decoration => isContainerDecoration(value),
     isFlex: (value: any): value is Flex => Array.isArray(value) && (value as any).map((i: any) => typeof (i) == 'number').reduce((p: boolean, c: boolean) => p && c),
 }

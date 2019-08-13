@@ -9,6 +9,7 @@ import {
   SelectBoxLabelPlacement,
   SelectBoxColors,
   SelectBox,
+  ContainerDecoration,
   SelectBoxVariant
 } from "lite-renderer";
 
@@ -40,6 +41,7 @@ export default class SelectBoxForm extends FormController {
         .variant(this.variant)
         .disabled(true)
     ])
+      .decoration(ContainerDecoration.Paper)
       .direction(ContainerDirection.Row)
       .flex([1, 1, 1, 1]),
     SelectBox(this.valueVariants, 4)
