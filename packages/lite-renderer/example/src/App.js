@@ -29,7 +29,7 @@ export default class App extends Component {
           routes={routes}
           skeletons={skeletons}
           serviceRegisterer={container => {
-            container.addSignleton({ serviceName: "TestService", builder: () => new TestService() });
+            container.addSingleton({ serviceName: "TestService", builder: () => new TestService() });
           }}
           customElementMappers={
             [

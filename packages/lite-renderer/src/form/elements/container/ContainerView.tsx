@@ -7,6 +7,7 @@ import { Box } from "@material-ui/core";
 import { MapToView } from "../ElementToViewMapper";
 import { ContainerWrap } from "./ContainerWrap";
 import { skip } from "rxjs/operators";
+import IElement from "../../../flmc-data-layer/FormController/IElement";
 
 type Props = {
   element: ContainerElement;
@@ -14,18 +15,25 @@ type Props = {
 };
 
 export default function ContainerView({ element, weight }: Props) {
-  //region generated
-  /*******************************************/
-  /* GENERATED CODE, DO NOT MODIFY BY HAND!! */
-  /*******************************************/
-  const [children, setChildren] = React.useState<Children>(() => element.childrenContainer.value);
   const [direction, setDirection] = React.useState<Direction>(ContainerDirection.Column);
-  const [flex, setFlex] = React.useState<Flex>([]);
+  const [flex, setFlex] = React.useState<Flex>(element.flexContainer.value);
   const [wrap, setWrap] = React.useState<Wrap>(ContainerWrap.NoWrap);
   const [visibility, setVisibility] = React.useState<Visibility>("show");
 
+  function renderChildren(elements: IElement[]): React.ReactElement[] {
+    if (flex.length != 0)
+      return elements.map((element, i) => (
+        <MapToView element={element} weight={flex[i]} key={`${element.type}_${i}`} />
+      ));
+    return elements.map((v, i) => <MapToView element={v} weight={0} key={`${v.type}_${i}`} />);
+  }
+
+  const [children, setChildren] = React.useState<React.ReactElement[]>(() =>
+    renderChildren(element.childrenContainer.value)
+  );
+
   React.useEffect(() => {
-    let childrenSub = element.childrenContainer.pipe(skip(1)).subscribe({ next: v => setChildren(v) });
+    let childrenSub = element.childrenContainer.pipe(skip(1)).subscribe({ next: v => setChildren(renderChildren(v)) });
     let directionSub = element.directionContainer.subscribe({ next: v => setDirection(v) });
     let flexSub = element.flexContainer.subscribe({ next: v => setFlex(v) });
     let wrapSub = element.wrapContainer.subscribe({ next: v => setWrap(v) });
@@ -38,22 +46,10 @@ export default function ContainerView({ element, weight }: Props) {
       wrapSub.unsubscribe();
       visibilitySub.unsubscribe();
     };
-  }, []);
-  /*******************************************/
-  /* END OF GENERATED CODE                   */
-  /*******************************************/
-  //endregion
+  }, [element.childrenContainer]);
 
   if (flex.length > 0 && flex.length != children.length)
     throw new Error(`flex length (${flex.length}) must be same as children length ${children.length}`);
-
-  function renderChildren() {
-    if (flex.length != 0)
-      return children.map((element, i) => (
-        <MapToView element={element} weight={flex[i]} key={`${element.type}_${i}`} />
-      ));
-    return children.map((v, i) => <MapToView element={v} weight={0} key={`${v.type}_${i}`} />);
-  }
 
   return (
     <Box
@@ -65,7 +61,7 @@ export default function ContainerView({ element, weight }: Props) {
       display="flex"
       flexDirection={direction}
     >
-      {renderChildren()}
+      {children}
     </Box>
   );
 }
