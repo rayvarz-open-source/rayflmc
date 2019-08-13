@@ -33,7 +33,7 @@ export default function ModalView({ element }: Props) {
   /*******************************************/
   /* GENERATED CODE, DO NOT MODIFY BY HAND!! */
   /*******************************************/
-  const [child, setChild] = React.useState<Child>(undefined);
+  const [child, setChild] = React.useState<Child>(() => element.childContainer.value);
   const [open, setOpen] = React.useState<Open>(false);
   const [visibleHeader, setVisibleHeader] = React.useState<VisibleHeader>(true);
   const [visibleHeaderCloseButton, setVisibleHeaderCloseButton] = React.useState<VisibleHeaderCloseButton>(true);
@@ -42,7 +42,7 @@ export default function ModalView({ element }: Props) {
   const [noBackground, setNoBackground] = React.useState<NoBackground>(false);
   const [noBackdropClickClose, setNoBackdropClickClose] = React.useState<NoBackdropClickClose>(true);
   const [noEscapeKeyDownClose, setNoEscapeKeyDownClose] = React.useState<NoEscapeKeyDownClose>(true);
-  const [lazyContent, setLazyContent] = React.useState<LazyContent>(true);
+  const [lazyContent, setLazyContent] = React.useState<LazyContent>(() => element.lazyContentContainer.value);
   const [minWidth, setMinWidth] = React.useState<MinWidth>(undefined);
   const [minHeight, setMinHeight] = React.useState<MinHeight>(undefined);
   const [maxWidth, setMaxWidth] = React.useState<MaxWidth>(undefined);
