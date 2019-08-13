@@ -1,5 +1,6 @@
 import { ButtonColor, isButtonColor } from "./ButtonColor";
 import { ButtonVariant, isButtonVariant } from "./ButtonVariant";
+import { ButtonIconPlacement, isButtonIconPlacement } from "./ButtonIconPlacement";
 
 /** @ElementDoc
  * @example
@@ -59,6 +60,12 @@ export type Icon = string | undefined;
  * 
  */
 export type OnClick = VoidFunction | undefined;
+/**
+ * @[{"bidirectional":false,"required":false,"typeguard":"isIconPlacement","default": "ButtonIconPlacement.Start"}]
+ * 
+ * 
+ */
+export type IconPlacement = ButtonIconPlacement;
 // End Element
 
 // type guards
@@ -70,5 +77,6 @@ export const TypeGuards = {
     isOnClick: (value: any): value is OnClick => typeof (value) == "function",
     isColors: (value: any): value is Colors => isButtonColor(value),
     isVariant: (value: any): value is Variant => isButtonVariant(value),
+    isIconPlacement: (value: any): value is IconPlacement => isButtonIconPlacement(value),
     isIcon: (value: any): value is Icon => typeof (value) == "string" || typeof (value) == "undefined",
 }

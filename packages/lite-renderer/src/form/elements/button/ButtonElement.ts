@@ -3,7 +3,18 @@ import { ElementType } from "../ElementType";
 import { Observable, BehaviorSubject, isObservable } from "rxjs";
 import { BaseElement } from "../base/BaseElement";
 import { isSubject } from "../../../flmc-data-layer";
-import { TypeGuards, Text, Loading, Disabled, Colors, Variant, Icon, OnClick } from "./ButtonElementAttributes";
+import {
+  TypeGuards,
+  Text,
+  Loading,
+  Disabled,
+  Colors,
+  Variant,
+  Icon,
+  OnClick,
+  IconPlacement
+} from "./ButtonElementAttributes";
+import { ButtonIconPlacement } from "./ButtonIconPlacement";
 
 export class ButtonElement extends BaseElement implements IElement {
   validate(): ValidationResult {
@@ -210,6 +221,32 @@ export class ButtonElement extends BaseElement implements IElement {
     if (TypeGuards.isOnClick(value)) return this.onClickR(value);
     else if (isObservable(value)) return this.onClickO(value);
     throw new Error(`invalid type ${typeof value} for OnClick`);
+  }
+
+  iconPlacementContainer = new BehaviorSubject<IconPlacement>(ButtonIconPlacement.Start);
+
+  /** iternal function for handling raw IconPlacement types*/
+  private iconPlacementR(value: IconPlacement): ButtonElement {
+    this.iconPlacementContainer.next(value);
+    return this;
+  }
+
+  /** iternal function for handling Observable<IconPlacement> types*/
+  private iconPlacementO(value: Observable<IconPlacement>): ButtonElement {
+    value.subscribe({ next: v => this.iconPlacementContainer.next(v) });
+    return this;
+  }
+
+  /**
+   * default value: ButtonIconPlacement.Start
+   *
+   *
+   *
+   */
+  iconPlacement(value: Observable<IconPlacement> | IconPlacement): ButtonElement {
+    if (TypeGuards.isIconPlacement(value)) return this.iconPlacementR(value);
+    else if (isObservable(value)) return this.iconPlacementO(value);
+    throw new Error(`invalid type ${typeof value} for IconPlacement`);
   }
 
   /*******************************************/

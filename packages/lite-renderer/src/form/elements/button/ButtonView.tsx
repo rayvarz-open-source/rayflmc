@@ -3,9 +3,10 @@ import * as React from "react";
 import useFunctionAsState from "../../../custom-hooks/function-state";
 import { Visibility } from "../base/BaseElement";
 import { ButtonElement } from "./ButtonElement";
-import { Colors, Disabled, Icon, Loading, OnClick, Text, Variant } from "./ButtonElementAttributes";
+import { Colors, Disabled, Icon, Loading, OnClick, Text, Variant, IconPlacement } from "./ButtonElementAttributes";
 import { useTheme } from "@material-ui/styles";
 import { Theme } from "@material-ui/core/styles/createMuiTheme";
+import { ButtonIconPlacement } from "./ButtonIconPlacement";
 
 type Props = {
   element: ButtonElement;
@@ -26,6 +27,7 @@ export default function ButtonView({ element, weight }: Props) {
   const [variant, setVariant] = React.useState<Variant>("contained");
   const [icon, setIcon] = React.useState<Icon>(undefined);
   const [onClick, setOnClick] = useFunctionAsState<OnClick>(undefined);
+  const [iconPlacement, setIconPlacement] = React.useState<IconPlacement>(ButtonIconPlacement.Start);
   const [visibility, setVisibility] = React.useState<Visibility>("show");
 
   React.useEffect(() => {
@@ -36,6 +38,7 @@ export default function ButtonView({ element, weight }: Props) {
     let variantSub = element.variantContainer.subscribe({ next: v => setVariant(v) });
     let iconSub = element.iconContainer.subscribe({ next: v => setIcon(v) });
     let onClickSub = element.onClickContainer.subscribe({ next: v => setOnClick(v) });
+    let iconPlacementSub = element.iconPlacementContainer.subscribe({ next: v => setIconPlacement(v) });
     let visibilitySub = element.elementVisibilityContainer.subscribe({ next: v => setVisibility(v) });
 
     return () => {
@@ -46,6 +49,7 @@ export default function ButtonView({ element, weight }: Props) {
       variantSub.unsubscribe();
       iconSub.unsubscribe();
       onClickSub.unsubscribe();
+      iconPlacementSub.unsubscribe();
       visibilitySub.unsubscribe();
     };
   }, []);
@@ -68,7 +72,8 @@ export default function ButtonView({ element, weight }: Props) {
 
   function createIcon() {
     if (!icon) return null;
-    return <MIcon style={{ marginRight: !!text ? 8 : 0 }}>{icon}</MIcon>;
+    let margin = !!text ? 8 : 0;
+    return <MIcon style={{ marginRight: margin, marginLeft: margin }}>{icon}</MIcon>;
   }
 
   function createLoading() {
@@ -92,9 +97,10 @@ export default function ButtonView({ element, weight }: Props) {
       disabled={disabled}
       onClick={handleClick}
     >
-      {createIcon()}
       {createLoading()}
+      {iconPlacement === ButtonIconPlacement.Start && createIcon()}
       {text}
+      {iconPlacement === ButtonIconPlacement.End && createIcon()}
     </Button>
   );
 }

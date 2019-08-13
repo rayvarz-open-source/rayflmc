@@ -41,12 +41,14 @@ import InlineForm from "./form/elements/inline-form/InlineFormElement";
 import { FLMCFormController as FormController } from "./FLMCFormController";
 import useInject from "./custom-hooks/useInject.js";
 import { ContainerDecoration } from "./form/elements/container/ContainerDecoration.js";
+import { ButtonIconPlacement } from "./form/elements/button/ButtonIconPlacement.js";
 
 export {
   // Button
   Button,
   ButtonColor,
   ButtonVariant,
+  ButtonIconPlacement,
   // TextInput
   TextInput,
   TextInputStyleType,

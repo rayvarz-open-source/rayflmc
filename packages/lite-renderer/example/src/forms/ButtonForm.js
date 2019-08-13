@@ -6,7 +6,8 @@ import {
   Container,
   ContainerDirection,
   Label,
-  ButtonVariant
+  ButtonVariant,
+  ButtonIconPlacement
 } from "lite-renderer";
 
 export default class ButtonForm extends FormController {
@@ -106,11 +107,14 @@ export default class ButtonForm extends FormController {
         .colors(ButtonColor.Primary)
         .onClick(() => alert("ButtonColor.Primary"))
         .variant(this.variant)
+        .icon("print")
+        .iconPlacement(ButtonIconPlacement.End)
         .disabled(this.disabled),
       Button("ButtonColor.Secondary")
         .colors(ButtonColor.Secondary)
         .onClick(() => alert("ButtonColor.Secondary"))
         .variant(this.variant)
+        .icon("print")
         .disabled(this.disabled)
     ])
       .direction(ContainerDirection.Row)
