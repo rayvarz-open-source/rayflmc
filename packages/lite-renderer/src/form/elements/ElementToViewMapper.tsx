@@ -34,7 +34,7 @@ import { useIdentifyElement } from "./ElementLifeCycleContext";
 export type MapperProps = {
   element: IElement;
   weight: number;
-  key: string;
+  key?: string;
 };
 
 export function MapToView({ element, weight }: MapperProps) {
