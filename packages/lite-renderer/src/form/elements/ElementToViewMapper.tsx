@@ -29,47 +29,71 @@ import { RawElement } from "./raw/RawElement";
 import { CustomElementContext } from "./CustomElementsContext";
 import { InlineFormElement } from "./inline-form/InlineFormElement";
 import InlineFormView from "./inline-form/InlineFormView";
+import { useIdentifyElement } from "./ElementLifeCycleContext";
 
 export type MapperProps = {
   element: IElement;
   weight: number;
+  key: string;
 };
 
 export function MapToView({ element, weight }: MapperProps) {
+  let view: React.ReactElement | null = null;
+  const [key, updateKey] = useIdentifyElement();
+
   const customMappers = React.useContext(CustomElementContext);
 
   for (let mapper of customMappers) {
-    let view = mapper({ element, weight });
-    if (view != null) return view;
+    view = mapper({ element, weight, key });
+    if (view != null) {
+      updateKey();
+      return view;
+    }
   }
 
   switch (element.type) {
     case ElementType.Button:
-      return <ButtonView element={element as ButtonElement} weight={weight} />;
+      view = <ButtonView element={element as ButtonElement} weight={weight} key={key} />;
+      break;
     case ElementType.Modal:
-      return <ModalView element={element as ModalElement} weight={weight} />;
+      return <ModalView element={element as ModalElement} weight={weight} key={key} />;
     case ElementType.SelectBox:
-      return <SelectView element={element as SelectBoxElement<any>} weight={weight} />;
+      view = <SelectView element={element as SelectBoxElement<any>} weight={weight} key={key} />;
+      break;
     case ElementType.Label:
-      return <LabelView element={element as LabelElement} weight={weight} />;
+      view = <LabelView element={element as LabelElement} weight={weight} key={key} />;
+      break;
     case ElementType.Container:
-      return <ContainerView element={element as ContainerElement} weight={weight} />;
+      view = <ContainerView element={element as ContainerElement} weight={weight} key={key} />;
+      break;
     case ElementType.Tab:
-      return <TabView element={element as TabElement} weight={weight} />;
+      view = <TabView element={element as TabElement} weight={weight} key={key} />;
+      break;
     case ElementType.Chip:
-      return <ChipView element={element as ChipElement} weight={weight} />;
+      view = <ChipView element={element as ChipElement} weight={weight} key={key} />;
+      break;
     case ElementType.TextInput:
-      return <TextInputView element={element as TextInputElement} weight={weight} />;
+      view = <TextInputView element={element as TextInputElement} weight={weight} key={key} />;
+      break;
     case ElementType.Grid:
-      return <GridView element={element as GridElement} weight={weight} />;
+      view = <GridView element={element as GridElement} weight={weight} key={key} />;
+      break;
     case ElementType.Image:
-      return <ImageView element={element as ImageElement} weight={weight} />;
+      view = <ImageView element={element as ImageElement} weight={weight} key={key} />;
+      break;
     case ElementType.Space:
-      return <SpaceView element={element as SpaceElement} weight={weight} />;
+      view = <SpaceView element={element as SpaceElement} weight={weight} key={key} />;
+      break;
     case ElementType.Raw:
-      return <RawView element={element as RawElement} weight={weight} />;
+      view = <RawView element={element as RawElement} weight={weight} key={key} />;
+      break;
     case ElementType.InlineForm:
-      return <InlineFormView element={element as InlineFormElement} weight={weight} />;
+      view = <InlineFormView element={element as InlineFormElement} weight={weight} key={key} />;
+      break;
   }
-  throw Error(`can't map ${element.type} to a view`);
+
+  if (view == null) throw Error(`can't map ${element.type} to a view`);
+
+  updateKey();
+  return view;
 }
