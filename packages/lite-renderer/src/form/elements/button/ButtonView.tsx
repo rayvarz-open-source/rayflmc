@@ -59,17 +59,19 @@ export default function ButtonView({ element, weight }: Props) {
   //endregion
 
   function getTextColor(color: Colors, contrast: boolean) {
+    let defaultColor = contrast ? "#ffffff" : "#000000";
+    if (theme == null) return defaultColor;
     switch (color) {
       case "default":
-        return contrast ? "#ffffff" : "#000000";
+        return defaultColor;
       case "inherit":
-        return contrast ? "#ffffff" : "#000000";
+        return defaultColor;
       case "primary":
         return contrast ? theme.palette.primary.contrastText : theme.palette.primary.main;
       case "secondary":
         return contrast ? theme.palette.secondary.contrastText : theme.palette.secondary.main;
       default:
-        return contrast ? "#ffffff" : "#000000";
+        return defaultColor;
     }
   }
 
