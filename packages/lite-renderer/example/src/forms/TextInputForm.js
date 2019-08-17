@@ -30,6 +30,7 @@ export default class TextInputForm extends FormController {
       .variant(this.variant)
       .label("static that is connected to a observable"),
     TextInput(this.value)
+      .maxLength(5)
       .variant(this.variant)
       .inputType("text")
       .label("test"),

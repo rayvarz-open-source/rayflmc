@@ -190,6 +190,11 @@ export type Mask = ((string | RegExp)[]) | undefined;
  * 
  */
 export type SelectOptions = string[] | undefined;
+/**
+ * @[{"bidirectional":false,"required":false,"default":"undefined"}]
+ * 
+ */
+export type MaxLength = number | undefined;
 // End Element
 
 // type guards

@@ -27,6 +27,7 @@ import {
   IsInError,
   Label,
   Mask,
+  MaxLength,
   Multiline,
   NumberFormatter,
   OnEndIconClick,
@@ -79,6 +80,7 @@ export default function TextInputView({ element, weight }: Props) {
   const [numberFormatter, setNumberFormatter] = React.useState<NumberFormatter>(false);
   const [mask, setMask] = React.useState<Mask>(undefined);
   const [selectOptions, setSelectOptions] = React.useState<SelectOptions>(undefined);
+  const [maxLength, setMaxLength] = React.useState<MaxLength>(undefined);
   const [visibility, setVisibility] = React.useState<Visibility>("show");
 
   React.useEffect(() => {
@@ -106,6 +108,7 @@ export default function TextInputView({ element, weight }: Props) {
     let numberFormatterSub = element.numberFormatterContainer.subscribe({ next: v => setNumberFormatter(v) });
     let maskSub = element.maskContainer.subscribe({ next: v => setMask(v) });
     let selectOptionsSub = element.selectOptionsContainer.subscribe({ next: v => setSelectOptions(v) });
+    let maxLengthSub = element.maxLengthContainer.subscribe({ next: v => setMaxLength(v) });
     let visibilitySub = element.elementVisibilityContainer.subscribe({ next: v => setVisibility(v) });
 
     return () => {
@@ -131,6 +134,7 @@ export default function TextInputView({ element, weight }: Props) {
       numberFormatterSub.unsubscribe();
       maskSub.unsubscribe();
       selectOptionsSub.unsubscribe();
+      maxLengthSub.unsubscribe();
       visibilitySub.unsubscribe();
     };
   }, []);
@@ -141,6 +145,7 @@ export default function TextInputView({ element, weight }: Props) {
 
   // handles bidirectional bindings
   function handleChange(event: React.ChangeEvent<HTMLInputElement>) {
+    if (maxLength && event.target.value.length > maxLength) return;
     if (event.target.value == value || !element.isExternalValueContainer) return;
     element.valueContainer.next(event.target.value);
   }

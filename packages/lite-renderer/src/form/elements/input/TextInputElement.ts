@@ -13,6 +13,7 @@ import {
   IsInError,
   Label,
   Mask,
+  MaxLength,
   Multiline,
   NumberFormatter,
   OnEndIconClick,
@@ -711,6 +712,30 @@ export class TextInputElement extends BaseElement implements IElement {
     return this;
   }
 
+  maxLengthContainer = new BehaviorSubject<MaxLength>(undefined);
+
+  /** iternal function for handling raw MaxLength types*/
+  private maxLengthR(value: MaxLength): TextInputElement {
+    this.maxLengthContainer.next(value);
+    return this;
+  }
+
+  /** iternal function for handling Observable<MaxLength> types*/
+  private maxLengthO(value: Observable<MaxLength>): TextInputElement {
+    value.subscribe({ next: v => this.maxLengthContainer.next(v) });
+    return this;
+  }
+
+  /**
+   * default value: undefined
+   *
+   *
+   */
+  maxLength(value: Observable<MaxLength> | MaxLength): TextInputElement {
+    if (isObservable(value)) this.maxLengthO(value);
+    else this.maxLengthR(value);
+    return this;
+  }
   /*******************************************/
   /* END OF GENERATED CODE                   */
   /*******************************************/
