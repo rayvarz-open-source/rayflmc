@@ -87,7 +87,7 @@ export class ModalService {
     this.maxHeight.next(options.maxHeight);
     this.minHeight.next(options.minHeight);
     this.maxWidth.next(options.maxWidth);
-    this.minHeight.next(options.minHeight);
+    this.minWidth.next(options.minWidth);
     this.noAutoClose.next(options.noAutoClose);
     this.noPadding.next(options.noPadding);
     this.isOpen.next(true);
