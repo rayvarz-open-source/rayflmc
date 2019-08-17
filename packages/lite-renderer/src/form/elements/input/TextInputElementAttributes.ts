@@ -1,6 +1,6 @@
 import { TextDirection } from "../share/TextDirection";
 import { TextInputStyleType } from "./TextInputStyleType";
-import { TextInputValidator, isTextInputValidator } from "./TextInputValidators";
+import { TextInputValidator } from "./TextInputValidators";
 
 /** @ElementDoc
  * @example
@@ -187,6 +187,11 @@ export type NumberFormatter = boolean;
  * example: ['(', /[1-9]/, /\d/, /\d/, ')', ' ', /\d/, /\d/, /\d/, '-', /\d/, /\d/, /\d/, /\d/]
  */
 export type Mask = ((string | RegExp)[]) | undefined;
+/**
+ * @[{"bidirectional":false,"required":false,"default":"undefined"}]
+ * 
+ */
+export type SelectOptions = string[] | undefined;
 // End Element
 
 // type guards

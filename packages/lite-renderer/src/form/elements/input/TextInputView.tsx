@@ -1,35 +1,49 @@
-import { TextInputElement } from "./TextInputElement";
-import * as React from "react";
 import {
-  Value,
-  Label,
-  Placeholder,
+  FilledInput,
+  FormControl,
+  Icon,
+  IconButton,
+  Input,
+  InputAdornment,
+  InputLabel,
+  MenuItem,
+  OutlinedInput,
+  Select,
+  TextField
+} from "@material-ui/core";
+import { Theme } from "@material-ui/core/styles/createMuiTheme";
+import { useTheme } from "@material-ui/styles";
+import * as React from "react";
+import useFunctionAsState from "../../../custom-hooks/function-state";
+import { Visibility } from "../base/BaseElement";
+import { TextInputElement } from "./TextInputElement";
+import {
+  Direction,
   Disabled,
+  EndIcon,
+  EndText,
   HelperText,
   IsInError,
-  StartText,
-  EndText,
-  StartIcon,
-  EndIcon,
-  Variant,
-  Password,
+  Label,
+  Mask,
   Multiline,
-  Rows,
-  RowsMax,
-  Direction,
+  NumberFormatter,
   OnEndIconClick,
   OnStartIconClick,
-  NumberFormatter,
-  Mask,
-  PlaceholderDirection
+  Password,
+  Placeholder,
+  PlaceholderDirection,
+  Rows,
+  RowsMax,
+  SelectOptions,
+  StartIcon,
+  StartText,
+  Value,
+  Variant
 } from "./TextInputElementAttributes";
-import { Visibility } from "../base/BaseElement";
-import { TextField, InputAdornment, IconButton, Icon } from "@material-ui/core";
-import useFunctionAsState from "../../../custom-hooks/function-state";
-import { useTheme } from "@material-ui/styles";
-import { Theme } from "@material-ui/core/styles/createMuiTheme";
-import { TextInputNumberFormatter } from "./TextInputNumberFormatter";
 import { TextInputMask } from "./TextInputMask";
+import { TextInputNumberFormatter } from "./TextInputNumberFormatter";
+import { TextInputStyleType } from "./TextInputStyleType";
 
 type Props = {
   element: TextInputElement;
@@ -64,6 +78,7 @@ export default function TextInputView({ element, weight }: Props) {
   const [onStartIconClick, setOnStartIconClick] = useFunctionAsState<OnStartIconClick>(undefined);
   const [numberFormatter, setNumberFormatter] = React.useState<NumberFormatter>(false);
   const [mask, setMask] = React.useState<Mask>(undefined);
+  const [selectOptions, setSelectOptions] = React.useState<SelectOptions>(undefined);
   const [visibility, setVisibility] = React.useState<Visibility>("show");
 
   React.useEffect(() => {
@@ -90,6 +105,7 @@ export default function TextInputView({ element, weight }: Props) {
     let onStartIconClickSub = element.onStartIconClickContainer.subscribe({ next: v => setOnStartIconClick(v) });
     let numberFormatterSub = element.numberFormatterContainer.subscribe({ next: v => setNumberFormatter(v) });
     let maskSub = element.maskContainer.subscribe({ next: v => setMask(v) });
+    let selectOptionsSub = element.selectOptionsContainer.subscribe({ next: v => setSelectOptions(v) });
     let visibilitySub = element.elementVisibilityContainer.subscribe({ next: v => setVisibility(v) });
 
     return () => {
@@ -114,6 +130,7 @@ export default function TextInputView({ element, weight }: Props) {
       onStartIconClickSub.unsubscribe();
       numberFormatterSub.unsubscribe();
       maskSub.unsubscribe();
+      selectOptionsSub.unsubscribe();
       visibilitySub.unsubscribe();
     };
   }, []);
@@ -126,6 +143,44 @@ export default function TextInputView({ element, weight }: Props) {
   function handleChange(event: React.ChangeEvent<HTMLInputElement>) {
     if (event.target.value == value || !element.isExternalValueContainer) return;
     element.valueContainer.next(event.target.value);
+  }
+
+  if (selectOptions != null) {
+    let input: React.ReactNode;
+
+    switch (variant) {
+      case TextInputStyleType.Filled:
+        input = <FilledInput placeholder={placeholder} />;
+        break;
+      case TextInputStyleType.Outlined:
+        input = <OutlinedInput placeholder={placeholder} labelWidth={50} />;
+        break;
+      case TextInputStyleType.Standard:
+        input = <Input placeholder={placeholder} />;
+        break;
+    }
+
+    return (
+      <FormControl
+        variant={variant}
+        style={{
+          ...element.getVisibilityStyle(visibility),
+          ...element.getWeightStyle(weight)
+        }}
+      >
+        <InputLabel htmlFor="input-label">{label}</InputLabel>
+        <Select value={value} onChange={handleChange} input={input}>
+          <MenuItem value={undefined}>
+            <em>-</em>
+          </MenuItem>
+          {selectOptions.map(v => (
+            <MenuItem key={v} value={v}>
+              {v}
+            </MenuItem>
+          ))}
+        </Select>
+      </FormControl>
+    );
   }
 
   // handles end text and end icon

@@ -1,32 +1,33 @@
-import IElement, { ValidationResult } from "../../../flmc-data-layer/FormController/IElement";
-import { ElementType } from "../ElementType";
-import { Observable, BehaviorSubject, isObservable } from "rxjs";
-import { BaseElement } from "../base/BaseElement";
+import { BehaviorSubject, isObservable, Observable } from "rxjs";
 import { isSubject } from "../../../flmc-data-layer";
+import IElement, { ValidationResult } from "../../../flmc-data-layer/FormController/IElement";
+import { BaseElement } from "../base/BaseElement";
+import { ElementType } from "../ElementType";
 import {
-  TypeGuards,
-  Value,
-  Label,
-  Placeholder,
+  Direction,
   Disabled,
+  EndIcon,
+  EndText,
   HelperText,
   IsInError,
-  StartText,
-  EndText,
-  StartIcon,
-  EndIcon,
-  Variant,
-  Password,
+  Label,
+  Mask,
   Multiline,
-  Rows,
-  RowsMax,
-  Direction,
+  NumberFormatter,
   OnEndIconClick,
   OnStartIconClick,
+  Password,
+  Placeholder,
+  PlaceholderDirection,
+  Rows,
+  RowsMax,
+  SelectOptions,
+  StartIcon,
+  StartText,
+  TypeGuards,
   Validations,
-  NumberFormatter,
-  Mask,
-  PlaceholderDirection
+  Value,
+  Variant
 } from "./TextInputElementAttributes";
 
 export class TextInputElement extends BaseElement implements IElement {
@@ -680,6 +681,31 @@ export class TextInputElement extends BaseElement implements IElement {
   mask(value: Observable<Mask> | Mask): TextInputElement {
     if (isObservable(value)) this.maskO(value);
     else this.maskR(value);
+    return this;
+  }
+
+  selectOptionsContainer = new BehaviorSubject<SelectOptions>(undefined);
+
+  /** iternal function for handling raw SelectOptions types*/
+  private selectOptionsR(value: SelectOptions): TextInputElement {
+    this.selectOptionsContainer.next(value);
+    return this;
+  }
+
+  /** iternal function for handling Observable<SelectOptions> types*/
+  private selectOptionsO(value: Observable<SelectOptions>): TextInputElement {
+    value.subscribe({ next: v => this.selectOptionsContainer.next(v) });
+    return this;
+  }
+
+  /**
+   * default value: undefined
+   *
+   *
+   */
+  selectOptions(value: Observable<SelectOptions> | SelectOptions): TextInputElement {
+    if (isObservable(value)) this.selectOptionsO(value);
+    else this.selectOptionsR(value);
     return this;
   }
 
