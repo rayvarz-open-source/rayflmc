@@ -37,6 +37,7 @@ export class ModalService {
       .minHeight(this.minHeight)
       .noBackdropClickClose(this.noAutoClose)
       .noBackdropClickClose(this.noAutoClose)
+      .noPadding(this.noPadding)
       .visibleHeader(this.visibleHeader)
       .open(this.isOpen);
 
