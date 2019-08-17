@@ -31,18 +31,22 @@ import {
 } from "./TextInputElementAttributes";
 
 export class TextInputElement extends BaseElement implements IElement {
+  lastHelperTextValue?: string;
+
   validate(): ValidationResult {
     this.isInErrorContainer.next(false);
-    this.helperTextContainer.next("");
 
     for (let validator of this.validationsContainer.value) {
       let validatorResult = validator(this.valueContainer.value);
       if (!validatorResult.isValid) {
+        this.lastHelperTextValue = this.helperTextContainer.value;
         this.isInErrorContainer.next(true);
         this.helperTextContainer.next(validatorResult.validationMessage);
         return validatorResult;
       }
     }
+
+    this.helperTextContainer.next(this.lastHelperTextValue);
     return new ValidationResult(true);
   }
 
