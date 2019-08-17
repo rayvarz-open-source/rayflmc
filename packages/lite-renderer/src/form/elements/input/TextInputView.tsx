@@ -23,6 +23,7 @@ import {
   EndIcon,
   EndText,
   HelperText,
+  InputType,
   IsInError,
   Label,
   Mask,
@@ -30,7 +31,6 @@ import {
   NumberFormatter,
   OnEndIconClick,
   OnStartIconClick,
-  Password,
   Placeholder,
   PlaceholderDirection,
   Rows,
@@ -68,7 +68,7 @@ export default function TextInputView({ element, weight }: Props) {
   const [startIcon, setStartIcon] = React.useState<StartIcon>(undefined);
   const [endIcon, setEndIcon] = React.useState<EndIcon>(undefined);
   const [variant, setVariant] = React.useState<Variant>("standard");
-  const [password, setPassword] = React.useState<Password>(false);
+  const [inputType, setInputType] = React.useState<InputType>("text");
   const [multiline, setMultiline] = React.useState<Multiline>(false);
   const [rows, setRows] = React.useState<Rows>(0);
   const [rowsMax, setRowsMax] = React.useState<RowsMax>(0);
@@ -93,7 +93,7 @@ export default function TextInputView({ element, weight }: Props) {
     let startIconSub = element.startIconContainer.subscribe({ next: v => setStartIcon(v) });
     let endIconSub = element.endIconContainer.subscribe({ next: v => setEndIcon(v) });
     let variantSub = element.variantContainer.subscribe({ next: v => setVariant(v) });
-    let passwordSub = element.passwordContainer.subscribe({ next: v => setPassword(v) });
+    let inputTypeSub = element.inputTypeContainer.subscribe({ next: v => setInputType(v) });
     let multilineSub = element.multilineContainer.subscribe({ next: v => setMultiline(v) });
     let rowsSub = element.rowsContainer.subscribe({ next: v => setRows(v) });
     let rowsMaxSub = element.rowsMaxContainer.subscribe({ next: v => setRowsMax(v) });
@@ -120,7 +120,7 @@ export default function TextInputView({ element, weight }: Props) {
       startIconSub.unsubscribe();
       endIconSub.unsubscribe();
       variantSub.unsubscribe();
-      passwordSub.unsubscribe();
+      inputTypeSub.unsubscribe();
       multilineSub.unsubscribe();
       rowsSub.unsubscribe();
       rowsMaxSub.unsubscribe();
@@ -237,7 +237,7 @@ export default function TextInputView({ element, weight }: Props) {
       rowsMax={rowsMax}
       inputProps={{ dir: getDirection() }}
       rows={rows}
-      type={password ? "password" : "text"}
+      type={inputType}
       label={label}
       helperText={helperText}
       onChange={handleChange}

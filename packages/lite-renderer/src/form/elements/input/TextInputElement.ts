@@ -9,6 +9,7 @@ import {
   EndIcon,
   EndText,
   HelperText,
+  InputType,
   IsInError,
   Label,
   Mask,
@@ -16,7 +17,6 @@ import {
   NumberFormatter,
   OnEndIconClick,
   OnStartIconClick,
-  Password,
   Placeholder,
   PlaceholderDirection,
   Rows,
@@ -388,32 +388,30 @@ export class TextInputElement extends BaseElement implements IElement {
     throw new Error(`invalid type ${typeof value} for Variant`);
   }
 
-  passwordContainer = new BehaviorSubject<Password>(false);
+  inputTypeContainer = new BehaviorSubject<InputType>("text");
 
-  /** iternal function for handling raw Password types*/
-  private passwordR(value: Password): TextInputElement {
-    this.passwordContainer.next(value);
+  /** iternal function for handling raw InputType types*/
+  private inputTypeR(value: InputType): TextInputElement {
+    this.inputTypeContainer.next(value);
     return this;
   }
 
-  /** iternal function for handling Observable<Password> types*/
-  private passwordO(value: Observable<Password>): TextInputElement {
-    value.subscribe({ next: v => this.passwordContainer.next(v) });
+  /** iternal function for handling Observable<InputType> types*/
+  private inputTypeO(value: Observable<InputType>): TextInputElement {
+    value.subscribe({ next: v => this.inputTypeContainer.next(v) });
     return this;
   }
 
   /**
-   * default value: false
+   * default value: 'text'
    *
-   * show value in protected mode
-   * if true sets html input type to 'password' otherwise 'test'
    *
    * see https://material-ui.com/components/text-fields/ or https://material-ui.com/api/text-field/ for more info
    */
-  password(value: Observable<Password> | Password): TextInputElement {
-    if (TypeGuards.isPassword(value)) return this.passwordR(value);
-    else if (isObservable(value)) return this.passwordO(value);
-    throw new Error(`invalid type ${typeof value} for Password`);
+  inputType(value: Observable<InputType> | InputType): TextInputElement {
+    if (TypeGuards.isInputType(value)) return this.inputTypeR(value);
+    else if (isObservable(value)) return this.inputTypeO(value);
+    throw new Error(`invalid type ${typeof value} for InputType`);
   }
 
   multilineContainer = new BehaviorSubject<Multiline>(false);

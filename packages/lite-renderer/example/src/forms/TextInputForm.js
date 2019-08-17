@@ -31,13 +31,16 @@ export default class TextInputForm extends FormController {
       .label("static that is connected to a observable"),
     TextInput(this.value)
       .variant(this.variant)
+      .inputType("text")
       .label("test"),
     TextInput(this.value)
       .variant(this.variant)
       .label("placeholder")
+      .inputType("number")
       .placeholder("this is an example palceholder with a label"),
     TextInput(this.value)
       .variant(this.variant)
+      .inputType("email")
       .placeholder("this is an example palceholder without a label"),
     TextInput(this.value)
       .variant(this.variant)
@@ -80,8 +83,7 @@ export default class TextInputForm extends FormController {
       .startIcon("check_circle"),
     TextInput(this.value)
       .variant(this.variant)
-      .label("Password mode")
-      .password(true),
+      .label("Password mode"),
     TextInput(this.value)
       .variant(this.variant)
       .label("MultiLine")

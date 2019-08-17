@@ -107,13 +107,11 @@ export type EndIcon = string | undefined;
  */
 export type Variant = 'standard' | 'filled' | 'outlined' | TextInputStyleType;
 /**
- * @[{"bidirectional":false,"required":false,"typeguard":"isPassword","default": "false"}]
- * show value in protected mode
- * if true sets html input type to 'password' otherwise 'test'
+ * @[{"bidirectional":false,"required":false,"typeguard":"isInputType","default": "'text'"}]
  * 
  * see https://material-ui.com/components/text-fields/ or https://material-ui.com/api/text-field/ for more info
  */
-export type Password = boolean;
+export type InputType = "email" | "number" | "password" | "text" | "tel" | "url";
 /**
  * @[{"bidirectional":false,"required":false,"typeguard":"isMultiline","default": "false"}]
  * enables multiline text input
@@ -202,7 +200,7 @@ export const TypeGuards = {
     isPlaceholder: (value: any): value is Placeholder => value === undefined || typeof(value) == "string",
     isHelperText: (value: any): value is HelperText => value === undefined || typeof(value) == "string",
     isDisabled: (value: any): value is Disabled => typeof(value) == "boolean",
-    isPassword: (value: any): value is Password => typeof(value) == "boolean",
+    isInputType: (value: any): value is InputType => typeof(value) == "string",
     isMultiline: (value: any): value is Multiline => typeof(value) == "boolean",
     isInError: (value: any): value is IsInError => typeof(value) == "boolean",
     isStartText: (value: any): value is StartText => value === undefined || typeof(value) == "string",
