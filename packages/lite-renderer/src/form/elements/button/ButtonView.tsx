@@ -1,11 +1,11 @@
-import { Button, CircularProgress, createMuiTheme, Icon as MIcon, withStyles } from "@material-ui/core";
+import { Button, CircularProgress, Icon as MIcon, withStyles } from "@material-ui/core";
+import { Theme } from "@material-ui/core/styles/createMuiTheme";
+import { useTheme } from "@material-ui/styles";
 import * as React from "react";
 import useFunctionAsState from "../../../custom-hooks/function-state";
 import { Visibility } from "../base/BaseElement";
 import { ButtonElement } from "./ButtonElement";
-import { Colors, Disabled, Icon, Loading, OnClick, Text, Variant, IconPlacement } from "./ButtonElementAttributes";
-import { useTheme } from "@material-ui/styles";
-import { Theme } from "@material-ui/core/styles/createMuiTheme";
+import { Colors, Disabled, Icon, IconPlacement, Loading, OnClick, Text, Variant } from "./ButtonElementAttributes";
 import { ButtonIconPlacement } from "./ButtonIconPlacement";
 
 type Props = {
@@ -23,8 +23,8 @@ export default function ButtonView({ element, weight }: Props) {
   const [text, setText] = React.useState<Text>(undefined);
   const [loading, setLoading] = React.useState<Loading>(false);
   const [disabled, setDisabled] = React.useState<Disabled>(false);
-  const [colors, setColors] = React.useState<Colors>("default");
-  const [variant, setVariant] = React.useState<Variant>("contained");
+  const [colors, setColors] = React.useState<Colors>(() => element.colorsContainer.value);
+  const [variant, setVariant] = React.useState<Variant>(() => element.variantContainer.value);
   const [icon, setIcon] = React.useState<Icon>(undefined);
   const [onClick, setOnClick] = useFunctionAsState<OnClick>(undefined);
   const [iconPlacement, setIconPlacement] = React.useState<IconPlacement>(ButtonIconPlacement.Start);
