@@ -47,7 +47,6 @@ export class ModalService {
         filter(v => v === false)
       )
       .subscribe(v => {
-        console.log(v);
         this.child.next(undefined);
         if (this.queue.length === 0) return;
         const [element, options] = this.queue[0];
