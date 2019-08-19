@@ -1,20 +1,20 @@
-import { GridElement } from "./GridElement";
+import MaterialTable from "material-table";
 import * as React from "react";
+import useFunctionAsState from "../../../custom-hooks/function-state";
+import { Visibility } from "../base/BaseElement";
+import { GridElement } from "./GridElement";
 import {
-  ColumnDefinitions,
   ActionDefinitions,
+  ColumnDefinitions,
   ComponentsOverride,
   Datasource,
-  RowActionDefinitions,
   GridOptions,
-  Title,
   LocalizationDefinition,
-  TypeGuards,
-  OnSelectedChange
+  OnRowClick,
+  OnSelectedChange,
+  RowActionDefinitions,
+  Title
 } from "./GridElementAttributes";
-import { Visibility } from "../base/BaseElement";
-import MaterialTable from "material-table";
-import useFunctionAsState from "../../../custom-hooks/function-state";
 
 type Props = {
   element: GridElement;
@@ -37,6 +37,7 @@ export default function GridView({ element, weight }: Props) {
   const [title, setTitle] = React.useState<Title>("");
   const [localizationDefinition, setLocalizationDefinition] = React.useState<LocalizationDefinition>(undefined);
   const [onSelectedChange, setOnSelectedChange] = useFunctionAsState<OnSelectedChange>(undefined);
+  const [onRowClick, setOnRowClick] = React.useState<OnRowClick>(undefined);
   const [visibility, setVisibility] = React.useState<Visibility>("show");
 
   React.useEffect(() => {
@@ -52,6 +53,7 @@ export default function GridView({ element, weight }: Props) {
     let localizationDefinitionSub = element.localizationDefinitionContainer.subscribe({
       next: v => setLocalizationDefinition(v)
     });
+    let onRowClickSub = element.onRowClickContainer.subscribe({ next: v => setOnRowClick(v) });
     let visibilitySub = element.elementVisibilityContainer.subscribe({ next: v => setVisibility(v) });
     let onSelectedChangeSub = element.onSelectedChangeContainer.subscribe({ next: v => setOnSelectedChange(v) });
     let refreshEventSub = element.refreshEventContainer.subscribe({
@@ -72,6 +74,7 @@ export default function GridView({ element, weight }: Props) {
       localizationDefinitionSub.unsubscribe();
       refreshEventSub.unsubscribe();
       onSelectedChangeSub.unsubscribe();
+      onRowClickSub.unsubscribe();
       visibilitySub.unsubscribe();
     };
   }, []);
@@ -99,6 +102,7 @@ export default function GridView({ element, weight }: Props) {
         editable={rowActionDefinitions}
         options={gridOptions}
         localization={localizationDefinition}
+        onRowClick={onRowClick}
         onSelectionChange={onSelectedChange}
       />
     </div>

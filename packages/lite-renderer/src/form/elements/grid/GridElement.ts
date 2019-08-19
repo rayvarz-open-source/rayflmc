@@ -1,20 +1,21 @@
-import IElement, { ValidationResult } from "../../../flmc-data-layer/FormController/IElement";
-import { ElementType } from "../ElementType";
-import { Observable, BehaviorSubject, isObservable } from "rxjs";
-import { BaseElement } from "../base/BaseElement";
+import { BehaviorSubject, isObservable, Observable } from "rxjs";
 import { isSubject } from "../../../flmc-data-layer";
+import IElement, { ValidationResult } from "../../../flmc-data-layer/FormController/IElement";
+import { BaseElement } from "../base/BaseElement";
+import { ElementType } from "../ElementType";
 import {
-  TypeGuards,
-  ColumnDefinitions,
   ActionDefinitions,
+  ColumnDefinitions,
   ComponentsOverride,
   Datasource,
-  RowActionDefinitions,
   GridOptions,
-  Title,
   LocalizationDefinition,
+  OnRowClick,
+  OnSelectedChange,
   RefreshEvent,
-  OnSelectedChange
+  RowActionDefinitions,
+  Title,
+  TypeGuards
 } from "./GridElementAttributes";
 
 export class GridElement extends BaseElement implements IElement {
@@ -289,6 +290,31 @@ export class GridElement extends BaseElement implements IElement {
     if (TypeGuards.isOnSelectedChange(value)) return this.onSelectedChangeR(value);
     else if (isObservable(value)) return this.onSelectedChangeO(value);
     throw new Error(`invalid type ${typeof value} for OnSelectedChange`);
+  }
+
+  onRowClickContainer = new BehaviorSubject<OnRowClick>(undefined);
+
+  /** iternal function for handling raw OnRowClick types*/
+  private onRowClickR(value: OnRowClick): GridElement {
+    this.onRowClickContainer.next(value);
+    return this;
+  }
+
+  /** iternal function for handling Observable<OnRowClick> types*/
+  private onRowClickO(value: Observable<OnRowClick>): GridElement {
+    value.subscribe({ next: v => this.onRowClickContainer.next(v) });
+    return this;
+  }
+
+  /**
+   * default value: undefined
+   *
+   * TODO: add docs
+   */
+  onRowClick(value: Observable<OnRowClick> | OnRowClick): GridElement {
+    if (TypeGuards.isOnRowClick(value)) return this.onRowClickR(value);
+    else if (isObservable(value)) return this.onRowClickO(value);
+    throw new Error(`invalid type ${typeof value} for OnRowClick`);
   }
   /*******************************************/
   /* END OF GENERATED CODE                   */
