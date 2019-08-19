@@ -37,7 +37,7 @@ export default function GridView({ element, weight }: Props) {
   const [title, setTitle] = React.useState<Title>("");
   const [localizationDefinition, setLocalizationDefinition] = React.useState<LocalizationDefinition>(undefined);
   const [onSelectedChange, setOnSelectedChange] = useFunctionAsState<OnSelectedChange>(undefined);
-  const [onRowClick, setOnRowClick] = React.useState<OnRowClick>(undefined);
+  const [onRowClick, setOnRowClick] = useFunctionAsState<OnRowClick>(undefined);
   const [visibility, setVisibility] = React.useState<Visibility>("show");
 
   React.useEffect(() => {
