@@ -3,18 +3,7 @@ import * as React from "react";
 import useFunctionAsState from "../../../custom-hooks/function-state";
 import { Visibility } from "../base/BaseElement";
 import { GridElement } from "./GridElement";
-import {
-  ActionDefinitions,
-  ColumnDefinitions,
-  ComponentsOverride,
-  Datasource,
-  GridOptions,
-  LocalizationDefinition,
-  OnRowClick,
-  OnSelectedChange,
-  RowActionDefinitions,
-  Title
-} from "./GridElementAttributes";
+import { ActionDefinitions, ColumnDefinitions, ComponentsOverride, Datasource, GridOptions, LocalizationDefinition, OnRowClick, OnSelectedChange, RowActionDefinitions, Title } from "./GridElementAttributes";
 
 type Props = {
   element: GridElement;
@@ -83,7 +72,15 @@ export default function GridView({ element, weight }: Props) {
   /*******************************************/
   //endregion
 
-  element.tableRef = tableRef.current;
+  if (element.tableRef == null) {
+    element.tableRef = tableRef.current;
+  }
+
+  if ((element.tableRef != null && tableRef.current != null) && element.tableRef.dataManager !== (tableRef.current as any).dataManager) {
+    const current = (tableRef.current as any);
+    current.dataManager = element.tableRef.dataManager;
+    current.setState(current.dataManager.getRenderState());
+  }
 
   return (
     <div
