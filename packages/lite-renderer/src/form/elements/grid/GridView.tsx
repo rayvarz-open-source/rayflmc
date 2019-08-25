@@ -84,7 +84,8 @@ export default function GridView({ element, weight }: Props) {
     const current = tableRef.current as any;
     setTimeout(() => {
       current.dataManager = element.tableRef.dataManager;
-      current.setState(current.dataManager.getRenderState(), () => {
+      const state = element.tableRef.state;
+      current.setState({...state}, () => {
         if (current.isRemoteData()) {
           current.onQueryChange(current.state.query);
         }
