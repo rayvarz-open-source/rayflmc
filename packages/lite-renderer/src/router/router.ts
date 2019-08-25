@@ -110,14 +110,21 @@ const changeHash = (hash: string) => {
   (window as any).onhashchange();
 };
 
-export const changeRoute = (path: string | Route, params?: object) => {
-  console.warn("changeRoute is deprecated and soon will be removed. please use routerService instead.");
+export let oldChangeRoute: any = {
+  logic: (path: string | Route, params?: object) => {
   
-  let _path = typeof path == "string" ? path : path.path;
+    let _path = typeof path == "string" ? path : path.path;
+  
+    let hash = `${_path}/${JSON.stringify(params || {})}`;
+    changeHash(hash);
+  }
+}
 
-  let hash = `${_path}/${JSON.stringify(params || {})}`;
-  changeHash(hash);
-};
+
+export const changeRoute = (path: string | Route, params?: object) => {
+  console.warn("changeRoute is deprecated. please use routerService instead")
+  oldChangeRoute.logic(path, params);
+}
 
 export function areRoutesValid(routes: FRoute[]) {
   for (let route of routes)

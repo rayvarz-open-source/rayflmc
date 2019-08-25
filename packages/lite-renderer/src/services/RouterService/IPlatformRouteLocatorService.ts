@@ -10,7 +10,7 @@ export interface IPlatformRouteLocatorService {
     
     removeOnPlatformRouteChangedListener(callbackId: number);
 
-    addOnPlatformRouteChangedListener(callback: (PlatformRouteInfo) => void): number;
+    addOnPlatformRouteChangedListener(callback: (info: PlatformRouteInfo) => void): number;
     
     getCurrentRouteInfo(): PlatformRouteInfo;
 

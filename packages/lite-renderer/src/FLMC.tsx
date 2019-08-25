@@ -1,22 +1,25 @@
-import { Route } from "./router/route";
-import { RouteMiddleWares } from "./router/middleware";
 import { Theme } from "@material-ui/core";
-import * as React from "react";
-import { createOnHashChangeFunction, changeRoute, areRoutesValid as validateRoutes } from "./router/router";
 import { ThemeProvider } from "@material-ui/styles";
-import IDataController from "./flmc-data-layer/Base/IDataController";
-import { Skeletons, RouteToFormView } from "./skeleton/RouteToFormView";
-import DefaultSkeleton from "./skeleton/default-skeleton/DefaultSkeleton";
+import { SnackbarProvider } from "notistack";
+import * as React from "react";
 import { FormView } from ".";
-import { CustomElementMapper, CustomElementContext } from "./form/elements/CustomElementsContext";
+import IDataController from "./flmc-data-layer/Base/IDataController";
+import { FLMCFormController } from "./FLMCFormController";
+import { CustomElementContext, CustomElementMapper } from "./form/elements/CustomElementsContext";
+import { ModalElement } from "./form/elements/modal/ModalElement";
 import { InjectorContainer } from "./injector/InjectorContainer";
 import { InjectorContext } from "./injector/InjectorContext";
-import { FLMCFormController } from "./FLMCFormController";
-import { SnackbarProvider } from "notistack";
-import { SNACK_SERVICE_NAME, SnackService } from "./services/SnackService";
+import { RouteMiddleWares } from "./router/middleware";
+import { Route } from "./router/route";
+import { areRoutesValid as validateRoutes, oldChangeRoute } from "./router/router";
 import { ModalProvider } from "./services/ModalService/ModalProvider";
-import { ModalElement } from "./form/elements/modal/ModalElement";
-import { MODAL_SERVICE_NAME, ModalService } from "./services/ModalService/ModalService";
+import { ModalService, MODAL_SERVICE_NAME } from "./services/ModalService/ModalService";
+import { BrowserRouteLocatorService } from "./services/RouterService/BrowserRouteLocatorService";
+import { PLATFORM_ROUTE_LOCATOR_SERVICE } from "./services/RouterService/IPlatformRouteLocatorService";
+import { RouterService, RouterStackItem, ROUTER_SERVICE } from "./services/RouterService/RouterService";
+import { SnackService, SNACK_SERVICE_NAME } from "./services/SnackService";
+import DefaultSkeleton from "./skeleton/default-skeleton/DefaultSkeleton";
+import { RouteToFormView, Skeletons } from "./skeleton/RouteToFormView";
 
 export type ServiceRegisterer = (container: InjectorContainer) => void;
 
@@ -68,27 +71,21 @@ export default class FLMC extends React.Component<Props, States> {
       serviceName: MODAL_SERVICE_NAME,
       builder: () => new ModalService(this.state.modalElement)
     });
+    container.addSingleton({
+      serviceName: PLATFORM_ROUTE_LOCATOR_SERVICE,
+      builder: () => new BrowserRouteLocatorService(),
+      isLazyBuilder: false
+    });
+    container.addSingleton({
+      serviceName: ROUTER_SERVICE,
+      builder: () =>
+        new RouterService({ routes: this.props.routes, onRouteChangedListener: info => this.onRouteChanged(info) }),
+      isLazyBuilder: false
+    });
   }
 
-  componentDidMount() {
-    let controllerBuilder = createOnHashChangeFunction(this.props.routes);
-    window.onhashchange = () => {
-      let builder = controllerBuilder();
-      if (builder == null) {
-        changeRoute("/", {});
-        return;
-      }
-      const [controller, route] = builder;
-      this.setState(
-        {
-          currentController: controller,
-          currentRoute: route,
-          formKey: this.state.formKey + 1
-        },
-        () => this.handleOnAfterRouteChangedMiddlewares()
-      );
-    };
-    const [controller, route] = controllerBuilder()!;
+  onRouteChanged(info: RouterStackItem) {
+    const [controller, route] = info;
     this.setState(
       {
         currentController: controller,
@@ -97,8 +94,12 @@ export default class FLMC extends React.Component<Props, States> {
       },
       () => this.handleOnAfterRouteChangedMiddlewares()
     );
-    // register services in contaienr
+  }
+
+  componentDidMount() {
     this.setupCoreServices();
+    const router =  this.state.container.injector.inject<RouterService>(ROUTER_SERVICE);
+    oldChangeRoute.logic = (path: string | Route, params?: object) => router!.push(path, params);
     if (this.props.serviceRegisterer != null) this.props.serviceRegisterer(this.state.container);
   }
 

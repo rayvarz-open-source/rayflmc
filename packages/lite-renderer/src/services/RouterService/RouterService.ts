@@ -6,13 +6,14 @@ import { IPlatformRouteLocatorService, PLATFORM_ROUTE_LOCATOR_SERVICE } from "./
 
 type Props = {
   routes: Route[];
-  onRouteChangedListener: (routeItem: RouterStackItem) => void
+  onRouteChangedListener: (routeItem: RouterStackItem) => void;
 };
 
 export type RouterStackItem = [IDataController, Route, object];
 
+export const ROUTER_SERVICE = "LiteRenderer:Services:RouterService";
+
 export class RouterService implements InjectorReciever {
-  
   private onRouteChangedListener: (routeItem: RouterStackItem) => void;
   private stack: RouterStackItem[] = [];
   private routes: Route[];
@@ -40,11 +41,25 @@ export class RouterService implements InjectorReciever {
 
   inject(injector: Injector) {
     this.routeLocator = injector.inject<IPlatformRouteLocatorService>(PLATFORM_ROUTE_LOCATOR_SERVICE);
+
+    this.routeLocator!.addOnPlatformRouteChangedListener(info => {
+      // check if last path is equal to current path then it's a pop else is a push
+      if (this.stack.length < 2 || this.stack[this.stack.length - 2][1].path !== info.path) {
+        this.push(info.path, info.params, false);
+      } else {
+        this.pop(false);
+      }
+    });
+
+    // setup init route
+    const initRoute = this.routeLocator!.getCurrentRouteInfo();
+    this.push(initRoute.path, initRoute.params);
   }
 
-  push(path: string | Route, params?: object) {
+  push(path: string | Route, params?: object, notifyLocator: boolean = true) {
     const item = this.createNewPath(path, params);
-    this.routeLocator!.pushRoute({ path: typeof path === "string" ? path : path.path, params: params || {} });
+    if (notifyLocator)
+      this.routeLocator!.pushRoute({ path: typeof path === "string" ? path : path.path, params: params || {} });
     this.onRouteChangedListener(item);
   }
 
@@ -55,13 +70,13 @@ export class RouterService implements InjectorReciever {
     this.onRouteChangedListener(item);
   }
 
-  pop() {
+  pop(notifyLocator: boolean = true) {
     if (this.stack.length === 0) {
       console.warn("can't go back any further.history is empty");
       return;
     }
     this.stack.pop();
-    this.routeLocator!.pop();
+    if (notifyLocator) this.routeLocator!.pop();
     const item = this.stack[this.stack.length - 1];
     this.onRouteChangedListener(item);
   }
