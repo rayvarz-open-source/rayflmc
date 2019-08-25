@@ -76,10 +76,14 @@ export default function GridView({ element, weight }: Props) {
     element.tableRef = tableRef.current;
   }
 
-  if ((element.tableRef != null && tableRef.current != null) && element.tableRef.dataManager !== (tableRef.current as any).dataManager) {
-    const current = (tableRef.current as any);
+  if (
+    element.tableRef != null &&
+    tableRef.current != null &&
+    element.tableRef.dataManager !== (tableRef.current as any).dataManager
+  ) {
+    const current = tableRef.current as any;
     current.dataManager = element.tableRef.dataManager;
-    current.setState(current.dataManager.getRenderState());
+    setTimeout(() => current.setState(current.dataManager.getRenderState()), 0);
   }
 
   return (
