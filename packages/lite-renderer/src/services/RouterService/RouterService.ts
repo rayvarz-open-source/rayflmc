@@ -12,24 +12,34 @@ type Props = {
 export type RouterStackItem = [IDataController, Route, object];
 
 export const ROUTER_SERVICE = "LiteRenderer:Services:RouterService";
+export const notFoundPath = "/404";
+export const homePath = "/";
 
 export class RouterService implements InjectorReciever {
   private onRouteChangedListener: (routeItem: RouterStackItem) => void;
   private stack: RouterStackItem[] = [];
   private routes: Route[];
 
-  private createNewPath(path: string | Route, params?: object): RouterStackItem {
+  // returns [item, isFailed]
+  private createNewPath(path: string | Route, params?: object): [RouterStackItem, boolean] {
     const pathString = typeof path === "string" ? path : path.path;
 
     const route = this.routes.find(r => r.path === pathString);
-    if (route == null) throw new Error(`cannot find path:${path}- params: ${params}`);
+    if (route == null) {
+      // has 404 route ?
+      //   const notFoundRoute = this.routes.find(r => r.path === notFoundPath);
+      //   const [item] = notFoundRoute != null ? this.createNewPath(notFoundPath, {}) : this.createNewPath(homePath, {});
+      const [item] = this.createNewPath(homePath, {});
+      return [item, true];
+    }
 
     const controller = route.builder(pathString, params);
 
     const stackItem: RouterStackItem = [controller, route, params || {}];
+
     this.stack.push(stackItem);
 
-    return stackItem;
+    return [stackItem, false];
   }
 
   constructor({ routes, onRouteChangedListener }: Props) {
@@ -57,16 +67,15 @@ export class RouterService implements InjectorReciever {
   }
 
   push(path: string | Route, params?: object, notifyLocator: boolean = true) {
-    const item = this.createNewPath(path, params);
-    if (notifyLocator)
-      this.routeLocator!.pushRoute({ path: typeof path === "string" ? path : path.path, params: params || {} });
+    const [item, isFailed] = this.createNewPath(path, params);
+    if (isFailed || notifyLocator) this.routeLocator!.pushRoute({ path: item[1].path, params: item[2] });
     this.onRouteChangedListener(item);
   }
 
   pushReplace(path: string | Route, params?: object) {
     this.stack.pop();
-    const item = this.createNewPath(path, params);
-    this.routeLocator!.pushReplaceRoute({ path: typeof path === "string" ? path : path.path, params: params || {} });
+    const [item, isFailed] = this.createNewPath(path, params);
+    if (!isFailed) this.routeLocator!.pushReplaceRoute({ path: item[1].path, params: item[2] });
     this.onRouteChangedListener(item);
   }
 

@@ -1,11 +1,11 @@
+import { RootRouteCategory } from "lite-renderer";
 import ButtonForm from "./forms/ButtonForm";
+import CustomSkeletonForm from "./forms/CustomSkeletonForm";
 import ImageForm from "./forms/ImageForm";
 import ModalForm from "./forms/ModalForm";
-import TextInputForm from "./forms/TextInputForm";
 import RawElementForm from "./forms/RawElementForm";
 import SelectBoxForm from "./forms/SelectBoxForm";
-import CustomSkeletonForm from "./forms/CustomSkeletonForm";
-import { RootRouteCategory } from "lite-renderer";
+import TextInputForm from "./forms/TextInputForm";
 
 const categoties = {
   elementGallery: {
@@ -20,6 +20,13 @@ const routes = [
     builder: (path, params) => new ButtonForm(params),
     category: RootRouteCategory,
     name: "Home",
+    hidden: false
+  },
+  {
+    path: "/404",
+    builder: (path, params) => new CustomSkeletonForm(),
+    category: RootRouteCategory,
+    name: "404 Page",
     hidden: false
   },
   {
