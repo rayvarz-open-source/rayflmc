@@ -12,7 +12,7 @@ type Props = {
   controller: IControllerBuilder;
 };
 
-class Route {
+export class Route {
   //props
   path: string;
   params: object;
