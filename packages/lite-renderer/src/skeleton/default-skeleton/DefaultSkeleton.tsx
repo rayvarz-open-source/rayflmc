@@ -1,21 +1,21 @@
-import * as React from "react";
-import clsx from "clsx";
-import { makeStyles } from "@material-ui/core/styles";
-import CssBaseline from "@material-ui/core/CssBaseline";
-import Drawer from "@material-ui/core/Drawer";
 import AppBar from "@material-ui/core/AppBar";
+import Container from "@material-ui/core/Container";
+import CssBaseline from "@material-ui/core/CssBaseline";
+import Divider from "@material-ui/core/Divider";
+import Drawer from "@material-ui/core/Drawer";
+import Grid from "@material-ui/core/Grid";
+import IconButton from "@material-ui/core/IconButton";
+import Paper from "@material-ui/core/Paper";
+import { makeStyles } from "@material-ui/core/styles";
 import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
-import Divider from "@material-ui/core/Divider";
-import IconButton from "@material-ui/core/IconButton";
-import Container from "@material-ui/core/Container";
-import Grid from "@material-ui/core/Grid";
-import Paper from "@material-ui/core/Paper";
-import MenuIcon from "@material-ui/icons/Menu";
 import ChevronRightIcon from "@material-ui/icons/ChevronRight";
-import Sidebar, { SidebarItemWithChildren, SidebaSingleItem } from "./Sidebar";
+import MenuIcon from "@material-ui/icons/Menu";
+import clsx from "clsx";
+import * as React from "react";
+import useRouter from "../../custom-hooks/useRouter";
 import { Route } from "../../router/route";
-import { changeRoute } from "../../router/router";
+import Sidebar, { SidebarItemWithChildren, SidebaSingleItem } from "./Sidebar";
 
 const drawerWidth = 240;
 
@@ -134,6 +134,9 @@ type Props = {
 };
 
 const createSidebarItems = ({ routes }: Props) => {
+
+  const router = useRouter();
+
   let categoryItems: any = {};
   for (let route of routes.filter(x => !x.hidden)) {
     if (!(route.category.name in categoryItems)) {
@@ -144,7 +147,7 @@ const createSidebarItems = ({ routes }: Props) => {
       <SidebaSingleItem
         key={route.name + "_" + route.category.name}
         title={route.name}
-        onClick={() => changeRoute(route.path, {})}
+        onClick={() => router!.push(route.path, {})}
         icon={route.indicator || <div />}
       />
     );

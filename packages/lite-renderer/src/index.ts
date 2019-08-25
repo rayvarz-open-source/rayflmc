@@ -1,72 +1,59 @@
-import FormView from "./form/FormView.js";
-import Button from "./form/elements/button/ButtonElement.js";
-import SelectBox from "./form/elements/selectBox/SelectBoxElement";
-import TextInput from "./form/elements/input/TextInputElement.js";
-import Container from "./form/elements/container/ContainerElement.js";
-import Image from "./form/elements/image/ImageElement";
-import Grid from "./form/elements/grid/GridElement";
-import Label from "./form/elements/label/LabelElement.js";
-import { changeRoute } from "./router/router.js";
-import { RootRouteCategory } from "./router/route";
-import { StyleType } from "./form/elements/share/StyleType.js";
-import { StyleColor } from "./form/elements/share/StyleColor.js";
-import { Alignment } from "./form/elements/share/Alignment.js";
-import { TextSize } from "./form/elements/share/TextSize.js";
-import { TextAlignment } from "./form/elements/share/TextAlignment.js";
-import { DisplayType } from "./form/elements/share/DisplayType.js";
-import { Size } from "./form/elements/share/Size";
-import { TextInputStyleType } from "./form/elements/input/TextInputStyleType";
-import { SelectBoxVariant } from "./form/elements/selectBox/SelectBoxVariant";
-import { SelectBoxLabelPlacement } from "./form/elements/selectBox/SelectBoxLabelPlacement";
-import { ImageBorderType } from "./form/elements/image/ImageBorderType";
-import { ImageScaleType } from "./form/elements/image/ImageScaleType";
-import { VisibilityType } from "./form/elements/share/VisibilityType";
-import { TextDirection } from "./form/elements/share/TextDirection";
-import { ChipSelectionType } from "./form/elements/chip/ChipSelectionType";
-import { ChipModel } from "./form/elements/chip/ChipModel";
-import Modal from "./form/elements/modal/ModalElement";
-import Tab from "./form/elements/tab/TabElement";
-import Chip from "./form/elements/chip/ChipElement";
-import { ContainerDirection } from "./form/elements/container/ContainerDirection.js";
-import { ButtonColor } from "./form/elements/button/ButtonColor.js";
-import { ButtonVariant } from "./form/elements/button/ButtonVariant.js";
-import Space from "./form/elements/space/SpaceElement.js";
-import { TextInputValidations, makeTextInputValidations } from "./form/elements/input/TextInputValidators.js";
+import useInject from "./custom-hooks/useInject.js";
+import useRouter from "./custom-hooks/useRouter.js";
 import FLMC from "./FLMC";
-import { Skeleton } from "./skeleton/SkeletonAttribute";
+import { FLMCFormController as FormController } from "./FLMCFormController";
+import { ButtonColor } from "./form/elements/button/ButtonColor.js";
+import Button from "./form/elements/button/ButtonElement.js";
+import { ButtonIconPlacement } from "./form/elements/button/ButtonIconPlacement.js";
+import { ButtonVariant } from "./form/elements/button/ButtonVariant.js";
+import Chip from "./form/elements/chip/ChipElement";
+import { ChipModel } from "./form/elements/chip/ChipModel";
+import { ChipSelectionType } from "./form/elements/chip/ChipSelectionType";
+import { ContainerDecoration } from "./form/elements/container/ContainerDecoration.js";
+import { ContainerDirection } from "./form/elements/container/ContainerDirection.js";
+import Container from "./form/elements/container/ContainerElement.js";
+import { ContainerWrap } from "./form/elements/container/ContainerWrap";
+import Grid from "./form/elements/grid/GridElement";
+import { ImageBorderType } from "./form/elements/image/ImageBorderType";
+import Image from "./form/elements/image/ImageElement";
+import { ImageScaleType } from "./form/elements/image/ImageScaleType";
+import InlineForm from "./form/elements/inline-form/InlineFormElement";
+import TextInput from "./form/elements/input/TextInputElement.js";
+import { TextInputStyleType } from "./form/elements/input/TextInputStyleType";
+import { makeTextInputValidations, TextInputValidations } from "./form/elements/input/TextInputValidators.js";
+import Label from "./form/elements/label/LabelElement.js";
+import Modal from "./form/elements/modal/ModalElement";
 import Raw from "./form/elements/raw/RawElement";
 import { SelectBoxColors } from "./form/elements/selectBox/SelectBoxColor";
-import { ContainerWrap } from "./form/elements/container/ContainerWrap";
-import InlineForm from "./form/elements/inline-form/InlineFormElement";
-import { FLMCFormController as FormController } from "./FLMCFormController";
-import useInject from "./custom-hooks/useInject.js";
-import { ContainerDecoration } from "./form/elements/container/ContainerDecoration.js";
-import { ButtonIconPlacement } from "./form/elements/button/ButtonIconPlacement.js";
+import SelectBox from "./form/elements/selectBox/SelectBoxElement";
+import { SelectBoxLabelPlacement } from "./form/elements/selectBox/SelectBoxLabelPlacement";
+import { SelectBoxVariant } from "./form/elements/selectBox/SelectBoxVariant";
+import { Alignment } from "./form/elements/share/Alignment.js";
+import { DisplayType } from "./form/elements/share/DisplayType.js";
+import { Size } from "./form/elements/share/Size";
+import { StyleColor } from "./form/elements/share/StyleColor.js";
+import { StyleType } from "./form/elements/share/StyleType.js";
+import { TextAlignment } from "./form/elements/share/TextAlignment.js";
+import { TextDirection } from "./form/elements/share/TextDirection";
+import { TextSize } from "./form/elements/share/TextSize.js";
+import { VisibilityType } from "./form/elements/share/VisibilityType";
+import Space from "./form/elements/space/SpaceElement.js";
+import Tab from "./form/elements/tab/TabElement";
+import FormView from "./form/FormView.js";
+import { RootRouteCategory } from "./router/route";
+import { changeRoute } from "./router/router.js";
+import { Skeleton } from "./skeleton/SkeletonAttribute";
 
 export {
-  // Button
-  Button,
-  ButtonColor,
-  ButtonVariant,
-  ButtonIconPlacement,
+Button, ButtonColor, ButtonVariant, ButtonIconPlacement,
   // TextInput
-  TextInput,
-  TextInputStyleType,
-  TextInputValidations,
-  makeTextInputValidations,
+  TextInput, TextInputStyleType, TextInputValidations, makeTextInputValidations,
   // SelectBox
-  SelectBox,
-  SelectBoxColors,
-  SelectBoxLabelPlacement,
+  SelectBox, SelectBoxColors, SelectBoxLabelPlacement,
   // Container
-  Container,
-  ContainerWrap,
-  ContainerDirection,
-  ContainerDecoration,
+  Container, ContainerWrap, ContainerDirection, ContainerDecoration,
   // Chip
-  Chip,
-  ChipModel,
-  ChipSelectionType,
+  Chip, ChipModel, ChipSelectionType,
   // Modal
   Modal,
   // InlineForm
@@ -78,9 +65,7 @@ export {
   // Raw
   Raw,
   // Image
-  Image,
-  ImageScaleType,
-  ImageBorderType,
+  Image, ImageScaleType, ImageBorderType,
   // Grid
   Grid,
   // FormView
@@ -90,21 +75,9 @@ export {
   // SelectBoxVariant
   SelectBoxVariant,
   // Common
-  StyleType,
-  StyleColor,
-  Alignment,
-  Size,
-  TextSize,
-  DisplayType,
-  VisibilityType,
-  TextAlignment,
-  TextDirection,
+  StyleType, StyleColor, Alignment, Size, TextSize, DisplayType, VisibilityType, TextAlignment, TextDirection,
   // Base
-  Skeleton,
-  RootRouteCategory,
-  changeRoute,
-  useInject,
-  FormController
+  Skeleton, RootRouteCategory, changeRoute, useRouter, useInject, FormController
 };
 
 export default FLMC;
