@@ -1,3 +1,6 @@
+import IDataController from "../flmc-data-layer/Base/IDataController";
+import { Route as FRoute } from "./route";
+
 interface IControllerBuilder {
   (path: string, params: object): object;
 }
@@ -85,9 +88,6 @@ function onRoutChange(props?: Props): Route {
   // });
 }
 
-import { Route as FRoute } from "./route";
-import IDataController from "../flmc-data-layer/Base/IDataController";
-
 export const createOnHashChangeFunction = (routes: FRoute[]) => {
   return (): [IDataController, FRoute] | undefined => {
     var currentRoute = onRoutChange();
@@ -111,6 +111,8 @@ const changeHash = (hash: string) => {
 };
 
 export const changeRoute = (path: string | Route, params?: object) => {
+  console.warn("changeRoute is deprecated and soon will be removed. please use routerService instead.");
+  
   let _path = typeof path == "string" ? path : path.path;
 
   let hash = `${_path}/${JSON.stringify(params || {})}`;
