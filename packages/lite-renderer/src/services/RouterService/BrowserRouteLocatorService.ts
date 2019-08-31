@@ -39,10 +39,10 @@ export class BrowserRouteLocatorService implements IPlatformRouteLocatorService 
   }
 
   pushRoute(info: PlatformRouteInfo) {
-    history.pushState("", info.title || "", `#${info.path}`);
+    history.pushState("", info.title || "", `#${info.path}/${JSON.stringify(info.params || {})}`);
   }
   pushReplaceRoute(info: PlatformRouteInfo) {
-    history.replaceState("", info.title || "", `#${info.path}`);
+    history.replaceState("", info.title || "", `#${info.path}/${JSON.stringify(info.params || {})}`);
   }
   pop() {
     history.go(-1);
