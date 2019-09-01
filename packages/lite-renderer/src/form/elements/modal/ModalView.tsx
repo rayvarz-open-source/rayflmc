@@ -1,27 +1,12 @@
-import { ModalElement } from "./ModalElement";
-import * as React from "react";
-import {
-  Child,
-  Open,
-  VisibleHeader,
-  VisibleHeaderCloseButton,
-  Title,
-  NoPadding,
-  NoBackdropClickClose,
-  NoBackground,
-  NoEscapeKeyDownClose,
-  LazyContent,
-  MinWidth,
-  MinHeight,
-  MaxWidth,
-  MaxHeight
-} from "./ModalElementAttributes";
-import { Visibility } from "../base/BaseElement";
-import { Modal, Card, CardHeader, IconButton, CardContent } from "@material-ui/core";
+import { Card, CardContent, CardHeader, IconButton, Modal } from "@material-ui/core";
 import { CSSProperties } from "@material-ui/core/styles/withStyles";
 import MoreVertIcon from "@material-ui/icons/Close";
-import { MapToView } from "../ElementToViewMapper";
+import * as React from "react";
 import IElement from "../../../flmc-data-layer/FormController/IElement";
+import { Visibility } from "../base/BaseElement";
+import { MapToView } from "../ElementToViewMapper";
+import { ModalElement } from "./ModalElement";
+import { Child, LazyContent, MaxHeight, MaxWidth, MinHeight, MinWidth, NoBackdropClickClose, NoBackground, NoEscapeKeyDownClose, NoPadding, Open, Title, VisibleHeader, VisibleHeaderCloseButton } from "./ModalElementAttributes";
 
 type Props = {
   element: ModalElement;
@@ -165,6 +150,7 @@ export default function ModalView({ element }: Props) {
       onClose={handleClose}
       disableBackdropClick={noBackdropClickClose}
       disableEscapeKeyDown={noEscapeKeyDownClose}
+      disableEnforceFocus
     >
       {content}
     </Modal>
