@@ -1,9 +1,9 @@
-import IElement, { ValidationResult } from "../../../flmc-data-layer/FormController/IElement";
-import { ElementType } from "../ElementType";
-import { Observable, BehaviorSubject, isObservable } from "rxjs";
-import { BaseElement } from "../base/BaseElement";
+import { BehaviorSubject, isObservable, Observable } from "rxjs";
 import { isSubject } from "../../../flmc-data-layer";
-import { TypeGuards, Value, SelectionType } from "./ChipElementAttributes";
+import IElement, { ValidationResult } from "../../../flmc-data-layer/FormController/IElement";
+import { BaseElement } from "../base/BaseElement";
+import { ElementType } from "../ElementType";
+import { SelectionType, TypeGuards, Value } from "./ChipElementAttributes";
 import { ChipSelectionType } from "./ChipSelectionType";
 
 export class ChipElement extends BaseElement implements IElement {
@@ -49,9 +49,9 @@ export class ChipElement extends BaseElement implements IElement {
    *
    */
   value(value: BehaviorSubject<Value> | Observable<Value> | Value): ChipElement {
-    if (TypeGuards.isValue(value)) return this.valueR(value);
-    else if (isObservable(value)) return this.valueO(value);
-    else if (isSubject(value)) return this.valueB(value);
+    if (isSubject(value)) return this.valueB(value);
+    if (isObservable(value)) return this.valueO(value);
+    else if (TypeGuards.isValue(value)) return this.valueR(value);
     throw new Error(`invalid type ${typeof value} for Value`);
   }
 
