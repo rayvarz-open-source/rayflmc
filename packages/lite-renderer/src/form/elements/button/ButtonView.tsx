@@ -20,15 +20,15 @@ export default function ButtonView({ element, weight }: Props) {
   /*******************************************/
   /* GENERATED CODE, DO NOT MODIFY BY HAND!! */
   /*******************************************/
-  const [text, setText] = React.useState<Text>(undefined);
-  const [loading, setLoading] = React.useState<Loading>(false);
-  const [disabled, setDisabled] = React.useState<Disabled>(false);
+  const [text, setText] = React.useState<Text>(() => element.textContainer.value);
+  const [loading, setLoading] = React.useState<Loading>(() => element.loadingContainer.value);
+  const [disabled, setDisabled] = React.useState<Disabled>(() => element.disabledContainer.value);
   const [colors, setColors] = React.useState<Colors>(() => element.colorsContainer.value);
   const [variant, setVariant] = React.useState<Variant>(() => element.variantContainer.value);
-  const [icon, setIcon] = React.useState<Icon>(undefined);
+  const [icon, setIcon] = React.useState<Icon>(() => element.iconContainer.value);
   const [onClick, setOnClick] = useFunctionAsState<OnClick>(undefined);
-  const [iconPlacement, setIconPlacement] = React.useState<IconPlacement>(ButtonIconPlacement.Start);
-  const [visibility, setVisibility] = React.useState<Visibility>("show");
+  const [iconPlacement, setIconPlacement] = React.useState<IconPlacement>(() => element.iconPlacementContainer.value);
+  const [visibility, setVisibility] = React.useState<Visibility>(() => element.elementVisibilityContainer.value);
 
   React.useEffect(() => {
     let textSub = element.textContainer.subscribe({ next: v => setText(v) });

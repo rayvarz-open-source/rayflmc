@@ -19,19 +19,19 @@ export default function ModalView({ element }: Props) {
   /* GENERATED CODE, DO NOT MODIFY BY HAND!! */
   /*******************************************/
   const [child, setChild] = React.useState<Child>(() => element.childContainer.value);
-  const [open, setOpen] = React.useState<Open>(false);
-  const [visibleHeader, setVisibleHeader] = React.useState<VisibleHeader>(true);
-  const [visibleHeaderCloseButton, setVisibleHeaderCloseButton] = React.useState<VisibleHeaderCloseButton>(true);
-  const [title, setTitle] = React.useState<Title>(undefined);
-  const [noPadding, setNoPadding] = React.useState<NoPadding>(false);
-  const [noBackground, setNoBackground] = React.useState<NoBackground>(false);
-  const [noBackdropClickClose, setNoBackdropClickClose] = React.useState<NoBackdropClickClose>(true);
-  const [noEscapeKeyDownClose, setNoEscapeKeyDownClose] = React.useState<NoEscapeKeyDownClose>(true);
+  const [open, setOpen] = React.useState<Open>(() => element.openContainer.value);
+  const [visibleHeader, setVisibleHeader] = React.useState<VisibleHeader>(() => element.visibleHeaderContainer.value);
+  const [visibleHeaderCloseButton, setVisibleHeaderCloseButton] = React.useState<VisibleHeaderCloseButton>(() => element.visibleHeaderCloseButtonContainer.value);
+  const [title, setTitle] = React.useState<Title>(() => element.titleContainer.value);
+  const [noPadding, setNoPadding] = React.useState<NoPadding>(() => element.noPaddingContainer.value);
+  const [noBackground, setNoBackground] = React.useState<NoBackground>(() => element.noBackgroundContainer.value);
+  const [noBackdropClickClose, setNoBackdropClickClose] = React.useState<NoBackdropClickClose>(() => element.noBackdropClickCloseContainer.value);
+  const [noEscapeKeyDownClose, setNoEscapeKeyDownClose] = React.useState<NoEscapeKeyDownClose>(() => element.noEscapeKeyDownCloseContainer.value);
   const [lazyContent, setLazyContent] = React.useState<LazyContent>(() => element.lazyContentContainer.value);
-  const [minWidth, setMinWidth] = React.useState<MinWidth>(undefined);
-  const [minHeight, setMinHeight] = React.useState<MinHeight>(undefined);
-  const [maxWidth, setMaxWidth] = React.useState<MaxWidth>(undefined);
-  const [maxHeight, setMaxHeight] = React.useState<MaxHeight>(undefined);
+  const [minWidth, setMinWidth] = React.useState<MinWidth>(() => element.minWidthContainer.value);
+  const [minHeight, setMinHeight] = React.useState<MinHeight>(() => element.minHeightContainer.value);
+  const [maxWidth, setMaxWidth] = React.useState<MaxWidth>(() => element.maxWidthContainer.value);
+  const [maxHeight, setMaxHeight] = React.useState<MaxHeight>(() => element.maxHeightContainer.value);
   const [visibility, setVisibility] = React.useState<Visibility>("show");
 
   React.useEffect(() => {

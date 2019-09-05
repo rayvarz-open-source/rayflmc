@@ -1,9 +1,8 @@
-import { ImageElement } from './ImageElement';
 import * as React from 'react';
-import { Address, Alt, Width, Height, Scale, Border } from './ImageElementAttributes';
 import { Visibility } from '../base/BaseElement';
-import { ImageScaleType } from './ImageScaleType';
 import { ImageBorderType } from './ImageBorderType';
+import { ImageElement } from './ImageElement';
+import { Address, Alt, Border, Height, Scale, Width } from './ImageElementAttributes';
 
 type Props = {
   element: ImageElement,
@@ -16,13 +15,13 @@ export default function ImageView({ element, weight }: Props) {
   /*******************************************/
   /* GENERATED CODE, DO NOT MODIFY BY HAND!! */
   /*******************************************/
-  const [address, setAddress] = React.useState<Address>(undefined);
-  const [alt, setAlt] = React.useState<Alt>(undefined);
-  const [width, setWidth] = React.useState<Width>(60);
-  const [height, setHeight] = React.useState<Height>(60);
-  const [scale, setScale] = React.useState<Scale>(ImageScaleType.Contain);
+  const [address, setAddress] = React.useState<Address>(() => element.addressContainer.value);
+  const [alt, setAlt] = React.useState<Alt>(() => element.altContainer.value);
+  const [width, setWidth] = React.useState<Width>(() => element.widthContainer.value);
+  const [height, setHeight] = React.useState<Height>(() => element.heightContainer.value);
+  const [scale, setScale] = React.useState<Scale>(() => element.scaleContainer.value);
   const [border, setBorder] = React.useState<Border>(ImageBorderType.None);
-  const [visibility, setVisibility] = React.useState<Visibility>('show');
+  const [visibility, setVisibility] = React.useState<Visibility>(() => element.elementVisibilityContainer.value);
 
   React.useEffect(() => {
 

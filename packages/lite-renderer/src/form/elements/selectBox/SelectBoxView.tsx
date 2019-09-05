@@ -1,13 +1,11 @@
-import { SelectBoxElement } from "./SelectBoxElement";
-import * as React from "react";
-import { Value, SelectedValue, Label, LabelPlacement, Variant, Disabled, Colors } from "./SelectBoxElementAttributes";
-import { Visibility } from "../base/BaseElement";
-import { SelectBoxLabelPlacement } from "./SelectBoxLabelPlacement";
-import { SelectBoxVariant } from "./SelectBoxVariant";
-import { Checkbox, Radio, Switch, FormControlLabel } from "@material-ui/core";
+import { Checkbox, FormControlLabel, Radio, Switch } from "@material-ui/core";
 import Favorite from "@material-ui/icons/Favorite";
 import FavoriteBorder from "@material-ui/icons/FavoriteBorder";
-import { SelectBoxColors } from "../../..";
+import * as React from "react";
+import { Visibility } from "../base/BaseElement";
+import { SelectBoxElement } from "./SelectBoxElement";
+import { Colors, Disabled, Label, LabelPlacement, SelectedValue, Value, Variant } from "./SelectBoxElementAttributes";
+import { SelectBoxVariant } from "./SelectBoxVariant";
 
 type Props<T> = {
   element: SelectBoxElement<T>;
@@ -19,14 +17,14 @@ export default function SelectBoxView({ element, weight }: Props<any>) {
   /*******************************************/
   /* GENERATED CODE, DO NOT MODIFY BY HAND!! */
   /*******************************************/
-  const [value, setValue] = React.useState<Value<any>>(null);
-  const [selectedValue, setSelectedValue] = React.useState<SelectedValue<any>>(undefined);
-  const [label, setLabel] = React.useState<Label>(undefined);
-  const [labelPlacement, setLabelPlacement] = React.useState<LabelPlacement>(SelectBoxLabelPlacement.End);
-  const [variant, setVariant] = React.useState<Variant>(SelectBoxVariant.CheckBox);
-  const [disabled, setDisabled] = React.useState<Disabled>(false);
-  const [colors, setColors] = React.useState<Colors>(SelectBoxColors.Default);
-  const [visibility, setVisibility] = React.useState<Visibility>("show");
+  const [value, setValue] = React.useState<Value<any>>(() => element.valueContainer.value);
+  const [selectedValue, setSelectedValue] = React.useState<SelectedValue<any>>(() => element.selectedValueContainer.value);
+  const [label, setLabel] = React.useState<Label>(() => element.labelContainer.value);
+  const [labelPlacement, setLabelPlacement] = React.useState<LabelPlacement>(() => element.labelPlacementContainer.value);
+  const [variant, setVariant] = React.useState<Variant>(() => element.variantContainer.value);
+  const [disabled, setDisabled] = React.useState<Disabled>(() => element.disabledContainer.value);
+  const [colors, setColors] = React.useState<Colors>(() => element.colorsContainer.value);
+  const [visibility, setVisibility] = React.useState<Visibility>(() => element.elementVisibilityContainer.value);
 
   React.useEffect(() => {
     let valueSub = element.valueContainer.subscribe({ next: v => setValue(v) });

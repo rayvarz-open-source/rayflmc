@@ -1,10 +1,9 @@
-import { TabElement } from "./TabElement";
+import { AppBar, Tab, Tabs } from "@material-ui/core";
 import * as React from "react";
-import { TabElements, TabTitles, CurrentTab } from "./TabElementAttributes";
 import { Visibility } from "../base/BaseElement";
-import { AppBar, Tabs, Tab } from "@material-ui/core";
 import { MapToView } from "../ElementToViewMapper";
-import { type } from "os";
+import { TabElement } from "./TabElement";
+import { CurrentTab, TabElements, TabTitles } from "./TabElementAttributes";
 
 type Props = {
   element: TabElement;
@@ -16,10 +15,10 @@ export default function TabView({ element, weight }: Props) {
   /*******************************************/
   /* GENERATED CODE, DO NOT MODIFY BY HAND!! */
   /*******************************************/
-  const [tabElements, setTabElements] = React.useState<TabElements>([]);
-  const [tabTitles, setTabTitles] = React.useState<TabTitles>([]);
-  const [currentTab, setCurrentTab] = React.useState<CurrentTab>(0);
-  const [visibility, setVisibility] = React.useState<Visibility>("show");
+  const [tabElements, setTabElements] = React.useState<TabElements>(() => element.tabElementsContainer.value);
+  const [tabTitles, setTabTitles] = React.useState<TabTitles>(() => element.tabTitlesContainer.value);
+  const [currentTab, setCurrentTab] = React.useState<CurrentTab>(() => element.currentTabContainer.value);
+  const [visibility, setVisibility] = React.useState<Visibility>(() => element.elementVisibilityContainer.value);
 
   React.useEffect(() => {
     let tabElementsSub = element.tabElementsContainer.subscribe({ next: v => setTabElements(v) });

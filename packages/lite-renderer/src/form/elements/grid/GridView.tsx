@@ -17,17 +17,17 @@ export default function GridView({ element, weight }: Props) {
   /*******************************************/
   /* GENERATED CODE, DO NOT MODIFY BY HAND!! */
   /*******************************************/
-  const [columnDefinitions, setColumnDefinitions] = React.useState<ColumnDefinitions>([]);
-  const [actionDefinitions, setActionDefinitions] = React.useState<ActionDefinitions>([]);
-  const [componentsOverride, setComponentsOverride] = React.useState<ComponentsOverride>({});
-  const [datasource, setDatasource] = useFunctionAsState<Datasource>([]);
-  const [rowActionDefinitions, setRowActionDefinitions] = React.useState<RowActionDefinitions>({});
-  const [gridOptions, setGridOptions] = React.useState<GridOptions>({});
-  const [title, setTitle] = React.useState<Title>("");
-  const [localizationDefinition, setLocalizationDefinition] = React.useState<LocalizationDefinition>(undefined);
+  const [columnDefinitions, setColumnDefinitions] = React.useState<ColumnDefinitions>(() => element.columnDefinitionsContainer.value);
+  const [actionDefinitions, setActionDefinitions] = React.useState<ActionDefinitions>(() => element.actionDefinitionsContainer.value);
+  const [componentsOverride, setComponentsOverride] = React.useState<ComponentsOverride>(() => element.componentsOverrideContainer.value);
+  const [datasource, setDatasource] = useFunctionAsState<Datasource>(() => element.datasourceContainer.value);
+  const [rowActionDefinitions, setRowActionDefinitions] = React.useState<RowActionDefinitions>(() => element.rowActionDefinitionsContainer.value);
+  const [gridOptions, setGridOptions] = React.useState<GridOptions>(() => element.gridOptionsContainer.value);
+  const [title, setTitle] = React.useState<Title>(() => element.titleContainer.value);
+  const [localizationDefinition, setLocalizationDefinition] = React.useState<LocalizationDefinition>(() => element.localizationDefinitionContainer.value);
   const [onSelectedChange, setOnSelectedChange] = useFunctionAsState<OnSelectedChange>(undefined);
   const [onRowClick, setOnRowClick] = useFunctionAsState<OnRowClick>(undefined);
-  const [visibility, setVisibility] = React.useState<Visibility>("show");
+  const [visibility, setVisibility] = React.useState<Visibility>(() => element.elementVisibilityContainer.value);
 
   React.useEffect(() => {
     let columnDefinitionsSub = element.columnDefinitionsContainer.subscribe({ next: v => setColumnDefinitions(v) });

@@ -1,9 +1,9 @@
 
-import { LabelElement } from './LabelElement';
-import * as React from 'react';
-import { Value, NoWrap, GutterBottom, Colors, Variant, Display, Align } from './LabelElementAttributes';
-import { Visibility } from '../base/BaseElement';
 import { Typography } from '@material-ui/core';
+import * as React from 'react';
+import { Visibility } from '../base/BaseElement';
+import { LabelElement } from './LabelElement';
+import { Align, Colors, Display, GutterBottom, NoWrap, Value, Variant } from './LabelElementAttributes';
 
 type Props = {
   element: LabelElement,
@@ -16,14 +16,14 @@ export default function LabelView({ element, weight }: Props) {
   /*******************************************/
   /* GENERATED CODE, DO NOT MODIFY BY HAND!! */
   /*******************************************/
-  const [value, setValue] = React.useState<Value>('');
-  const [noWrap, setNoWrap] = React.useState<NoWrap>(false);
-  const [gutterBottom, setGutterBottom] = React.useState<GutterBottom>(false);
-  const [colors, setColors] = React.useState<Colors>('initial');
-  const [variant, setVariant] = React.useState<Variant>('inherit');
-  const [display, setDisplay] = React.useState<Display>('initial');
-  const [align, setAlign] = React.useState<Align>('inherit');
-  const [visibility, setVisibility] = React.useState<Visibility>('show');
+  const [value, setValue] = React.useState<Value>(() => element.valueContainer.value);
+  const [noWrap, setNoWrap] = React.useState<NoWrap>(() => element.noWrapContainer.value);
+  const [gutterBottom, setGutterBottom] = React.useState<GutterBottom>(() => element.gutterBottomContainer.value);
+  const [colors, setColors] = React.useState<Colors>(() => element.colorsContainer.value);
+  const [variant, setVariant] = React.useState<Variant>(() => element.variantContainer.value);
+  const [display, setDisplay] = React.useState<Display>(() => element.displayContainer.value);
+  const [align, setAlign] = React.useState<Align>(() => element.alignContainer.value);
+  const [visibility, setVisibility] = React.useState<Visibility>(() => element.elementVisibilityContainer.value);
 
   React.useEffect(() => {
 

@@ -1,47 +1,11 @@
-import {
-  FilledInput,
-  FormControl,
-  Icon,
-  IconButton,
-  Input,
-  InputAdornment,
-  InputLabel,
-  MenuItem,
-  OutlinedInput,
-  Select,
-  TextField
-} from "@material-ui/core";
+import { FilledInput, FormControl, Icon, IconButton, Input, InputAdornment, InputLabel, MenuItem, OutlinedInput, Select, TextField } from "@material-ui/core";
 import { Theme } from "@material-ui/core/styles/createMuiTheme";
 import { useTheme } from "@material-ui/styles";
 import * as React from "react";
 import useFunctionAsState from "../../../custom-hooks/function-state";
 import { Visibility } from "../base/BaseElement";
 import { TextInputElement } from "./TextInputElement";
-import {
-  Direction,
-  Disabled,
-  EndIcon,
-  EndText,
-  HelperText,
-  InputType,
-  IsInError,
-  Label,
-  Mask,
-  MaxLength,
-  Multiline,
-  NumberFormatter,
-  OnEndIconClick,
-  OnStartIconClick,
-  Placeholder,
-  PlaceholderDirection,
-  Rows,
-  RowsMax,
-  SelectOptions,
-  StartIcon,
-  StartText,
-  Value,
-  Variant
-} from "./TextInputElementAttributes";
+import { Direction, Disabled, EndIcon, EndText, HelperText, InputType, IsInError, Label, Mask, MaxLength, Multiline, NumberFormatter, OnEndIconClick, OnStartIconClick, Placeholder, PlaceholderDirection, Rows, RowsMax, SelectOptions, StartIcon, StartText, Value, Variant } from "./TextInputElementAttributes";
 import { TextInputMask } from "./TextInputMask";
 import { TextInputNumberFormatter } from "./TextInputNumberFormatter";
 import { TextInputStyleType } from "./TextInputStyleType";
@@ -58,30 +22,30 @@ export default function TextInputView({ element, weight }: Props) {
   /*******************************************/
   /* GENERATED CODE, DO NOT MODIFY BY HAND!! */
   /*******************************************/
-  const [value, setValue] = React.useState<Value>("");
-  const [label, setLabel] = React.useState<Label>(undefined);
-  const [placeholder, setPlaceholder] = React.useState<Placeholder>(undefined);
-  const [disabled, setDisabled] = React.useState<Disabled>(false);
-  const [helperText, setHelperText] = React.useState<HelperText>(undefined);
-  const [isInError, setIsInError] = React.useState<IsInError>(false);
-  const [startText, setStartText] = React.useState<StartText>(undefined);
-  const [endText, setEndText] = React.useState<EndText>(undefined);
-  const [startIcon, setStartIcon] = React.useState<StartIcon>(undefined);
-  const [endIcon, setEndIcon] = React.useState<EndIcon>(undefined);
-  const [variant, setVariant] = React.useState<Variant>("standard");
-  const [inputType, setInputType] = React.useState<InputType>("text");
-  const [multiline, setMultiline] = React.useState<Multiline>(false);
-  const [rows, setRows] = React.useState<Rows>(0);
-  const [rowsMax, setRowsMax] = React.useState<RowsMax>(0);
-  const [direction, setDirection] = React.useState<Direction>("default");
-  const [placeholderDirection, setPlaceholderDirection] = React.useState<PlaceholderDirection>(undefined);
+  const [value, setValue] = React.useState<Value>(() => element.valueContainer.value);
+  const [label, setLabel] = React.useState<Label>(() => element.labelContainer.value);
+  const [placeholder, setPlaceholder] = React.useState<Placeholder>(() => element.placeholderContainer.value);
+  const [disabled, setDisabled] = React.useState<Disabled>(() => element.disabledContainer.value);
+  const [helperText, setHelperText] = React.useState<HelperText>(() => element.helperTextContainer.value);
+  const [isInError, setIsInError] = React.useState<IsInError>(() => element.isInErrorContainer.value);
+  const [startText, setStartText] = React.useState<StartText>(() => element.startTextContainer.value);
+  const [endText, setEndText] = React.useState<EndText>(() => element.endTextContainer.value);
+  const [startIcon, setStartIcon] = React.useState<StartIcon>(() => element.startIconContainer.value);
+  const [endIcon, setEndIcon] = React.useState<EndIcon>(() => element.endIconContainer.value);
+  const [variant, setVariant] = React.useState<Variant>(() => element.variantContainer.value);
+  const [inputType, setInputType] = React.useState<InputType>(() => element.inputTypeContainer.value);
+  const [multiline, setMultiline] = React.useState<Multiline>(() => element.multilineContainer.value);
+  const [rows, setRows] = React.useState<Rows>(() => element.rowsContainer.value);
+  const [rowsMax, setRowsMax] = React.useState<RowsMax>(() => element.rowsMaxContainer.value);
+  const [direction, setDirection] = React.useState<Direction>(() => element.directionContainer.value);
+  const [placeholderDirection, setPlaceholderDirection] = React.useState<PlaceholderDirection>(() => element.placeholderDirectionContainer.value);
   const [onEndIconClick, setOnEndIconClick] = useFunctionAsState<OnEndIconClick>(undefined);
   const [onStartIconClick, setOnStartIconClick] = useFunctionAsState<OnStartIconClick>(undefined);
-  const [numberFormatter, setNumberFormatter] = React.useState<NumberFormatter>(false);
-  const [mask, setMask] = React.useState<Mask>(undefined);
-  const [selectOptions, setSelectOptions] = React.useState<SelectOptions>(undefined);
-  const [maxLength, setMaxLength] = React.useState<MaxLength>(undefined);
-  const [visibility, setVisibility] = React.useState<Visibility>("show");
+  const [numberFormatter, setNumberFormatter] = React.useState<NumberFormatter>(() => element.numberFormatterContainer.value);
+  const [mask, setMask] = React.useState<Mask>(() => element.maskContainer.value);
+  const [selectOptions, setSelectOptions] = React.useState<SelectOptions>(() => element.selectOptionsContainer.value);
+  const [maxLength, setMaxLength] = React.useState<MaxLength>(() => element.maxLengthContainer.value);
+  const [visibility, setVisibility] = React.useState<Visibility>(() => element.elementVisibilityContainer.value);
 
   React.useEffect(() => {
     let valueSub = element.valueContainer.subscribe({ next: v => setValue(v) });

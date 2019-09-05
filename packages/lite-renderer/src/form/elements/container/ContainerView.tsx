@@ -1,14 +1,12 @@
-import { ContainerElement } from "./ContainerElement";
-import * as React from "react";
-import { Children, Direction, Flex, Wrap, Decoration } from "./ContainerElementAttributes";
-import { Visibility } from "../base/BaseElement";
-import { ContainerDirection } from "./ContainerDirection";
 import { Box, Paper } from "@material-ui/core";
-import { MapToView } from "../ElementToViewMapper";
-import { ContainerWrap } from "./ContainerWrap";
+import * as React from "react";
 import { skip } from "rxjs/operators";
 import IElement from "../../../flmc-data-layer/FormController/IElement";
+import { Visibility } from "../base/BaseElement";
+import { MapToView } from "../ElementToViewMapper";
 import { ContainerDecoration } from "./ContainerDecoration";
+import { ContainerElement } from "./ContainerElement";
+import { Decoration, Direction, Flex, Wrap } from "./ContainerElementAttributes";
 
 type Props = {
   element: ContainerElement;
@@ -16,11 +14,11 @@ type Props = {
 };
 
 export default function ContainerView({ element, weight }: Props) {
-  const [direction, setDirection] = React.useState<Direction>(ContainerDirection.Column);
-  const [flex, setFlex] = React.useState<Flex>(element.flexContainer.value);
-  const [wrap, setWrap] = React.useState<Wrap>(ContainerWrap.NoWrap);
-  const [decoration, setDecoration] = React.useState<Decoration>(ContainerDecoration.None);
-  const [visibility, setVisibility] = React.useState<Visibility>("show");
+  const [direction, setDirection] = React.useState<Direction>(() => element.directionContainer.value);
+  const [flex, setFlex] = React.useState<Flex>(() => element.flexContainer.value);
+  const [wrap, setWrap] = React.useState<Wrap>(() => element.wrapContainer.value);
+  const [decoration, setDecoration] = React.useState<Decoration>(() => element.decorationContainer.value);
+  const [visibility, setVisibility] = React.useState<Visibility>(() => element.elementVisibilityContainer.value);
 
   function renderChildren(elements: IElement[]): React.ReactElement[] {
     if (flex.length != 0)

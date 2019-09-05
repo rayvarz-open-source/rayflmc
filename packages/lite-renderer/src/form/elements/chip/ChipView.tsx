@@ -1,12 +1,12 @@
-import SelectIcon from '@material-ui/icons/DoneRounded';
-import DeleteIcon from '@material-ui/icons/CloseRounded';
-import { ChipElement } from './ChipElement';
-import * as React from 'react';
-import { Value, SelectionType } from './ChipElementAttributes';
-import { Visibility } from '../base/BaseElement';
-import { ChipSelectionType } from './ChipSelectionType';
-import { ChipModel } from './ChipModel';
 import { Chip } from '@material-ui/core';
+import DeleteIcon from '@material-ui/icons/CloseRounded';
+import SelectIcon from '@material-ui/icons/DoneRounded';
+import * as React from 'react';
+import { Visibility } from '../base/BaseElement';
+import { ChipElement } from './ChipElement';
+import { SelectionType, Value } from './ChipElementAttributes';
+import { ChipModel } from './ChipModel';
+import { ChipSelectionType } from './ChipSelectionType';
 
 type Props = {
   element: ChipElement,
@@ -19,9 +19,9 @@ export default function ChipView({ element, weight }: Props) {
   /*******************************************/
   /* GENERATED CODE, DO NOT MODIFY BY HAND!! */
   /*******************************************/
-  const [value, setValue] = React.useState<Value>(undefined);
-  const [selectionType, setSelectionType] = React.useState<SelectionType>(ChipSelectionType.Show);
-  const [visibility, setVisibility] = React.useState<Visibility>('show');
+  const [value, setValue] = React.useState<Value>(() => element.valueContainer.value);
+  const [selectionType, setSelectionType] = React.useState<SelectionType>(() => element.selectionTypeContainer.value);
+  const [visibility, setVisibility] = React.useState<Visibility>(() => element.elementVisibilityContainer.value);
 
   React.useEffect(() => {
 

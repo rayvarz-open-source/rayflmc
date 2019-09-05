@@ -1,8 +1,8 @@
 
-import { SpaceElement } from './SpaceElement';
 import * as React from 'react';
-import { Width, Height } from './SpaceElementAttributes';
 import { Visibility } from '../base/BaseElement';
+import { SpaceElement } from './SpaceElement';
+import { Height, Width } from './SpaceElementAttributes';
 
 type Props = {
     element: SpaceElement,
@@ -15,9 +15,9 @@ export default function SpaceView({ element, weight }: Props) {
     /*******************************************/
     /* GENERATED CODE, DO NOT MODIFY BY HAND!! */
     /*******************************************/
-    const [width, setWidth] = React.useState<Width>(0);
-    const [height, setHeight] = React.useState<Height>(0);
-    const [visibility, setVisibility] = React.useState<Visibility>('show');
+    const [width, setWidth] = React.useState<Width>(() => element.widthContainer.value);
+    const [height, setHeight] = React.useState<Height>(() => element.heightContainer.value);
+    const [visibility, setVisibility] = React.useState<Visibility>(() => element.elementVisibilityContainer.value);
 
     React.useEffect(() => {
 
