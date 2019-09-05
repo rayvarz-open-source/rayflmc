@@ -83,7 +83,7 @@ export class RouterService implements InjectorReciever {
     this.onRouteChangedListener(item);
   }
 
-  pop(notifyLocator: boolean = true) {
+  pop(notifyLocator: boolean = false) {
     if (this.stack.length === 0) {
       console.warn("can't go back any further.history is empty");
       return;

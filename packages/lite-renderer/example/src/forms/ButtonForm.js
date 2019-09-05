@@ -1,14 +1,5 @@
+import { Button, ButtonColor, ButtonIconPlacement, ButtonVariant, Container, ContainerDirection, FormController, Label } from "lite-renderer";
 import { BehaviorSubject } from "rxjs";
-import {
-  Button,
-  ButtonColor,
-  FormController,
-  Container,
-  ContainerDirection,
-  Label,
-  ButtonVariant,
-  ButtonIconPlacement
-} from "lite-renderer";
 
 export default class ButtonForm extends FormController {
   constructor(props) {
@@ -45,6 +36,8 @@ export default class ButtonForm extends FormController {
   }
 
   elements = [
+    Button("Pop").onClick(() => this.routerService.pop()),
+    Button("Push Image").onClick(() => this.routerService.push('/image', {})),
     Label("Colors"),
     Container([
       Button("ButtonColor.Default")

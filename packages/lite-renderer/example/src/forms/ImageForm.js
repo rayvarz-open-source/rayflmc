@@ -1,13 +1,5 @@
+import { Button, Container, ContainerDirection, FormController, Image, ImageBorderType, ImageScaleType, Label } from "lite-renderer";
 import { BehaviorSubject } from "rxjs";
-import {
-  Image,
-  Container,
-  Label,
-  FormController,
-  ImageBorderType,
-  ContainerDirection,
-  ImageScaleType
-} from "lite-renderer";
 
 export default class ImageForm extends FormController {
   inject(injector) {
@@ -18,6 +10,8 @@ export default class ImageForm extends FormController {
   loading = new BehaviorSubject(true);
 
   elements = [
+    Button("Pop").onClick(() => this.routerService.pop()),
+    Button("Push Button").onClick(() => this.routerService.push('/button', {})),
     Label("ImageBorderType"),
     Container([
       Label("ImageBorderType.Avatar:"),
