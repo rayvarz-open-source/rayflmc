@@ -1,12 +1,6 @@
 import { Route as BrowserURLParser } from "../../router/router";
 import { IPlatformRouteLocatorService, PlatformRouteInfo } from "./IPlatformRouteLocatorService";
 
-const detectBackOrForward = function(onBackOrForward) {
-  return function() {
-    onBackOrForward();
-  };
-};
-
 export class BrowserRouteLocatorService implements IPlatformRouteLocatorService {
   private listenders: (((info: PlatformRouteInfo) => void) | null)[] = [];
 
@@ -14,10 +8,9 @@ export class BrowserRouteLocatorService implements IPlatformRouteLocatorService 
     this.listenders.forEach(cb => cb && cb(info));
 
   constructor() {
-    window.addEventListener(
-      "hashchange",
-      detectBackOrForward(() => this.notifyListiners(this.getCurrentRouteInfo()))
-    );
+    window.onpopstate = () => {
+      this.notifyListiners(this.getCurrentRouteInfo())
+    }
   }
 
   removeOnPlatformRouteChangedListener(callbackId: number) {

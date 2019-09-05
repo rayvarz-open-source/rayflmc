@@ -54,10 +54,14 @@ export class RouterService implements InjectorReciever {
 
     this.routeLocator!.addOnPlatformRouteChangedListener(info => {
       // check if last path is equal to current path then it's a pop else is a push
-      if (this.stack.length < 2 || this.stack[this.stack.length - 2][1].path !== info.path) {
-        this.push(info.path, info.params, false);
-      } else {
+      if (this.stack.length === 0) {
+        // do nothing
+      } else if (this.stack.length === 1) {
+        this.pushReplace(info.path, info.params, false);
+      } else if (this.stack.length > 1 && this.stack[this.stack.length - 2][1].path === info.path) {
         this.pop(false);
+      } else {
+        this.push(info.path, info.params, false);
       }
     });
 
@@ -72,10 +76,10 @@ export class RouterService implements InjectorReciever {
     this.onRouteChangedListener(item);
   }
 
-  pushReplace(path: string | Route, params?: object) {
+  pushReplace(path: string | Route, params?: object, notifyLocator: boolean = true) {
     this.stack.pop();
     const [item, isFailed] = this.createNewPath(path, params);
-    if (!isFailed) this.routeLocator!.pushReplaceRoute({ path: item[1].path, params: item[2] });
+    if (!isFailed && notifyLocator) this.routeLocator!.pushReplaceRoute({ path: item[1].path, params: item[2] });
     this.onRouteChangedListener(item);
   }
 
