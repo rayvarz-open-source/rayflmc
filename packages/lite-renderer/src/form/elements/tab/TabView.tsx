@@ -39,7 +39,7 @@ export default function TabView({ element, weight }: Props) {
   //endregion
 
   function handleChange(event: any, newValue: number) {
-    setCurrentTab(newValue);
+    element.currentTabContainer.next(newValue);
   }
 
   function renderChildren() {
