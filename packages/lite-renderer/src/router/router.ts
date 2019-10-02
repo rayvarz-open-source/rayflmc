@@ -122,8 +122,8 @@ export let oldChangeRoute: any = {
 
 
 export const changeRoute = (path: string | Route, params?: object) => {
-  console.warn("changeRoute is deprecated. please use routerService instead")
-  oldChangeRoute.logic(path, params);
+  throw new Error("changeRoute will be removed in next version. please use routerService instead");
+  // oldChangeRoute.logic(path, params);
 }
 
 export function areRoutesValid(routes: FRoute[]) {
