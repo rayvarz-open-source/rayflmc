@@ -71,12 +71,17 @@ export class RouterService implements InjectorReciever {
   }
 
   push(path: string | Route, params?: object, notifyLocator: boolean = true) {
+    let [controller] = this.stack[this.stack.length - 1];
+    controller.onPause();
     const [item, isFailed] = this.createNewPath(path, params);
     if (isFailed || notifyLocator) this.routeLocator!.pushRoute({ path: item[1].path, params: item[2] });
     this.onRouteChangedListener(item);
   }
 
   pushReplace(path: string | Route, params?: object, notifyLocator: boolean = true) {
+    let [controller] = this.stack[this.stack.length - 1];
+    controller.beforeDispose();
+    controller.afterDispose();
     this.stack.pop();
     const [item, isFailed] = this.createNewPath(path, params);
     if (!isFailed && notifyLocator) this.routeLocator!.pushReplaceRoute({ path: item[1].path, params: item[2] });
@@ -92,8 +97,12 @@ export class RouterService implements InjectorReciever {
     controller.beforeDispose();
     controller.afterDispose();
     this.stack.pop();
+
     if (notifyLocator) this.routeLocator!.pop();
     const item = this.stack[this.stack.length - 1];
+    if (item) {
+      item[0].onResume();
+    }
     this.onRouteChangedListener(item);
   }
 }

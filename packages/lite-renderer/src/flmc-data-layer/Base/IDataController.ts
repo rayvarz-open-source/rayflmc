@@ -23,6 +23,9 @@ export default interface IDataController {
    */
   afterDispose(): void;
 
+  onPause(): void;
+  onResume(): void;
+
   /**
    * (should) gets called after constructing the data controller
    * object
