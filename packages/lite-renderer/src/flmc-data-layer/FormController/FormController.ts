@@ -8,6 +8,11 @@ import IElement, { ValidationResult } from "./IElement";
  * TODO: finalize interface
  */
 export default class FormController implements IDataController {
+
+  onPause(): void { }
+  
+  onResume(): void { }
+
   get type(): string {
     return DataControllerTypes.FormController;
   }
