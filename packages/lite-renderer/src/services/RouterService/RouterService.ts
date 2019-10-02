@@ -71,8 +71,10 @@ export class RouterService implements InjectorReciever {
   }
 
   push(path: string | Route, params?: object, notifyLocator: boolean = true) {
-    let [controller] = this.stack[this.stack.length - 1];
-    controller.onPause();
+    if (this.stack.length > 0) {
+      let [controller] = this.stack[this.stack.length - 1];
+      controller.onPause();
+    }
     const [item, isFailed] = this.createNewPath(path, params);
     if (isFailed || notifyLocator) this.routeLocator!.pushRoute({ path: item[1].path, params: item[2] });
     this.onRouteChangedListener(item);
