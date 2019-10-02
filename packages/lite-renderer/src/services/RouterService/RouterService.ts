@@ -88,6 +88,9 @@ export class RouterService implements InjectorReciever {
       console.warn("can't go back any further.history is empty");
       return;
     }
+    let [controller] = this.stack[this.stack.length - 1];
+    controller.beforeDispose();
+    controller.afterDispose();
     this.stack.pop();
     if (notifyLocator) this.routeLocator!.pop();
     const item = this.stack[this.stack.length - 1];
