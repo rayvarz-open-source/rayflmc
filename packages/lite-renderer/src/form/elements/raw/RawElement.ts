@@ -4,9 +4,19 @@ import { Observable, BehaviorSubject, isObservable } from "rxjs";
 import { BaseElement } from "../base/BaseElement";
 import { TypeGuards, ReactElementBuilder } from "./RawElementAttributes";
 
+export type Validator = () => ValidationResult;
+
 export class RawElement extends BaseElement implements IElement {
+
+  private validatorContainer: Validator | null = null;
+
+  validator(value: Validator): RawElement {
+    this.validatorContainer = value;
+    return this;
+  }
+
   validate(): ValidationResult {
-    return new ValidationResult(true);
+    return this.validatorContainer == null ? new ValidationResult(true) : this.validatorContainer();
   }
 
   dispose(): void {}
