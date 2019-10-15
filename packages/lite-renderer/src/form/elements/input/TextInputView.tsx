@@ -112,6 +112,9 @@ export default function TextInputView({ element, weight }: Props) {
     if (maxLength && event.target.value.length > maxLength) return;
     if (event.target.value == value || !element.isExternalValueContainer) return;
     element.valueContainer.next(event.target.value);
+    if (element.isInErrorContainer.value) {
+      element.validate();
+    }
   }
 
   if (selectOptions != null) {
