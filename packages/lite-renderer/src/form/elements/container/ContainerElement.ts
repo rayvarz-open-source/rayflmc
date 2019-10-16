@@ -1,11 +1,11 @@
+import { BehaviorSubject, isObservable, Observable } from "rxjs";
 import IElement, { ValidationResult } from "../../../flmc-data-layer/FormController/IElement";
-import { ElementType } from "../ElementType";
-import { Observable, BehaviorSubject, isObservable } from "rxjs";
 import { BaseElement } from "../base/BaseElement";
-import { TypeGuards, Children, Direction, Flex, Wrap, Decoration } from "./ContainerElementAttributes";
-import { ContainerDirection } from "./ContainerDirection";
-import { ContainerWrap } from "./ContainerWrap";
+import { ElementType } from "../ElementType";
 import { ContainerDecoration } from "./ContainerDecoration";
+import { ContainerDirection } from "./ContainerDirection";
+import { AlignItems, Children, Decoration, Direction, Flex, JustifyContent, TypeGuards, Wrap } from "./ContainerElementAttributes";
+import { ContainerWrap } from "./ContainerWrap";
 
 export class ContainerElement extends BaseElement implements IElement {
   validate(): ValidationResult {
@@ -162,6 +162,56 @@ export class ContainerElement extends BaseElement implements IElement {
     if (TypeGuards.isDecoration(value)) return this.decorationR(value);
     else if (isObservable(value)) return this.decorationO(value);
     throw new Error(`invalid type ${typeof value} for Decoration`);
+  }
+
+  justifyContentContainer = new BehaviorSubject<JustifyContent>(undefined);
+
+  /** iternal function for handling raw JustifyContent types*/
+  private justifyContentR(value: JustifyContent): ContainerElement {
+    this.justifyContentContainer.next(value);
+    return this;
+  }
+
+  /** iternal function for handling Observable<JustifyContent> types*/
+  private justifyContentO(value: Observable<JustifyContent>): ContainerElement {
+    value.subscribe({ next: v => this.justifyContentContainer.next(v) });
+    return this;
+  }
+
+  /**
+   * default value: undefined
+   *
+   *
+   */
+  justifyContent(value: Observable<JustifyContent> | JustifyContent): ContainerElement {
+    if (isObservable(value)) this.justifyContentO(value);
+    else this.justifyContentR(value);
+    return this;
+  }
+
+  alignItemsContainer = new BehaviorSubject<AlignItems>(undefined);
+
+  /** iternal function for handling raw AlignItems types*/
+  private alignItemsR(value: AlignItems): ContainerElement {
+    this.alignItemsContainer.next(value);
+    return this;
+  }
+
+  /** iternal function for handling Observable<AlignItems> types*/
+  private alignItemsO(value: Observable<AlignItems>): ContainerElement {
+    value.subscribe({ next: v => this.alignItemsContainer.next(v) });
+    return this;
+  }
+
+  /**
+   * default value: undefined
+   *
+   *
+   */
+  alignItems(value: Observable<AlignItems> | AlignItems): ContainerElement {
+    if (isObservable(value)) this.alignItemsO(value);
+    else this.alignItemsR(value);
+    return this;
   }
 
   /*******************************************/

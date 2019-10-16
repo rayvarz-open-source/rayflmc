@@ -1,7 +1,8 @@
 import IElement, { areElements } from "../../../flmc-data-layer/FormController/IElement";
+import { ContainerDecoration, isContainerDecoration } from "./ContainerDecoration";
 import { ContainerDirection, isContainerDirection } from "./ContainerDirection";
+import { ContainerAlignItems, ContainerJustifyContent } from "./ContainerItemAlign";
 import { ContainerWrap, isContainerWrap } from "./ContainerWrap";
-import { isContainerDecoration, ContainerDecoration } from "./ContainerDecoration";
 
 /** @ElementDoc
  * @example
@@ -50,6 +51,16 @@ export type Wrap = ContainerWrap;
  * 
  */
 export type Decoration = ContainerDecoration;
+/**
+ * @[{"bidirectional":false,"required":false,"default":"undefined"}]
+ * 
+ */
+export type JustifyContent = ContainerJustifyContent | undefined;
+/**
+ * @[{"bidirectional":false,"required":false,"default":"undefined"}]
+ * 
+ */
+export type AlignItems = ContainerAlignItems | undefined;
 // End Element
 
 // type guards
