@@ -43,6 +43,7 @@ import FormView from "./form/FormView.js";
 import { RootRouteCategory } from "./router/route";
 import { changeRoute } from "./router/router.js";
 import { Skeleton } from "./skeleton/SkeletonAttribute";
+import { ContainerLayoutMode } from "./form/elements/container/ContainerLayoutMode.js";
 
 export {
 Button, ButtonColor, ButtonVariant, ButtonIconPlacement,
@@ -51,7 +52,7 @@ Button, ButtonColor, ButtonVariant, ButtonIconPlacement,
   // SelectBox
   SelectBox, SelectBoxColors, SelectBoxLabelPlacement,
   // Container
-  Container, ContainerWrap, ContainerDirection, ContainerDecoration,
+  Container, ContainerWrap, ContainerDirection, ContainerDecoration, ContainerLayoutMode,
   // Chip
   Chip, ChipModel, ChipSelectionType,
   // Modal

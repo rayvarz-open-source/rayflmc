@@ -4,8 +4,19 @@ import { BaseElement } from "../base/BaseElement";
 import { ElementType } from "../ElementType";
 import { ContainerDecoration } from "./ContainerDecoration";
 import { ContainerDirection } from "./ContainerDirection";
-import { AlignItems, Children, Decoration, Direction, Flex, JustifyContent, TypeGuards, Wrap } from "./ContainerElementAttributes";
+import {
+  AlignItems,
+  Children,
+  Decoration,
+  Direction,
+  Flex,
+  JustifyContent,
+  TypeGuards,
+  Wrap,
+  LayoutMode
+} from "./ContainerElementAttributes";
 import { ContainerWrap } from "./ContainerWrap";
+import { ContainerLayoutMode } from "./ContainerLayoutMode";
 
 export class ContainerElement extends BaseElement implements IElement {
   validate(): ValidationResult {
@@ -214,6 +225,30 @@ export class ContainerElement extends BaseElement implements IElement {
     return this;
   }
 
+  layoutModeContainer = new BehaviorSubject<LayoutMode>(ContainerLayoutMode.Responsive);
+
+  /** iternal function for handling raw LayoutMode types*/
+  private layoutModeR(value: LayoutMode): ContainerElement {
+    this.layoutModeContainer.next(value);
+    return this;
+  }
+
+  /** iternal function for handling Observable<LayoutMode> types*/
+  private layoutModeO(value: Observable<LayoutMode>): ContainerElement {
+    value.subscribe({ next: v => this.layoutModeContainer.next(v) });
+    return this;
+  }
+
+  /**
+   * default value: ContainerLayoutMode.Responsive
+   *
+   *
+   */
+  layoutMode(value: Observable<LayoutMode> | LayoutMode): ContainerElement {
+    if (isObservable(value)) this.layoutModeO(value);
+    else this.layoutModeR(value);
+    return this;
+  }
   /*******************************************/
   /* END OF GENERATED CODE                   */
   /*******************************************/

@@ -6,7 +6,17 @@ import { Visibility } from "../base/BaseElement";
 import { MapToView } from "../ElementToViewMapper";
 import { ContainerDecoration } from "./ContainerDecoration";
 import { ContainerElement } from "./ContainerElement";
-import { AlignItems, Decoration, Direction, Flex, JustifyContent, Wrap } from "./ContainerElementAttributes";
+import {
+  AlignItems,
+  Decoration,
+  Direction,
+  Flex,
+  JustifyContent,
+  Wrap,
+  LayoutMode
+} from "./ContainerElementAttributes";
+import useMediaQuery from "@material-ui/core/useMediaQuery";
+import { ContainerLayoutMode } from "./ContainerLayoutMode";
 
 type Props = {
   element: ContainerElement;
@@ -17,9 +27,12 @@ export default function ContainerView({ element, weight }: Props) {
   const [direction, setDirection] = React.useState<Direction>(() => element.directionContainer.value);
   const [flex, setFlex] = React.useState<Flex>(() => element.flexContainer.value);
   const [wrap, setWrap] = React.useState<Wrap>(() => element.wrapContainer.value);
-  const [justifyContent, setJustifyContent] = React.useState<JustifyContent>(() => element.justifyContentContainer.value);
+  const [justifyContent, setJustifyContent] = React.useState<JustifyContent>(
+    () => element.justifyContentContainer.value
+  );
   const [alignItems, setAlignItems] = React.useState<AlignItems>(() => element.alignItemsContainer.value);
   const [decoration, setDecoration] = React.useState<Decoration>(() => element.decorationContainer.value);
+  const [layoutMode, setLayoutMode] = React.useState<LayoutMode>(() => element.layoutModeContainer.value);
   const [visibility, setVisibility] = React.useState<Visibility>(() => element.elementVisibilityContainer.value);
 
   function renderChildren(elements: IElement[]): React.ReactElement[] {
@@ -41,7 +54,8 @@ export default function ContainerView({ element, weight }: Props) {
     let wrapSub = element.wrapContainer.subscribe({ next: v => setWrap(v) });
     let decorationSub = element.decorationContainer.subscribe({ next: v => setDecoration(v) });
     let justifyContentSub = element.justifyContentContainer.subscribe({ next: v => setJustifyContent(v) });
-let alignItemsSub = element.alignItemsContainer.subscribe({ next: v => setAlignItems(v) });
+    let alignItemsSub = element.alignItemsContainer.subscribe({ next: v => setAlignItems(v) });
+    let layoutModeSub = element.layoutModeContainer.subscribe({ next: v => setLayoutMode(v) });
     let visibilitySub = element.elementVisibilityContainer.subscribe({ next: v => setVisibility(v) });
 
     return () => {
@@ -52,9 +66,12 @@ let alignItemsSub = element.alignItemsContainer.subscribe({ next: v => setAlignI
       decorationSub.unsubscribe();
       justifyContentSub.unsubscribe();
       alignItemsSub.unsubscribe();
+      layoutModeSub.unsubscribe();
       visibilitySub.unsubscribe();
     };
   }, [element.childrenContainer]);
+
+  const isSmallScreen = useMediaQuery("(max-width:425px)");
 
   if (flex.length > 0 && flex.length != children.length)
     throw new Error(`flex length (${flex.length}) must be same as children length ${children.length}`);
@@ -73,7 +90,7 @@ let alignItemsSub = element.alignItemsContainer.subscribe({ next: v => setAlignI
             alignItems: alignItems
           }}
           display="flex"
-          flexDirection={direction}
+          flexDirection={isSmallScreen && layoutMode === ContainerLayoutMode.Responsive ? "column" : direction}
         >
           {children}
         </Box>
@@ -84,7 +101,7 @@ let alignItemsSub = element.alignItemsContainer.subscribe({ next: v => setAlignI
         <Paper
           style={{
             display: "flex",
-            flexDirection: direction,
+            flexDirection: isSmallScreen && layoutMode === ContainerLayoutMode.Responsive ? "column" : direction,
             ...element.getVisibilityStyle(visibility),
             ...element.getWeightStyle(weight),
             flexWrap: wrap,

@@ -3,6 +3,7 @@ import { ContainerDecoration, isContainerDecoration } from "./ContainerDecoratio
 import { ContainerDirection, isContainerDirection } from "./ContainerDirection";
 import { ContainerAlignItems, ContainerJustifyContent } from "./ContainerItemAlign";
 import { ContainerWrap, isContainerWrap } from "./ContainerWrap";
+import { ContainerLayoutMode } from "../../..";
 
 /** @ElementDoc
  * @example
@@ -61,6 +62,11 @@ export type JustifyContent = ContainerJustifyContent | undefined;
  * 
  */
 export type AlignItems = ContainerAlignItems | undefined;
+/**
+ * @[{"bidirectional":false,"required":false,"default":"ContainerLayoutMode.Responsive"}]
+ * 
+ */
+export type LayoutMode = ContainerLayoutMode;
 // End Element
 
 // type guards
