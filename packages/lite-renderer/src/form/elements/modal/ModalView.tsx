@@ -6,7 +6,22 @@ import IElement from "../../../flmc-data-layer/FormController/IElement";
 import { Visibility } from "../base/BaseElement";
 import { MapToView } from "../ElementToViewMapper";
 import { ModalElement } from "./ModalElement";
-import { Child, LazyContent, MaxHeight, MaxWidth, MinHeight, MinWidth, NoBackdropClickClose, NoBackground, NoEscapeKeyDownClose, NoPadding, Open, Title, VisibleHeader, VisibleHeaderCloseButton } from "./ModalElementAttributes";
+import {
+  Child,
+  LazyContent,
+  MaxHeight,
+  MaxWidth,
+  MinHeight,
+  MinWidth,
+  NoBackdropClickClose,
+  NoBackground,
+  NoEscapeKeyDownClose,
+  NoPadding,
+  Open,
+  Title,
+  VisibleHeader,
+  VisibleHeaderCloseButton
+} from "./ModalElementAttributes";
 
 type Props = {
   element: ModalElement;
@@ -21,12 +36,18 @@ export default function ModalView({ element }: Props) {
   const [child, setChild] = React.useState<Child>(() => element.childContainer.value);
   const [open, setOpen] = React.useState<Open>(() => element.openContainer.value);
   const [visibleHeader, setVisibleHeader] = React.useState<VisibleHeader>(() => element.visibleHeaderContainer.value);
-  const [visibleHeaderCloseButton, setVisibleHeaderCloseButton] = React.useState<VisibleHeaderCloseButton>(() => element.visibleHeaderCloseButtonContainer.value);
+  const [visibleHeaderCloseButton, setVisibleHeaderCloseButton] = React.useState<VisibleHeaderCloseButton>(
+    () => element.visibleHeaderCloseButtonContainer.value
+  );
   const [title, setTitle] = React.useState<Title>(() => element.titleContainer.value);
   const [noPadding, setNoPadding] = React.useState<NoPadding>(() => element.noPaddingContainer.value);
   const [noBackground, setNoBackground] = React.useState<NoBackground>(() => element.noBackgroundContainer.value);
-  const [noBackdropClickClose, setNoBackdropClickClose] = React.useState<NoBackdropClickClose>(() => element.noBackdropClickCloseContainer.value);
-  const [noEscapeKeyDownClose, setNoEscapeKeyDownClose] = React.useState<NoEscapeKeyDownClose>(() => element.noEscapeKeyDownCloseContainer.value);
+  const [noBackdropClickClose, setNoBackdropClickClose] = React.useState<NoBackdropClickClose>(
+    () => element.noBackdropClickCloseContainer.value
+  );
+  const [noEscapeKeyDownClose, setNoEscapeKeyDownClose] = React.useState<NoEscapeKeyDownClose>(
+    () => element.noEscapeKeyDownCloseContainer.value
+  );
   const [lazyContent, setLazyContent] = React.useState<LazyContent>(() => element.lazyContentContainer.value);
   const [minWidth, setMinWidth] = React.useState<MinWidth>(() => element.minWidthContainer.value);
   const [minHeight, setMinHeight] = React.useState<MinHeight>(() => element.minHeightContainer.value);
@@ -88,14 +109,7 @@ export default function ModalView({ element }: Props) {
   }
 
   function getModalStyle(): CSSProperties {
-    const top = 50;
-    const left = 50;
-    // TODO: add to theme
     return {
-      position: "absolute",
-      top: `${top}%`,
-      left: `${left}%`,
-      transform: `translate(-${top}%, -${left}%)`,
       overflow: "auto",
       outline: "none",
       minWidth,
@@ -151,6 +165,7 @@ export default function ModalView({ element }: Props) {
       disableBackdropClick={noBackdropClickClose}
       disableEscapeKeyDown={noEscapeKeyDownClose}
       disableEnforceFocus
+      style={{ display: "flex", justifyContent: "center", alignContent: "center" }}
     >
       {content}
     </Modal>
