@@ -50,4 +50,12 @@ export class BaseElement {
     if (isObservable(visibilityType)) return this.visibilityO(visibilityType);
     throw new Error("given visibility is not supported");
   }
+
+  metaContainer:any;
+
+  meta(value: any) {
+    this.metaContainer = value;
+    return this;
+  }
+
 }
