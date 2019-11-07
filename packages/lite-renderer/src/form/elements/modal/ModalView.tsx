@@ -112,6 +112,7 @@ export default function ModalView({ element }: Props) {
     return {
       overflow: "auto",
       outline: "none",
+      alignSelf: "center",
       minWidth,
       minHeight,
       maxWidth,
