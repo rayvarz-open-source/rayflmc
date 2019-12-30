@@ -9,6 +9,7 @@ import { Direction, Disabled, EndIcon, EndText, HelperText, InputType, IsInError
 import { TextInputMask } from "./TextInputMask";
 import { TextInputNumberFormatter } from "./TextInputNumberFormatter";
 import { TextInputStyleType } from "./TextInputStyleType";
+import { VisibilityType } from "../share/VisibilityType";
 
 type Props = {
   element: TextInputElement;
@@ -196,6 +197,14 @@ export default function TextInputView({ element, weight }: Props) {
     if (numberFormatter) return TextInputNumberFormatter;
     return undefined;
   }
+
+  /// TODO:
+  /// this is because MaterialUi.TextField can't calculate label with for Outlined mode when
+  /// style is none so when later visiblity sets to Show it doesn't have label width so labels
+  /// renderes incorrectly
+  /// for now we render div to avoid these situation later we should trigger label width calculation instead
+  if (variant == TextInputStyleType.Outlined && visibility == VisibilityType.Gone)
+    return <div></div>;
 
   return (
     <TextField
