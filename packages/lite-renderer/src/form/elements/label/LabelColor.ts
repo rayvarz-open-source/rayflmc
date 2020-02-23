@@ -4,7 +4,8 @@ export enum LabelColors {
   Primary = "primary",
   Secondary = "secondary",
   TextPrimary = "textPrimary",
-  TextSecondary = "textSecondary"
+  TextSecondary = "textSecondary",
+  Error = "error"
 }
 
 export function isLabelColors(value: any): value is LabelColors {
@@ -14,6 +15,7 @@ export function isLabelColors(value: any): value is LabelColors {
     value == "primary" ||
     value == "secondary" ||
     value == "textPrimary" ||
-    value == "textSecondary"
+    value == "textSecondary" ||
+    value == "error"
   );
 }
