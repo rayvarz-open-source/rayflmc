@@ -11,6 +11,7 @@ type Props = {
 };
 
 export default function TabView({ element, weight }: Props) {
+  const _doUpdateViewIfTabChanged = React.useRef(true);
   //region generated
   /*******************************************/
   /* GENERATED CODE, DO NOT MODIFY BY HAND!! */
@@ -23,7 +24,13 @@ export default function TabView({ element, weight }: Props) {
   React.useEffect(() => {
     let tabElementsSub = element.tabElementsContainer.subscribe({ next: v => setTabElements(v) });
     let tabTitlesSub = element.tabTitlesContainer.subscribe({ next: v => setTabTitles(v) });
-    let currentTabSub = element.currentTabContainer.subscribe({ next: v => setCurrentTab(v) });
+    let currentTabSub = element.currentTabContainer.subscribe({ next: v => {
+      if (_doUpdateViewIfTabChanged.current) {
+        setCurrentTab(v);
+      } else {
+        _doUpdateViewIfTabChanged.current = true;
+      }
+    } });
     let visibilitySub = element.elementVisibilityContainer.subscribe({ next: v => setVisibility(v) });
 
     return () => {
@@ -39,6 +46,7 @@ export default function TabView({ element, weight }: Props) {
   //endregion
 
   function handleChange(event: any, newValue: number) {
+    _doUpdateViewIfTabChanged.current = false;
     element.currentTabContainer.next(newValue);
   }
 
