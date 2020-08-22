@@ -29,6 +29,7 @@ export default function ButtonView({ element, weight }: Props) {
   const [onClick, setOnClick] = useFunctionAsState<OnClick>(undefined);
   const [iconPlacement, setIconPlacement] = React.useState<IconPlacement>(() => element.iconPlacementContainer.value);
   const [visibility, setVisibility] = React.useState<Visibility>(() => element.elementVisibilityContainer.value);
+  const [nativeProps, setNativeProps] = React.useState(() => element.nativePropsContainer.value);
 
   React.useEffect(() => {
     let textSub = element.textContainer.subscribe({ next: v => setText(v) });
@@ -40,6 +41,7 @@ export default function ButtonView({ element, weight }: Props) {
     let onClickSub = element.onClickContainer.subscribe({ next: v => setOnClick(v) });
     let iconPlacementSub = element.iconPlacementContainer.subscribe({ next: v => setIconPlacement(v) });
     let visibilitySub = element.elementVisibilityContainer.subscribe({ next: v => setVisibility(v) });
+    const nativePropsSub = element.nativePropsContainer.subscribe({ next: (v) => setNativeProps(v) });
 
     return () => {
       textSub.unsubscribe();
@@ -51,6 +53,8 @@ export default function ButtonView({ element, weight }: Props) {
       onClickSub.unsubscribe();
       iconPlacementSub.unsubscribe();
       visibilitySub.unsubscribe();
+      nativePropsSub.unsubscribe();
+
     };
   }, []);
   /*******************************************/
@@ -112,9 +116,11 @@ export default function ButtonView({ element, weight }: Props) {
 
   return (
     <Button
+    {...nativeProps}
       style={{
         ...element.getVisibilityStyle(visibility),
-        ...element.getWeightStyle(weight)
+        ...element.getWeightStyle(weight),
+        ...(nativeProps.style ?? {}),
       }}
       variant={variant as any}
       color={colors}
