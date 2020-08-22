@@ -1,13 +1,12 @@
-import typescript from "rollup-plugin-typescript";
+import svgr from "@svgr/rollup";
+import path from "path";
 import commonjs from "rollup-plugin-commonjs";
+import resolve from "rollup-plugin-node-resolve";
 import external from "rollup-plugin-peer-deps-external";
 // import postcss from 'rollup-plugin-postcss-modules'
 import postcss from "rollup-plugin-postcss";
-import resolve from "rollup-plugin-node-resolve";
+import typescript from "rollup-plugin-typescript";
 import url from "rollup-plugin-url";
-import svgr from "@svgr/rollup";
-import path from "path";
-
 import pkg from "./package.json";
 
 export default {
@@ -51,9 +50,16 @@ export default {
       // relative to the current directory, or the name
       // of a module in node_modules
       namedExports: {
-        "node_modules/react-is/index.js": ["ForwardRef", "isValidElementType", "isContextConsumer"],
+        "node_modules/react-is/index.js": [
+          "ForwardRef",
+          "isValidElementType",
+          "isContextConsumer"
+        ],
         "node_modules/material-table/dist/index.js": ["MTableBodyRow"],
-        "node_modules/notistack/build/index.js": ["SnackbarProvider", "useSnackbar"]
+        "node_modules/notistack/build/index.js": [
+          "SnackbarProvider",
+          "useSnackbar"
+        ]
       }
     })
   ]

@@ -1,11 +1,25 @@
-import { Button, CircularProgress, Icon as MIcon, withStyles } from "@material-ui/core";
+import {
+  Button,
+  CircularProgress,
+  Icon as MIcon,
+  withStyles
+} from "@material-ui/core";
 import { Theme } from "@material-ui/core/styles/createMuiTheme";
 import { useTheme } from "@material-ui/styles";
 import * as React from "react";
 import useFunctionAsState from "../../../custom-hooks/function-state";
 import { Visibility } from "../base/BaseElement";
 import { ButtonElement } from "./ButtonElement";
-import { Colors, Disabled, Icon, IconPlacement, Loading, OnClick, Text, Variant } from "./ButtonElementAttributes";
+import {
+  Colors,
+  Disabled,
+  Icon,
+  IconPlacement,
+  Loading,
+  OnClick,
+  Text,
+  Variant
+} from "./ButtonElementAttributes";
 import { ButtonIconPlacement } from "./ButtonIconPlacement";
 
 type Props = {
@@ -20,28 +34,62 @@ export default function ButtonView({ element, weight }: Props) {
   /*******************************************/
   /* GENERATED CODE, DO NOT MODIFY BY HAND!! */
   /*******************************************/
-  const [text, setText] = React.useState<Text>(() => element.textContainer.value);
-  const [loading, setLoading] = React.useState<Loading>(() => element.loadingContainer.value);
-  const [disabled, setDisabled] = React.useState<Disabled>(() => element.disabledContainer.value);
-  const [colors, setColors] = React.useState<Colors>(() => element.colorsContainer.value);
-  const [variant, setVariant] = React.useState<Variant>(() => element.variantContainer.value);
-  const [icon, setIcon] = React.useState<Icon>(() => element.iconContainer.value);
+  const [text, setText] = React.useState<Text>(
+    () => element.textContainer.value
+  );
+  const [loading, setLoading] = React.useState<Loading>(
+    () => element.loadingContainer.value
+  );
+  const [disabled, setDisabled] = React.useState<Disabled>(
+    () => element.disabledContainer.value
+  );
+  const [colors, setColors] = React.useState<Colors>(
+    () => element.colorsContainer.value
+  );
+  const [variant, setVariant] = React.useState<Variant>(
+    () => element.variantContainer.value
+  );
+  const [icon, setIcon] = React.useState<Icon>(
+    () => element.iconContainer.value
+  );
   const [onClick, setOnClick] = useFunctionAsState<OnClick>(undefined);
-  const [iconPlacement, setIconPlacement] = React.useState<IconPlacement>(() => element.iconPlacementContainer.value);
-  const [visibility, setVisibility] = React.useState<Visibility>(() => element.elementVisibilityContainer.value);
-  const [nativeProps, setNativeProps] = React.useState(() => element.nativePropsContainer.value);
+  const [iconPlacement, setIconPlacement] = React.useState<IconPlacement>(
+    () => element.iconPlacementContainer.value
+  );
+  const [visibility, setVisibility] = React.useState<Visibility>(
+    () => element.elementVisibilityContainer.value
+  );
+  const [nativeProps, setNativeProps] = React.useState(
+    () => element.nativePropsContainer.value
+  );
 
   React.useEffect(() => {
     let textSub = element.textContainer.subscribe({ next: v => setText(v) });
-    let loadingSub = element.loadingContainer.subscribe({ next: v => setLoading(v) });
-    let disabledSub = element.disabledContainer.subscribe({ next: v => setDisabled(v) });
-    let colorsSub = element.colorsContainer.subscribe({ next: v => setColors(v) });
-    let variantSub = element.variantContainer.subscribe({ next: v => setVariant(v) });
+    let loadingSub = element.loadingContainer.subscribe({
+      next: v => setLoading(v)
+    });
+    let disabledSub = element.disabledContainer.subscribe({
+      next: v => setDisabled(v)
+    });
+    let colorsSub = element.colorsContainer.subscribe({
+      next: v => setColors(v)
+    });
+    let variantSub = element.variantContainer.subscribe({
+      next: v => setVariant(v)
+    });
     let iconSub = element.iconContainer.subscribe({ next: v => setIcon(v) });
-    let onClickSub = element.onClickContainer.subscribe({ next: v => setOnClick(v) });
-    let iconPlacementSub = element.iconPlacementContainer.subscribe({ next: v => setIconPlacement(v) });
-    let visibilitySub = element.elementVisibilityContainer.subscribe({ next: v => setVisibility(v) });
-    const nativePropsSub = element.nativePropsContainer.subscribe({ next: (v) => setNativeProps(v) });
+    let onClickSub = element.onClickContainer.subscribe({
+      next: v => setOnClick(v)
+    });
+    let iconPlacementSub = element.iconPlacementContainer.subscribe({
+      next: v => setIconPlacement(v)
+    });
+    let visibilitySub = element.elementVisibilityContainer.subscribe({
+      next: v => setVisibility(v)
+    });
+    const nativePropsSub = element.nativePropsContainer.subscribe({
+      next: v => setNativeProps(v)
+    });
 
     return () => {
       textSub.unsubscribe();
@@ -54,7 +102,6 @@ export default function ButtonView({ element, weight }: Props) {
       iconPlacementSub.unsubscribe();
       visibilitySub.unsubscribe();
       nativePropsSub.unsubscribe();
-
     };
   }, []);
   /*******************************************/
@@ -71,9 +118,13 @@ export default function ButtonView({ element, weight }: Props) {
       case "inherit":
         return defaultColor;
       case "primary":
-        return contrast ? theme.palette.primary.contrastText : theme.palette.primary.main;
+        return contrast
+          ? theme.palette.primary.contrastText
+          : theme.palette.primary.main;
       case "secondary":
-        return contrast ? theme.palette.secondary.contrastText : theme.palette.secondary.main;
+        return contrast
+          ? theme.palette.secondary.contrastText
+          : theme.palette.secondary.main;
       default:
         return defaultColor;
     }
@@ -101,12 +152,20 @@ export default function ButtonView({ element, weight }: Props) {
   function createIcon() {
     if (!icon) return null;
     let margin = !!text ? 8 : 0;
-    return <MIcon style={{ marginRight: margin, marginLeft: margin }}>{icon}</MIcon>;
+    return (
+      <MIcon style={{ marginRight: margin, marginLeft: margin }}>{icon}</MIcon>
+    );
   }
 
   function createLoading() {
     if (!loading) return null;
-    return <ColorCircularProgress style={{ marginRight: !!text ? 8 : 0 }} size={20} thickness={3} />;
+    return (
+      <ColorCircularProgress
+        style={{ marginRight: !!text ? 8 : 0 }}
+        size={20}
+        thickness={3}
+      />
+    );
   }
 
   const handleClick = () => {
@@ -116,11 +175,11 @@ export default function ButtonView({ element, weight }: Props) {
 
   return (
     <Button
-    {...nativeProps}
+      {...nativeProps}
       style={{
         ...element.getVisibilityStyle(visibility),
         ...element.getWeightStyle(weight),
-        ...(nativeProps.style ?? {}),
+        ...(nativeProps.style ? nativeProps.style : {})
       }}
       variant={variant as any}
       color={colors}

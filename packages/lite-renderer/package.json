@@ -1,6 +1,6 @@
 {
   "name": "@rayflmc/flmc-lite-renderer",
-  "version": "1.0.63",
+  "version": "1.0.64",
   "description": "",
   "author": "AndishehNovinRyvarz",
   "license": "MIT",
@@ -18,13 +18,13 @@
   "scripts": {
     "test": "cross-env CI=1 react-scripts-ts test --env=jsdom",
     "test:watch": "react-scripts-ts test --env=jsdom",
-    "prepare-for-publish": "tsc",
+    "prepare": "del .\\build\\ && tsc",
     "start": "rollup -c -w",
     "deploy": "gh-pages -d example/build",
     "version:patch": "npm version patch && git add . && git commit -m \"Bump Version\"",
     "version:major": "npm version major && git add . && git commit -m \"Bump Version\"",
     "format": "prettier --write \"src/**/*.ts\" \"src/**/*.js\" --print-width 120",
-    "publish-to-npm": "del .\\build\\ && npm run prepare-for-publish && npm run version:patch && npm publish"
+    "publish": "npm run version:patch && npm publish"
   },
   "dependencies": {
     "notistack": "^0.8.9",
@@ -62,7 +62,7 @@
     "rollup-plugin-typescript": "^1.0.1",
     "rollup-plugin-url": "^1.4.0",
     "tslib": "^1.9.3",
-    "typescript": "^3.5.1"
+    "typescript": "3.5.1"
   },
   "files": [
     "build/**/*"
