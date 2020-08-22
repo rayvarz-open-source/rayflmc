@@ -3,48 +3,104 @@ import * as React from "react";
 import useFunctionAsState from "../../../custom-hooks/function-state";
 import { Visibility } from "../base/BaseElement";
 import { GridElement } from "./GridElement";
-import { ActionDefinitions, ColumnDefinitions, ComponentsOverride, Datasource, GridOptions, LocalizationDefinition, OnRowClick, OnSelectedChange, RowActionDefinitions, Title } from "./GridElementAttributes";
+import {
+  ActionDefinitions,
+  ColumnDefinitions,
+  ComponentsOverride,
+  Datasource,
+  GridOptions,
+  LocalizationDefinition,
+  OnRowClick,
+  OnSelectedChange,
+  RowActionDefinitions,
+  Title
+} from "./GridElementAttributes";
 
 type Props = {
   element: GridElement;
   weight: number;
 };
 
-export default function GridView({ element, weight }: Props) {
+export default function GridView<T extends object = any>({
+  element,
+  weight
+}: Props) {
   const tableRef = React.useRef();
 
   //region generated
   /*******************************************/
   /* GENERATED CODE, DO NOT MODIFY BY HAND!! */
   /*******************************************/
-  const [columnDefinitions, setColumnDefinitions] = React.useState<ColumnDefinitions>(() => element.columnDefinitionsContainer.value);
-  const [actionDefinitions, setActionDefinitions] = React.useState<ActionDefinitions>(() => element.actionDefinitionsContainer.value);
-  const [componentsOverride, setComponentsOverride] = React.useState<ComponentsOverride>(() => element.componentsOverrideContainer.value);
-  const [datasource, setDatasource] = useFunctionAsState<Datasource>(() => element.datasourceContainer.value);
-  const [rowActionDefinitions, setRowActionDefinitions] = React.useState<RowActionDefinitions>(() => element.rowActionDefinitionsContainer.value);
-  const [gridOptions, setGridOptions] = React.useState<GridOptions>(() => element.gridOptionsContainer.value);
-  const [title, setTitle] = React.useState<Title>(() => element.titleContainer.value);
-  const [localizationDefinition, setLocalizationDefinition] = React.useState<LocalizationDefinition>(() => element.localizationDefinitionContainer.value);
-  const [onSelectedChange, setOnSelectedChange] = useFunctionAsState<OnSelectedChange>(undefined);
-  const [onRowClick, setOnRowClick] = useFunctionAsState<OnRowClick>(undefined);
-  const [visibility, setVisibility] = React.useState<Visibility>(() => element.elementVisibilityContainer.value);
+  const [columnDefinitions, setColumnDefinitions] = React.useState<
+    ColumnDefinitions<T>
+  >(() => element.columnDefinitionsContainer.value);
+  const [actionDefinitions, setActionDefinitions] = React.useState<
+    ActionDefinitions<T>
+  >(() => element.actionDefinitionsContainer.value);
+  const [componentsOverride, setComponentsOverride] = React.useState<
+    ComponentsOverride
+  >(() => element.componentsOverrideContainer.value);
+  const [datasource, setDatasource] = useFunctionAsState<Datasource<T>>(
+    () => element.datasourceContainer.value
+  );
+  const [rowActionDefinitions, setRowActionDefinitions] = React.useState<
+    RowActionDefinitions
+  >(() => element.rowActionDefinitionsContainer.value);
+  const [gridOptions, setGridOptions] = React.useState<GridOptions>(
+    () => element.gridOptionsContainer.value
+  );
+  const [title, setTitle] = React.useState<Title>(
+    () => element.titleContainer.value
+  );
+  const [localizationDefinition, setLocalizationDefinition] = React.useState<
+    LocalizationDefinition
+  >(() => element.localizationDefinitionContainer.value);
+  const [onSelectedChange, setOnSelectedChange] = useFunctionAsState<
+    OnSelectedChange<T>
+  >(undefined);
+  const [onRowClick, setOnRowClick] = useFunctionAsState<OnRowClick<T>>(
+    undefined
+  );
+  const [visibility, setVisibility] = React.useState<Visibility>(
+    () => element.elementVisibilityContainer.value
+  );
 
   React.useEffect(() => {
-    let columnDefinitionsSub = element.columnDefinitionsContainer.subscribe({ next: v => setColumnDefinitions(v) });
-    let actionDefinitionsSub = element.actionDefinitionsContainer.subscribe({ next: v => setActionDefinitions(v) });
-    let componentsOverrideSub = element.componentsOverrideContainer.subscribe({ next: v => setComponentsOverride(v) });
-    let datasourceSub = element.datasourceContainer.subscribe({ next: v => setDatasource(v) });
-    let rowActionDefinitionsSub = element.rowActionDefinitionsContainer.subscribe({
-      next: v => setRowActionDefinitions(v)
+    let columnDefinitionsSub = element.columnDefinitionsContainer.subscribe({
+      next: v => setColumnDefinitions(v)
     });
-    let gridOptionsSub = element.gridOptionsContainer.subscribe({ next: v => setGridOptions(v) });
+    let actionDefinitionsSub = element.actionDefinitionsContainer.subscribe({
+      next: v => setActionDefinitions(v)
+    });
+    let componentsOverrideSub = element.componentsOverrideContainer.subscribe({
+      next: v => setComponentsOverride(v)
+    });
+    let datasourceSub = element.datasourceContainer.subscribe({
+      next: v => setDatasource(v)
+    });
+    let rowActionDefinitionsSub = element.rowActionDefinitionsContainer.subscribe(
+      {
+        next: v => setRowActionDefinitions(v)
+      }
+    );
+    let gridOptionsSub = element.gridOptionsContainer.subscribe({
+      next: v => setGridOptions(v)
+    });
     let titleSub = element.titleContainer.subscribe({ next: v => setTitle(v) });
-    let localizationDefinitionSub = element.localizationDefinitionContainer.subscribe({
-      next: v => setLocalizationDefinition(v)
+    let localizationDefinitionSub = element.localizationDefinitionContainer.subscribe(
+      {
+        next: v => setLocalizationDefinition(v)
+      }
+    );
+    let onRowClickSub = element.onRowClickContainer.subscribe({
+      next: v => setOnRowClick(v)
     });
-    let onRowClickSub = element.onRowClickContainer.subscribe({ next: v => setOnRowClick(v) });
-    let visibilitySub = element.elementVisibilityContainer.subscribe({ next: v => setVisibility(v) });
-    let onSelectedChangeSub = element.onSelectedChangeContainer.subscribe({ next: v => setOnSelectedChange(v) });
+    let visibilitySub = element.elementVisibilityContainer.subscribe({
+      next: v => setVisibility(v)
+    });
+    let onSelectedChangeSub = element.onSelectedChangeContainer.subscribe({
+      next: v => setOnSelectedChange(v)
+    });
     let refreshEventSub = element.refreshEventContainer.subscribe({
       next: _ => {
         if (Array.isArray(element.datasourceContainer.value)) return;
@@ -86,11 +142,11 @@ export default function GridView({ element, weight }: Props) {
       current.dataManager = element.tableRef.dataManager;
       const state = element.tableRef.state;
       element.tableRef = tableRef.current; // update old table ref
-      current.setState({...state}, () => {
+      current.setState({ ...state }, () => {
         if (current.isRemoteData()) {
           current.onQueryChange(current.state.query);
         }
-      })
+      });
     }, 0);
   }
 
