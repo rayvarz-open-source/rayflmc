@@ -1,11 +1,15 @@
 {
-  "name": "flmc-data-layer",
-  "version": "1.0.0",
+  "name": "@rayflmc/flmc-data-layer",
+  "version": "1.0.1",
+  "author": "AndishehNovinRyvarz",
   "description": "",
   "files": [
     "lib/**/*"
   ],
   "main": "index.js",
+  "publishConfig": {
+    "@rayflmc:registry": "https://gitlab.com/api/v4/projects/20676714/packages/npm/"
+  },
   "scripts": {
     "format": "prettier --write \"src/**/*.ts\" \"src/**/*.js\"",
     "lint": "tslint -p tsconfig.json",
@@ -19,8 +23,7 @@
     "version:patch": "npm version patch && git add . && git commit -m \"Bump Version\"",
     "version:major": "npm version major && git add . && git commit -m \"Bump Version\""
   },
-  "author": "",
-  "license": "ISC",
+  "license": "MIT",
   "devDependencies": {
     "@babel/cli": "^7.4.4",
     "@babel/core": "^7.4.5",
