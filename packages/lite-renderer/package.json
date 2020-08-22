@@ -1,8 +1,8 @@
 {
-  "name": "flmc-lite-renderer",
-  "version": "1.0.62",
+  "name": "@rayflmc/flmc-lite-renderer",
+  "version": "1.0.63",
   "description": "",
-  "author": "SahandAkbarzadeh",
+  "author": "AndishehNovinRyvarz",
   "license": "MIT",
   "repository": "rayvarz-open-source/FLMC-core",
   "main": "build/index.js",
@@ -11,6 +11,9 @@
   "engines": {
     "node": ">=8",
     "npm": ">=5"
+  },
+  "publishConfig": {
+    "@rayflmc:registry": "https://gitlab.com/api/v4/projects/20676714/packages/npm/"
   },
   "scripts": {
     "test": "cross-env CI=1 react-scripts-ts test --env=jsdom",
