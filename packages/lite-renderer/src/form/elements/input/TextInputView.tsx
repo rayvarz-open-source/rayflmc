@@ -1,15 +1,51 @@
-import { FilledInput, FormControl, Icon, IconButton, Input, InputAdornment, InputLabel, MenuItem, OutlinedInput, Select, TextField } from "@material-ui/core";
+import {
+  FilledInput,
+  FormControl,
+  Icon,
+  IconButton,
+  Input,
+  InputAdornment,
+  InputLabel,
+  MenuItem,
+  OutlinedInput,
+  Select,
+  TextField
+} from "@material-ui/core";
 import { Theme } from "@material-ui/core/styles/createMuiTheme";
 import { useTheme } from "@material-ui/styles";
 import * as React from "react";
 import useFunctionAsState from "../../../custom-hooks/function-state";
 import { Visibility } from "../base/BaseElement";
+import { VisibilityType } from "../share/VisibilityType";
 import { TextInputElement } from "./TextInputElement";
-import { Direction, Disabled, EndIcon, EndText, HelperText, InputType, IsInError, Label, Mask, MaxLength, Multiline, NumberFormatter, OnEndIconClick, OnStartIconClick, Placeholder, PlaceholderDirection, Rows, RowsMax, SelectOptions, StartIcon, StartText, Value, Variant } from "./TextInputElementAttributes";
+import {
+  Direction,
+  Disabled,
+  EndIcon,
+  EndText,
+  HelperText,
+  InputType,
+  IsInError,
+  Label,
+  Mask,
+  MaxLength,
+  Multiline,
+  NumberFormatter,
+  OnEndIconClick,
+  OnStartIconClick,
+  Placeholder,
+  PlaceholderDirection,
+  Rows,
+  RowsMax,
+  SelectOptions,
+  StartIcon,
+  StartText,
+  Value,
+  Variant
+} from "./TextInputElementAttributes";
 import { TextInputMask } from "./TextInputMask";
 import { TextInputNumberFormatter } from "./TextInputNumberFormatter";
 import { TextInputStyleType } from "./TextInputStyleType";
-import { VisibilityType } from "../share/VisibilityType";
 
 type Props = {
   element: TextInputElement;
@@ -23,58 +59,152 @@ export default function TextInputView({ element, weight }: Props) {
   /*******************************************/
   /* GENERATED CODE, DO NOT MODIFY BY HAND!! */
   /*******************************************/
-  const [value, setValue] = React.useState<Value>(() => element.valueContainer.value);
-  const [label, setLabel] = React.useState<Label>(() => element.labelContainer.value);
-  const [placeholder, setPlaceholder] = React.useState<Placeholder>(() => element.placeholderContainer.value);
-  const [disabled, setDisabled] = React.useState<Disabled>(() => element.disabledContainer.value);
-  const [helperText, setHelperText] = React.useState<HelperText>(() => element.helperTextContainer.value);
-  const [isInError, setIsInError] = React.useState<IsInError>(() => element.isInErrorContainer.value);
-  const [startText, setStartText] = React.useState<StartText>(() => element.startTextContainer.value);
-  const [endText, setEndText] = React.useState<EndText>(() => element.endTextContainer.value);
-  const [startIcon, setStartIcon] = React.useState<StartIcon>(() => element.startIconContainer.value);
-  const [endIcon, setEndIcon] = React.useState<EndIcon>(() => element.endIconContainer.value);
-  const [variant, setVariant] = React.useState<Variant>(() => element.variantContainer.value);
-  const [inputType, setInputType] = React.useState<InputType>(() => element.inputTypeContainer.value);
-  const [multiline, setMultiline] = React.useState<Multiline>(() => element.multilineContainer.value);
-  const [rows, setRows] = React.useState<Rows>(() => element.rowsContainer.value);
-  const [rowsMax, setRowsMax] = React.useState<RowsMax>(() => element.rowsMaxContainer.value);
-  const [direction, setDirection] = React.useState<Direction>(() => element.directionContainer.value);
-  const [placeholderDirection, setPlaceholderDirection] = React.useState<PlaceholderDirection>(() => element.placeholderDirectionContainer.value);
-  const [onEndIconClick, setOnEndIconClick] = useFunctionAsState<OnEndIconClick>(undefined);
-  const [onStartIconClick, setOnStartIconClick] = useFunctionAsState<OnStartIconClick>(undefined);
-  const [numberFormatter, setNumberFormatter] = React.useState<NumberFormatter>(() => element.numberFormatterContainer.value);
-  const [mask, setMask] = React.useState<Mask>(() => element.maskContainer.value);
-  const [selectOptions, setSelectOptions] = React.useState<SelectOptions>(() => element.selectOptionsContainer.value);
-  const [maxLength, setMaxLength] = React.useState<MaxLength>(() => element.maxLengthContainer.value);
-  const [visibility, setVisibility] = React.useState<Visibility>(() => element.elementVisibilityContainer.value);
+  const [value, setValue] = React.useState<Value>(
+    () => element.valueContainer.value
+  );
+  const [label, setLabel] = React.useState<Label>(
+    () => element.labelContainer.value
+  );
+  const [placeholder, setPlaceholder] = React.useState<Placeholder>(
+    () => element.placeholderContainer.value
+  );
+  const [disabled, setDisabled] = React.useState<Disabled>(
+    () => element.disabledContainer.value
+  );
+  const [helperText, setHelperText] = React.useState<HelperText>(
+    () => element.helperTextContainer.value
+  );
+  const [isInError, setIsInError] = React.useState<IsInError>(
+    () => element.isInErrorContainer.value
+  );
+  const [startText, setStartText] = React.useState<StartText>(
+    () => element.startTextContainer.value
+  );
+  const [endText, setEndText] = React.useState<EndText>(
+    () => element.endTextContainer.value
+  );
+  const [startIcon, setStartIcon] = React.useState<StartIcon>(
+    () => element.startIconContainer.value
+  );
+  const [endIcon, setEndIcon] = React.useState<EndIcon>(
+    () => element.endIconContainer.value
+  );
+  const [variant, setVariant] = React.useState<Variant>(
+    () => element.variantContainer.value
+  );
+  const [inputType, setInputType] = React.useState<InputType>(
+    () => element.inputTypeContainer.value
+  );
+  const [multiline, setMultiline] = React.useState<Multiline>(
+    () => element.multilineContainer.value
+  );
+  const [rows, setRows] = React.useState<Rows>(
+    () => element.rowsContainer.value
+  );
+  const [rowsMax, setRowsMax] = React.useState<RowsMax>(
+    () => element.rowsMaxContainer.value
+  );
+  const [direction, setDirection] = React.useState<Direction>(
+    () => element.directionContainer.value
+  );
+  const [placeholderDirection, setPlaceholderDirection] = React.useState<
+    PlaceholderDirection
+  >(() => element.placeholderDirectionContainer.value);
+  const [onEndIconClick, setOnEndIconClick] = useFunctionAsState<
+    OnEndIconClick
+  >(undefined);
+  const [onStartIconClick, setOnStartIconClick] = useFunctionAsState<
+    OnStartIconClick
+  >(undefined);
+  const [numberFormatter, setNumberFormatter] = React.useState<NumberFormatter>(
+    () => element.numberFormatterContainer.value
+  );
+  const [mask, setMask] = React.useState<Mask>(
+    () => element.maskContainer.value
+  );
+  const [selectOptions, setSelectOptions] = React.useState<SelectOptions>(
+    () => element.selectOptionsContainer.value
+  );
+  const [maxLength, setMaxLength] = React.useState<MaxLength>(
+    () => element.maxLengthContainer.value
+  );
+  const [visibility, setVisibility] = React.useState<Visibility>(
+    () => element.elementVisibilityContainer.value
+  );
+  const [nativeProps, setNativeProps] = React.useState(
+    () => element.nativePropsContainer.value
+  );
 
   React.useEffect(() => {
     let valueSub = element.valueContainer.subscribe({ next: v => setValue(v) });
     let labelSub = element.labelContainer.subscribe({ next: v => setLabel(v) });
-    let placeholderSub = element.placeholderContainer.subscribe({ next: v => setPlaceholder(v) });
-    let disabledSub = element.disabledContainer.subscribe({ next: v => setDisabled(v) });
-    let helperTextSub = element.helperTextContainer.subscribe({ next: v => setHelperText(v) });
-    let isInErrorSub = element.isInErrorContainer.subscribe({ next: v => setIsInError(v) });
-    let startTextSub = element.startTextContainer.subscribe({ next: v => setStartText(v) });
-    let endTextSub = element.endTextContainer.subscribe({ next: v => setEndText(v) });
-    let startIconSub = element.startIconContainer.subscribe({ next: v => setStartIcon(v) });
-    let endIconSub = element.endIconContainer.subscribe({ next: v => setEndIcon(v) });
-    let variantSub = element.variantContainer.subscribe({ next: v => setVariant(v) });
-    let inputTypeSub = element.inputTypeContainer.subscribe({ next: v => setInputType(v) });
-    let multilineSub = element.multilineContainer.subscribe({ next: v => setMultiline(v) });
-    let rowsSub = element.rowsContainer.subscribe({ next: v => setRows(v) });
-    let rowsMaxSub = element.rowsMaxContainer.subscribe({ next: v => setRowsMax(v) });
-    let directionSub = element.directionContainer.subscribe({ next: v => setDirection(v) });
-    let placeholderDirectionSub = element.placeholderDirectionContainer.subscribe({
-      next: v => setPlaceholderDirection(v)
+    let placeholderSub = element.placeholderContainer.subscribe({
+      next: v => setPlaceholder(v)
     });
-    let onEndIconClickSub = element.onEndIconClickContainer.subscribe({ next: v => setOnEndIconClick(v) });
-    let onStartIconClickSub = element.onStartIconClickContainer.subscribe({ next: v => setOnStartIconClick(v) });
-    let numberFormatterSub = element.numberFormatterContainer.subscribe({ next: v => setNumberFormatter(v) });
+    let disabledSub = element.disabledContainer.subscribe({
+      next: v => setDisabled(v)
+    });
+    let helperTextSub = element.helperTextContainer.subscribe({
+      next: v => setHelperText(v)
+    });
+    let isInErrorSub = element.isInErrorContainer.subscribe({
+      next: v => setIsInError(v)
+    });
+    let startTextSub = element.startTextContainer.subscribe({
+      next: v => setStartText(v)
+    });
+    let endTextSub = element.endTextContainer.subscribe({
+      next: v => setEndText(v)
+    });
+    let startIconSub = element.startIconContainer.subscribe({
+      next: v => setStartIcon(v)
+    });
+    let endIconSub = element.endIconContainer.subscribe({
+      next: v => setEndIcon(v)
+    });
+    let variantSub = element.variantContainer.subscribe({
+      next: v => setVariant(v)
+    });
+    let inputTypeSub = element.inputTypeContainer.subscribe({
+      next: v => setInputType(v)
+    });
+    let multilineSub = element.multilineContainer.subscribe({
+      next: v => setMultiline(v)
+    });
+    let rowsSub = element.rowsContainer.subscribe({ next: v => setRows(v) });
+    let rowsMaxSub = element.rowsMaxContainer.subscribe({
+      next: v => setRowsMax(v)
+    });
+    let directionSub = element.directionContainer.subscribe({
+      next: v => setDirection(v)
+    });
+    let placeholderDirectionSub = element.placeholderDirectionContainer.subscribe(
+      {
+        next: v => setPlaceholderDirection(v)
+      }
+    );
+    let onEndIconClickSub = element.onEndIconClickContainer.subscribe({
+      next: v => setOnEndIconClick(v)
+    });
+    let onStartIconClickSub = element.onStartIconClickContainer.subscribe({
+      next: v => setOnStartIconClick(v)
+    });
+    let numberFormatterSub = element.numberFormatterContainer.subscribe({
+      next: v => setNumberFormatter(v)
+    });
     let maskSub = element.maskContainer.subscribe({ next: v => setMask(v) });
-    let selectOptionsSub = element.selectOptionsContainer.subscribe({ next: v => setSelectOptions(v) });
-    let maxLengthSub = element.maxLengthContainer.subscribe({ next: v => setMaxLength(v) });
-    let visibilitySub = element.elementVisibilityContainer.subscribe({ next: v => setVisibility(v) });
+    let selectOptionsSub = element.selectOptionsContainer.subscribe({
+      next: v => setSelectOptions(v)
+    });
+    let maxLengthSub = element.maxLengthContainer.subscribe({
+      next: v => setMaxLength(v)
+    });
+    let visibilitySub = element.elementVisibilityContainer.subscribe({
+      next: v => setVisibility(v)
+    });
+    const nativePropsSub = element.nativePropsContainer.subscribe({
+      next: v => setNativeProps(v)
+    });
 
     return () => {
       valueSub.unsubscribe();
@@ -101,6 +231,7 @@ export default function TextInputView({ element, weight }: Props) {
       selectOptionsSub.unsubscribe();
       maxLengthSub.unsubscribe();
       visibilitySub.unsubscribe();
+      nativePropsSub.unsubscribe();
     };
   }, []);
   /*******************************************/
@@ -111,7 +242,8 @@ export default function TextInputView({ element, weight }: Props) {
   // handles bidirectional bindings
   function handleChange(event: React.ChangeEvent<HTMLInputElement>) {
     if (maxLength && event.target.value.length > maxLength) return;
-    if (event.target.value == value || !element.isExternalValueContainer) return;
+    if (event.target.value == value || !element.isExternalValueContainer)
+      return;
     element.valueContainer.next(event.target.value);
     if (element.isInErrorContainer.value) {
       element.validate();
@@ -166,7 +298,8 @@ export default function TextInputView({ element, weight }: Props) {
           </IconButton>
         </InputAdornment>
       );
-    if (endText !== undefined) return <InputAdornment position="end">{endText}</InputAdornment>;
+    if (endText !== undefined)
+      return <InputAdornment position="end">{endText}</InputAdornment>;
 
     return undefined;
   }
@@ -181,18 +314,25 @@ export default function TextInputView({ element, weight }: Props) {
           </IconButton>
         </InputAdornment>
       );
-    if (startText !== undefined) return <InputAdornment position="start">{startText}</InputAdornment>;
+    if (startText !== undefined)
+      return <InputAdornment position="start">{startText}</InputAdornment>;
 
     return undefined;
   }
 
   function getDirection(): Direction {
-    if (value == "" && placeholderDirection != null) return placeholderDirection;
-    return direction == "default" ? (theme == null ? "ltr" : theme.direction) : direction;
+    if (value == "" && placeholderDirection != null)
+      return placeholderDirection;
+    return direction == "default"
+      ? theme == null
+        ? "ltr"
+        : theme.direction
+      : direction;
   }
 
   function createInputComponent(): any {
-    if (mask != null && numberFormatter) throw new Error("only one of mask and numberFormatter can be provided");
+    if (mask != null && numberFormatter)
+      throw new Error("only one of mask and numberFormatter can be provided");
     if (mask) return TextInputMask(mask);
     if (numberFormatter) return TextInputNumberFormatter;
     return undefined;
@@ -203,15 +343,20 @@ export default function TextInputView({ element, weight }: Props) {
   /// style is none so when later visiblity sets to Show it doesn't have label width so labels
   /// renderes incorrectly
   /// for now we render div to avoid these situation later we should trigger label width calculation instead
-  if (variant == TextInputStyleType.Outlined && visibility == VisibilityType.Gone)
+  if (
+    variant == TextInputStyleType.Outlined &&
+    visibility == VisibilityType.Gone
+  )
     return <div></div>;
 
   return (
     <TextField
       style={{
         ...element.getVisibilityStyle(visibility),
-        ...element.getWeightStyle(weight)
+        ...element.getWeightStyle(weight),
+        ...(nativeProps.style ? nativeProps.style : {})
       }}
+      {...nativeProps}
       placeholder={placeholder}
       variant={variant as any}
       multiline={multiline}

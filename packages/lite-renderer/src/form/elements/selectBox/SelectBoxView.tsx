@@ -4,7 +4,15 @@ import FavoriteBorder from "@material-ui/icons/FavoriteBorder";
 import * as React from "react";
 import { Visibility } from "../base/BaseElement";
 import { SelectBoxElement } from "./SelectBoxElement";
-import { Colors, Disabled, Label, LabelPlacement, SelectedValue, Value, Variant } from "./SelectBoxElementAttributes";
+import {
+  Colors,
+  Disabled,
+  Label,
+  LabelPlacement,
+  SelectedValue,
+  Value,
+  Variant
+} from "./SelectBoxElementAttributes";
 import { SelectBoxVariant } from "./SelectBoxVariant";
 
 type Props<T> = {
@@ -17,24 +25,58 @@ export default function SelectBoxView({ element, weight }: Props<any>) {
   /*******************************************/
   /* GENERATED CODE, DO NOT MODIFY BY HAND!! */
   /*******************************************/
-  const [value, setValue] = React.useState<Value<any>>(() => element.valueContainer.value);
-  const [selectedValue, setSelectedValue] = React.useState<SelectedValue<any>>(() => element.selectedValueContainer.value);
-  const [label, setLabel] = React.useState<Label>(() => element.labelContainer.value);
-  const [labelPlacement, setLabelPlacement] = React.useState<LabelPlacement>(() => element.labelPlacementContainer.value);
-  const [variant, setVariant] = React.useState<Variant>(() => element.variantContainer.value);
-  const [disabled, setDisabled] = React.useState<Disabled>(() => element.disabledContainer.value);
-  const [colors, setColors] = React.useState<Colors>(() => element.colorsContainer.value);
-  const [visibility, setVisibility] = React.useState<Visibility>(() => element.elementVisibilityContainer.value);
+  const [value, setValue] = React.useState<Value<any>>(
+    () => element.valueContainer.value
+  );
+  const [selectedValue, setSelectedValue] = React.useState<SelectedValue<any>>(
+    () => element.selectedValueContainer.value
+  );
+  const [label, setLabel] = React.useState<Label>(
+    () => element.labelContainer.value
+  );
+  const [labelPlacement, setLabelPlacement] = React.useState<LabelPlacement>(
+    () => element.labelPlacementContainer.value
+  );
+  const [variant, setVariant] = React.useState<Variant>(
+    () => element.variantContainer.value
+  );
+  const [disabled, setDisabled] = React.useState<Disabled>(
+    () => element.disabledContainer.value
+  );
+  const [colors, setColors] = React.useState<Colors>(
+    () => element.colorsContainer.value
+  );
+  const [visibility, setVisibility] = React.useState<Visibility>(
+    () => element.elementVisibilityContainer.value
+  );
+  const [nativeProps, setNativeProps] = React.useState(
+    () => element.nativePropsContainer.value
+  );
 
   React.useEffect(() => {
     let valueSub = element.valueContainer.subscribe({ next: v => setValue(v) });
-    let selectedValueSub = element.selectedValueContainer.subscribe({ next: v => setSelectedValue(v) });
+    let selectedValueSub = element.selectedValueContainer.subscribe({
+      next: v => setSelectedValue(v)
+    });
     let labelSub = element.labelContainer.subscribe({ next: v => setLabel(v) });
-    let labelPlacementSub = element.labelPlacementContainer.subscribe({ next: v => setLabelPlacement(v) });
-    let variantSub = element.variantContainer.subscribe({ next: v => setVariant(v) });
-    let disabledSub = element.disabledContainer.subscribe({ next: v => setDisabled(v) });
-    let colorsSub = element.colorsContainer.subscribe({ next: v => setColors(v) });
-    let visibilitySub = element.elementVisibilityContainer.subscribe({ next: v => setVisibility(v) });
+    let labelPlacementSub = element.labelPlacementContainer.subscribe({
+      next: v => setLabelPlacement(v)
+    });
+    let variantSub = element.variantContainer.subscribe({
+      next: v => setVariant(v)
+    });
+    let disabledSub = element.disabledContainer.subscribe({
+      next: v => setDisabled(v)
+    });
+    let colorsSub = element.colorsContainer.subscribe({
+      next: v => setColors(v)
+    });
+    let visibilitySub = element.elementVisibilityContainer.subscribe({
+      next: v => setVisibility(v)
+    });
+    const nativePropsSub = element.nativePropsContainer.subscribe({
+      next: v => setNativeProps(v)
+    });
 
     return () => {
       valueSub.unsubscribe();
@@ -45,6 +87,7 @@ export default function SelectBoxView({ element, weight }: Props<any>) {
       disabledSub.unsubscribe();
       colorsSub.unsubscribe();
       visibilitySub.unsubscribe();
+      nativePropsSub.unsubscribe();
     };
   }, []);
   /*******************************************/
@@ -52,7 +95,10 @@ export default function SelectBoxView({ element, weight }: Props<any>) {
   /*******************************************/
   //endregion
 
-  function handleChange(event: React.ChangeEvent<HTMLInputElement>, checked: boolean) {
+  function handleChange(
+    event: React.ChangeEvent<HTMLInputElement>,
+    checked: boolean
+  ) {
     if (checked) element.valueContainer.next(selectedValue);
     else element.valueContainer.next(null);
   }
@@ -62,9 +108,23 @@ export default function SelectBoxView({ element, weight }: Props<any>) {
 
     switch (variant) {
       case SelectBoxVariant.CheckBox:
-        return <Checkbox color={colors} disabled={disabled} checked={checked} onChange={handleChange} />;
+        return (
+          <Checkbox
+            color={colors}
+            disabled={disabled}
+            checked={checked}
+            onChange={handleChange}
+          />
+        );
       case SelectBoxVariant.Radio:
-        return <Radio color={colors} disabled={disabled} checked={checked} onChange={handleChange} />;
+        return (
+          <Radio
+            color={colors}
+            disabled={disabled}
+            checked={checked}
+            onChange={handleChange}
+          />
+        );
       case SelectBoxVariant.Like:
         return (
           <Checkbox
@@ -77,20 +137,36 @@ export default function SelectBoxView({ element, weight }: Props<any>) {
           />
         );
       case SelectBoxVariant.Switch:
-        return <Switch color={colors} checked={checked} onChange={handleChange} disabled={disabled} />;
+        return (
+          <Switch
+            color={colors}
+            checked={checked}
+            onChange={handleChange}
+            disabled={disabled}
+          />
+        );
     }
   }
 
   let view: React.ReactElement;
 
   if (label == null) view = createSelectBox();
-  else view = <FormControlLabel control={createSelectBox()} label={label} labelPlacement={labelPlacement} />;
+  else
+    view = (
+      <FormControlLabel
+        control={createSelectBox()}
+        label={label}
+        labelPlacement={labelPlacement}
+      />
+    );
 
   return (
     <div
+      {...nativeProps}
       style={{
         ...element.getVisibilityStyle(visibility),
-        ...element.getWeightStyle(weight)
+        ...element.getWeightStyle(weight),
+        ...(nativeProps.style ? nativeProps.style : {})
       }}
     >
       {view}

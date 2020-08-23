@@ -64,7 +64,9 @@ export default function GridView<T extends object = any>({
   const [visibility, setVisibility] = React.useState<Visibility>(
     () => element.elementVisibilityContainer.value
   );
-
+  const [nativeProps, setNativeProps] = React.useState(
+    () => element.nativePropsContainer.value
+  );
   React.useEffect(() => {
     let columnDefinitionsSub = element.columnDefinitionsContainer.subscribe({
       next: v => setColumnDefinitions(v)
@@ -107,7 +109,9 @@ export default function GridView<T extends object = any>({
         tableRef.current != null && (tableRef.current as any).onQueryChange();
       }
     });
-
+    const nativePropsSub = element.nativePropsContainer.subscribe({
+      next: v => setNativeProps(v)
+    });
     return () => {
       columnDefinitionsSub.unsubscribe();
       actionDefinitionsSub.unsubscribe();
@@ -121,6 +125,7 @@ export default function GridView<T extends object = any>({
       onSelectedChangeSub.unsubscribe();
       onRowClickSub.unsubscribe();
       visibilitySub.unsubscribe();
+      nativePropsSub.unsubscribe();
     };
   }, []);
   /*******************************************/
@@ -154,8 +159,10 @@ export default function GridView<T extends object = any>({
     <div
       style={{
         ...element.getVisibilityStyle(visibility),
-        ...element.getWeightStyle(weight)
+        ...element.getWeightStyle(weight),
+        ...(nativeProps.style ? nativeProps.style : {})
       }}
+      {...nativeProps}
     >
       <MaterialTable
         tableRef={tableRef}

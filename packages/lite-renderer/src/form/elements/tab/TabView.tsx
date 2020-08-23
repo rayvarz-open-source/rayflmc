@@ -16,28 +16,51 @@ export default function TabView({ element, weight }: Props) {
   /*******************************************/
   /* GENERATED CODE, DO NOT MODIFY BY HAND!! */
   /*******************************************/
-  const [tabElements, setTabElements] = React.useState<TabElements>(() => element.tabElementsContainer.value);
-  const [tabTitles, setTabTitles] = React.useState<TabTitles>(() => element.tabTitlesContainer.value);
-  const [currentTab, setCurrentTab] = React.useState<CurrentTab>(() => element.currentTabContainer.value);
-  const [visibility, setVisibility] = React.useState<Visibility>(() => element.elementVisibilityContainer.value);
+  const [tabElements, setTabElements] = React.useState<TabElements>(
+    () => element.tabElementsContainer.value
+  );
+  const [tabTitles, setTabTitles] = React.useState<TabTitles>(
+    () => element.tabTitlesContainer.value
+  );
+  const [currentTab, setCurrentTab] = React.useState<CurrentTab>(
+    () => element.currentTabContainer.value
+  );
+  const [visibility, setVisibility] = React.useState<Visibility>(
+    () => element.elementVisibilityContainer.value
+  );
+  const [nativeProps, setNativeProps] = React.useState(
+    () => element.nativePropsContainer.value
+  );
 
   React.useEffect(() => {
-    let tabElementsSub = element.tabElementsContainer.subscribe({ next: v => setTabElements(v) });
-    let tabTitlesSub = element.tabTitlesContainer.subscribe({ next: v => setTabTitles(v) });
-    let currentTabSub = element.currentTabContainer.subscribe({ next: v => {
-      if (_doUpdateViewIfTabChanged.current) {
-        setCurrentTab(v);
-      } else {
-        _doUpdateViewIfTabChanged.current = true;
+    let tabElementsSub = element.tabElementsContainer.subscribe({
+      next: v => setTabElements(v)
+    });
+    let tabTitlesSub = element.tabTitlesContainer.subscribe({
+      next: v => setTabTitles(v)
+    });
+    let currentTabSub = element.currentTabContainer.subscribe({
+      next: v => {
+        if (_doUpdateViewIfTabChanged.current) {
+          setCurrentTab(v);
+        } else {
+          _doUpdateViewIfTabChanged.current = true;
+        }
       }
-    } });
-    let visibilitySub = element.elementVisibilityContainer.subscribe({ next: v => setVisibility(v) });
+    });
+    let visibilitySub = element.elementVisibilityContainer.subscribe({
+      next: v => setVisibility(v)
+    });
+    const nativePropsSub = element.nativePropsContainer.subscribe({
+      next: v => setNativeProps(v)
+    });
 
     return () => {
       tabElementsSub.unsubscribe();
       tabTitlesSub.unsubscribe();
       currentTabSub.unsubscribe();
       visibilitySub.unsubscribe();
+      nativePropsSub.unsubscribe();
     };
   }, []);
   /*******************************************/
@@ -52,7 +75,10 @@ export default function TabView({ element, weight }: Props) {
 
   function renderChildren() {
     return tabElements.map((v, i) => (
-      <div style={i == currentTab ? element.showStyle : element.goneStyle} key={`${v.type}_${i}`}>
+      <div
+        style={i == currentTab ? element.showStyle : element.goneStyle}
+        key={`${v.type}_${i}`}
+      >
         <MapToView element={v} weight={0} />
       </div>
     ));
@@ -73,8 +99,10 @@ export default function TabView({ element, weight }: Props) {
     <div
       style={{
         ...element.getVisibilityStyle(visibility),
-        ...element.getWeightStyle(weight)
+        ...element.getWeightStyle(weight),
+        ...(nativeProps.style ? nativeProps.style : {})
       }}
+      {...nativeProps}
     >
       <AppBar position="static" color="default">
         <Tabs
