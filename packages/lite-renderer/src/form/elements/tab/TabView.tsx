@@ -1,9 +1,7 @@
 import { AppBar, Tab, Tabs } from "@material-ui/core";
 import * as React from "react";
-import { Visibility } from "../base/BaseElement";
 import { MapToView } from "../ElementToViewMapper";
 import { TabElement } from "./TabElement";
-import { CurrentTab, TabElements, TabTitles } from "./TabElementAttributes";
 
 type Props = {
   element: TabElement;
@@ -11,72 +9,72 @@ type Props = {
 };
 
 export default function TabView({ element, weight }: Props) {
-  const _doUpdateViewIfTabChanged = React.useRef(true);
   //region generated
   /*******************************************/
   /* GENERATED CODE, DO NOT MODIFY BY HAND!! */
   /*******************************************/
-  const [tabElements, setTabElements] = React.useState<TabElements>(
+  const [tabElements, setTabElements] = React.useState(
     () => element.tabElementsContainer.value
   );
-  const [tabTitles, setTabTitles] = React.useState<TabTitles>(
+  const [tabTitles, setTabTitles] = React.useState(
     () => element.tabTitlesContainer.value
   );
-  const [currentTab, setCurrentTab] = React.useState<CurrentTab>(
+  const [currentTab, setCurrentTab] = React.useState(
     () => element.currentTabContainer.value
-  );
-  const [visibility, setVisibility] = React.useState<Visibility>(
-    () => element.elementVisibilityContainer.value
   );
   const [nativeProps, setNativeProps] = React.useState(
     () => element.nativePropsContainer.value
   );
+  const [visibility, setVisibility] = React.useState(
+    () => element.elementVisibilityContainer.value
+  );
 
   React.useEffect(() => {
-    let tabElementsSub = element.tabElementsContainer.subscribe({
+    const tabElementsSub = element.tabElementsContainer.subscribe({
       next: v => setTabElements(v)
     });
-    let tabTitlesSub = element.tabTitlesContainer.subscribe({
+    const tabTitlesSub = element.tabTitlesContainer.subscribe({
       next: v => setTabTitles(v)
     });
-    let currentTabSub = element.currentTabContainer.subscribe({
-      next: v => {
-        if (_doUpdateViewIfTabChanged.current) {
-          setCurrentTab(v);
-        } else {
-          _doUpdateViewIfTabChanged.current = true;
-        }
-      }
-    });
-    let visibilitySub = element.elementVisibilityContainer.subscribe({
-      next: v => setVisibility(v)
+    const currentTabSub = element.currentTabContainer.subscribe({
+      next: v => setCurrentTab(v)
     });
     const nativePropsSub = element.nativePropsContainer.subscribe({
       next: v => setNativeProps(v)
+    });
+    const visibilitySub = element.elementVisibilityContainer.subscribe({
+      next: v => setVisibility(v)
     });
 
     return () => {
       tabElementsSub.unsubscribe();
       tabTitlesSub.unsubscribe();
       currentTabSub.unsubscribe();
-      visibilitySub.unsubscribe();
       nativePropsSub.unsubscribe();
+      visibilitySub.unsubscribe();
     };
-  }, []);
+  }, [
+    element.currentTabContainer,
+    element.elementVisibilityContainer,
+    element.tabElementsContainer,
+    element.tabTitlesContainer,
+    element.nativePropsContainer
+  ]);
   /*******************************************/
   /* END OF GENERATED CODE                   */
   /*******************************************/
   //endregion
 
-  function handleChange(event: any, newValue: number) {
-    _doUpdateViewIfTabChanged.current = false;
+  function handleChange(_event: any, newValue: number) {
     element.currentTabContainer.next(newValue);
   }
 
   function renderChildren() {
     return tabElements.map((v, i) => (
       <div
-        style={i == currentTab ? element.showStyle : element.goneStyle}
+        style={
+          i == currentTab ? { visibility: "visible" } : { visibility: "hidden" }
+        }
         key={`${v.type}_${i}`}
       >
         <MapToView element={v} weight={0} />
@@ -97,12 +95,12 @@ export default function TabView({ element, weight }: Props) {
 
   return (
     <div
+      {...nativeProps}
       style={{
         ...element.getVisibilityStyle(visibility),
         ...element.getWeightStyle(weight),
         ...(nativeProps.style ? nativeProps.style : {})
       }}
-      {...nativeProps}
     >
       <AppBar position="static" color="default">
         <Tabs
