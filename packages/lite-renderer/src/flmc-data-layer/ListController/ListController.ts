@@ -1,7 +1,7 @@
 import { DataControllerTypes } from "..";
 import IDataController from "../Base/IDataController";
-import { ListDataSource } from "../DataSource/DataSource";
 import { IEncodable } from "../Base/IModel";
+import { ListDataSource } from "../DataSource/DataSource";
 import { PagableMixin } from "../DataSource/Pagable";
 import { SearchableMixin } from "../DataSource/Searchable";
 
@@ -10,9 +10,13 @@ import { SearchableMixin } from "../DataSource/Searchable";
  *
  * TODO: finalize interface
  */
-export class RawListController<T extends IEncodable, DS extends ListDataSource<any>> implements IDataController {
+export class RawListController<
+  T extends IEncodable,
+  DS extends ListDataSource<any>
+> implements IDataController {
   constructor(public datasource: DS) {}
-
+  onPause() {}
+  onResume() {}
   beforeDispose(): void {
     this.datasource.dispose();
   }

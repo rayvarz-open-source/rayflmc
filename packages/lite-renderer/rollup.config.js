@@ -53,6 +53,7 @@ export default {
         "node_modules/react-is/index.js": [
           "ForwardRef",
           "isValidElementType",
+          "Memo",
           "isContextConsumer"
         ],
         "node_modules/material-table/dist/index.js": ["MTableBodyRow"],
