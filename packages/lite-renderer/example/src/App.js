@@ -1,8 +1,7 @@
-import React, { Component } from "react";
-
-import FLMC from "lite-renderer";
-import routes from "./routes";
 import { MuiThemeProvider } from "@material-ui/core/styles";
+import FLMC from "lite-renderer";
+import React, { Component } from "react";
+import routes from "./routes";
 import theme from "./theme";
 
 const skeletons = {
@@ -13,13 +12,13 @@ const skeletons = {
   )
 };
 
-class TestService {
-  value;
+// class TestService {
+//   value;
 
-  constructor() {
-    this.value = Math.random();
-  }
-}
+//   constructor() {
+//     this.value = Math.random();
+//   }
+// }
 
 export default class App extends Component {
   render() {
@@ -28,9 +27,9 @@ export default class App extends Component {
         <FLMC
           routes={routes}
           skeletons={skeletons}
-          serviceRegisterer={container => {
-            container.addSingleton({ serviceName: "TestService", builder: () => new TestService() });
-          }}
+          // serviceRegisterer={container => {
+          //   container.addSingleton({ serviceName: "TestService", builder: () => new TestService() });
+          // }}
           customElementMappers={
             [
               // props => {

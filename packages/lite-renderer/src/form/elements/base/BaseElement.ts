@@ -3,19 +3,19 @@ import { BehaviorSubject, isObservable, Observable } from "rxjs";
 import { VisibilityType } from "../share/VisibilityType";
 
 export type Visibility = "show" | "gone" | "hidden" | VisibilityType;
-type NativeProps = { [key: string]: any };
+export type NativeProps = { [key: string]: any };
 
 export class BaseElement {
   elementVisibilityContainer = new BehaviorSubject<Visibility>("show");
 
   showStyle: CSSProperties = {
-    visibility: "visible",
+    visibility: "visible"
   };
   hiddenStyle: CSSProperties = {
-    visibility: "hidden",
+    visibility: "hidden"
   };
   goneStyle: CSSProperties = {
-    display: "none",
+    display: "none"
   };
   getWeightStyle(weight: number): CSSProperties {
     return weight === 0 ? { flexGrow: weight } : { flex: weight };
@@ -40,7 +40,7 @@ export class BaseElement {
 
   private visibilityO(visibilityType: Observable<Visibility>) {
     visibilityType.subscribe({
-      next: (v) => this.elementVisibilityContainer.next(v),
+      next: v => this.elementVisibilityContainer.next(v)
     });
     return this;
   }
@@ -62,7 +62,7 @@ export class BaseElement {
 
   private nativePropsO(nativePropsType: Observable<NativeProps>) {
     nativePropsType.subscribe({
-      next: (v) => this.nativePropsContainer.next(v),
+      next: v => this.nativePropsContainer.next(v)
     });
     return this;
   }

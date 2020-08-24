@@ -1,13 +1,22 @@
-import IElement, { ValidationResult } from "../../../flmc-data-layer/FormController/IElement";
-import { ElementType } from "../ElementType";
-import { Observable, BehaviorSubject, isObservable } from "rxjs";
-import { BaseElement } from "../base/BaseElement";
+import { BehaviorSubject, isObservable, Observable } from "rxjs";
 import { isSubject } from "../../../flmc-data-layer";
-import { TypeGuards, TabElements, TabTitles, CurrentTab } from "./TabElementAttributes";
+import IElement, {
+  ValidationResult
+} from "../../../flmc-data-layer/FormController/IElement";
+import { BaseElement, NativeProps } from "../base/BaseElement";
+import { ElementType } from "../ElementType";
+import {
+  CurrentTab,
+  TabElements,
+  TabTitles,
+  TypeGuards
+} from "./TabElementAttributes";
 
 export class TabElement extends BaseElement implements IElement {
   validate(): ValidationResult {
-    let validationResults = (this.tabElementsContainer.value || []).map(v => v.validate());
+    let validationResults = (this.tabElementsContainer.value || []).map(v =>
+      v.validate()
+    );
     for (let validationResult of validationResults) {
       if (!validationResult.isValid) return new ValidationResult(false, "");
     }
@@ -38,16 +47,35 @@ export class TabElement extends BaseElement implements IElement {
     value.subscribe({ next: v => this.tabElementsContainer.next(v) });
     return this;
   }
+  tabElements(value: Observable<TabElements> | TabElements): TabElement {
+    if (TypeGuards.isTabs(value)) return this.tabElementsR(value);
+    else if (isObservable(value)) return this.tabElementsO(value);
+    throw new Error(`invalid type ${typeof value} for TabElements`);
+  }
+  tabElementsNativeProsContainer = new BehaviorSubject<NativeProps[]>([]);
 
+  /** iternal function for handling raw TabElements types*/
+  private tabElementsNativeProsR(value: NativeProps[]): TabElement {
+    this.tabElementsNativeProsContainer.next(value);
+    return this;
+  }
+
+  /** iternal function for handling Observable<TabElements> types*/
+  private tabElementsNativeProsO(value: Observable<NativeProps[]>): TabElement {
+    value.subscribe({ next: v => this.tabElementsNativeProsContainer.next(v) });
+    return this;
+  }
   /**
    * default value: []
    *
    * TODO: add docs
    */
-  tabElements(value: Observable<TabElements> | TabElements): TabElement {
-    if (TypeGuards.isTabs(value)) return this.tabElementsR(value);
-    else if (isObservable(value)) return this.tabElementsO(value);
-    throw new Error(`invalid type ${typeof value} for TabElements`);
+  tabElementsNativePros(
+    value: Observable<NativeProps[]> | NativeProps[]
+  ): TabElement {
+    if (TypeGuards.isTabs(value)) return this.tabElementsNativeProsR(value);
+    else if (isObservable(value)) return this.tabElementsNativeProsO(value);
+    throw new Error(`invalid type ${typeof value} for TabElementsNativePros`);
   }
 
   tabTitlesContainer = new BehaviorSubject<TabTitles>([]);
@@ -102,7 +130,9 @@ export class TabElement extends BaseElement implements IElement {
    * TODO: add docs
    *
    */
-  currentTab(value: BehaviorSubject<CurrentTab> | Observable<CurrentTab> | CurrentTab): TabElement {
+  currentTab(
+    value: BehaviorSubject<CurrentTab> | Observable<CurrentTab> | CurrentTab
+  ): TabElement {
     if (TypeGuards.isCurrentTab(value)) return this.currentTabR(value);
     else if (isObservable(value)) return this.currentTabO(value);
     else if (isSubject(value)) return this.currentTabB(value);
@@ -125,7 +155,9 @@ export class TabElement extends BaseElement implements IElement {
  * TODO: add docs
  *
  */
-const Tab = (currentTab: BehaviorSubject<CurrentTab> | Observable<CurrentTab> | CurrentTab): TabElement => {
+const Tab = (
+  currentTab: BehaviorSubject<CurrentTab> | Observable<CurrentTab> | CurrentTab
+): TabElement => {
   return new TabElement().currentTab(currentTab);
 };
 

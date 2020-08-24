@@ -16,6 +16,9 @@ export default function TabView({ element, weight }: Props) {
   const [tabElements, setTabElements] = React.useState(
     () => element.tabElementsContainer.value
   );
+  const [tabElementsNativePros, setTabElementsNativePros] = React.useState(
+    () => element.tabElementsNativeProsContainer.value
+  );
   const [tabTitles, setTabTitles] = React.useState(
     () => element.tabTitlesContainer.value
   );
@@ -33,6 +36,9 @@ export default function TabView({ element, weight }: Props) {
     const tabElementsSub = element.tabElementsContainer.subscribe({
       next: v => setTabElements(v)
     });
+    const tabElementsNativeProsSub = element.tabElementsContainer.subscribe({
+      next: v => setTabElementsNativePros(v)
+    });
     const tabTitlesSub = element.tabTitlesContainer.subscribe({
       next: v => setTabTitles(v)
     });
@@ -48,6 +54,7 @@ export default function TabView({ element, weight }: Props) {
 
     return () => {
       tabElementsSub.unsubscribe();
+      tabElementsNativeProsSub.unsubscribe();
       tabTitlesSub.unsubscribe();
       currentTabSub.unsubscribe();
       nativePropsSub.unsubscribe();
@@ -58,7 +65,8 @@ export default function TabView({ element, weight }: Props) {
     element.elementVisibilityContainer,
     element.tabElementsContainer,
     element.tabTitlesContainer,
-    element.nativePropsContainer
+    element.nativePropsContainer,
+    element.tabElementsNativeProsContainer
   ]);
   /*******************************************/
   /* END OF GENERATED CODE                   */
@@ -72,9 +80,9 @@ export default function TabView({ element, weight }: Props) {
   function renderChildren() {
     return tabElements.map((v, i) => (
       <div
-        style={
-          i == currentTab ? { visibility: "visible" } : { visibility: "hidden" }
-        }
+        role="tabpanel"
+        {...tabElementsNativePros[i]}
+        hidden={currentTab !== i}
         key={`${v.type}_${i}`}
       >
         <MapToView element={v} weight={0} />
