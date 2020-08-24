@@ -3,7 +3,7 @@ import { isSubject } from "../../../flmc-data-layer";
 import IElement, {
   ValidationResult
 } from "../../../flmc-data-layer/FormController/IElement";
-import { BaseElement, NativeProps } from "../base/BaseElement";
+import { BaseElement } from "../base/BaseElement";
 import { ElementType } from "../ElementType";
 import {
   CurrentTab,
@@ -47,35 +47,16 @@ export class TabElement extends BaseElement implements IElement {
     value.subscribe({ next: v => this.tabElementsContainer.next(v) });
     return this;
   }
-  tabElements(value: Observable<TabElements> | TabElements): TabElement {
-    if (TypeGuards.isTabs(value)) return this.tabElementsR(value);
-    else if (isObservable(value)) return this.tabElementsO(value);
-    throw new Error(`invalid type ${typeof value} for TabElements`);
-  }
-  tabElementsNativeProsContainer = new BehaviorSubject<NativeProps[]>([]);
 
-  /** iternal function for handling raw TabElements types*/
-  private tabElementsNativeProsR(value: NativeProps[]): TabElement {
-    this.tabElementsNativeProsContainer.next(value);
-    return this;
-  }
-
-  /** iternal function for handling Observable<TabElements> types*/
-  private tabElementsNativeProsO(value: Observable<NativeProps[]>): TabElement {
-    value.subscribe({ next: v => this.tabElementsNativeProsContainer.next(v) });
-    return this;
-  }
   /**
    * default value: []
    *
    * TODO: add docs
    */
-  tabElementsNativePros(
-    value: Observable<NativeProps[]> | NativeProps[]
-  ): TabElement {
-    if (TypeGuards.isTabs(value)) return this.tabElementsNativeProsR(value);
-    else if (isObservable(value)) return this.tabElementsNativeProsO(value);
-    throw new Error(`invalid type ${typeof value} for TabElementsNativePros`);
+  tabElements(value: Observable<TabElements> | TabElements): TabElement {
+    if (TypeGuards.isTabs(value)) return this.tabElementsR(value);
+    else if (isObservable(value)) return this.tabElementsO(value);
+    throw new Error(`invalid type ${typeof value} for TabElements`);
   }
 
   tabTitlesContainer = new BehaviorSubject<TabTitles>([]);
