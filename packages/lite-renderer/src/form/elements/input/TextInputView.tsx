@@ -32,9 +32,6 @@ import {
   Multiline,
   NumberFormatter,
   OnEndIconClick,
-  OnInputBlur,
-  OnInputClick,
-  OnInputFocus,
   OnStartIconClick,
   Placeholder,
   PlaceholderDirection,
@@ -137,15 +134,9 @@ export default function TextInputView({ element, weight }: Props) {
   const [nativeProps, setNativeProps] = React.useState(
     () => element.nativePropsContainer.value
   );
-  const [onInputClick, setOnInputClick] = useFunctionAsState<OnInputClick>(
-    undefined
-  );
-  const [onInputBlur, setOnInputBlur] = useFunctionAsState<OnInputBlur>(
-    undefined
-  );
-  const [onInputFocus, setOnInputFocus] = useFunctionAsState<OnInputFocus>(
-    undefined
-  );
+  const [onInputClick, setOnInputClick] = useFunctionAsState<
+    VoidFunction | undefined
+  >(undefined);
   React.useEffect(() => {
     let valueSub = element.valueContainer.subscribe({ next: v => setValue(v) });
     let labelSub = element.labelContainer.subscribe({ next: v => setLabel(v) });
@@ -219,12 +210,6 @@ export default function TextInputView({ element, weight }: Props) {
     let onInputClickSub = element.onInputClickContainer.subscribe({
       next: v => setOnInputClick(v)
     });
-    let onInputFocusSub = element.onInputFocusContainer.subscribe({
-      next: v => setOnInputFocus(v)
-    });
-    let onInputBlurSub = element.onInputBlurContainer.subscribe({
-      next: v => setOnInputBlur(v)
-    });
     return () => {
       valueSub.unsubscribe();
       labelSub.unsubscribe();
@@ -252,8 +237,6 @@ export default function TextInputView({ element, weight }: Props) {
       visibilitySub.unsubscribe();
       nativePropsSub.unsubscribe();
       onInputClickSub.unsubscribe();
-      onInputBlurSub.unsubscribe();
-      onInputFocusSub.unsubscribe();
     };
   }, []);
   /*******************************************/
@@ -388,8 +371,6 @@ export default function TextInputView({ element, weight }: Props) {
       type={inputType}
       label={label}
       onClick={onInputClick}
-      onBlur={onInputBlur}
-      onFocus={onInputFocus}
       helperText={helperText}
       onChange={handleChange}
       value={value}
