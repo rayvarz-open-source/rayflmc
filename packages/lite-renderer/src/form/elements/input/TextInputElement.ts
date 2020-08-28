@@ -18,10 +18,10 @@ import {
   MaxLength,
   Multiline,
   NumberFormatter,
-  OnBlur,
   OnEndIconClick,
-  OnFocus,
+  OnInputBlur,
   OnInputClick,
+  OnInputFocus,
   OnStartIconClick,
   Placeholder,
   PlaceholderDirection,
@@ -595,17 +595,17 @@ export class TextInputElement extends BaseElement implements IElement {
     throw new Error(`invalid type ${typeof value} for onClick`);
   }
 
-  onBlurContainer = new BehaviorSubject<OnBlur>(undefined);
+  onInputBlurContainer = new BehaviorSubject<OnInputBlur>(undefined);
 
   /** iternal function for handling raw OnEndIconClick types*/
-  private onBlurR(value: OnBlur): TextInputElement {
-    this.onBlurContainer.next(value);
+  private onInputBlurR(value: OnInputBlur): TextInputElement {
+    this.onInputBlurContainer.next(value);
     return this;
   }
 
   /** iternal function for handling Observable<OnEndIconClick> types*/
-  private onBlurO(value: Observable<OnBlur>): TextInputElement {
-    value.subscribe({ next: v => this.onBlurContainer.next(v) });
+  private onInputBlurO(value: Observable<OnInputBlur>): TextInputElement {
+    value.subscribe({ next: v => this.onInputBlurContainer.next(v) });
     return this;
   }
 
@@ -617,23 +617,23 @@ export class TextInputElement extends BaseElement implements IElement {
    *
    * see https://material-ui.com/components/text-fields/ or https://material-ui.com/api/text-field/ for more info
    */
-  onBlur(value: Observable<OnBlur> | OnBlur): TextInputElement {
-    if (TypeGuards.isOnBlur(value)) return this.onBlurR(value);
-    else if (isObservable(value)) return this.onBlurO(value);
+  onInputBlur(value: Observable<OnInputBlur> | OnInputBlur): TextInputElement {
+    if (TypeGuards.isOnInputBlur(value)) return this.onInputBlurR(value);
+    else if (isObservable(value)) return this.onInputBlurO(value);
     throw new Error(`invalid type ${typeof value} for onBlur`);
   }
 
-  onFocusContainer = new BehaviorSubject<OnFocus>(undefined);
+  onInputFocusContainer = new BehaviorSubject<OnInputFocus>(undefined);
 
   /** iternal function for handling raw OnEndIconClick types*/
-  private onFocusR(value: OnFocus): TextInputElement {
-    this.onFocusContainer.next(value);
+  private onInputFocusR(value: OnInputFocus): TextInputElement {
+    this.onInputFocusContainer.next(value);
     return this;
   }
 
   /** iternal function for handling Observable<OnEndIconClick> types*/
-  private onFocusO(value: Observable<OnFocus>): TextInputElement {
-    value.subscribe({ next: v => this.onFocusContainer.next(v) });
+  private onInputFocusO(value: Observable<OnInputFocus>): TextInputElement {
+    value.subscribe({ next: v => this.onInputFocusContainer.next(v) });
     return this;
   }
 
@@ -645,9 +645,11 @@ export class TextInputElement extends BaseElement implements IElement {
    *
    * see https://material-ui.com/components/text-fields/ or https://material-ui.com/api/text-field/ for more info
    */
-  onFocus(value: Observable<OnFocus> | OnFocus): TextInputElement {
-    if (TypeGuards.isOnFocus(value)) return this.onFocusR(value);
-    else if (isObservable(value)) return this.onFocusO(value);
+  onInputFocus(
+    value: Observable<OnInputFocus> | OnInputFocus
+  ): TextInputElement {
+    if (TypeGuards.isOnInputFocus(value)) return this.onInputFocusR(value);
+    else if (isObservable(value)) return this.onInputFocusO(value);
     throw new Error(`invalid type ${typeof value} for onFocus`);
   }
 

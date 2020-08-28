@@ -31,10 +31,10 @@ import {
   MaxLength,
   Multiline,
   NumberFormatter,
-  OnBlur,
   OnEndIconClick,
-  OnFocus,
+  OnInputBlur,
   OnInputClick,
+  OnInputFocus,
   OnStartIconClick,
   Placeholder,
   PlaceholderDirection,
@@ -140,8 +140,12 @@ export default function TextInputView({ element, weight }: Props) {
   const [onInputClick, setOnInputClick] = useFunctionAsState<OnInputClick>(
     undefined
   );
-  const [onBlur, setOnBlur] = useFunctionAsState<OnBlur>(undefined);
-  const [onFocus, setOnFocus] = useFunctionAsState<OnFocus>(undefined);
+  const [onInputBlur, setOnInputBlur] = useFunctionAsState<OnInputBlur>(
+    undefined
+  );
+  const [onInputFocus, setOnInputFocus] = useFunctionAsState<OnInputFocus>(
+    undefined
+  );
   React.useEffect(() => {
     let valueSub = element.valueContainer.subscribe({ next: v => setValue(v) });
     let labelSub = element.labelContainer.subscribe({ next: v => setLabel(v) });
@@ -215,11 +219,11 @@ export default function TextInputView({ element, weight }: Props) {
     let onInputClickSub = element.onInputClickContainer.subscribe({
       next: v => setOnInputClick(v)
     });
-    let onFocusSub = element.onFocusContainer.subscribe({
-      next: v => setOnFocus(v)
+    let onInputFocusSub = element.onInputFocusContainer.subscribe({
+      next: v => setOnInputFocus(v)
     });
-    let onBlurSub = element.onBlurContainer.subscribe({
-      next: v => setOnBlur(v)
+    let onInputBlurSub = element.onInputBlurContainer.subscribe({
+      next: v => setOnInputBlur(v)
     });
     return () => {
       valueSub.unsubscribe();
@@ -248,8 +252,8 @@ export default function TextInputView({ element, weight }: Props) {
       visibilitySub.unsubscribe();
       nativePropsSub.unsubscribe();
       onInputClickSub.unsubscribe();
-      onBlurSub.unsubscribe();
-      onFocusSub.unsubscribe();
+      onInputBlurSub.unsubscribe();
+      onInputFocusSub.unsubscribe();
     };
   }, []);
   /*******************************************/
@@ -384,12 +388,8 @@ export default function TextInputView({ element, weight }: Props) {
       type={inputType}
       label={label}
       onClick={onInputClick}
-      onBlur={() => {
-        if (onBlur) onBlur();
-      }}
-      onFocus={() => {
-        if (onFocus) onFocus();
-      }}
+      onBlur={onInputBlur}
+      onFocus={onInputFocus}
       helperText={helperText}
       onChange={handleChange}
       value={value}

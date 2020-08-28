@@ -158,8 +158,8 @@ export type PlaceholderDirection = Direction | undefined;
  */
 export type OnEndIconClick = VoidFunction | undefined;
 export type OnInputClick = VoidFunction | undefined;
-export type OnBlur = VoidFunction | undefined;
-export type OnFocus = VoidFunction | undefined;
+export type OnInputBlur = VoidFunction | undefined;
+export type OnInputFocus = VoidFunction | undefined;
 /**
  * @[{"bidirectional":false,"required":false,"typeguard":"isOnStartIconClick","default": "undefined"}]
  * fires when user clicks on StartIcon
@@ -221,8 +221,8 @@ export const TypeGuards = {
     isDirection: (value: any): value is Direction => value === "rtl" || value === "ltr" || value === "default",
     isOnEndIconClick: (value: any): value is OnEndIconClick => typeof(value) == "function",
     isOnInputClick: (value: any): value is OnInputClick => typeof(value) == "function",
-    isOnBlur: (value: any): value is OnBlur => typeof(value) == "function",
-    isOnFocus: (value: any): value is OnFocus => typeof(value) == "function",
+    isOnInputBlur: (value: any): value is OnInputBlur => typeof(value) == "function",
+    isOnInputFocus: (value: any): value is OnInputFocus => typeof(value) == "function",
     isOnStartIconClick: (value: any): value is OnStartIconClick => typeof(value) == "function",
     isValidation: (value: any): value is Validations => Array.isArray(value) && (value.length < 2 || value.map((i: any) => typeof (i) == "function").reduce((p: boolean, c: boolean) => p && c)),
 }
