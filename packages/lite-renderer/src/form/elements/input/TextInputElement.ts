@@ -1,6 +1,8 @@
 import { BehaviorSubject, isObservable, Observable } from "rxjs";
 import { isSubject } from "../../../flmc-data-layer";
-import IElement, { ValidationResult } from "../../../flmc-data-layer/FormController/IElement";
+import IElement, {
+  ValidationResult
+} from "../../../flmc-data-layer/FormController/IElement";
 import { BaseElement } from "../base/BaseElement";
 import { ElementType } from "../ElementType";
 import {
@@ -16,7 +18,10 @@ import {
   MaxLength,
   Multiline,
   NumberFormatter,
+  OnBlur,
+  OnClick,
   OnEndIconClick,
+  OnFocus,
   OnStartIconClick,
   Placeholder,
   PlaceholderDirection,
@@ -102,7 +107,9 @@ export class TextInputElement extends BaseElement implements IElement {
    * controller.next("new value")
    *
    */
-  value(value: BehaviorSubject<Value> | Observable<Value> | Value): TextInputElement {
+  value(
+    value: BehaviorSubject<Value> | Observable<Value> | Value
+  ): TextInputElement {
     if (TypeGuards.isValue(value)) return this.valueR(value);
     else if (isSubject(value)) return this.valueB(value);
     else if (isObservable(value)) return this.valueO(value);
@@ -526,7 +533,9 @@ export class TextInputElement extends BaseElement implements IElement {
     throw new Error(`invalid type ${typeof value} for Direction`);
   }
 
-  placeholderDirectionContainer = new BehaviorSubject<PlaceholderDirection>(undefined);
+  placeholderDirectionContainer = new BehaviorSubject<PlaceholderDirection>(
+    undefined
+  );
 
   /** iternal function for handling raw PlaceholderDirection types*/
   private placeholderDirectionR(value: PlaceholderDirection): TextInputElement {
@@ -535,7 +544,9 @@ export class TextInputElement extends BaseElement implements IElement {
   }
 
   /** iternal function for handling Observable<PlaceholderDirection> types*/
-  private placeholderDirectionO(value: Observable<PlaceholderDirection>): TextInputElement {
+  private placeholderDirectionO(
+    value: Observable<PlaceholderDirection>
+  ): TextInputElement {
     value.subscribe({ next: v => this.placeholderDirectionContainer.next(v) });
     return this;
   }
@@ -546,10 +557,96 @@ export class TextInputElement extends BaseElement implements IElement {
    * if undefined then it follows .direction attribute
    *
    */
-  placeholderDirection(value: Observable<PlaceholderDirection> | PlaceholderDirection): TextInputElement {
+  placeholderDirection(
+    value: Observable<PlaceholderDirection> | PlaceholderDirection
+  ): TextInputElement {
     if (isObservable(value)) this.placeholderDirectionO(value);
     else this.placeholderDirectionR(value);
     return this;
+  }
+
+  onClickContainer = new BehaviorSubject<OnClick>(undefined);
+
+  /** iternal function for handling raw OnEndIconClick types*/
+  private onClickR(value: OnClick): TextInputElement {
+    this.onClickContainer.next(value);
+    return this;
+  }
+
+  /** iternal function for handling Observable<OnEndIconClick> types*/
+  private onClickO(value: Observable<OnClick>): TextInputElement {
+    value.subscribe({ next: v => this.onClickContainer.next(v) });
+    return this;
+  }
+
+  /**
+   * default value: undefined
+   *
+   * fires when user clicks on EndIcon
+   * must also set endIcon attribute
+   *
+   * see https://material-ui.com/components/text-fields/ or https://material-ui.com/api/text-field/ for more info
+   */
+  onClick(value: Observable<OnClick> | OnClick): TextInputElement {
+    if (TypeGuards.isOnClick(value)) return this.onClickR(value);
+    else if (isObservable(value)) return this.onClickO(value);
+    throw new Error(`invalid type ${typeof value} for onClick`);
+  }
+
+  onBlurContainer = new BehaviorSubject<OnBlur>(undefined);
+
+  /** iternal function for handling raw OnEndIconClick types*/
+  private onBlurR(value: OnBlur): TextInputElement {
+    this.onBlurContainer.next(value);
+    return this;
+  }
+
+  /** iternal function for handling Observable<OnEndIconClick> types*/
+  private onBlurO(value: Observable<OnBlur>): TextInputElement {
+    value.subscribe({ next: v => this.onBlurContainer.next(v) });
+    return this;
+  }
+
+  /**
+   * default value: undefined
+   *
+   * fires when user clicks on EndIcon
+   * must also set endIcon attribute
+   *
+   * see https://material-ui.com/components/text-fields/ or https://material-ui.com/api/text-field/ for more info
+   */
+  onBlur(value: Observable<OnBlur> | OnBlur): TextInputElement {
+    if (TypeGuards.isOnBlur(value)) return this.onBlurR(value);
+    else if (isObservable(value)) return this.onBlurO(value);
+    throw new Error(`invalid type ${typeof value} for onBlur`);
+  }
+
+  onFocusContainer = new BehaviorSubject<OnFocus>(undefined);
+
+  /** iternal function for handling raw OnEndIconClick types*/
+  private onFocusR(value: OnFocus): TextInputElement {
+    this.onFocusContainer.next(value);
+    return this;
+  }
+
+  /** iternal function for handling Observable<OnEndIconClick> types*/
+  private onFocusO(value: Observable<OnFocus>): TextInputElement {
+    value.subscribe({ next: v => this.onFocusContainer.next(v) });
+    return this;
+  }
+
+  /**
+   * default value: undefined
+   *
+   * fires when user clicks on EndIcon
+   * must also set endIcon attribute
+   *
+   * see https://material-ui.com/components/text-fields/ or https://material-ui.com/api/text-field/ for more info
+   */
+  onFocus(value: Observable<OnFocus> | OnFocus): TextInputElement {
+    if (TypeGuards.isOnFocus(value)) return this.onFocusR(value);
+    else if (isObservable(value)) return this.onFocusO(value);
+    throw new Error(`invalid type ${typeof value} for onFocus`);
   }
 
   onEndIconClickContainer = new BehaviorSubject<OnEndIconClick>(undefined);
@@ -574,7 +671,9 @@ export class TextInputElement extends BaseElement implements IElement {
    *
    * see https://material-ui.com/components/text-fields/ or https://material-ui.com/api/text-field/ for more info
    */
-  onEndIconClick(value: Observable<OnEndIconClick> | OnEndIconClick): TextInputElement {
+  onEndIconClick(
+    value: Observable<OnEndIconClick> | OnEndIconClick
+  ): TextInputElement {
     if (TypeGuards.isOnEndIconClick(value)) return this.onEndIconClickR(value);
     else if (isObservable(value)) return this.onEndIconClickO(value);
     throw new Error(`invalid type ${typeof value} for OnEndIconClick`);
@@ -589,7 +688,9 @@ export class TextInputElement extends BaseElement implements IElement {
   }
 
   /** iternal function for handling Observable<OnStartIconClick> types*/
-  private onStartIconClickO(value: Observable<OnStartIconClick>): TextInputElement {
+  private onStartIconClickO(
+    value: Observable<OnStartIconClick>
+  ): TextInputElement {
     value.subscribe({ next: v => this.onStartIconClickContainer.next(v) });
     return this;
   }
@@ -602,8 +703,11 @@ export class TextInputElement extends BaseElement implements IElement {
    *
    * see https://material-ui.com/components/text-fields/ or https://material-ui.com/api/text-field/ for more info
    */
-  onStartIconClick(value: Observable<OnStartIconClick> | OnStartIconClick): TextInputElement {
-    if (TypeGuards.isOnStartIconClick(value)) return this.onStartIconClickR(value);
+  onStartIconClick(
+    value: Observable<OnStartIconClick> | OnStartIconClick
+  ): TextInputElement {
+    if (TypeGuards.isOnStartIconClick(value))
+      return this.onStartIconClickR(value);
     else if (isObservable(value)) return this.onStartIconClickO(value);
     throw new Error(`invalid type ${typeof value} for OnStartIconClick`);
   }
@@ -645,7 +749,9 @@ export class TextInputElement extends BaseElement implements IElement {
   }
 
   /** iternal function for handling Observable<NumberFormatter> types*/
-  private numberFormatterO(value: Observable<NumberFormatter>): TextInputElement {
+  private numberFormatterO(
+    value: Observable<NumberFormatter>
+  ): TextInputElement {
     value.subscribe({ next: v => this.numberFormatterContainer.next(v) });
     return this;
   }
@@ -656,7 +762,9 @@ export class TextInputElement extends BaseElement implements IElement {
    *
    * TODO: add docs
    */
-  numberFormatter(value: Observable<NumberFormatter> | NumberFormatter): TextInputElement {
+  numberFormatter(
+    value: Observable<NumberFormatter> | NumberFormatter
+  ): TextInputElement {
     if (isObservable(value)) this.numberFormatterO(value);
     else this.numberFormatterR(value);
     return this;
@@ -706,7 +814,9 @@ export class TextInputElement extends BaseElement implements IElement {
    *
    *
    */
-  selectOptions(value: Observable<SelectOptions> | SelectOptions): TextInputElement {
+  selectOptions(
+    value: Observable<SelectOptions> | SelectOptions
+  ): TextInputElement {
     if (isObservable(value)) this.selectOptionsO(value);
     else this.selectOptionsR(value);
     return this;
@@ -753,7 +863,9 @@ export class TextInputElement extends BaseElement implements IElement {
  * TextInput(controller);
  *
  */
-const TextInput = (value: BehaviorSubject<Value> | Observable<Value> | Value): TextInputElement => {
+const TextInput = (
+  value: BehaviorSubject<Value> | Observable<Value> | Value
+): TextInputElement => {
   return new TextInputElement().value(value);
 };
 
