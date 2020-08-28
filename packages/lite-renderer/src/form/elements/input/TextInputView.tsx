@@ -381,9 +381,15 @@ export default function TextInputView({ element, weight }: Props) {
       rows={rows}
       type={inputType}
       label={label}
-      onClick={onClick}
-      onBlur={onBlur}
-      onFocus={onFocus}
+      onClick={() => {
+        if (onClick) onClick();
+      }}
+      onBlur={() => {
+        if (onBlur) onBlur();
+      }}
+      onFocus={() => {
+        if (onFocus) onFocus();
+      }}
       helperText={helperText}
       onChange={handleChange}
       value={value}
