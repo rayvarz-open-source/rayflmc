@@ -19,9 +19,9 @@ import {
   Multiline,
   NumberFormatter,
   OnBlur,
-  OnClick,
   OnEndIconClick,
   OnFocus,
+  OnInputClick,
   OnStartIconClick,
   Placeholder,
   PlaceholderDirection,
@@ -565,17 +565,17 @@ export class TextInputElement extends BaseElement implements IElement {
     return this;
   }
 
-  onClickContainer = new BehaviorSubject<OnClick>(undefined);
+  onInputClickContainer = new BehaviorSubject<OnInputClick>(undefined);
 
   /** iternal function for handling raw OnEndIconClick types*/
-  private onClickR(value: OnClick): TextInputElement {
-    this.onClickContainer.next(value);
+  private onInputClickR(value: OnInputClick): TextInputElement {
+    this.onInputClickContainer.next(value);
     return this;
   }
 
   /** iternal function for handling Observable<OnEndIconClick> types*/
-  private onClickO(value: Observable<OnClick>): TextInputElement {
-    value.subscribe({ next: v => this.onClickContainer.next(v) });
+  private onInputClickO(value: Observable<OnInputClick>): TextInputElement {
+    value.subscribe({ next: v => this.onInputClickContainer.next(v) });
     return this;
   }
 
@@ -587,9 +587,11 @@ export class TextInputElement extends BaseElement implements IElement {
    *
    * see https://material-ui.com/components/text-fields/ or https://material-ui.com/api/text-field/ for more info
    */
-  onClick(value: Observable<OnClick> | OnClick): TextInputElement {
-    if (TypeGuards.isOnClick(value)) return this.onClickR(value);
-    else if (isObservable(value)) return this.onClickO(value);
+  onInputClick(
+    value: Observable<OnInputClick> | OnInputClick
+  ): TextInputElement {
+    if (TypeGuards.isOnInputClick(value)) return this.onInputClickR(value);
+    else if (isObservable(value)) return this.onInputClickO(value);
     throw new Error(`invalid type ${typeof value} for onClick`);
   }
 

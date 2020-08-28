@@ -157,7 +157,7 @@ export type PlaceholderDirection = Direction | undefined;
  * see https://material-ui.com/components/text-fields/ or https://material-ui.com/api/text-field/ for more info
  */
 export type OnEndIconClick = VoidFunction | undefined;
-export type OnClick = VoidFunction | undefined;
+export type OnInputClick = VoidFunction | undefined;
 export type OnBlur = VoidFunction | undefined;
 export type OnFocus = VoidFunction | undefined;
 /**
@@ -220,7 +220,7 @@ export const TypeGuards = {
     isRowsMax: (value: any): value is RowsMax => typeof(value) == "number",
     isDirection: (value: any): value is Direction => value === "rtl" || value === "ltr" || value === "default",
     isOnEndIconClick: (value: any): value is OnEndIconClick => typeof(value) == "function",
-    isOnClick: (value: any): value is OnClick => typeof(value) == "function",
+    isOnInputClick: (value: any): value is OnInputClick => typeof(value) == "function",
     isOnBlur: (value: any): value is OnBlur => typeof(value) == "function",
     isOnFocus: (value: any): value is OnFocus => typeof(value) == "function",
     isOnStartIconClick: (value: any): value is OnStartIconClick => typeof(value) == "function",

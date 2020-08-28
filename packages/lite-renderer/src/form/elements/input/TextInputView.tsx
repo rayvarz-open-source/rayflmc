@@ -32,9 +32,9 @@ import {
   Multiline,
   NumberFormatter,
   OnBlur,
-  OnClick,
   OnEndIconClick,
   OnFocus,
+  OnInputClick,
   OnStartIconClick,
   Placeholder,
   PlaceholderDirection,
@@ -137,7 +137,9 @@ export default function TextInputView({ element, weight }: Props) {
   const [nativeProps, setNativeProps] = React.useState(
     () => element.nativePropsContainer.value
   );
-  const [onClick, setOnClick] = useFunctionAsState<OnClick>(undefined);
+  const [onInputClick, setOnInputClick] = useFunctionAsState<OnInputClick>(
+    undefined
+  );
   const [onBlur, setOnBlur] = useFunctionAsState<OnBlur>(undefined);
   const [onFocus, setOnFocus] = useFunctionAsState<OnFocus>(undefined);
   React.useEffect(() => {
@@ -210,8 +212,8 @@ export default function TextInputView({ element, weight }: Props) {
     const nativePropsSub = element.nativePropsContainer.subscribe({
       next: v => setNativeProps(v)
     });
-    let onClickSub = element.onClickContainer.subscribe({
-      next: v => setOnClick(v)
+    let onInputClickSub = element.onInputClickContainer.subscribe({
+      next: v => setOnInputClick(v)
     });
     let onFocusSub = element.onFocusContainer.subscribe({
       next: v => setOnFocus(v)
@@ -245,7 +247,7 @@ export default function TextInputView({ element, weight }: Props) {
       maxLengthSub.unsubscribe();
       visibilitySub.unsubscribe();
       nativePropsSub.unsubscribe();
-      onClickSub.unsubscribe();
+      onInputClickSub.unsubscribe();
       onBlurSub.unsubscribe();
       onFocusSub.unsubscribe();
     };
@@ -381,9 +383,7 @@ export default function TextInputView({ element, weight }: Props) {
       rows={rows}
       type={inputType}
       label={label}
-      onClick={() => {
-        if (onClick) onClick();
-      }}
+      onClick={onInputClick}
       onBlur={() => {
         if (onBlur) onBlur();
       }}
