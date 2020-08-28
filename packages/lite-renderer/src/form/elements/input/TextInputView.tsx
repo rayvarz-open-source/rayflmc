@@ -34,6 +34,7 @@ import {
   OnBlur,
   OnClick,
   OnEndIconClick,
+  OnFocus,
   OnStartIconClick,
   Placeholder,
   PlaceholderDirection,
@@ -138,7 +139,7 @@ export default function TextInputView({ element, weight }: Props) {
   );
   const [onClick, setOnClick] = useFunctionAsState<OnClick>(undefined);
   const [onBlur, setOnBlur] = useFunctionAsState<OnBlur>(undefined);
-  const [onFocus, setOnFocus] = useFunctionAsState<OnBlur>(undefined);
+  const [onFocus, setOnFocus] = useFunctionAsState<OnFocus>(undefined);
   React.useEffect(() => {
     let valueSub = element.valueContainer.subscribe({ next: v => setValue(v) });
     let labelSub = element.labelContainer.subscribe({ next: v => setLabel(v) });
